@@ -216,6 +216,10 @@
   from { transform: rotateZ(0deg); }
   to { transform: rotateZ(360deg); }
 }
+@keyframes orbit-counter {
+  from { transform: rotateZ(0deg); }
+  to { transform: rotateZ(-360deg); }
+}
 @keyframes vessel-ping {
   0% { transform: scale(0.4); opacity: 0; }
   20% { opacity: 1; }
