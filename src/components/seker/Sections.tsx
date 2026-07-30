@@ -1,4 +1,3 @@
-import heraUi from "@/assets/hera-ui.jpg";
 import satelliteNetwork from "@/assets/satellite-network.jpg";
 import ocean from "@/assets/ocean.jpg";
 import vessels from "@/assets/vessels.jpg";
@@ -65,20 +64,20 @@ export function HeroSection() {
 export function LaunchSection() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
-      {/* calm, heavily softened product backdrop */}
+      {/* full-screen video background */}
       <div className="absolute inset-0">
-        <img
-          src={heraUi}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          className="h-full w-full scale-110 object-cover opacity-[0.18] blur-[26px] saturate-[0.7]"
+        <video
+          className="h-full w-full object-cover"
+          src={vesselScanVideo.url}
+          poster={vessels}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
         />
-        <div className="absolute inset-0 bg-navy/85" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_42%,rgba(201,168,76,0.10),transparent_58%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,transparent_35%,rgba(6,12,21,0.85)_100%)]" />
-        {/* thin horizon line for structure */}
-        <div className="absolute left-1/2 top-1/2 h-px w-[min(78vw,900px)] -translate-x-1/2 translate-y-[13rem] bg-[linear-gradient(90deg,transparent,rgba(201,168,76,0.35),transparent)]" />
+        <div className="absolute inset-0 bg-navy/60" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,transparent_0%,rgba(9,18,31,0.85)_80%)]" />
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center">
@@ -167,20 +166,7 @@ export function OceanSection() {
 export function VesselScanSection() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden px-6">
-      <div className="absolute inset-0">
-        <video
-          className="h-full w-full object-cover"
-          src={vesselScanVideo.url}
-          poster={vessels}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        />
-        <div className="absolute inset-0 bg-navy/60" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,hsl(var(--navy)/0.92)_0%,hsl(var(--navy)/0.55)_45%,transparent_80%)]" />
-      </div>
+      <SectionBackground src={vessels} alt="Vessel surveillance view" overlay="bg-navy/50" />
       <div className="relative z-10 mx-auto w-full max-w-3xl">
         <Reveal>
           <p className="text-eyebrow text-gold">HERA AI · Verified Maritime Data Layer</p>
