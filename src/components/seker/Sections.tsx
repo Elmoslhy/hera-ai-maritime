@@ -1,0 +1,258 @@
+import heroVideo from "@/assets/hero-video.mp4.asset.json";
+import heraUi from "@/assets/hera-ui.jpg";
+import satelliteNetwork from "@/assets/satellite-network.jpg";
+import ocean from "@/assets/ocean.jpg";
+import vessels from "@/assets/vessels.jpg";
+import { SekerLogo } from "./Logo";
+import { CountUp, Reveal, SectionBackground } from "./primitives";
+
+export function HeroSection() {
+  return (
+    <section className="relative flex h-screen items-center justify-center overflow-hidden">
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        src={heroVideo.url}
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
+      <div className="absolute inset-0 bg-navy/55" />
+      <Reveal className="relative z-10 px-6">
+        <SekerLogo className="mx-auto w-[min(78vw,520px)] text-foreground" />
+      </Reveal>
+      <div className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 animate-bounce text-foreground/60">
+        <svg width="22" height="52" viewBox="0 0 22 52" fill="none" aria-hidden>
+          <rect x="1" y="1" width="20" height="32" rx="10" stroke="currentColor" strokeWidth="1" />
+          <circle cx="11" cy="10" r="2" fill="currentColor" />
+          <path d="M5 40l6 5 6-5" stroke="currentColor" strokeWidth="1" fill="none" />
+          <path d="M5 46l6 5 6-5" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.5" />
+        </svg>
+      </div>
+    </section>
+  );
+}
+
+export function LaunchSection() {
+  return (
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
+      <SectionBackground src={heraUi} alt="HERA AI interface" overlay="bg-navy/80" />
+      <div className="relative z-10 mx-auto max-w-3xl text-center">
+        <Reveal>
+          <span className="inline-block rounded-full border border-gold/40 px-4 py-2 font-mono text-[10px] tracking-[0.22em] text-gold">
+            SPACE-POWERED INTELLIGENCE · IN REAL TIME · EU SOVEREIGN
+          </span>
+        </Reveal>
+        <Reveal delay={0.12}>
+          <h1 className="mt-8 text-4xl font-light tracking-tight text-foreground sm:text-7xl">
+            Launching with <span className="text-gold">HERA AI</span>
+          </h1>
+        </Reveal>
+        <Reveal delay={0.24}>
+          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            The verified maritime intelligence layer Europe has been waiting for.
+          </p>
+        </Reveal>
+        <Reveal delay={0.36}>
+          <p className="mt-10 font-mono text-[10px] tracking-[0.3em] text-cyan">LAUNCHING 2026</p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "PROPRIETARY SENSORS"];
+
+export function ConstellationSection() {
+  return (
+    <section className="relative flex min-h-screen items-center overflow-hidden px-6">
+      <SectionBackground src={satelliteNetwork} alt="Satellite constellation" overlay="bg-navy/70" />
+      <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
+        <Reveal>
+          <p className="text-eyebrow text-gold">The Constellation</p>
+        </Reveal>
+        <Reveal delay={0.12}>
+          <h2 className="mt-6 text-3xl font-light leading-tight tracking-tight text-foreground sm:text-6xl">
+            Every vessel signal. Fused in orbit. Delivered in real time.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.24}>
+          <div className="mt-10 flex flex-wrap justify-center gap-2">
+            {CHIPS.map((c) => (
+              <span
+                key={c}
+                className="rounded-full border border-cyan/25 bg-cyan/5 px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] text-cyan"
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+export function OceanSection() {
+  return (
+    <section className="relative flex min-h-screen items-center overflow-hidden px-6">
+      <SectionBackground src={ocean} alt="Moonlit dark sea" overlay="bg-navy/40" />
+      <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
+        <Reveal>
+          <p className="text-eyebrow text-gold">The Problem</p>
+        </Reveal>
+        <Reveal delay={0.12}>
+          <h2 className="mt-6 text-3xl font-light tracking-tight text-foreground sm:text-6xl">
+            The dark sea is not dark to us.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.24}>
+          <p className="mt-8 font-mono text-[11px] tracking-[0.2em] text-cyan">
+            $54B MARKET · 18% CAGR · ZERO EU SOVEREIGN PROVIDERS TODAY
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+export function VesselScanSection() {
+  return (
+    <section className="relative flex min-h-screen items-center overflow-hidden px-6">
+      <SectionBackground src={vessels} alt="Vessels seen from orbit" overlay="bg-navy/65" />
+      <div className="relative z-10 mx-auto w-full max-w-3xl">
+        <Reveal>
+          <p className="text-eyebrow text-gold">HERA AI · Verified Maritime Data Layer</p>
+        </Reveal>
+        <Reveal delay={0.12}>
+          <h2 className="mt-6 text-3xl font-light tracking-tight text-foreground sm:text-6xl">
+            We don't track vessels. We know them.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.24}>
+          <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
+            Digital twin per vessel. Tamper-proof data (Blue Tick verified). Spoofing corrected.
+            Minimum latency. Everywhere.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+const ALERTS = [
+  {
+    head: "AIS Spoofing ×3 YoY",
+    body: "AIS tampering and GPS jamming are used to evade sanctions. Current platforms detect it slowly and incompletely.",
+  },
+  {
+    head: "$100B+ annual sanctions evasion",
+    body: "Enforcement agencies have unlimited appetite for verified maritime intelligence. No adequate tool exists.",
+  },
+  {
+    head: "Zero EU sovereign providers",
+    body: "At any scale, in any jurisdiction, today.",
+  },
+];
+
+export function ProblemSection() {
+  return (
+    <section className="bg-navy-deep px-6 py-28">
+      <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
+        <div>
+          <Reveal>
+            <p className="text-eyebrow text-gold">The Problem</p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h2 className="mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+              Maritime intelligence is broken.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <blockquote className="mt-8 border-l border-gold/40 pl-6">
+              <p className="text-base leading-relaxed text-muted-foreground">
+                76% of all EU trade by weight moves by sea — yet a growing shadow fleet of over
+                3,300 vessels operates outside the system, moving billions in sanctioned cargo
+                through AIS manipulation, GPS jamming, and identity fraud. The intelligence layer
+                meant to stop this is fragmented, foreign-controlled, and failing.
+              </p>
+              <cite className="mt-4 block font-mono text-[10px] not-italic tracking-[0.18em] text-muted-foreground/70">
+                EUROSTAT 2024 · ANU/CEPR 2025 · WINDWARD Q3 2025
+              </cite>
+            </blockquote>
+          </Reveal>
+          <div className="mt-10 space-y-5">
+            {ALERTS.map((a, i) => (
+              <Reveal key={a.head} delay={0.3 + i * 0.08}>
+                <div className="flex gap-4">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-alert" />
+                  <p className="font-mono text-[11px] leading-relaxed tracking-[0.06em] text-muted-foreground">
+                    <span className="text-foreground">{a.head}</span> — {a.body}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-px self-start overflow-hidden rounded-xl border border-white/10 bg-white/5">
+          <StatBlock value={<CountUp to={54} prefix="$" suffix="B" className="font-mono text-4xl text-gold" />} label="Global MDA market by 2030" />
+          <StatBlock value={<CountUp to={18} suffix="%" className="font-mono text-4xl text-cyan" />} label="Sector CAGR 2024–2030" />
+          <StatBlock value={<CountUp to={3} prefix="×" className="font-mono text-4xl text-alert" />} label="YoY growth in AIS spoofing" />
+          <StatBlock value={<span className="font-mono text-4xl text-foreground">Zero</span>} label="EU sovereign providers today" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StatBlock({ value, label }: { value: React.ReactNode; label: string }) {
+  return (
+    <div className="bg-navy px-6 py-10">
+      <Reveal>
+        {value}
+        <p className="mt-3 font-mono text-[9px] leading-relaxed tracking-[0.18em] text-muted-foreground">
+          {label.toUpperCase()}
+        </p>
+      </Reveal>
+    </div>
+  );
+}
+
+export function ContactSection() {
+  return (
+    <section className="bg-navy px-6 py-32">
+      <div className="mx-auto max-w-2xl text-center">
+        <Reveal>
+          <h2 className="text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+            Get in touch.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <a
+            href="mailto:info@seker-space.com"
+            className="mt-6 inline-block font-mono text-sm tracking-[0.14em] text-cyan hover:underline"
+          >
+            info@seker-space.com
+          </a>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <div className="mt-10">
+            <a
+              href="mailto:info@seker-space.com"
+              className="inline-flex items-center gap-3 rounded-full bg-gold px-7 py-3.5 font-mono text-[11px] tracking-[0.2em] text-navy transition-opacity hover:opacity-90"
+            >
+              REQUEST INTELLIGENCE BRIEF →
+            </a>
+          </div>
+        </Reveal>
+        <Reveal delay={0.3}>
+          <p className="mt-12 font-mono text-[9px] leading-relaxed tracking-[0.16em] text-muted-foreground/70">
+            STRICTLY CONFIDENTIAL · FOR DISCUSSION PURPOSES ONLY · SEKER SPACE INTELLIGENCE S.A. IS
+            IN FORMATION · LUXEMBOURG
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
