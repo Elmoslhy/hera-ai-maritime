@@ -32,7 +32,7 @@ export function DescentSection() {
   const act = ACTS[actIndex];
 
   // altitude readout
-  const distance = Math.max(0, 547 * (1 - Math.min(p / 0.5, 1)));
+  const distance = Math.max(0, 547 * (1 - Math.min(p / 0.86, 1)));
 
   // opacities
   const starsO = ramp(0.02, 0.3, 1, 0);
@@ -103,7 +103,7 @@ export function DescentSection() {
           { side: "left-[8%]", o: rfO },
           { side: "right-[8%]", o: rfO },
         ].map((s, i) => (
-          <div key={i} style={{ opacity: s.o }} className={`absolute top-[14%] ${s.side} w-[min(16vw,120px)]`}>
+          <div key={i} style={{ opacity: s.o }} className={`absolute top-[26%] ${s.side} w-[min(16vw,120px)]`}>
             <img src={satelliteReal} alt="" aria-hidden className="w-full opacity-80" />
             <p className="mt-1 text-center font-mono text-[9px] tracking-[0.2em] text-cyan">SEKER-{i + 1}</p>
           </div>
