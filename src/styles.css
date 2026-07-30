@@ -229,6 +229,10 @@
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.015); }
 }
+@keyframes earth-spin {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
 @keyframes sweep-fade {
   0%, 100% { opacity: 0; }
   25%, 60% { opacity: 1; }

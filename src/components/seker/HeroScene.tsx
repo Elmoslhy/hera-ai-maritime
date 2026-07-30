@@ -118,7 +118,19 @@ export function HeroScene() {
 
         {/* earth */}
         <div className="absolute inset-[10%] z-[2] animate-[globe-breathe_28s_ease-in-out_infinite]">
-          <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-full object-contain opacity-[0.94]" />
+          {/* rotating surface: two copies of the globe texture scrolling inside a spherical mask */}
+          <div
+            className="absolute inset-0 overflow-hidden rounded-full opacity-[0.94]"
+            style={{ transform: "rotate(-11.5deg)" }}
+          >
+            <div className="absolute inset-0 flex w-[200%] animate-[earth-spin_150s_linear_infinite] will-change-transform">
+              <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-1/2 object-cover" />
+              <img src={earth} alt="" aria-hidden width={1280} height={1280} className="h-full w-1/2 object-cover" />
+            </div>
+            {/* spherical shading so the flat scroll reads as a turning sphere */}
+            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_50%,transparent_38%,rgba(9,18,31,0.35)_72%,rgba(9,18,31,0.92)_100%)]" />
+            <div className="absolute inset-0 rounded-full bg-[linear-gradient(90deg,rgba(9,18,31,0.85)_0%,transparent_16%,transparent_84%,rgba(9,18,31,0.85)_100%)]" />
+          </div>
           {/* limb light */}
           <div className="absolute inset-0 rounded-full shadow-[inset_0_0_90px_rgba(9,18,31,0.85)]" />
           {/* night terminator */}
