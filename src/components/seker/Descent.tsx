@@ -1,4 +1,5 @@
 import { motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
+import { SensorImagers } from "./SensorImagers";
 import { useRef, useState } from "react";
 import satelliteReal from "@/assets/satellite-real.png";
 import vesselTop from "@/assets/vessel-top.png";
@@ -45,6 +46,7 @@ export function DescentSection() {
   const thermalO = ramp(0.5, 0.58) * (1 - ramp(0.72, 0.8, 0, 0.55));
   const rfO = ramp(0.68, 0.75) * (1 - ramp(0.9, 0.98, 0, 0.5));
   const lockO = ramp(0.86, 0.93);
+  const fusedO = ramp(0.8, 0.9);
   const darkShipO = ramp(0.4, 0.48) * (1 - ramp(0.5, 0.56)); // ship fades into the dark before TIR
 
   // camera
@@ -221,6 +223,10 @@ export function DescentSection() {
                 ))}
               </div>
             </div>
+          </div>
+
+          <div className="my-4 hidden sm:block">
+            <SensorImagers thermal={Math.min(thermalO * 1.6, 1)} rf={Math.min(rfO * 1.6, 1)} fused={fusedO} />
           </div>
 
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
