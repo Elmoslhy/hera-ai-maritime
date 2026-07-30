@@ -20,8 +20,8 @@ const FLEET: Ship[] = Array.from({ length: 220 }).map((_, i) => {
   const b = Math.sin(i * 78.233) * 12345.6789;
   const rx = a - Math.floor(a);
   const ry = b - Math.floor(b);
-  const x = 12 + rx * 830;
-  const y = 60 + ry * 300;
+  const x = Math.round((12 + rx * 830) * 10) / 10;
+  const y = Math.round((60 + ry * 300) * 10) / 10;
   return { x, y, c: CLASS_COLORS[i % CLASS_COLORS.length], r: (i * 47) % 360 };
 });
 
