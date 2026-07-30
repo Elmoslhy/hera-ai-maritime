@@ -54,25 +54,44 @@ export function HeroSection() {
 export function LaunchSection() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
-      <SectionBackground src={heraUi} alt="HERA AI interface" overlay="bg-navy/80" />
-      <div className="relative z-10 mx-auto max-w-3xl text-center">
+      {/* calm, heavily softened product backdrop */}
+      <div className="absolute inset-0">
+        <img
+          src={heraUi}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          className="h-full w-full scale-110 object-cover opacity-[0.18] blur-[26px] saturate-[0.7]"
+        />
+        <div className="absolute inset-0 bg-navy/85" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_42%,rgba(201,168,76,0.10),transparent_58%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,transparent_35%,rgba(6,12,21,0.85)_100%)]" />
+        {/* thin horizon line for structure */}
+        <div className="absolute left-1/2 top-1/2 h-px w-[min(78vw,900px)] -translate-x-1/2 translate-y-[13rem] bg-[linear-gradient(90deg,transparent,rgba(201,168,76,0.35),transparent)]" />
+      </div>
+
+      <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center">
         <Reveal>
-          <span className="inline-block rounded-full border border-gold/40 px-4 py-2 font-mono text-[10px] tracking-[0.22em] text-gold">
-            SPACE-POWERED INTELLIGENCE · IN REAL TIME · EU SOVEREIGN
-          </span>
+          <p className="text-eyebrow text-gold/80">EU Sovereign · Real Time</p>
         </Reveal>
         <Reveal delay={0.12}>
-          <h1 className="mt-8 text-4xl font-light tracking-tight text-foreground sm:text-7xl">
-            Launching with <span className="text-gold">HERA AI</span>
-          </h1>
+          <h2 className="mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">
+            Launching with
+            <br />
+            <span className="text-gold">HERA AI</span>
+          </h2>
         </Reveal>
         <Reveal delay={0.24}>
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-7 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
             The verified maritime intelligence layer Europe has been waiting for.
           </p>
         </Reveal>
         <Reveal delay={0.36}>
-          <p className="mt-10 font-mono text-[10px] tracking-[0.3em] text-cyan">LAUNCHING 2026</p>
+          <div className="mt-14 flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] text-cyan">
+            <span className="h-px w-10 bg-cyan/40" />
+            LAUNCHING 2026
+            <span className="h-px w-10 bg-cyan/40" />
+          </div>
         </Reveal>
       </div>
     </section>
