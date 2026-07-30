@@ -1,12 +1,26 @@
+import { useEffect, useRef } from "react";
 import earth from "@/assets/earth-globe.png";
 import satellite from "@/assets/satellite-real.png";
 
-type Orbit = { flatten: number; tiltZ: number; size: number; duration: number; delay: number; sat: number };
+type Orbit = {
+  /** semi-major axis, % of stage */
+  r: number;
+  /** vertical squash of the ellipse */
+  flatten: number;
+  /** plane tilt in degrees */
+  tilt: number;
+  /** seconds per revolution */
+  period: number;
+  /** starting phase, 0..1 */
+  phase: number;
+  /** satellite size in px at mid depth */
+  sat: number;
+};
 
 const ORBITS: Orbit[] = [
-  { flatten: 0.24, tiltZ: -14, size: 104, duration: 34, delay: 0, sat: 68 },
-  { flatten: 0.34, tiltZ: 20, size: 118, duration: 46, delay: -12, sat: 54 },
-  { flatten: 0.16, tiltZ: 4, size: 92, duration: 28, delay: -20, sat: 44 },
+  { r: 57, flatten: 0.30, tilt: -14, period: 26, phase: 0.12, sat: 112 },
+  { r: 65, flatten: 0.42, tilt: 21, period: 38, phase: 0.55, sat: 88 },
+  { r: 50, flatten: 0.18, tilt: 5, period: 20, phase: 0.78, sat: 72 },
 ];
 
 // vessel pings on the ocean, in % of the globe box
@@ -20,6 +34,54 @@ const VESSELS = [
 ];
 
 export function HeroScene() {
+  const stageRef = useRef<HTMLDivElement | null>(null);
+  const satRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const beamRefs = useRef<(SVGLineElement | null)[]>([]);
+
+  useEffect(() => {
+    let raf = 0;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = (now - start) / 1000;
+      const W = stageRef.current?.offsetWidth ?? 700;
+      ORBITS.forEach((o, i) => {
+        const el = satRefs.current[i];
+        const a = ((t / o.period + o.phase) % 1) * Math.PI * 2;
+        // ellipse in the orbit plane, then tilted
+        const ex = Math.cos(a) * o.r;
+        const ey = Math.sin(a) * o.r * o.flatten;
+        const rad = (o.tilt * Math.PI) / 180;
+        const x = ex * Math.cos(rad) - ey * Math.sin(rad);
+        const y = ex * Math.sin(rad) + ey * Math.cos(rad);
+        // depth: +1 in front of the globe, -1 behind it
+        const depth = Math.sin(a);
+        const scale = 0.72 + 0.4 * ((depth + 1) / 2);
+        if (el) {
+          el.style.transform = `translate(-50%,-50%) translate(${(x / 100) * W}px, ${(y / 100) * W}px) scale(${scale})`;
+          el.style.opacity = String(depth > 0 ? 1 : 0.4);
+          el.style.zIndex = depth > 0 ? "3" : "1";
+          el.style.filter = depth > 0 ? "brightness(1.12) saturate(1.05)" : "brightness(0.5) blur(0.6px)";
+        }
+        const beam = beamRefs.current[i];
+        if (beam) {
+          const v = VESSELS[i * 2];
+          // globe occupies the stage inset by 10%
+          const vx = 10 + v.x * 0.8;
+          const vy = 10 + v.y * 0.8;
+          beam.setAttribute("x1", String(50 + x));
+          beam.setAttribute("y1", String(50 + y));
+          beam.setAttribute("x2", String(vx));
+          beam.setAttribute("y2", String(vy));
+          const near = Math.max(0, 1 - Math.hypot(50 + x - vx, 50 + y - vy) / 42);
+          beam.setAttribute("opacity", String(depth > 0.15 ? near * 0.85 : 0));
+        }
+      });
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* starfield */}
@@ -32,12 +94,30 @@ export function HeroScene() {
       </svg>
 
       {/* globe + orbits stage */}
-      <div className="absolute left-1/2 top-1/2 h-[min(78vh,700px)] w-[min(78vh,700px)] -translate-x-1/2 -translate-y-[48%] [perspective:1400px]">
+      <div ref={stageRef} className="absolute left-1/2 top-1/2 h-[min(78vh,700px)] w-[min(78vh,700px)] -translate-x-1/2 -translate-y-[48%]">
         {/* atmosphere glow */}
         <div className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgba(77,217,192,0.22),transparent_62%)] blur-2xl" />
 
+        {/* orbit paths (behind the globe) */}
+        <svg viewBox="0 0 100 100" className="absolute inset-0 z-0 h-full w-full" aria-hidden>
+          {ORBITS.map((o, i) => (
+            <ellipse
+              key={i}
+              cx="50"
+              cy="50"
+              rx={o.r}
+              ry={o.r * o.flatten}
+              transform={`rotate(${o.tilt} 50 50)`}
+              fill="none"
+              stroke="#e6edf5"
+              strokeOpacity="0.13"
+              strokeWidth="0.18"
+            />
+          ))}
+        </svg>
+
         {/* earth */}
-        <div className="absolute inset-[10%] animate-[globe-breathe_18s_ease-in-out_infinite]">
+        <div className="absolute inset-[10%] z-[2] animate-[globe-breathe_18s_ease-in-out_infinite]">
           <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-full object-contain opacity-[0.88]" />
           {/* night terminator */}
           <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_36%,transparent_28%,rgba(9,18,31,0.78)_76%)]" />
@@ -53,60 +133,42 @@ export function HeroScene() {
             </div>
           ))}
 
-          {/* capture beams from orbit down to the vessels */}
-          {[
-            { x: 62, y: 33, sx: 78, sy: -14, delay: "0s" },
-            { x: 30, y: 44, sx: 14, sy: -10, delay: "3.4s" },
-          ].map((b, i) => (
-            <svg key={i} viewBox="0 0 100 100" className="absolute inset-0 h-full w-full overflow-visible" style={{ animation: `sweep-fade 8s ease-in-out ${b.delay} infinite` }} aria-hidden>
-              <defs>
-                <linearGradient id={`beam-${i}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#4dd9c0" stopOpacity="0" />
-                  <stop offset="100%" stopColor="#4dd9c0" stopOpacity="0.22" />
-                </linearGradient>
-              </defs>
-              <polygon points={`${b.sx} ${b.sy}, ${b.sx + 0.6} ${b.sy}, ${b.x + 2} ${b.y + 1}, ${b.x - 2} ${b.y + 1}`} fill={`url(#beam-${i})`} />
-              <line x1={b.sx} y1={b.sy} x2={b.x} y2={b.y} stroke="#4dd9c0" strokeWidth="0.25" strokeDasharray="1.5 2" opacity="0.75" />
-            </svg>
-          ))}
         </div>
 
-        {/* orbit rings + satellites (flattened 2D ellipses) */}
-        {ORBITS.map((o, i) => {
-          const flat = o.flatten;
-          return (
-            <div
+        {/* live capture beams from each satellite down to a vessel */}
+        <svg viewBox="0 0 100 100" className="absolute inset-0 z-[4] h-full w-full" aria-hidden>
+          {ORBITS.map((_, i) => (
+            <line
               key={i}
-              className="absolute left-1/2 top-1/2"
-              style={{
-                width: `${o.size}%`,
-                height: `${o.size}%`,
-                transform: `translate(-50%,-50%) rotate(${o.tiltZ}deg) scaleY(${flat})`,
+              ref={(el) => {
+                beamRefs.current[i] = el;
               }}
-            >
-              <div className="absolute inset-0 rounded-full border border-white/[0.14]" />
-              <div
-                className="absolute inset-0"
-                style={{ animation: `orbit-spin ${o.duration}s linear ${o.delay}s infinite` }}
-              >
-                <div
-                  className="absolute left-1/2 top-0"
-                  style={{ animation: `orbit-counter ${o.duration}s linear ${o.delay}s infinite` }}
-                >
-                  <div style={{ transform: `scaleY(${1 / flat}) rotate(${-o.tiltZ}deg)` }}>
-                  <img
-                    src={satellite}
-                    alt=""
-                    aria-hidden
-                    style={{ width: o.sat, transform: "translate(-50%,-50%)" }}
-                    className="max-w-none drop-shadow-[0_0_22px_rgba(77,217,192,0.4)]"
-                  />
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+              stroke="#4dd9c0"
+              strokeWidth="0.22"
+              strokeDasharray="1.4 1.8"
+              opacity="0"
+            />
+          ))}
+        </svg>
+
+        {/* satellites travelling their orbits */}
+        {ORBITS.map((o, i) => (
+          <div
+            key={i}
+            ref={(el) => {
+              satRefs.current[i] = el;
+            }}
+            className="absolute left-1/2 top-1/2 will-change-transform"
+            style={{ width: o.sat }}
+          >
+            <img
+              src={satellite}
+              alt=""
+              aria-hidden
+              className="w-full drop-shadow-[0_2px_26px_rgba(9,18,31,0.9)] drop-shadow-[0_0_18px_rgba(77,217,192,0.35)]"
+            />
+          </div>
+        ))}
       </div>
 
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_52%,rgba(9,18,31,0.7),rgba(9,18,31,0.28)_40%,transparent_62%)]" />
