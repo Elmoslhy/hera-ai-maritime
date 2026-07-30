@@ -18,9 +18,9 @@ type Orbit = {
 };
 
 const ORBITS: Orbit[] = [
-  { r: 44.5, flatten: 0.26, tilt: -16, period: 34, phase: 0.12, sat: 40 },
-  { r: 48.5, flatten: 0.40, tilt: 24, period: 46, phase: 0.55, sat: 34 },
-  { r: 42.5, flatten: 0.14, tilt: 4, period: 27, phase: 0.78, sat: 30 },
+  { r: 44.5, flatten: 0.26, tilt: -16, period: 34, phase: 0.12, sat: 58 },
+  { r: 48.5, flatten: 0.40, tilt: 24, period: 46, phase: 0.55, sat: 48 },
+  { r: 42.5, flatten: 0.14, tilt: 4, period: 27, phase: 0.78, sat: 42 },
 ];
 
 // vessel pings on the ocean, in % of the globe box
@@ -167,7 +167,7 @@ export function HeroScene() {
               src={satellite}
               alt=""
               aria-hidden
-              className="w-full drop-shadow-[0_1px_10px_rgba(9,18,31,0.95)]"
+              className="w-full drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] drop-shadow-[0_0_14px_rgba(77,217,192,0.45)]"
             />
           </div>
         ))}
