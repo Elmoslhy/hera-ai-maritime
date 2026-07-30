@@ -2,6 +2,7 @@ import heraUi from "@/assets/hera-ui.jpg";
 import satelliteNetwork from "@/assets/satellite-network.jpg";
 import ocean from "@/assets/ocean.jpg";
 import vessels from "@/assets/vessels.jpg";
+import vesselScanVideo from "@/assets/vessel-scan.mp4.asset.json";
 import { SekerLogo } from "./Logo";
 import { HeroHud, HeroScene } from "./HeroScene";
 import { CountUp, Reveal, SectionBackground } from "./primitives";
@@ -166,7 +167,20 @@ export function OceanSection() {
 export function VesselScanSection() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden px-6">
-      <SectionBackground src={vessels} alt="Vessels seen from orbit" overlay="bg-navy/65" />
+      <div className="absolute inset-0">
+        <video
+          className="h-full w-full object-cover"
+          src={vesselScanVideo.url}
+          poster={vessels}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
+        <div className="absolute inset-0 bg-navy/60" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,hsl(var(--navy)/0.92)_0%,hsl(var(--navy)/0.55)_45%,transparent_80%)]" />
+      </div>
       <div className="relative z-10 mx-auto w-full max-w-3xl">
         <Reveal>
           <p className="text-eyebrow text-gold">HERA AI · Verified Maritime Data Layer</p>
