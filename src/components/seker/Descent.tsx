@@ -120,32 +120,38 @@ export function DescentSection() {
   const [altitude, setAltitude] = useState(547);
   const [locked, setLocked] = useState(false);
   const [step, setStep] = useState(0);
+  const [p, setP] = useState(0);
 
   useMotionValueEvent(scrollYProgress, "change", (p) => {
+    setP(p);
     setAltitude(Math.max(0, 547 * (1 - Math.min(p / 0.82, 1))));
     setLocked(p > 0.86);
     setStep(Math.min(HANDOFF.length, Math.floor(Math.max(0, p - 0.12) / 0.14)));
   });
 
+  // opacity is driven from state so it stays exactly in step with scroll
+  const ramp = (a: number, b: number, from = 0, to = 1) =>
+    from + (to - from) * Math.min(1, Math.max(0, (p - a) / (b - a)));
+  const starsO = ramp(0, 0.5, 1, 0);
+  const satO = ramp(0.6, 0.78, 1, 0);
+  const beamO = p < 0.16 ? ramp(0.06, 0.16) : ramp(0.72, 0.8, 1, 0);
+  const seaO = ramp(0.15, 0.55);
+  const vesselO = ramp(0.48, 0.62);
+  const reticleO = ramp(0.7, 0.8);
+
   // camera / stage transforms
-  const stars = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const satY = useTransform(scrollYProgress, [0, 0.45, 0.75], ["0%", "-28%", "-140%"]);
   const satScale = useTransform(scrollYProgress, [0, 0.45, 0.75], [1, 1.35, 2.4]);
-  const satOpacity = useTransform(scrollYProgress, [0.6, 0.78], [1, 0]);
-  const beamOpacity = useTransform(scrollYProgress, [0.06, 0.16, 0.72, 0.8], [0, 1, 1, 0]);
   const beamScaleY = useTransform(scrollYProgress, [0.06, 0.3], [0.2, 1]);
   const seaScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 2.4, 7]);
-  const seaOpacity = useTransform(scrollYProgress, [0.15, 0.55], [0, 1]);
   const vesselScale = useTransform(scrollYProgress, [0.5, 0.9], [0.25, 1]);
-  const vesselOpacity = useTransform(scrollYProgress, [0.48, 0.62], [0, 1]);
   const reticle = useTransform(scrollYProgress, [0.72, 0.9], [2.2, 1]);
-  const reticleOpacity = useTransform(scrollYProgress, [0.7, 0.8], [0, 1]);
 
   return (
     <section ref={ref} className="relative h-[420vh] bg-navy-deep" id="descent">
       <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
         {/* starfield */}
-        <motion.div style={{ opacity: stars }} className="absolute inset-0">
+        <div style={{ opacity: starsO }} className="absolute inset-0">
           <svg viewBox="0 0 1000 700" className="h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden>
             {Array.from({ length: 90 }).map((_, i) => {
               const x = (i * 137.5) % 1000;
@@ -155,13 +161,14 @@ export function DescentSection() {
               );
             })}
           </svg>
-        </motion.div>
+        </div>
 
         {/* ocean surface rushing up */}
         <motion.div
-          style={{ scale: seaScale, opacity: seaOpacity }}
+          style={{ scale: seaScale }}
           className="absolute inset-0 origin-[50%_78%]"
         >
+          <div style={{ opacity: seaO }} className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_78%,#0d2436_0%,#081726_45%,#060c15_75%)]" />
           <svg viewBox="0 0 1000 700" className="h-full w-full opacity-40" preserveAspectRatio="none" aria-hidden>
             {Array.from({ length: 22 }).map((_, i) => (
@@ -175,11 +182,12 @@ export function DescentSection() {
               />
             ))}
           </svg>
+          </div>
         </motion.div>
 
         {/* scan beam */}
         <motion.div
-          style={{ opacity: beamOpacity, scaleY: beamScaleY }}
+          style={{ scaleY: beamScaleY, opacity: beamO }}
           className="pointer-events-none absolute left-1/2 top-[18%] h-[64%] w-[70vw] max-w-[900px] origin-top -translate-x-1/2"
         >
           <div className="h-full w-full [clip-path:polygon(46%_0%,54%_0%,100%_100%,0%_100%)] bg-gradient-to-b from-cyan/35 via-cyan/10 to-transparent" />
@@ -190,20 +198,23 @@ export function DescentSection() {
 
         {/* satellite */}
         <motion.div
-          style={{ y: satY, scale: satScale, opacity: satOpacity }}
+          style={{ y: satY, scale: satScale }}
           className="absolute left-1/2 top-[6%] w-[min(46vw,420px)] -translate-x-1/2"
         >
+          <div style={{ opacity: satO }}>
           <Satellite className="w-full drop-shadow-[0_0_28px_rgba(77,217,192,0.25)]" />
           <p className="mt-1 text-center font-mono text-[9px] tracking-[0.24em] text-cyan/80">
             SEKER-1 · SSO 547 KM
           </p>
+          </div>
         </motion.div>
 
         {/* vessel + lock */}
         <motion.div
-          style={{ scale: vesselScale, opacity: vesselOpacity }}
+          style={{ scale: vesselScale }}
           className="absolute left-1/2 top-[62%] w-[min(52vw,460px)] -translate-x-1/2 -translate-y-1/2"
         >
+          <div style={{ opacity: vesselO }}>
           <svg viewBox="0 0 400 140" className="w-full" aria-hidden>
             <path
               d="M60 88 H330 L308 112 H86 Z"
@@ -228,9 +239,10 @@ export function DescentSection() {
             ))}
             <path d="M60 112 H320" stroke="#4dd9c0" strokeOpacity="0.35" />
           </svg>
+          </div>
 
           <motion.div
-            style={{ scale: reticle, opacity: reticleOpacity }}
+            style={{ scale: reticle, opacity: reticleO }}
             className="pointer-events-none absolute inset-0 flex items-center justify-center"
           >
             <svg viewBox="0 0 200 200" className="h-[150%] w-[150%]" aria-hidden>
