@@ -353,7 +353,7 @@ function WindowChrome({ children }: { children: React.ReactNode }) {
             <span className="h-1.5 w-1.5 rounded-full bg-cyan" /> API
           </span>
           <span className="text-cyan">OPERATIONAL</span>
-          <span className="text-muted-foreground">· 14 732 VESSELS ·</span>
+          <span className="text-muted-foreground">· 14 732 SIGNALS ·</span>
           <span className="text-muted-foreground">P50</span>
           <span className="text-foreground">45MS</span>
         </div>
@@ -386,7 +386,7 @@ export function DashboardSection() {
 
         <Reveal className="mt-14">
           <WindowChrome>
-            <div className="grid grid-cols-2 gap-px border-b border-white/8 bg-white/5 lg:grid-cols-4">
+            <div className="grid grid-cols-3 gap-px border-b border-white/8 bg-white/5 lg:grid-cols-3">
               {TOP_STATS.map((s) => (
                 <div key={s.label} className="flex items-center justify-between gap-4 bg-[#070d16] px-5 py-4">
                   <div>
