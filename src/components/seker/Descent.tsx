@@ -1,5 +1,8 @@
 import { motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import { useRef, useState } from "react";
+import satelliteReal from "@/assets/satellite-real.png";
+import vesselTop from "@/assets/vessel-top.png";
+import ocean from "@/assets/ocean.jpg";
 
 /** Detailed SEKER-1 smallsat: bus, deployable arrays, SAR panel, dish, star tracker. */
 function Satellite({ className = "" }: { className?: string }) {
