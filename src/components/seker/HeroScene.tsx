@@ -71,34 +71,40 @@ export function HeroScene() {
           ))}
         </div>
 
-        {/* orbit rings + satellites */}
-        {ORBITS.map((o, i) => (
-          <div
-            key={i}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d]"
-            style={{
-              width: `${o.size}%`,
-              height: `${o.size}%`,
-              transform: `translate(-50%,-50%) rotateX(${o.tiltX}deg) rotateZ(${o.tiltZ}deg)`,
-            }}
-          >
-            <div className="absolute inset-0 rounded-full border border-white/12" />
+        {/* orbit rings + satellites (flattened 2D ellipses) */}
+        {ORBITS.map((o, i) => {
+          const flat = o.flatten;
+          return (
             <div
-              className="absolute inset-0 [transform-style:preserve-3d]"
-              style={{ animation: `orbit-spin ${o.duration}s linear ${o.delay}s infinite` }}
+              key={i}
+              className="absolute left-1/2 top-1/2"
+              style={{
+                width: `${o.size}%`,
+                height: `${o.size}%`,
+                transform: `translate(-50%,-50%) rotate(${o.tiltZ}deg) scaleY(${flat})`,
+              }}
             >
-              <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 [transform-style:preserve-3d]">
-                <img
-                  src={satellite}
-                  alt=""
-                  aria-hidden
-                  style={{ width: o.sat, transform: `rotateZ(${-o.tiltZ}deg) rotateX(${-o.tiltX}deg)` }}
-                  className="drop-shadow-[0_0_18px_rgba(77,217,192,0.35)]"
-                />
+              <div className="absolute inset-0 rounded-full border border-white/[0.14]" />
+              <div
+                className="absolute inset-0"
+                style={{ animation: `orbit-spin ${o.duration}s linear ${o.delay}s infinite` }}
+              >
+                <div className="absolute left-1/2 top-0">
+                  <img
+                    src={satellite}
+                    alt=""
+                    aria-hidden
+                    style={{
+                      width: o.sat,
+                      transform: `translate(-50%,-50%) scaleY(${1 / flat}) rotate(${-o.tiltZ}deg)`,
+                    }}
+                    className="max-w-none drop-shadow-[0_0_22px_rgba(77,217,192,0.4)]"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_52%,rgba(9,18,31,0.7),rgba(9,18,31,0.28)_40%,transparent_62%)]" />
