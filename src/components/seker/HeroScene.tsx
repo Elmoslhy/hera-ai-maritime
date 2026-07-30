@@ -18,9 +18,9 @@ type Orbit = {
 };
 
 const ORBITS: Orbit[] = [
-  { r: 44.5, flatten: 0.26, tilt: -16, period: 34, phase: 0.12, sat: 30 },
-  { r: 48.5, flatten: 0.40, tilt: 24, period: 46, phase: 0.55, sat: 26 },
-  { r: 42.5, flatten: 0.14, tilt: 4, period: 27, phase: 0.78, sat: 22 },
+  { r: 44.5, flatten: 0.26, tilt: -16, period: 34, phase: 0.12, sat: 40 },
+  { r: 48.5, flatten: 0.40, tilt: 24, period: 46, phase: 0.55, sat: 34 },
+  { r: 42.5, flatten: 0.14, tilt: 4, period: 27, phase: 0.78, sat: 30 },
 ];
 
 // vessel pings on the ocean, in % of the globe box
@@ -94,7 +94,7 @@ export function HeroScene() {
       </svg>
 
       {/* globe + orbits stage */}
-      <div ref={stageRef} className="absolute left-1/2 top-1/2 h-[min(118vh,1040px)] w-[min(118vh,1040px)] -translate-x-1/2 -translate-y-[46%]">
+      <div ref={stageRef} className="absolute left-1/2 top-1/2 h-[min(104vh,880px)] w-[min(104vh,880px)] -translate-x-1/2 -translate-y-[46%]">
         {/* atmosphere glow */}
         <div className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgba(77,217,192,0.22),transparent_62%)] blur-2xl" />
 
