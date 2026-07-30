@@ -94,9 +94,9 @@ export function HeroScene() {
       </svg>
 
       {/* globe + orbits stage */}
-      <div ref={stageRef} className="absolute left-1/2 top-1/2 h-[min(104vh,880px)] w-[min(104vh,880px)] -translate-x-1/2 -translate-y-[46%]">
+      <div ref={stageRef} className="absolute left-1/2 top-1/2 h-[min(122vh,1040px)] w-[min(122vh,1040px)] -translate-x-1/2 -translate-y-1/2">
         {/* atmosphere glow */}
-        <div className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgba(77,217,192,0.22),transparent_62%)] blur-2xl" />
+        <div className="absolute inset-[6%] rounded-full bg-[radial-gradient(circle,rgba(90,170,235,0.30),rgba(77,217,192,0.12)_58%,transparent_70%)] blur-3xl" />
 
         {/* orbit paths (behind the globe) */}
         <svg viewBox="0 0 100 100" className="absolute inset-0 z-0 h-full w-full" aria-hidden>
@@ -134,11 +134,12 @@ export function HeroScene() {
             {/* vertical pole shading */}
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,12,21,0.8)_0%,rgba(6,12,21,0)_22%,rgba(6,12,21,0)_78%,rgba(6,12,21,0.8)_100%)]" />
             {/* sun-lit side + night terminator */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_34%_32%,rgba(255,255,255,0.16)_0%,rgba(255,255,255,0)_34%,rgba(6,12,21,0.55)_72%,rgba(6,12,21,0.9)_100%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_34%_30%,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0)_38%,rgba(6,12,21,0.32)_74%,rgba(6,12,21,0.78)_100%)]" />
           </div>
           {/* limb light + atmosphere rim */}
-          <div className="absolute inset-0 rounded-full shadow-[inset_0_0_70px_rgba(9,18,31,0.9),0_0_60px_rgba(77,164,217,0.22)]" />
-          <div className="absolute -inset-[1.5%] rounded-full border border-cyan/15 blur-[2px]" />
+          <div className="absolute inset-0 rounded-full shadow-[inset_0_0_60px_rgba(9,18,31,0.75),0_0_110px_rgba(96,176,235,0.30)]" />
+          <div className="absolute -inset-[0.8%] rounded-full border border-[rgba(140,200,255,0.35)] blur-[2px]" />
+          <div className="absolute -inset-[2.5%] rounded-full bg-[radial-gradient(circle,transparent_69%,rgba(120,190,255,0.16)_74%,transparent_82%)]" />
 
           {/* vessel pings */}
           {VESSELS.map((v, i) => (
@@ -189,8 +190,8 @@ export function HeroScene() {
         ))}
       </div>
 
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_52%,rgba(9,18,31,0.7),rgba(9,18,31,0.28)_40%,transparent_62%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(9,18,31,0.55)_75%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(9,18,31,0.5),rgba(9,18,31,0.16)_38%,transparent_62%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,12,21,0.5)_0%,transparent_18%,transparent_76%,rgba(6,12,21,0.72)_100%)]" />
     </div>
   );
 }
