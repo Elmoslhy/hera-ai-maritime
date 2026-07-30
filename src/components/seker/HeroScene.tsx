@@ -34,6 +34,7 @@ const VESSELS = [
 ];
 
 export function HeroScene() {
+  const stageRef = useRef<HTMLDivElement | null>(null);
   const satRefs = useRef<(HTMLDivElement | null)[]>([]);
   const beamRefs = useRef<(SVGLineElement | null)[]>([]);
 
@@ -42,6 +43,7 @@ export function HeroScene() {
     const start = performance.now();
     const tick = (now: number) => {
       const t = (now - start) / 1000;
+      const W = stageRef.current?.offsetWidth ?? 700;
       ORBITS.forEach((o, i) => {
         const el = satRefs.current[i];
         const a = ((t / o.period + o.phase) % 1) * Math.PI * 2;
@@ -55,7 +57,7 @@ export function HeroScene() {
         const depth = Math.sin(a);
         const scale = 0.68 + 0.42 * ((depth + 1) / 2);
         if (el) {
-          el.style.transform = `translate(-50%,-50%) translate(${x}%, ${y}%) scale(${scale})`;
+          el.style.transform = `translate(-50%,-50%) translate(${(x / 100) * W}px, ${(y / 100) * W}px) scale(${scale})`;
           el.style.opacity = String(depth > 0 ? 1 : 0.45);
           el.style.zIndex = depth > 0 ? "30" : "1";
           el.style.filter = depth > 0 ? "none" : "brightness(0.55) blur(0.4px)";
@@ -92,7 +94,7 @@ export function HeroScene() {
       </svg>
 
       {/* globe + orbits stage */}
-      <div className="absolute left-1/2 top-1/2 h-[min(78vh,700px)] w-[min(78vh,700px)] -translate-x-1/2 -translate-y-[48%]">
+      <div ref={stageRef} className="absolute left-1/2 top-1/2 h-[min(78vh,700px)] w-[min(78vh,700px)] -translate-x-1/2 -translate-y-[48%]">
         {/* atmosphere glow */}
         <div className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgba(77,217,192,0.22),transparent_62%)] blur-2xl" />
 
