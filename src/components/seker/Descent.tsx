@@ -39,7 +39,7 @@ export function DescentSection() {
   const satScale = useTransform(scrollYProgress, [0, 0.45, 0.72], [1, 1.4, 2.6]);
   const beamScaleY = useTransform(scrollYProgress, [0.04, 0.3], [0.2, 1]);
   const seaScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.9, 4.6]);
-  const vesselScale = useTransform(scrollYProgress, [0.46, 0.92], [0.18, 1]);
+  const vesselScale = useTransform(scrollYProgress, [0.46, 0.92], [0.18, 1.5]);
   const reticle = useTransform(scrollYProgress, [0.72, 0.92], [2, 1]);
 
   return (
