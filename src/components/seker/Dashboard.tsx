@@ -57,8 +57,8 @@ function buildFleet(): Ship[] {
       const a = wp[Math.floor(t)];
       const b = wp[Math.min(Math.floor(t) + 1, wp.length - 1)];
       const f = t - Math.floor(t);
-      const lat = a[0] + (b[0] - a[0]) * f + (rnd(i, 12.98) - 0.5) * 0.55;
-      const lon = a[1] + (b[1] - a[1]) * f + (rnd(i, 78.23) - 0.5) * 0.55;
+      const lat = a[0] + (b[0] - a[0]) * f + (rnd(i, 12.98) - 0.5) * 1.1;
+      const lon = a[1] + (b[1] - a[1]) * f + (rnd(i, 78.23) - 0.5) * 1.1;
       const head = (Math.atan2(px(b[1]) - px(a[1]), -(py(b[0]) - py(a[0]))) * 180) / Math.PI;
       out.push({
         x: r1(px(lon)), y: r1(py(lat)),
@@ -70,7 +70,7 @@ function buildFleet(): Ship[] {
   });
   // scattered traffic
   SEA.forEach((box, bi) => {
-    for (let s = 0; s < 26; s++, i++) {
+    for (let s = 0; s < 48; s++, i++) {
       const lat = box[0] + rnd(i, 5.13) * (box[1] - box[0]);
       const lon = box[2] + rnd(i, 9.71) * (box[3] - box[2]);
       out.push({
@@ -85,15 +85,8 @@ function buildFleet(): Ship[] {
 }
 const FLEET = buildFleet();
 
-const PLACES: [string, number, number][] = [
-  ["ITALY", 42.0, 12.6], ["GREECE", 39.3, 21.9], ["TÜRKIYE", 39.2, 32.5],
-  ["TUNISIA", 34.4, 9.6], ["ALGERIA", 35.0, 2.5], ["LIBYA", 30.6, 17.5],
-  ["EGYPT", 29.5, 29.5], ["SPAIN", 39.5, -3.5], ["SICILY", 37.6, 14.1],
-  ["SARDINIA", 40.1, 9.1], ["CRETE", 35.1, 24.9], ["CYPRUS", 35.0, 33.2],
-  ["Mediterranean Sea", 34.2, 20.5], ["Aegean", 38.4, 25.0], ["Adriatic", 43.0, 15.5],
-];
 const TARGET = { lat: 37.5, lon: 23.8 };
-const FENCE = { lat: 36.6, lon: 12.2 };
+const FENCE = { lat: 36.2, lon: 13.6 };
 
 function LiveMap() {
   const [tab, setTab] = useState("LIVE MAP");
@@ -129,22 +122,6 @@ function LiveMap() {
               </filter>
             </defs>
 
-            {/* place labels */}
-            <g fontFamily="monospace" fill="#8fa3bb" opacity="0.55">
-              {PLACES.map(([n, la, lo]) => (
-                <text
-                  key={n}
-                  x={r1(px(lo))}
-                  y={r1(py(la))}
-                  textAnchor="middle"
-                  fontSize={n === n.toUpperCase() ? 13 : 12}
-                  letterSpacing={n === n.toUpperCase() ? 2 : 0}
-                  fontStyle={n === n.toUpperCase() ? "normal" : "italic"}
-                >
-                  {n}
-                </text>
-              ))}
-            </g>
 
             {/* fleet */}
             {FLEET.map((s, i) => (
@@ -206,7 +183,7 @@ function LiveMap() {
         </div>
 
         {/* legend */}
-        <div className="absolute bottom-3 left-1/2 hidden -translate-x-1/2 flex-wrap justify-center gap-3 rounded-md border border-white/10 bg-navy/90 px-3 py-2 font-mono text-[9px] tracking-[0.16em] text-muted-foreground sm:flex">
+        <div className="absolute bottom-3 right-3 hidden max-w-[46%] flex-wrap justify-end gap-3 rounded-md border border-white/10 bg-navy/90 px-3 py-2 font-mono text-[9px] tracking-[0.16em] text-muted-foreground sm:flex">
           {[
             ["#4a9eff", "CARGO"], ["#f59e42", "TANKER"], ["#3ddc84", "PASSENGER"], ["#4dd9c0", "FISHING"],
             ["#a855f7", "TUG"], ["#ec4899", "SAILING"], ["#8fa3bb", "UNKNOWN"], ["#ff4d4d", "FLAGGED"],
