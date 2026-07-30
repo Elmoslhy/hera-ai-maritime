@@ -1,12 +1,12 @@
 import earth from "@/assets/earth-globe.png";
 import satellite from "@/assets/satellite-real.png";
 
-type Orbit = { tiltX: number; tiltZ: number; size: number; duration: number; delay: number; sat: number };
+type Orbit = { flatten: number; tiltZ: number; size: number; duration: number; delay: number; sat: number };
 
 const ORBITS: Orbit[] = [
-  { tiltX: 74, tiltZ: -18, size: 100, duration: 34, delay: 0, sat: 74 },
-  { tiltX: 66, tiltZ: 26, size: 112, duration: 46, delay: -12, sat: 58 },
-  { tiltX: 80, tiltZ: 6, size: 92, duration: 28, delay: -20, sat: 46 },
+  { flatten: 0.24, tiltZ: -14, size: 104, duration: 34, delay: 0, sat: 68 },
+  { flatten: 0.34, tiltZ: 20, size: 118, duration: 46, delay: -12, sat: 54 },
+  { flatten: 0.16, tiltZ: 4, size: 92, duration: 28, delay: -20, sat: 44 },
 ];
 
 // vessel pings on the ocean, in % of the globe box
