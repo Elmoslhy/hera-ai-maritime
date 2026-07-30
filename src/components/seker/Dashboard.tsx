@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CountUp, Reveal } from "./primitives";
-import { Logo } from "./Logo";
+import { SekerLogo } from "./Logo";
 
 const TOP_STATS = [
   { label: "Vessels in DB", sub: "last 24 hours", to: 17253, suffix: "", tone: "text-foreground" },
@@ -342,7 +342,7 @@ function WindowChrome({ children }: { children: React.ReactNode }) {
           <span className="h-2.5 w-2.5 rounded-full bg-amber/80" />
           <span className="h-2.5 w-2.5 rounded-full bg-cyan/80" />
         </div>
-        <Logo className="h-5 w-auto text-foreground" />
+        <SekerLogo className="h-5 w-auto text-foreground" />
         <div className="mr-auto">
           <p className="text-lg font-light tracking-wide text-cyan">HERA AI</p>
           <p className="font-mono text-[8px] tracking-[0.24em] text-muted-foreground">
