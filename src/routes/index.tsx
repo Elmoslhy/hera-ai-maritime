@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { DashboardSection } from "@/components/seker/Dashboard";
+import { DescentSection } from "@/components/seker/Descent";
 import {
   ConstellationSection,
   ContactSection,
@@ -36,6 +37,7 @@ function Index() {
         <HeroSection />
         <LaunchSection />
         <ConstellationSection />
+        <DescentSection />
         <OceanSection />
         <VesselScanSection />
         <ProblemSection />
