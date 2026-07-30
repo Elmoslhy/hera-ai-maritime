@@ -18,9 +18,9 @@ type Orbit = {
 };
 
 const ORBITS: Orbit[] = [
-  { r: 57, flatten: 0.30, tilt: -14, period: 26, phase: 0.12, sat: 112 },
-  { r: 65, flatten: 0.42, tilt: 21, period: 38, phase: 0.55, sat: 88 },
-  { r: 50, flatten: 0.18, tilt: 5, period: 20, phase: 0.78, sat: 72 },
+  { r: 44.5, flatten: 0.26, tilt: -16, period: 34, phase: 0.12, sat: 30 },
+  { r: 48.5, flatten: 0.40, tilt: 24, period: 46, phase: 0.55, sat: 26 },
+  { r: 42.5, flatten: 0.14, tilt: 4, period: 27, phase: 0.78, sat: 22 },
 ];
 
 // vessel pings on the ocean, in % of the globe box
