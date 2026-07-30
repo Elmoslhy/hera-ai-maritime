@@ -4,9 +4,9 @@ import satellite from "@/assets/satellite-real.png";
 type Orbit = { tiltX: number; tiltZ: number; size: number; duration: number; delay: number; sat: number };
 
 const ORBITS: Orbit[] = [
-  { tiltX: 74, tiltZ: -18, size: 118, duration: 34, delay: 0, sat: 74 },
-  { tiltX: 66, tiltZ: 26, size: 132, duration: 46, delay: -12, sat: 58 },
-  { tiltX: 80, tiltZ: 6, size: 104, duration: 28, delay: -20, sat: 46 },
+  { tiltX: 74, tiltZ: -18, size: 100, duration: 34, delay: 0, sat: 74 },
+  { tiltX: 66, tiltZ: 26, size: 112, duration: 46, delay: -12, sat: 58 },
+  { tiltX: 80, tiltZ: 6, size: 92, duration: 28, delay: -20, sat: 46 },
 ];
 
 // vessel pings on the ocean, in % of the globe box
@@ -32,15 +32,15 @@ export function HeroScene() {
       </svg>
 
       {/* globe + orbits stage */}
-      <div className="absolute left-1/2 top-1/2 h-[min(86vh,760px)] w-[min(86vh,760px)] -translate-x-1/2 -translate-y-1/2 [perspective:1400px]">
+      <div className="absolute left-1/2 top-1/2 h-[min(78vh,700px)] w-[min(78vh,700px)] -translate-x-1/2 -translate-y-[48%] [perspective:1400px]">
         {/* atmosphere glow */}
-        <div className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgba(77,217,192,0.16),transparent_62%)] blur-2xl" />
+        <div className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgba(77,217,192,0.22),transparent_62%)] blur-2xl" />
 
         {/* earth */}
         <div className="absolute inset-[10%] animate-[globe-breathe_18s_ease-in-out_infinite]">
-          <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-full object-contain opacity-70" />
+          <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-full object-contain opacity-[0.88]" />
           {/* night terminator */}
-          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_36%,transparent_28%,rgba(9,18,31,0.85)_74%)]" />
+          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_36%,transparent_28%,rgba(9,18,31,0.78)_76%)]" />
 
           {/* vessel pings */}
           {VESSELS.map((v, i) => (
@@ -101,7 +101,7 @@ export function HeroScene() {
         ))}
       </div>
 
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_52%,rgba(9,18,31,0.82),rgba(9,18,31,0.35)_38%,transparent_62%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_52%,rgba(9,18,31,0.7),rgba(9,18,31,0.28)_40%,transparent_62%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(9,18,31,0.55)_75%)]" />
     </div>
   );
