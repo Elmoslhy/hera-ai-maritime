@@ -32,15 +32,15 @@ export function HeroScene() {
       </svg>
 
       {/* globe + orbits stage */}
-      <div className="absolute left-1/2 top-1/2 h-[min(120vh,1100px)] w-[min(120vh,1100px)] -translate-x-1/2 -translate-y-1/2 [perspective:1400px]">
+      <div className="absolute left-1/2 top-1/2 h-[min(86vh,760px)] w-[min(86vh,760px)] -translate-x-1/2 -translate-y-1/2 [perspective:1400px]">
         {/* atmosphere glow */}
         <div className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgba(77,217,192,0.16),transparent_62%)] blur-2xl" />
 
         {/* earth */}
         <div className="absolute inset-[10%] animate-[globe-breathe_18s_ease-in-out_infinite]">
-          <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-full object-contain opacity-90" />
+          <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-full object-contain opacity-70" />
           {/* night terminator */}
-          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_36%,transparent_28%,rgba(9,18,31,0.72)_72%)]" />
+          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_36%,transparent_28%,rgba(9,18,31,0.85)_74%)]" />
 
           {/* vessel pings */}
           {VESSELS.map((v, i) => (
@@ -55,18 +55,18 @@ export function HeroScene() {
 
           {/* capture beams from orbit down to two vessels */}
           {[
-            { x: 62, y: 33, from: "68% -6%", delay: "0s" },
+            { x: 62, y: 33, from: "66% -6%", delay: "0s" },
             { x: 30, y: 44, from: "22% -8%", delay: "3.2s" },
           ].map((b, i) => (
             <svg key={i} viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" style={{ animation: `sweep-fade 8s ease-in-out ${b.delay} infinite` }} aria-hidden>
               <defs>
                 <linearGradient id={`beam-${i}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#4dd9c0" stopOpacity="0.55" />
+                  <stop offset="0%" stopColor="#4dd9c0" stopOpacity="0.28" />
                   <stop offset="100%" stopColor="#4dd9c0" stopOpacity="0.05" />
                 </linearGradient>
               </defs>
               <polygon
-                points={`${parseFloat(b.from)} -4, ${parseFloat(b.from) + 5} -4, ${b.x + 4} ${b.y + 2}, ${b.x - 4} ${b.y + 2}`}
+                points={`${parseFloat(b.from)} -4, ${parseFloat(b.from) + 1.5} -4, ${b.x + 2.5} ${b.y + 1.5}, ${b.x - 2.5} ${b.y + 1.5}`}
                 fill={`url(#beam-${i})`}
               />
             </svg>
@@ -103,7 +103,8 @@ export function HeroScene() {
         ))}
       </div>
 
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_38%,rgba(9,18,31,0.72))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_52%,rgba(9,18,31,0.82),rgba(9,18,31,0.35)_38%,transparent_62%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(9,18,31,0.55)_75%)]" />
     </div>
   );
 }
