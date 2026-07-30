@@ -2,6 +2,7 @@ import heraUi from "@/assets/hera-ui.jpg";
 import satelliteNetwork from "@/assets/satellite-network.jpg";
 import ocean from "@/assets/ocean.jpg";
 import vessels from "@/assets/vessels.jpg";
+import vesselScanVideo from "@/assets/vessel-scan.mp4.asset.json";
 import { SekerLogo } from "./Logo";
 import { HeroHud, HeroScene } from "./HeroScene";
 import { CountUp, Reveal, SectionBackground } from "./primitives";
