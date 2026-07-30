@@ -167,7 +167,7 @@ export function HeroScene() {
               src={satellite}
               alt=""
               aria-hidden
-              className="w-full drop-shadow-[0_2px_26px_rgba(9,18,31,0.9)] drop-shadow-[0_0_18px_rgba(77,217,192,0.35)]"
+              className="w-full drop-shadow-[0_1px_10px_rgba(9,18,31,0.95)]"
             />
           </div>
         ))}
