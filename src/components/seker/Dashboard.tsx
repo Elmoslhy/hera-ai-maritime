@@ -4,7 +4,7 @@ import { SekerLogo } from "./Logo";
 
 const TOP_STATS = [
   { label: "Spoofs detected · 24h", sub: "3 zones · 11 flags", to: 173, suffix: "", tone: "text-alert" },
-  { label: "Active digital twins", sub: "avg refresh 4.2s", to: 8400, suffix: "", tone: "text-cyan" },
+  { label: "Active digital twins", sub: "avg refresh 4.2s", to: 120, suffix: "K", tone: "text-cyan" },
   { label: "Stream latency P99", sub: "SLA: < 250ms", to: 112, suffix: "ms", tone: "text-foreground" },
 ];
 
