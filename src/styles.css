@@ -49,6 +49,15 @@
   animation: blinkdot 1.6s ease-in-out infinite;
 }
 
+@keyframes descent-sweep {
+  from {
+    transform: translateY(-4rem);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+
 /*
  * Design system definition.
  *
