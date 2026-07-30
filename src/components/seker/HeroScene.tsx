@@ -18,9 +18,9 @@ type Orbit = {
 };
 
 const ORBITS: Orbit[] = [
-  { r: 57, flatten: 0.30, tilt: -14, period: 26, phase: 0.12, sat: 86 },
-  { r: 65, flatten: 0.42, tilt: 21, period: 38, phase: 0.55, sat: 66 },
-  { r: 50, flatten: 0.18, tilt: 5, period: 20, phase: 0.78, sat: 54 },
+  { r: 57, flatten: 0.30, tilt: -14, period: 26, phase: 0.12, sat: 112 },
+  { r: 65, flatten: 0.42, tilt: 21, period: 38, phase: 0.55, sat: 88 },
+  { r: 50, flatten: 0.18, tilt: 5, period: 20, phase: 0.78, sat: 72 },
 ];
 
 // vessel pings on the ocean, in % of the globe box
@@ -60,7 +60,7 @@ export function HeroScene() {
           el.style.transform = `translate(-50%,-50%) translate(${(x / 100) * W}px, ${(y / 100) * W}px) scale(${scale})`;
           el.style.opacity = String(depth > 0 ? 1 : 0.4);
           el.style.zIndex = depth > 0 ? "3" : "1";
-          el.style.filter = depth > 0 ? "none" : "brightness(0.55) blur(0.4px)";
+          el.style.filter = depth > 0 ? "brightness(1.12) saturate(1.05)" : "brightness(0.5) blur(0.6px)";
         }
         const beam = beamRefs.current[i];
         if (beam) {
@@ -165,7 +165,7 @@ export function HeroScene() {
               src={satellite}
               alt=""
               aria-hidden
-              className="w-full drop-shadow-[0_0_22px_rgba(77,217,192,0.45)]"
+              className="w-full drop-shadow-[0_2px_26px_rgba(9,18,31,0.9)] drop-shadow-[0_0_18px_rgba(77,217,192,0.35)]"
             />
           </div>
         ))}
