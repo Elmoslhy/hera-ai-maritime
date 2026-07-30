@@ -265,7 +265,7 @@ export function DescentSection() {
         </motion.div>
 
         {/* HUD */}
-        <div className="pointer-events-none relative z-10 flex h-full flex-col justify-between p-6 sm:p-10">
+        <div className="pointer-events-none relative z-10 flex h-full flex-col justify-between p-6 pt-24 sm:p-10 sm:pt-28">
           <div className="flex items-start justify-between gap-6">
             <div>
               <p className="text-eyebrow text-gold">The Descent</p>
