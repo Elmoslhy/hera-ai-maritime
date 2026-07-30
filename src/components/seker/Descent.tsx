@@ -4,135 +4,186 @@ import satelliteReal from "@/assets/satellite-real.png";
 import vesselTop from "@/assets/vessel-top.png";
 import ocean from "@/assets/ocean.jpg";
 
-const STEPS = [
-  "Our satellite passes over the sea",
-  "The ship sends out its position",
-  "We listen to its radio signal",
-  "Radar looks at the actual hull",
-  "Heat shows the engines running",
-  "It's the real ship — confirmed",
+type Act = {
+  at: number;
+  title: string;
+  line: string;
+};
+
+const ACTS: Act[] = [
+  { at: 0.0, title: "In orbit", line: "Our satellite passes over the open sea." },
+  { at: 0.15, title: "Normal traffic", line: "Every ship broadcasts who it is and where it is." },
+  { at: 0.32, title: "The signal stops", line: "This one switches its transmitter off — and disappears." },
+  { at: 0.5, title: "Thermal infrared", line: "But its engines are still hot. We can see the heat." },
+  { at: 0.68, title: "Radio frequency", line: "Its radar and radios still leak. Two passes cross the bearings." },
+  { at: 0.86, title: "Located", line: "The ship that went dark is found — and it can't hide again." },
 ];
 
 export function DescentSection() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-
   const [p, setP] = useState(0);
-
   useMotionValueEvent(scrollYProgress, "change", (v) => setP(v));
-
-  const distance = Math.max(0, 547 * (1 - Math.min(p / 0.84, 1)));
-  const locked = p > 0.88;
-  const step = Math.min(STEPS.length - 1, Math.floor(p / (1 / STEPS.length)));
 
   const ramp = (a: number, b: number, from = 0, to = 1) =>
     from + (to - from) * Math.min(1, Math.max(0, (p - a) / (b - a)));
 
-  const starsO = ramp(0, 0.45, 1, 0);
-  const satO = ramp(0.55, 0.72, 1, 0);
-  const beamO = p < 0.14 ? ramp(0.04, 0.14) : ramp(0.7, 0.8, 1, 0);
-  const seaO = ramp(0.12, 0.5);
-  const vesselO = ramp(0.46, 0.62);
-  const reticleO = ramp(0.72, 0.82);
+  const actIndex = ACTS.reduce((acc, a, i) => (p >= a.at ? i : acc), 0);
+  const act = ACTS[actIndex];
 
-  const satY = useTransform(scrollYProgress, [0, 0.45, 0.72], ["0%", "-24%", "-130%"]);
-  const satScale = useTransform(scrollYProgress, [0, 0.45, 0.72], [1, 1.4, 2.6]);
-  const beamScaleY = useTransform(scrollYProgress, [0.04, 0.3], [0.2, 1]);
-  const seaScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.9, 4.6]);
-  const vesselScale = useTransform(scrollYProgress, [0.46, 0.92], [0.18, 1.5]);
-  const reticle = useTransform(scrollYProgress, [0.72, 0.92], [2, 1]);
+  // altitude readout
+  const distance = Math.max(0, 547 * (1 - Math.min(p / 0.86, 1)));
+
+  // opacities
+  const starsO = ramp(0.02, 0.3, 1, 0);
+  const seaO = ramp(0.05, 0.32);
+  const satBigO = ramp(0.26, 0.4, 1, 0);
+  const shipO = ramp(0.22, 0.34);
+  const aisO = ramp(0.16, 0.24) * (1 - ramp(0.32, 0.4));
+  const alertO = ramp(0.32, 0.38) * (1 - ramp(0.5, 0.58));
+  const ghostO = ramp(0.36, 0.44) * (1 - ramp(0.62, 0.7));
+  const thermalO = ramp(0.5, 0.58) * (1 - ramp(0.72, 0.8, 0, 0.55));
+  const rfO = ramp(0.68, 0.75) * (1 - ramp(0.9, 0.98, 0, 0.5));
+  const lockO = ramp(0.86, 0.93);
+  const darkShipO = ramp(0.4, 0.48) * (1 - ramp(0.5, 0.56)); // ship fades into the dark before TIR
+
+  // camera
+  const seaScale = useTransform(scrollYProgress, [0, 0.32, 0.6, 1], [1, 1.7, 2.4, 3.1]);
+  const satY = useTransform(scrollYProgress, [0, 0.26, 0.4], ["-2%", "-16%", "-120%"]);
+  const satScale = useTransform(scrollYProgress, [0, 0.26, 0.4], [1, 1.35, 2.4]);
+  const shipScale = useTransform(scrollYProgress, [0.22, 0.6, 1], [0.35, 0.8, 1.15]);
+  const reticle = useTransform(scrollYProgress, [0.86, 1], [1.9, 1]);
+
+  const sensors = [
+    { key: "AIS", label: "AIS transponder", on: p > 0.16 && p < 0.32, lost: p >= 0.32 },
+    { key: "TIR", label: "Thermal infrared", on: p >= 0.5, lost: false },
+    { key: "RF", label: "Radio frequency", on: p >= 0.68, lost: false },
+  ];
 
   return (
-    <section ref={ref} className="relative h-[420vh] bg-navy-deep" id="descent">
-      <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
+    <section ref={ref} className="relative h-[640vh] bg-navy-deep" id="descent">
+      <div className="sticky top-0 h-screen overflow-hidden">
         {/* stars */}
         <div style={{ opacity: starsO }} className="absolute inset-0">
           <svg viewBox="0 0 1000 700" className="h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden>
-            {Array.from({ length: 90 }).map((_, i) => {
+            {Array.from({ length: 110 }).map((_, i) => {
               const x = (i * 137.5) % 1000;
               const y = (i * 61.8) % 700;
-              return (
-                <circle key={i} cx={x} cy={y} r={i % 7 === 0 ? 1.4 : 0.7} fill="#eef2f7" opacity={i % 3 ? 0.35 : 0.7} />
-              );
+              return <circle key={i} cx={x} cy={y} r={i % 7 === 0 ? 1.4 : 0.7} fill="#eef2f7" opacity={i % 3 ? 0.3 : 0.7} />;
             })}
           </svg>
         </div>
 
-        {/* real ocean rushing up */}
-        <motion.div style={{ scale: seaScale }} className="absolute inset-0 origin-[50%_72%]">
+        {/* ocean */}
+        <motion.div style={{ scale: seaScale }} className="absolute inset-0 origin-[50%_68%]">
           <div style={{ opacity: seaO }} className="absolute inset-0">
-            <img
-              src={ocean}
-              alt="Ocean seen from above"
-              loading="lazy"
-              width={1920}
-              height={1088}
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-navy/60" />
+            <img src={ocean} alt="Open ocean seen from orbit" loading="lazy" className="h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-navy/70" />
           </div>
-        </motion.div>
 
-        {/* scan beam */}
-        <motion.div
-          style={{ scaleY: beamScaleY, opacity: beamO }}
-          className="pointer-events-none absolute left-1/2 top-[20%] h-[62%] w-[70vw] max-w-[900px] origin-top -translate-x-1/2"
-        >
-          <div className="h-full w-full [clip-path:polygon(47%_0%,53%_0%,100%_100%,0%_100%)] bg-gradient-to-b from-cyan/30 via-cyan/8 to-transparent" />
-          <div className="absolute inset-x-0 top-0 h-full [clip-path:polygon(47%_0%,53%_0%,100%_100%,0%_100%)]">
-            <div className="absolute inset-x-0 top-0 h-16 animate-[descent-sweep_3.2s_linear_infinite] bg-gradient-to-b from-transparent via-cyan/30 to-transparent" />
+          {/* thermal palette pass over the water */}
+          <div
+            style={{ opacity: thermalO }}
+            className="absolute inset-0 mix-blend-screen"
+            aria-hidden
+          >
+            <img src={ocean} alt="" className="h-full w-full object-cover opacity-40 [filter:grayscale(1)_contrast(1.9)_sepia(1)_hue-rotate(-25deg)_saturate(3)]" />
           </div>
         </motion.div>
 
         {/* satellite */}
-        <motion.div
-          style={{ y: satY, scale: satScale }}
-          className="absolute left-1/2 top-[8%] w-[min(52vw,460px)] -translate-x-1/2"
-        >
-          <div style={{ opacity: satO }}>
-            <img
-              src={satelliteReal}
-              alt="SEKER satellite in orbit"
-              loading="lazy"
-              width={1024}
-              height={768}
-              className="w-full drop-shadow-[0_0_60px_rgba(77,217,192,0.18)]"
-            />
+        <motion.div style={{ y: satY, scale: satScale }} className="absolute left-1/2 top-[10%] w-[min(46vw,420px)] -translate-x-1/2">
+          <div style={{ opacity: satBigO }}>
+            <img src={satelliteReal} alt="SEKER satellite in low Earth orbit" loading="lazy" className="w-full drop-shadow-[0_0_70px_rgba(77,217,192,0.2)]" />
           </div>
         </motion.div>
 
-        {/* vessel */}
-        <motion.div
-          style={{ scale: vesselScale }}
-          className="absolute left-1/2 top-[62%] w-[min(62vw,620px)] -translate-x-1/2 -translate-y-1/2"
-        >
-          <div style={{ opacity: vesselO }}>
+        {/* two small satellites for the RF cross-fix */}
+        {[
+          { side: "left-[8%]", o: rfO },
+          { side: "right-[8%]", o: rfO },
+        ].map((s, i) => (
+          <div key={i} style={{ opacity: s.o }} className={`absolute top-[26%] ${s.side} w-[min(16vw,120px)]`}>
+            <img src={satelliteReal} alt="" aria-hidden className="w-full opacity-80" />
+            <p className="mt-1 text-center font-mono text-[9px] tracking-[0.2em] text-cyan">SEKER-{i + 1}</p>
+          </div>
+        ))}
+
+        {/* ship stage */}
+        <motion.div style={{ scale: shipScale }} className="absolute left-1/2 top-[60%] w-[min(58vw,560px)] -translate-x-1/2 -translate-y-1/2">
+          {/* bearing lines from the two satellites */}
+          <div style={{ opacity: rfO }} className="pointer-events-none absolute -inset-[60vw] flex items-center justify-center">
+            <svg viewBox="0 0 400 400" className="h-full w-full" aria-hidden>
+              <line x1="40" y1="30" x2="200" y2="200" stroke="#4dd9c0" strokeWidth="0.7" strokeDasharray="4 5" />
+              <line x1="360" y1="30" x2="200" y2="200" stroke="#4dd9c0" strokeWidth="0.7" strokeDasharray="4 5" />
+            </svg>
+          </div>
+
+          {/* RF rings */}
+          <div style={{ opacity: rfO }} className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                style={{ animationDelay: `${i * 1.1}s` }}
+                className="absolute h-[60%] w-[60%] animate-[rf-ring_3.3s_ease-out_infinite] rounded-full border border-cyan/50"
+              />
+            ))}
+          </div>
+
+          {/* thermal bloom on the hull */}
+          <div style={{ opacity: thermalO }} className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span className="h-[34%] w-[34%] animate-[thermal-breathe_2.6s_ease-in-out_infinite] rounded-full bg-[radial-gradient(circle,rgba(255,196,88,0.95),rgba(255,77,77,0.5)_45%,transparent_70%)] blur-[6px]" />
+          </div>
+
+          {/* the vessel */}
+          <div
+            style={{ opacity: Math.max(shipO - darkShipO * 0.75, thermalO * 0.9, lockO) }}
+            className="relative"
+          >
             <img
               src={vesselTop}
-              alt="Cargo ship seen from directly above"
+              alt="Cargo vessel seen from directly above"
               loading="lazy"
-              width={1024}
-              height={768}
-              className="w-full drop-shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
+              className="w-full drop-shadow-[0_24px_70px_rgba(0,0,0,0.65)]"
+              style={{ filter: thermalO > 0.2 ? `grayscale(1) contrast(1.6) sepia(1) hue-rotate(-20deg) saturate(${1 + thermalO * 2.5})` : undefined }}
             />
           </div>
 
-          <motion.div
-            style={{ scale: reticle, opacity: reticleO }}
-            className="pointer-events-none absolute inset-0 flex items-center justify-center"
-          >
-            <svg viewBox="0 0 200 200" className="h-[80%] w-[80%]" aria-hidden>
-              <circle cx="100" cy="100" r="76" fill="none" stroke="#c9a84c" strokeWidth="0.8" strokeDasharray="6 10" />
+          {/* AIS broadcast label */}
+          <div style={{ opacity: aisO }} className="pointer-events-none absolute -right-6 top-[6%] translate-x-full">
+            <div className="rounded-md border border-cyan/40 bg-navy/80 px-3 py-2 backdrop-blur-sm">
+              <p className="font-mono text-[9px] tracking-[0.2em] text-cyan">AIS · BROADCASTING</p>
+              <p className="mt-1 font-mono text-[11px] text-foreground">34°21.4′N 023°08.9′E</p>
+            </div>
+          </div>
+
+          {/* AIS lost alert */}
+          <div style={{ opacity: alertO }} className="pointer-events-none absolute -right-6 top-[6%] translate-x-full">
+            <div className="rounded-md border border-alert/60 bg-alert/10 px-3 py-2 backdrop-blur-sm">
+              <p className="flex items-center gap-2 font-mono text-[9px] tracking-[0.2em] text-alert">
+                <span className="inline-block h-1.5 w-1.5 animate-[alert-blink_0.9s_ease-in-out_infinite] rounded-full bg-alert" />
+                AIS · SIGNAL LOST
+              </p>
+              <p className="mt-1 text-[11px] text-muted-foreground">Transmitter switched off</p>
+            </div>
+          </div>
+
+          {/* ghost track the ship pretends to follow */}
+          <div style={{ opacity: ghostO }} className="pointer-events-none absolute inset-0">
+            <svg viewBox="0 0 400 200" className="h-full w-full" aria-hidden>
+              <path d="M40 150 C 120 130, 220 110, 360 60" fill="none" stroke="#ff4d4d" strokeWidth="1" strokeDasharray="3 7" opacity="0.7" />
+              <circle cx="360" cy="60" r="4" fill="none" stroke="#ff4d4d" strokeWidth="1" />
+            </svg>
+          </div>
+
+          {/* final lock */}
+          <motion.div style={{ scale: reticle, opacity: lockO }} className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <svg viewBox="0 0 200 200" className="h-[86%] w-[86%]" aria-hidden>
+              <circle cx="100" cy="100" r="78" fill="none" stroke="#c9a84c" strokeWidth="0.8" strokeDasharray="6 10" />
               <circle cx="100" cy="100" r="54" fill="none" stroke="#4dd9c0" strokeWidth="0.8" />
               {[
-                [24, 24, 24, 48],
-                [24, 24, 48, 24],
-                [176, 24, 176, 48],
-                [176, 24, 152, 24],
-                [24, 176, 24, 152],
-                [24, 176, 48, 176],
-                [176, 176, 176, 152],
-                [176, 176, 152, 176],
+                [24, 24, 24, 48], [24, 24, 48, 24], [176, 24, 176, 48], [176, 24, 152, 24],
+                [24, 176, 24, 152], [24, 176, 48, 176], [176, 176, 176, 152], [176, 176, 152, 176],
               ].map(([x1, y1, x2, y2], i) => (
                 <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#c9a84c" strokeWidth="1.4" />
               ))}
@@ -140,42 +191,50 @@ export function DescentSection() {
           </motion.div>
         </motion.div>
 
-        {/* text */}
+        {/* HUD + captions */}
         <div className="pointer-events-none relative z-10 flex h-full flex-col justify-between p-6 pt-24 sm:p-10 sm:pt-28">
           <div className="flex items-start justify-between gap-6">
-            <div>
+            <div className="space-y-2">
+              <p className="font-mono text-[10px] tracking-[0.28em] text-gold">{act.title.toUpperCase()}</p>
               <h2 className="max-w-md text-2xl font-light leading-tight tracking-tight text-foreground sm:text-4xl">
-                From space, all the way down to one ship.
+                A ship goes dark. We still see it.
               </h2>
-              <p className="mt-3 max-w-sm text-sm text-muted-foreground sm:text-base">
-                Keep scrolling to follow the journey.
-              </p>
             </div>
-            <div className="shrink-0 rounded-lg border border-white/10 bg-navy/70 px-4 py-3 text-right backdrop-blur-sm">
-              <p className="font-mono text-[9px] tracking-[0.22em] text-muted-foreground">DISTANCE</p>
-              <p className="font-mono text-xl text-cyan sm:text-2xl">
-                {distance.toFixed(0)}
-                <span className="ml-1 text-xs text-muted-foreground">km</span>
-              </p>
+            <div className="shrink-0 space-y-2 text-right">
+              <div className="rounded-lg border border-white/10 bg-navy/70 px-4 py-3 backdrop-blur-sm">
+                <p className="font-mono text-[9px] tracking-[0.22em] text-muted-foreground">DISTANCE</p>
+                <p className="font-mono text-xl text-cyan sm:text-2xl">
+                  {distance.toFixed(0)}
+                  <span className="ml-1 text-xs text-muted-foreground">km</span>
+                </p>
+              </div>
+              <div className="space-y-1 rounded-lg border border-white/10 bg-navy/70 px-4 py-3 backdrop-blur-sm">
+                {sensors.map((s) => (
+                  <p key={s.key} className="flex items-center justify-end gap-2 font-mono text-[10px] tracking-[0.18em]">
+                    <span className={s.lost ? "text-alert" : s.on ? "text-cyan" : "text-muted-foreground/50"}>{s.key}</span>
+                    <span
+                      className={`inline-block h-1.5 w-1.5 rounded-full ${
+                        s.lost ? "animate-[alert-blink_0.9s_ease-in-out_infinite] bg-alert" : s.on ? "bg-cyan" : "bg-muted-foreground/30"
+                      }`}
+                    />
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
 
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-            <p
-              key={step}
-              className="max-w-md animate-fade-in text-lg font-light text-foreground sm:text-2xl"
-            >
-              {STEPS[step]}
+            <p key={actIndex} className="max-w-lg animate-fade-in text-lg font-light leading-snug text-foreground sm:text-3xl">
+              {act.line}
             </p>
-
             <div
               className={`rounded-lg border px-4 py-3 backdrop-blur-sm transition-colors duration-500 ${
-                locked ? "border-gold/50 bg-gold/10" : "border-white/10 bg-navy/70"
+                p > 0.86 ? "border-gold/50 bg-gold/10" : p > 0.32 ? "border-alert/40 bg-alert/10" : "border-white/10 bg-navy/70"
               }`}
             >
-              <p className="text-xs text-muted-foreground">Ship</p>
-              <p className={`mt-1 text-sm ${locked ? "text-gold" : "text-muted-foreground"}`}>
-                {locked ? "✓ Verified — it's really this ship" : "Checking…"}
+              <p className="text-xs text-muted-foreground">Vessel</p>
+              <p className={`mt-1 text-sm ${p > 0.86 ? "text-gold" : p > 0.32 ? "text-alert" : "text-cyan"}`}>
+                {p > 0.86 ? "✓ Located and identified" : p > 0.32 ? "Dark — not transmitting" : "Transmitting normally"}
               </p>
             </div>
           </div>
