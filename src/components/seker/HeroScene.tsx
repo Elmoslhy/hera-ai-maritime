@@ -18,9 +18,9 @@ type Orbit = {
 };
 
 const ORBITS: Orbit[] = [
-  { r: 46, flatten: 0.30, tilt: -14, period: 26, phase: 0.12, sat: 62 },
-  { r: 52, flatten: 0.40, tilt: 21, period: 38, phase: 0.55, sat: 50 },
-  { r: 41, flatten: 0.20, tilt: 5, period: 20, phase: 0.78, sat: 40 },
+  { r: 57, flatten: 0.30, tilt: -14, period: 26, phase: 0.12, sat: 86 },
+  { r: 65, flatten: 0.42, tilt: 21, period: 38, phase: 0.55, sat: 66 },
+  { r: 50, flatten: 0.18, tilt: 5, period: 20, phase: 0.78, sat: 54 },
 ];
 
 // vessel pings on the ocean, in % of the globe box
@@ -55,11 +55,11 @@ export function HeroScene() {
         const y = ex * Math.sin(rad) + ey * Math.cos(rad);
         // depth: +1 in front of the globe, -1 behind it
         const depth = Math.sin(a);
-        const scale = 0.68 + 0.42 * ((depth + 1) / 2);
+        const scale = 0.72 + 0.4 * ((depth + 1) / 2);
         if (el) {
           el.style.transform = `translate(-50%,-50%) translate(${(x / 100) * W}px, ${(y / 100) * W}px) scale(${scale})`;
-          el.style.opacity = String(depth > 0 ? 1 : 0.45);
-          el.style.zIndex = depth > 0 ? "30" : "1";
+          el.style.opacity = String(depth > 0 ? 1 : 0.4);
+          el.style.zIndex = depth > 0 ? "3" : "1";
           el.style.filter = depth > 0 ? "none" : "brightness(0.55) blur(0.4px)";
         }
         const beam = beamRefs.current[i];
@@ -117,7 +117,7 @@ export function HeroScene() {
         </svg>
 
         {/* earth */}
-        <div className="absolute inset-[10%] z-10 animate-[globe-breathe_18s_ease-in-out_infinite]">
+        <div className="absolute inset-[10%] z-[2] animate-[globe-breathe_18s_ease-in-out_infinite]">
           <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-full object-contain opacity-[0.88]" />
           {/* night terminator */}
           <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_36%,transparent_28%,rgba(9,18,31,0.78)_76%)]" />
@@ -136,7 +136,7 @@ export function HeroScene() {
         </div>
 
         {/* live capture beams from each satellite down to a vessel */}
-        <svg viewBox="0 0 100 100" className="absolute inset-0 z-20 h-full w-full" aria-hidden>
+        <svg viewBox="0 0 100 100" className="absolute inset-0 z-[4] h-full w-full" aria-hidden>
           {ORBITS.map((_, i) => (
             <line
               key={i}
