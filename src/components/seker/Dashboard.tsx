@@ -10,29 +10,85 @@ const TOP_STATS = [
 
 /* ---------------- live map ---------------- */
 
-type Ship = { x: number; y: number; c: string; r: number; s: number; lane: boolean };
+type Ship = { x: number; y: number; c: string; r: number; lane: boolean };
 const CLASS_COLORS = ["#4a9eff", "#f59e42", "#3ddc84", "#4dd9c0", "#a855f7", "#ec4899", "#8fa3bb"];
+
+/* --- real web-mercator basemap (CARTO dark), z5 tiles x15..19 y11..13 --- */
+const Z = 5, TX0 = 15, TY0 = 11, TCOLS = 5, TROWS = 3, TS = 256;
+const W = TCOLS * TS, H = TROWS * TS;
+const WORLD = TS * 2 ** Z;
+const px = (lon: number) => ((lon + 180) / 360) * WORLD - TX0 * TS;
+const py = (lat: number) => {
+  const r = (lat * Math.PI) / 180;
+  return ((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2) * WORLD - TY0 * TS;
+};
+const r1 = (n: number) => Math.round(n * 10) / 10;
 
 const rnd = (i: number, k: number) => {
   const v = Math.sin(i * k) * 43758.5453;
   return v - Math.floor(v);
 };
 
-// deterministic fleet: shipping-lane clusters + scattered traffic across the basin
-const FLEET: Ship[] = Array.from({ length: 520 }).map((_, i) => {
-  const rx = rnd(i, 12.9898);
-  const ry = rnd(i, 78.233);
-  const lane = i % 3 === 0;
-  let x = 14 + rx * 832;
-  // main east-west corridor with gentle sinusoidal drift
-  let y = lane
-    ? 196 + Math.sin(x / 110) * 28 + (ry - 0.5) * 26
-    : 62 + ry * 296;
-  const r = lane ? (rnd(i, 3.71) > 0.5 ? 88 : 268) + (ry - 0.5) * 16 : Math.round(rnd(i, 5.13) * 360);
-  x = Math.round(x * 10) / 10;
-  y = Math.round(y * 10) / 10;
-  return { x, y, c: CLASS_COLORS[i % CLASS_COLORS.length], r: Math.round(r * 10) / 10, s: lane ? 1 : 0.82, lane };
-});
+// real Mediterranean shipping lanes as [lat, lon] waypoints
+const LANES: [number, number][][] = [
+  [[35.9, -5.4], [36.4, -2.0], [37.2, 1.5], [37.8, 6.0], [37.6, 10.2], [36.9, 13.0], [35.4, 17.5], [34.6, 22.0], [33.4, 27.0], [31.8, 31.4], [31.3, 32.3]],
+  [[36.8, 15.4], [38.6, 16.5], [40.2, 18.6], [42.0, 16.2], [43.8, 14.0], [45.2, 12.5]],
+  [[35.2, 23.6], [36.6, 25.0], [38.2, 24.6], [39.8, 25.2], [40.4, 26.4], [40.9, 28.2], [41.1, 29.1]],
+  [[37.4, 15.2], [39.2, 14.6], [41.0, 13.2], [43.0, 10.4], [43.4, 7.6], [42.2, 5.4], [39.5, 3.0]],
+  [[36.2, 27.5], [35.4, 32.0], [34.6, 34.6], [33.0, 35.2]],
+  [[37.0, 11.0], [35.4, 11.6], [33.8, 13.5], [32.9, 18.0], [32.2, 23.5]],
+];
+
+// open-water scatter boxes [latMin, latMax, lonMin, lonMax]
+const SEA: [number, number, number, number][] = [
+  [35.7, 37.2, -4.5, -0.6], [36.6, 39.2, 0.6, 4.2], [37.6, 40.2, 4.6, 8.2],
+  [38.4, 42.6, 5.0, 9.0], [33.2, 37.4, 10.6, 14.4], [33.6, 38.4, 15.0, 18.4],
+  [34.2, 37.2, 19.2, 23.4], [31.8, 34.4, 25.0, 32.4], [39.8, 43.2, 15.2, 18.6],
+  [36.6, 39.6, 24.0, 26.4], [42.2, 43.4, 30.0, 37.0], [33.4, 35.6, 27.5, 34.4],
+  [30.8, 33.2, 17.0, 24.0], [40.4, 41.4, 26.6, 28.6],
+];
+
+function buildFleet(): Ship[] {
+  const out: Ship[] = [];
+  // lane traffic
+  let i = 0;
+  LANES.forEach((wp, li) => {
+    const steps = 62;
+    for (let s = 0; s < steps; s++, i++) {
+      const t = (s / steps) * (wp.length - 1);
+      const a = wp[Math.floor(t)];
+      const b = wp[Math.min(Math.floor(t) + 1, wp.length - 1)];
+      const f = t - Math.floor(t);
+      const lat = a[0] + (b[0] - a[0]) * f + (rnd(i, 12.98) - 0.5) * 0.4;
+      const lon = a[1] + (b[1] - a[1]) * f + (rnd(i, 78.23) - 0.5) * 0.4;
+      const head = (Math.atan2(px(b[1]) - px(a[1]), -(py(b[0]) - py(a[0]))) * 180) / Math.PI;
+      out.push({
+        x: r1(px(lon)), y: r1(py(lat)),
+        c: CLASS_COLORS[(li + s) % CLASS_COLORS.length],
+        r: r1(head + (rnd(i, 3.71) - 0.5) * 24 + (s % 2 ? 180 : 0)),
+        lane: true,
+      });
+    }
+  });
+  // scattered traffic
+  SEA.forEach((box, bi) => {
+    for (let s = 0; s < 48; s++, i++) {
+      const lat = box[0] + rnd(i, 5.13) * (box[1] - box[0]);
+      const lon = box[2] + rnd(i, 9.71) * (box[3] - box[2]);
+      out.push({
+        x: r1(px(lon)), y: r1(py(lat)),
+        c: CLASS_COLORS[(bi + s) % CLASS_COLORS.length],
+        r: r1(rnd(i, 2.17) * 360),
+        lane: false,
+      });
+    }
+  });
+  return out;
+}
+const FLEET = buildFleet();
+
+const TARGET = { lat: 37.5, lon: 23.8 };
+const FENCE = { lat: 36.2, lon: 13.6 };
 
 function LiveMap() {
   const [tab, setTab] = useState("LIVE MAP");
@@ -41,98 +97,65 @@ function LiveMap() {
       <div className="flex items-center gap-1 border-b border-white/5 px-2 py-2">
         <TabRow tabs={["LIVE MAP", "SEKER-1 MISSION", "FUSION"]} active={tab} onSelect={setTab} />
       </div>
-      <div className="relative overflow-hidden">
-        <svg viewBox="0 0 860 420" className="h-full w-full">
-          <defs>
-            <pattern id="grid" width="43" height="42" patternUnits="userSpaceOnUse">
-              <path d="M43 0H0V42" fill="none" stroke="#4dd9c0" strokeWidth="0.4" opacity="0.07" />
-            </pattern>
-            <radialGradient id="seaGlow" cx="45%" cy="48%" r="72%">
-              <stop offset="0%" stopColor="#0d2233" />
-              <stop offset="60%" stopColor="#081521" />
-              <stop offset="100%" stopColor="#050b12" />
-            </radialGradient>
-            <linearGradient id="landG" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#141b24" />
-              <stop offset="100%" stopColor="#0d131b" />
-            </linearGradient>
-            <filter id="shipGlow" x="-200%" y="-200%" width="500%" height="500%">
-              <feGaussianBlur stdDeviation="1.6" result="b" />
-              <feMerge>
-                <feMergeNode in="b" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-          <rect width="860" height="420" fill="url(#seaGlow)" />
-          <rect width="860" height="420" fill="url(#grid)" />
-
-          {/* bathymetry contours */}
-          <g fill="none" stroke="#4dd9c0" strokeWidth="0.5" opacity="0.09">
-            {[0, 1, 2, 3].map((k) => (
-              <path
-                key={k}
-                d={`M-20 ${150 + k * 32} C 160 ${118 + k * 30}, 320 ${182 + k * 28}, 470 ${152 + k * 30} S 740 ${196 + k * 26}, 880 ${162 + k * 30}`}
+      <div className="relative overflow-hidden bg-[#0b0b0b]">
+        <div className="relative w-full" style={{ aspectRatio: `${W} / ${H}` }}>
+          {/* real basemap tiles */}
+          <div className="absolute inset-0 grid" style={{ gridTemplateColumns: `repeat(${TCOLS}, 1fr)` }}>
+            {Array.from({ length: TCOLS * TROWS }).map((_, i) => (
+              <img
+                key={i}
+                src={`https://basemaps.cartocdn.com/dark_all/${Z}/${TX0 + (i % TCOLS)}/${TY0 + Math.floor(i / TCOLS)}.png`}
+                alt=""
+                loading="lazy"
+                className="block h-full w-full"
               />
             ))}
-          </g>
+          </div>
+          <div className="absolute inset-0 bg-[#09121f]/35" />
 
-          {/* graticule labels */}
-          <g fontFamily="monospace" fontSize="7" fill="#4dd9c0" opacity="0.35">
-            {[["8°W", 60], ["0°", 240], ["8°E", 420], ["16°E", 600], ["24°E", 780]].map(([l, x]) => (
-              <text key={String(l)} x={Number(x)} y="412" textAnchor="middle">{l}</text>
+          <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 h-full w-full">
+            <defs>
+              <filter id="shipGlow" x="-200%" y="-200%" width="500%" height="500%">
+                <feGaussianBlur stdDeviation="1.4" result="b" />
+                <feMerge>
+                  <feMergeNode in="b" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+
+            {/* fleet */}
+            {FLEET.map((s, i) => (
+              <polygon
+                key={i}
+                points="0,-6 4.3,4.8 -4.3,4.8"
+                fill={s.c}
+                opacity={s.lane ? 0.95 : 0.7}
+                filter={s.lane ? "url(#shipGlow)" : undefined}
+                transform={`translate(${s.x} ${s.y}) rotate(${s.r}) scale(${s.lane ? 1 : 0.8})`}
+              />
             ))}
-            {[["44°N", 96], ["40°N", 186], ["36°N", 276]].map(([l, y]) => (
-              <text key={String(l)} x="6" y={Number(y)}>{l}</text>
+
+            {/* geo-fence with flagged cluster */}
+            <circle cx={r1(px(FENCE.lon))} cy={r1(py(FENCE.lat))} r="70" fill="#ff4d4d" opacity="0.12" />
+            <circle cx={r1(px(FENCE.lon))} cy={r1(py(FENCE.lat))} r="70" fill="none" stroke="#c9a84c" strokeWidth="1.4" strokeDasharray="7 7" />
+            {Array.from({ length: 9 }).map((_, i) => (
+              <polygon
+                key={`f${i}`}
+                points="0,-6 4.3,4.8 -4.3,4.8"
+                fill="#ff4d4d"
+                transform={`translate(${r1(px(FENCE.lon) + (rnd(i, 4.4) - 0.5) * 96)} ${r1(py(FENCE.lat) + (rnd(i, 7.9) - 0.5) * 96)}) rotate(${i * 41})`}
+              />
             ))}
-          </g>
 
-          {/* coarse land masses — Europe above, Africa below */}
-          <g fill="url(#landG)" stroke="#2f3b48" strokeWidth="0.9">
-            <path d="M0 0 H860 V52 C 760 62, 690 40, 610 66 C 540 88, 470 58, 396 84 C 330 108, 268 74, 196 96 C 128 116, 66 92, 0 108 Z" />
-            <path d="M0 330 C 120 306, 240 336, 360 312 C 470 292, 590 322, 700 300 C 780 286, 830 306, 860 296 V420 H0 Z" />
-            {/* Italy + Greece hints */}
-            <path d="M330 60 C 350 96, 378 128, 404 152 C 414 162, 402 172, 390 162 C 358 134, 330 100, 318 70 Z" />
-            <path d="M600 70 C 630 92, 640 120, 622 138 C 606 152, 588 132, 592 108 Z" />
-          </g>
-          {/* coastline halo */}
-          <g fill="none" stroke="#4dd9c0" strokeWidth="2.5" opacity="0.06">
-            <path d="M0 108 C 66 92, 128 116, 196 96 C 268 74, 330 108, 396 84 C 470 58, 540 88, 610 66 C 690 40, 760 62, 860 52" />
-            <path d="M0 330 C 120 306, 240 336, 360 312 C 470 292, 590 322, 700 300 C 780 286, 830 306, 860 296" />
-          </g>
-
-          {/* shipping-lane wakes */}
-          <g stroke="#4a9eff" strokeWidth="0.6" opacity="0.2" fill="none">
-            {FLEET.filter((s) => s.lane && s.x % 3 < 1).map((s, i) => (
-              <line key={`w${i}`} x1={s.x - 16} y1={s.y} x2={s.x - 3} y2={s.y} strokeDasharray="2 3" />
-            ))}
-          </g>
-
-          {/* fleet — one triangle per vessel, heading-rotated */}
-          {FLEET.map((s, i) => (
-            <polygon
-              key={i}
-              points="0,-4.6 3.3,3.7 -3.3,3.7"
-              fill={s.c}
-              opacity={s.lane ? 0.95 : 0.72}
-              filter={s.lane ? "url(#shipGlow)" : undefined}
-              transform={`translate(${s.x} ${s.y}) rotate(${s.r}) scale(${s.s})`}
-            />
-          ))}
-          {/* geo-fence with flagged cluster */}
-          <circle cx="250" cy="250" r="58" fill="#ff4d4d" opacity="0.10" />
-          <circle cx="250" cy="250" r="58" fill="none" stroke="#c9a84c" strokeWidth="1" strokeDasharray="6 6" />
-          {[
-            [232, 238], [252, 246], [266, 232], [244, 262], [270, 258], [222, 256],
-          ].map(([x, y], i) => (
-            <polygon key={`f${i}`} points="0,-5 3.6,4 -3.6,4" fill="#ff4d4d" transform={`translate(${x} ${y}) rotate(${i * 53})`} />
-          ))}
-          {/* selected target */}
-          <g>
-            <circle cx="512" cy="196" r="10" fill="none" stroke="#c9a84c" strokeWidth="1" />
-            <line x1="512" y1="186" x2="512" y2="150" stroke="#c9a84c" strokeWidth="0.7" />
-          </g>
-        </svg>
+            {/* selected target */}
+            <g>
+              <circle cx={r1(px(TARGET.lon))} cy={r1(py(TARGET.lat))} r="14" fill="none" stroke="#c9a84c" strokeWidth="1.3" />
+              <circle cx={r1(px(TARGET.lon))} cy={r1(py(TARGET.lat))} r="3" fill="#c9a84c" />
+              <line x1={r1(px(TARGET.lon))} y1={r1(py(TARGET.lat)) - 14} x2={r1(px(TARGET.lon))} y2={r1(py(TARGET.lat)) - 48} stroke="#c9a84c" strokeWidth="1" />
+            </g>
+          </svg>
 
         {/* zoom control */}
         <div className="absolute left-3 top-3 overflow-hidden rounded border border-white/15 bg-navy/85 font-mono text-sm text-muted-foreground">
@@ -141,7 +164,7 @@ function LiveMap() {
         </div>
 
         {/* target callout */}
-        <div className="pointer-events-none absolute left-[58%] top-[24%] rounded-md border border-gold/40 bg-navy/90 px-3 py-2 font-mono text-[10px] leading-relaxed tracking-[0.12em]">
+        <div className="pointer-events-none absolute left-[63%] top-[16%] rounded-md border border-gold/40 bg-navy/90 px-3 py-2 font-mono text-[10px] leading-relaxed tracking-[0.12em]">
           ATLANTIC PEARL · MMSI 215789012
           <br />
           <span className="text-muted-foreground">14.1 kn · </span>
@@ -162,7 +185,7 @@ function LiveMap() {
         </div>
 
         {/* legend */}
-        <div className="absolute bottom-3 left-1/2 hidden -translate-x-1/2 flex-wrap justify-center gap-3 rounded-md border border-white/10 bg-navy/90 px-3 py-2 font-mono text-[9px] tracking-[0.16em] text-muted-foreground sm:flex">
+        <div className="absolute bottom-3 right-3 hidden max-w-[46%] flex-wrap justify-end gap-3 rounded-md border border-white/10 bg-navy/90 px-3 py-2 font-mono text-[9px] tracking-[0.16em] text-muted-foreground sm:flex">
           {[
             ["#4a9eff", "CARGO"], ["#f59e42", "TANKER"], ["#3ddc84", "PASSENGER"], ["#4dd9c0", "FISHING"],
             ["#a855f7", "TUG"], ["#ec4899", "SAILING"], ["#8fa3bb", "UNKNOWN"], ["#ff4d4d", "FLAGGED"],
@@ -172,6 +195,7 @@ function LiveMap() {
               {l}
             </span>
           ))}
+        </div>
         </div>
       </div>
     </div>
