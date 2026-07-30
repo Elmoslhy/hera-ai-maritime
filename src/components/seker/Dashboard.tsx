@@ -4,24 +4,34 @@ import { SekerLogo } from "./Logo";
 
 const TOP_STATS = [
   { label: "Spoofs detected · 24h", sub: "3 zones · 11 flags", to: 173, suffix: "", tone: "text-alert" },
-  { label: "Active digital twins", sub: "avg refresh 4.2s", to: 8400, suffix: "", tone: "text-cyan" },
+  { label: "Active digital twins", sub: "avg refresh 4.2s", to: 120, suffix: "K", tone: "text-cyan" },
   { label: "Stream latency P99", sub: "SLA: < 250ms", to: 112, suffix: "ms", tone: "text-foreground" },
 ];
 
 /* ---------------- live map ---------------- */
 
-type Ship = { x: number; y: number; c: string; r: number };
+type Ship = { x: number; y: number; c: string; r: number; s: number; lane: boolean };
 const CLASS_COLORS = ["#4a9eff", "#f59e42", "#3ddc84", "#4dd9c0", "#a855f7", "#ec4899", "#8fa3bb"];
 
-// deterministic pseudo-random fleet spread across the basin
-const FLEET: Ship[] = Array.from({ length: 220 }).map((_, i) => {
-  const a = Math.sin(i * 12.9898) * 43758.5453;
-  const b = Math.sin(i * 78.233) * 12345.6789;
-  const rx = a - Math.floor(a);
-  const ry = b - Math.floor(b);
-  const x = Math.round((12 + rx * 830) * 10) / 10;
-  const y = Math.round((60 + ry * 300) * 10) / 10;
-  return { x, y, c: CLASS_COLORS[i % CLASS_COLORS.length], r: (i * 47) % 360 };
+const rnd = (i: number, k: number) => {
+  const v = Math.sin(i * k) * 43758.5453;
+  return v - Math.floor(v);
+};
+
+// deterministic fleet: shipping-lane clusters + scattered traffic across the basin
+const FLEET: Ship[] = Array.from({ length: 520 }).map((_, i) => {
+  const rx = rnd(i, 12.9898);
+  const ry = rnd(i, 78.233);
+  const lane = i % 3 === 0;
+  let x = 14 + rx * 832;
+  // main east-west corridor with gentle sinusoidal drift
+  let y = lane
+    ? 196 + Math.sin(x / 110) * 28 + (ry - 0.5) * 26
+    : 62 + ry * 296;
+  const r = lane ? (rnd(i, 3.71) > 0.5 ? 88 : 268) + (ry - 0.5) * 16 : Math.round(rnd(i, 5.13) * 360);
+  x = Math.round(x * 10) / 10;
+  y = Math.round(y * 10) / 10;
+  return { x, y, c: CLASS_COLORS[i % CLASS_COLORS.length], r: Math.round(r * 10) / 10, s: lane ? 1 : 0.82, lane };
 });
 
 function LiveMap() {
@@ -37,25 +47,76 @@ function LiveMap() {
             <pattern id="grid" width="43" height="42" patternUnits="userSpaceOnUse">
               <path d="M43 0H0V42" fill="none" stroke="#4dd9c0" strokeWidth="0.4" opacity="0.07" />
             </pattern>
+            <radialGradient id="seaGlow" cx="45%" cy="48%" r="72%">
+              <stop offset="0%" stopColor="#0d2233" />
+              <stop offset="60%" stopColor="#081521" />
+              <stop offset="100%" stopColor="#050b12" />
+            </radialGradient>
+            <linearGradient id="landG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#141b24" />
+              <stop offset="100%" stopColor="#0d131b" />
+            </linearGradient>
+            <filter id="shipGlow" x="-200%" y="-200%" width="500%" height="500%">
+              <feGaussianBlur stdDeviation="1.6" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
           </defs>
-          <rect width="860" height="420" fill="#0b0f14" />
+          <rect width="860" height="420" fill="url(#seaGlow)" />
           <rect width="860" height="420" fill="url(#grid)" />
+
+          {/* bathymetry contours */}
+          <g fill="none" stroke="#4dd9c0" strokeWidth="0.5" opacity="0.09">
+            {[0, 1, 2, 3].map((k) => (
+              <path
+                key={k}
+                d={`M-20 ${150 + k * 32} C 160 ${118 + k * 30}, 320 ${182 + k * 28}, 470 ${152 + k * 30} S 740 ${196 + k * 26}, 880 ${162 + k * 30}`}
+              />
+            ))}
+          </g>
+
+          {/* graticule labels */}
+          <g fontFamily="monospace" fontSize="7" fill="#4dd9c0" opacity="0.35">
+            {[["8°W", 60], ["0°", 240], ["8°E", 420], ["16°E", 600], ["24°E", 780]].map(([l, x]) => (
+              <text key={String(l)} x={Number(x)} y="412" textAnchor="middle">{l}</text>
+            ))}
+            {[["44°N", 96], ["40°N", 186], ["36°N", 276]].map(([l, y]) => (
+              <text key={String(l)} x="6" y={Number(y)}>{l}</text>
+            ))}
+          </g>
+
           {/* coarse land masses — Europe above, Africa below */}
-          <g fill="#1a1f26" stroke="#2a323c" strokeWidth="0.8">
+          <g fill="url(#landG)" stroke="#2f3b48" strokeWidth="0.9">
             <path d="M0 0 H860 V52 C 760 62, 690 40, 610 66 C 540 88, 470 58, 396 84 C 330 108, 268 74, 196 96 C 128 116, 66 92, 0 108 Z" />
             <path d="M0 330 C 120 306, 240 336, 360 312 C 470 292, 590 322, 700 300 C 780 286, 830 306, 860 296 V420 H0 Z" />
             {/* Italy + Greece hints */}
             <path d="M330 60 C 350 96, 378 128, 404 152 C 414 162, 402 172, 390 162 C 358 134, 330 100, 318 70 Z" />
             <path d="M600 70 C 630 92, 640 120, 622 138 C 606 152, 588 132, 592 108 Z" />
           </g>
+          {/* coastline halo */}
+          <g fill="none" stroke="#4dd9c0" strokeWidth="2.5" opacity="0.06">
+            <path d="M0 108 C 66 92, 128 116, 196 96 C 268 74, 330 108, 396 84 C 470 58, 540 88, 610 66 C 690 40, 760 62, 860 52" />
+            <path d="M0 330 C 120 306, 240 336, 360 312 C 470 292, 590 322, 700 300 C 780 286, 830 306, 860 296" />
+          </g>
+
+          {/* shipping-lane wakes */}
+          <g stroke="#4a9eff" strokeWidth="0.6" opacity="0.2" fill="none">
+            {FLEET.filter((s) => s.lane && s.x % 3 < 1).map((s, i) => (
+              <line key={`w${i}`} x1={s.x - 16} y1={s.y} x2={s.x - 3} y2={s.y} strokeDasharray="2 3" />
+            ))}
+          </g>
+
           {/* fleet — one triangle per vessel, heading-rotated */}
           {FLEET.map((s, i) => (
             <polygon
               key={i}
-              points="0,-5 3.6,4 -3.6,4"
+              points="0,-4.6 3.3,3.7 -3.3,3.7"
               fill={s.c}
-              opacity="0.85"
-              transform={`translate(${s.x} ${s.y}) rotate(${s.r})`}
+              opacity={s.lane ? 0.95 : 0.72}
+              filter={s.lane ? "url(#shipGlow)" : undefined}
+              transform={`translate(${s.x} ${s.y}) rotate(${s.r}) scale(${s.s})`}
             />
           ))}
           {/* geo-fence with flagged cluster */}
