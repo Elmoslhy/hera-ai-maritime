@@ -94,7 +94,7 @@ export function HeroScene() {
       </svg>
 
       {/* globe + orbits stage */}
-      <div ref={stageRef} className="absolute left-1/2 top-1/2 h-[min(78vh,700px)] w-[min(78vh,700px)] -translate-x-1/2 -translate-y-[48%]">
+      <div ref={stageRef} className="absolute left-1/2 top-1/2 h-[min(118vh,1040px)] w-[min(118vh,1040px)] -translate-x-1/2 -translate-y-[46%]">
         {/* atmosphere glow */}
         <div className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgba(77,217,192,0.22),transparent_62%)] blur-2xl" />
 
@@ -117,19 +117,21 @@ export function HeroScene() {
         </svg>
 
         {/* earth */}
-        <div className="absolute inset-[10%] z-[2] animate-[globe-breathe_18s_ease-in-out_infinite]">
-          <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-full object-contain opacity-[0.88]" />
+        <div className="absolute inset-[10%] z-[2] animate-[globe-breathe_28s_ease-in-out_infinite]">
+          <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-full object-contain opacity-[0.94]" />
+          {/* limb light */}
+          <div className="absolute inset-0 rounded-full shadow-[inset_0_0_90px_rgba(9,18,31,0.85)]" />
           {/* night terminator */}
           <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_36%,transparent_28%,rgba(9,18,31,0.78)_76%)]" />
 
           {/* vessel pings */}
           {VESSELS.map((v, i) => (
-            <div key={i} className="absolute h-2 w-2" style={{ left: `${v.x}%`, top: `${v.y}%` }}>
+            <div key={i} className="absolute h-1.5 w-1.5" style={{ left: `${v.x}%`, top: `${v.y}%` }}>
               <span
                 className="absolute inset-0 rounded-full border border-cyan/70"
                 style={{ animation: `vessel-ping 4.2s ease-out ${v.delay}s infinite` }}
               />
-              <span className="absolute inset-[3px] rounded-full bg-cyan shadow-[0_0_10px_rgba(77,217,192,0.9)]" />
+              <span className="absolute inset-[2px] rounded-full bg-cyan shadow-[0_0_8px_rgba(77,217,192,0.9)]" />
             </div>
           ))}
 
