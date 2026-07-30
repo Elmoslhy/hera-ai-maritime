@@ -4,23 +4,49 @@ import satelliteNetwork from "@/assets/satellite-network.jpg";
 import ocean from "@/assets/ocean.jpg";
 import vessels from "@/assets/vessels.jpg";
 import { SekerLogo } from "./Logo";
+import { HeroHud, HeroScene } from "./HeroScene";
 import { CountUp, Reveal, SectionBackground } from "./primitives";
 
 export function HeroSection() {
   return (
     <section className="relative flex h-screen items-center justify-center overflow-hidden">
       <video
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-0 h-full w-full object-cover opacity-25"
         src={heroVideo.url}
         autoPlay
         muted
         loop
         playsInline
       />
-      <div className="absolute inset-0 bg-navy/55" />
-      <Reveal className="relative z-10 px-6">
-        <SekerLogo className="mx-auto w-[min(78vw,520px)] text-foreground" />
-      </Reveal>
+      <div className="absolute inset-0 bg-navy-deep/80" />
+      <HeroScene />
+      <HeroHud />
+      <div className="relative z-10 flex flex-col items-center px-6 text-center">
+        <Reveal>
+          <SekerLogo className="mx-auto w-[min(72vw,460px)] text-foreground" />
+        </Reveal>
+        <Reveal delay={0.15}>
+          <h1 className="mt-8 text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
+            We track every ship.
+            <br />
+            <span className="font-normal">Even when it hides.</span>
+          </h1>
+        </Reveal>
+        <Reveal delay={0.3}>
+          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            AIS off? Spoofed? Our satellites still see the ship. Five sensors, fused by{" "}
+            <span className="text-gold">HERA AI</span> into one verified position per vessel.
+          </p>
+        </Reveal>
+        <Reveal delay={0.45}>
+          <a
+            href="#contact"
+            className="mt-10 inline-block bg-gold px-8 py-4 font-mono text-[11px] tracking-[0.22em] text-navy-deep transition-opacity hover:opacity-90"
+          >
+            REQUEST API ACCESS →
+          </a>
+        </Reveal>
+      </div>
       <div className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 animate-bounce text-foreground/60">
         <svg width="22" height="52" viewBox="0 0 22 52" fill="none" aria-hidden>
           <rect x="1" y="1" width="20" height="32" rx="10" stroke="currentColor" strokeWidth="1" />
