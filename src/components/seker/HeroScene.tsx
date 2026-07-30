@@ -18,9 +18,9 @@ type Orbit = {
 };
 
 const ORBITS: Orbit[] = [
-  { r: 57, flatten: 0.30, tilt: -14, period: 26, phase: 0.12, sat: 112 },
-  { r: 65, flatten: 0.42, tilt: 21, period: 38, phase: 0.55, sat: 88 },
-  { r: 50, flatten: 0.18, tilt: 5, period: 20, phase: 0.78, sat: 72 },
+  { r: 44.5, flatten: 0.26, tilt: -16, period: 34, phase: 0.12, sat: 58 },
+  { r: 48.5, flatten: 0.40, tilt: 24, period: 46, phase: 0.55, sat: 48 },
+  { r: 42.5, flatten: 0.14, tilt: 4, period: 27, phase: 0.78, sat: 42 },
 ];
 
 // vessel pings on the ocean, in % of the globe box
@@ -94,7 +94,7 @@ export function HeroScene() {
       </svg>
 
       {/* globe + orbits stage */}
-      <div ref={stageRef} className="absolute left-1/2 top-1/2 h-[min(78vh,700px)] w-[min(78vh,700px)] -translate-x-1/2 -translate-y-[48%]">
+      <div ref={stageRef} className="absolute left-1/2 top-1/2 h-[min(104vh,880px)] w-[min(104vh,880px)] -translate-x-1/2 -translate-y-[46%]">
         {/* atmosphere glow */}
         <div className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgba(77,217,192,0.22),transparent_62%)] blur-2xl" />
 
@@ -117,19 +117,21 @@ export function HeroScene() {
         </svg>
 
         {/* earth */}
-        <div className="absolute inset-[10%] z-[2] animate-[globe-breathe_18s_ease-in-out_infinite]">
-          <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-full object-contain opacity-[0.88]" />
+        <div className="absolute inset-[10%] z-[2] animate-[globe-breathe_28s_ease-in-out_infinite]">
+          <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-full object-contain opacity-[0.94]" />
+          {/* limb light */}
+          <div className="absolute inset-0 rounded-full shadow-[inset_0_0_90px_rgba(9,18,31,0.85)]" />
           {/* night terminator */}
           <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_36%,transparent_28%,rgba(9,18,31,0.78)_76%)]" />
 
           {/* vessel pings */}
           {VESSELS.map((v, i) => (
-            <div key={i} className="absolute h-2 w-2" style={{ left: `${v.x}%`, top: `${v.y}%` }}>
+            <div key={i} className="absolute h-1.5 w-1.5" style={{ left: `${v.x}%`, top: `${v.y}%` }}>
               <span
                 className="absolute inset-0 rounded-full border border-cyan/70"
                 style={{ animation: `vessel-ping 4.2s ease-out ${v.delay}s infinite` }}
               />
-              <span className="absolute inset-[3px] rounded-full bg-cyan shadow-[0_0_10px_rgba(77,217,192,0.9)]" />
+              <span className="absolute inset-[2px] rounded-full bg-cyan shadow-[0_0_8px_rgba(77,217,192,0.9)]" />
             </div>
           ))}
 
@@ -165,7 +167,7 @@ export function HeroScene() {
               src={satellite}
               alt=""
               aria-hidden
-              className="w-full drop-shadow-[0_2px_26px_rgba(9,18,31,0.9)] drop-shadow-[0_0_18px_rgba(77,217,192,0.35)]"
+              className="w-full drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] drop-shadow-[0_0_14px_rgba(77,217,192,0.45)]"
             />
           </div>
         ))}
@@ -179,44 +181,101 @@ export function HeroScene() {
 
 export function HeroHud() {
   return (
-    <div className="pointer-events-none absolute right-6 top-1/2 z-10 hidden w-[300px] -translate-y-1/2 space-y-4 lg:block">
-      <div className="rounded-md border border-white/10 bg-navy/70 p-4 backdrop-blur-sm">
-        <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.22em]">
-          <span className="text-cyan">HERA AI · FUSION</span>
-          <span className="text-muted-foreground">FUSING</span>
+    <div className="pointer-events-none absolute right-6 top-1/2 z-10 hidden w-[286px] -translate-y-1/2 space-y-3 lg:block">
+      <div className="overflow-hidden rounded-lg border border-white/10 bg-[#070f1c]/85 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
+        <div className="flex items-center justify-between border-b border-white/8 bg-white/[0.03] px-3 py-2">
+          <span className="font-mono text-[9px] tracking-[0.22em] text-cyan">HERA AI</span>
+          <span className="flex items-center gap-1.5 font-mono text-[8px] tracking-[0.18em] text-muted-foreground">
+            <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" /> FUSING
+          </span>
         </div>
-        <p className="mt-4 font-mono text-sm text-foreground">M/V ARGEST</p>
-        <p className="font-mono text-[10px] text-muted-foreground">35.81N · 14.49E</p>
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {["AIS-T", "AIS-S", "RF", "SAR", "TIR"].map((c) => (
-            <span key={c} className="rounded border border-cyan/30 px-1.5 py-0.5 font-mono text-[8px] tracking-[0.14em] text-cyan/80">
-              {c}
+
+        <div className="px-3 py-3">
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="font-mono text-[13px] leading-none text-foreground">M/V ARGEST</p>
+              <p className="mt-1.5 font-mono text-[9px] tracking-[0.14em] text-muted-foreground">
+                IMO 9412783 · 35.8104N 14.4903E
+              </p>
+            </div>
+            <span className="rounded-sm border border-gold/40 bg-gold/10 px-1.5 py-0.5 font-mono text-[8px] tracking-[0.16em] text-gold">
+              VERIFIED
             </span>
-          ))}
+          </div>
+
+          {/* signal trace */}
+          <svg viewBox="0 0 240 34" className="mt-3 h-[34px] w-full" aria-hidden>
+            <defs>
+              <linearGradient id="hud-trace" x1="0" x2="1">
+                <stop offset="0" stopColor="#4dd9c0" stopOpacity="0.05" />
+                <stop offset="0.5" stopColor="#4dd9c0" stopOpacity="0.9" />
+                <stop offset="1" stopColor="#4dd9c0" stopOpacity="0.15" />
+              </linearGradient>
+            </defs>
+            {[0, 1, 2, 3].map((i) => (
+              <line key={i} x1="0" x2="240" y1={i * 11 + 1} y2={i * 11 + 1} stroke="#eef2f7" strokeOpacity="0.05" strokeWidth="0.5" />
+            ))}
+            <path
+              d={Array.from({ length: 61 })
+                .map((_, i) => {
+                  const x = i * 4;
+                  const y = 17 - Math.sin(i * 0.55) * 6 * Math.sin(i * 0.11) - (i % 7 === 0 ? 3 : 0);
+                  return `${i ? "L" : "M"}${x} ${y.toFixed(1)}`;
+                })
+                .join(" ")}
+              fill="none"
+              stroke="url(#hud-trace)"
+              strokeWidth="1.1"
+            />
+          </svg>
+
+          <div className="mt-2 flex items-center justify-between font-mono text-[9px] tracking-[0.16em] text-muted-foreground">
+            <span>POSITION CONFIDENCE</span>
+            <span className="text-gold">98.4%</span>
+          </div>
+          <div className="mt-1.5 h-[3px] w-full overflow-hidden rounded-full bg-white/10">
+            <div className="h-full w-[98.4%] rounded-full bg-gradient-to-r from-gold/50 to-gold" />
+          </div>
+
+          <div className="mt-3 grid grid-cols-3 gap-1.5">
+            {[
+              ["SOG", "12.4 kn"],
+              ["COG", "271°"],
+              ["AGE", "38 s"],
+            ].map(([k, v]) => (
+              <div key={k} className="rounded-sm border border-white/8 bg-white/[0.02] px-2 py-1.5">
+                <p className="font-mono text-[7.5px] tracking-[0.18em] text-muted-foreground">{k}</p>
+                <p className="mt-0.5 font-mono text-[10px] text-foreground">{v}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <p className="mt-4 flex items-center justify-between font-mono text-[9px] tracking-[0.18em] text-muted-foreground">
-          POSITION CONFIDENCE <span className="text-gold">98%</span>
-        </p>
-        <div className="mt-1.5 h-[3px] w-full rounded-full bg-white/10">
-          <div className="h-full w-[98%] rounded-full bg-gold" />
-        </div>
-        <p className="mt-3 font-mono text-[9px] tracking-[0.18em] text-muted-foreground">CROSS-CHECKING SOURCES…</p>
       </div>
 
-      <div className="rounded-md border border-white/10 bg-navy/70 p-4 backdrop-blur-sm">
-        <p className="font-mono text-[9px] tracking-[0.22em] text-gold">THE SENSOR LAYER</p>
-        <ul className="mt-3 space-y-2.5">
+      <div className="overflow-hidden rounded-lg border border-white/10 bg-[#070f1c]/85 backdrop-blur-md">
+        <div className="border-b border-white/8 bg-white/[0.03] px-3 py-2 font-mono text-[9px] tracking-[0.22em] text-gold">
+          SENSOR LAYER
+        </div>
+        <ul className="divide-y divide-white/5">
           {[
-            ["AIS-T", "identity claim", true],
-            ["AIS-S", "position claim", true],
-            ["RF", "true location · emissions", false],
-            ["SAR", "hull image · all-weather", false],
-            ["TIR", "heat · proof of activity", false],
-          ].map(([k, v, on]) => (
-            <li key={k as string} className="flex items-center gap-3">
-              <span className={`h-1.5 w-1.5 rounded-full ${on ? "bg-cyan" : "bg-gold/60"}`} />
-              <span className="w-14 font-mono text-[10px] tracking-[0.16em] text-foreground">{k}</span>
-              <span className="font-mono text-[9px] tracking-[0.12em] text-muted-foreground">{v}</span>
+            { k: "AIS-T", v: "identity claim", s: 4 },
+            { k: "AIS-S", v: "position claim", s: 3 },
+            { k: "RF", v: "true location", s: 5 },
+            { k: "SAR", v: "hull image", s: 4 },
+            { k: "TIR", v: "engine heat", s: 2 },
+          ].map((row) => (
+            <li key={row.k} className="flex items-center gap-2.5 px-3 py-2">
+              <span className="w-10 font-mono text-[9.5px] tracking-[0.14em] text-foreground">{row.k}</span>
+              <span className="flex-1 font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground">{row.v}</span>
+              <span className="flex items-end gap-[2px]">
+                {[1, 2, 3, 4, 5].map((b) => (
+                  <span
+                    key={b}
+                    className={`w-[2.5px] rounded-[1px] ${b <= row.s ? "bg-cyan" : "bg-white/12"}`}
+                    style={{ height: 3 + b * 1.6 }}
+                  />
+                ))}
+              </span>
             </li>
           ))}
         </ul>
