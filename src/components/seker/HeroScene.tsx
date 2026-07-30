@@ -89,15 +89,15 @@ export function HeroScene() {
                 className="absolute inset-0"
                 style={{ animation: `orbit-spin ${o.duration}s linear ${o.delay}s infinite` }}
               >
-                <div className="absolute left-1/2 top-0">
+                <div
+                  className="absolute left-1/2 top-0"
+                  style={{ transform: `scaleY(${1 / flat}) rotate(${-o.tiltZ}deg)` }}
+                >
                   <img
                     src={satellite}
                     alt=""
                     aria-hidden
-                    style={{
-                      width: o.sat,
-                      transform: `translate(-50%,-50%) scaleY(${1 / flat}) rotate(${-o.tiltZ}deg)`,
-                    }}
+                    style={{ width: o.sat, transform: "translate(-50%,-50%)" }}
                     className="max-w-none drop-shadow-[0_0_22px_rgba(77,217,192,0.4)]"
                   />
                 </div>
