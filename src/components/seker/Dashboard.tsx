@@ -3,9 +3,8 @@ import { CountUp, Reveal } from "./primitives";
 import { SekerLogo } from "./Logo";
 
 const TOP_STATS = [
-  { label: "Vessels in DB", sub: "last 24 hours", to: 17253, suffix: "", tone: "text-foreground" },
-  { label: "Spoofs detected · 24h", sub: "3 zones · 11 flags", to: 23, suffix: "", tone: "text-alert" },
-  { label: "Active digital twins", sub: "avg refresh 4.2s", to: 7891, suffix: "", tone: "text-cyan" },
+  { label: "Spoofs detected · 24h", sub: "3 zones · 11 flags", to: 173, suffix: "", tone: "text-alert" },
+  { label: "Active digital twins", sub: "avg refresh 4.2s", to: 8400, suffix: "", tone: "text-cyan" },
   { label: "Stream latency P99", sub: "SLA: < 250ms", to: 112, suffix: "ms", tone: "text-foreground" },
 ];
 
