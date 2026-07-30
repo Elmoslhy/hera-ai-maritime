@@ -230,8 +230,8 @@
   50% { transform: scale(1.015); }
 }
 @keyframes earth-spin {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from { background-position: 0% 50%; }
+  to { background-position: -200% 50%; }
 }
 @keyframes sweep-fade {
   0%, 100% { opacity: 0; }

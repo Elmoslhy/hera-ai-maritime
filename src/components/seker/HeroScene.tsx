@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import earth from "@/assets/earth-globe.png";
 import satellite from "@/assets/satellite-real.png";
+import earthTexture from "@/assets/earth-texture.jpg";
 
 type Orbit = {
   /** semi-major axis, % of stage */
