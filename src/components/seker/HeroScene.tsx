@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import earth from "@/assets/earth-globe.png";
 import satellite from "@/assets/satellite-real.png";
+import earthTexture from "@/assets/earth-texture.jpg";
 
 type Orbit = {
   /** semi-major axis, % of stage */
@@ -118,23 +118,27 @@ export function HeroScene() {
 
         {/* earth */}
         <div className="absolute inset-[10%] z-[2] animate-[globe-breathe_28s_ease-in-out_infinite]">
-          {/* rotating surface: two copies of the globe texture scrolling inside a spherical mask */}
-          <div
-            className="absolute inset-0 overflow-hidden rounded-full opacity-[0.94]"
-            style={{ transform: "rotate(-11.5deg)" }}
-          >
-            <div className="absolute inset-0 flex w-[200%] animate-[earth-spin_150s_linear_infinite] will-change-transform">
-              <img src={earth} alt="Earth seen from orbit" width={1280} height={1280} className="h-full w-1/2 object-cover" />
-              <img src={earth} alt="" aria-hidden width={1280} height={1280} className="h-full w-1/2 object-cover" />
-            </div>
-            {/* spherical shading so the flat scroll reads as a turning sphere */}
-            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_50%_50%,transparent_38%,rgba(9,18,31,0.35)_72%,rgba(9,18,31,0.92)_100%)]" />
-            <div className="absolute inset-0 rounded-full bg-[linear-gradient(90deg,rgba(9,18,31,0.85)_0%,transparent_16%,transparent_84%,rgba(9,18,31,0.85)_100%)]" />
+          {/* rotating sphere: seamless equirectangular texture scrolling inside a circular mask */}
+          <div className="absolute inset-0 overflow-hidden rounded-full" role="img" aria-label="Earth rotating, seen from orbit">
+            <div
+              className="absolute inset-0 animate-[earth-spin_140s_linear_infinite] will-change-[background-position]"
+              style={{
+                backgroundImage: `url(${earthTexture})`,
+                backgroundSize: "200% 100%",
+                backgroundRepeat: "repeat-x",
+                transform: "rotate(-9deg) scale(1.06)",
+              }}
+            />
+            {/* horizontal squeeze near the limbs, so the flat scroll reads as curvature */}
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,12,21,0.95)_0%,rgba(6,12,21,0.55)_9%,rgba(6,12,21,0)_26%,rgba(6,12,21,0)_74%,rgba(6,12,21,0.55)_91%,rgba(6,12,21,0.95)_100%)]" />
+            {/* vertical pole shading */}
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,12,21,0.8)_0%,rgba(6,12,21,0)_22%,rgba(6,12,21,0)_78%,rgba(6,12,21,0.8)_100%)]" />
+            {/* sun-lit side + night terminator */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_34%_32%,rgba(255,255,255,0.16)_0%,rgba(255,255,255,0)_34%,rgba(6,12,21,0.55)_72%,rgba(6,12,21,0.9)_100%)]" />
           </div>
-          {/* limb light */}
-          <div className="absolute inset-0 rounded-full shadow-[inset_0_0_90px_rgba(9,18,31,0.85)]" />
-          {/* night terminator */}
-          <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_36%,transparent_28%,rgba(9,18,31,0.78)_76%)]" />
+          {/* limb light + atmosphere rim */}
+          <div className="absolute inset-0 rounded-full shadow-[inset_0_0_70px_rgba(9,18,31,0.9),0_0_60px_rgba(77,164,217,0.22)]" />
+          <div className="absolute -inset-[1.5%] rounded-full border border-cyan/15 blur-[2px]" />
 
           {/* vessel pings */}
           {VESSELS.map((v, i) => (
