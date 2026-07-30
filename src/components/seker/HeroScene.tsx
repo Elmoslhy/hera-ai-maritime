@@ -199,9 +199,9 @@ export function HeroScene() {
 export function HeroHud() {
   return (
     <div className="pointer-events-none absolute right-6 top-1/2 z-10 hidden w-[286px] -translate-y-1/2 space-y-3 lg:block">
-      <div className="overflow-hidden rounded-lg border border-white/10 bg-[#070f1c]/85 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
-        <div className="flex items-center justify-between border-b border-white/8 bg-white/[0.03] px-3 py-2">
-          <span className="font-mono text-[9px] tracking-[0.22em] text-cyan">HERA AI</span>
+      <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
+        <div className="flex items-center justify-between border-b border-gold/15 px-3 py-2">
+          <span className="font-mono text-[9px] tracking-[0.22em] text-gold">HERA AI · FUSION</span>
           <span className="flex items-center gap-1.5 font-mono text-[8px] tracking-[0.18em] text-muted-foreground">
             <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" /> FUSING
           </span>
@@ -215,9 +215,21 @@ export function HeroHud() {
                 IMO 9412783 · 35.8104N 14.4903E
               </p>
             </div>
-            <span className="rounded-sm border border-gold/40 bg-gold/10 px-1.5 py-0.5 font-mono text-[8px] tracking-[0.16em] text-gold">
+            <span className="rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-0.5 font-mono text-[8px] tracking-[0.16em] text-gold">
               VERIFIED
             </span>
+          </div>
+
+          {/* sensor chips */}
+          <div className="mt-3 flex flex-wrap gap-1">
+            {["AIS-T", "AIS-S", "RF", "SAR", "TIR"].map((c) => (
+              <span
+                key={c}
+                className="rounded-[2px] border border-cyan/25 px-1.5 py-[3px] font-mono text-[7.5px] tracking-[0.16em] text-cyan/80"
+              >
+                {c}
+              </span>
+            ))}
           </div>
 
           {/* signal trace */}
@@ -260,7 +272,7 @@ export function HeroHud() {
               ["COG", "271°"],
               ["AGE", "38 s"],
             ].map(([k, v]) => (
-              <div key={k} className="rounded-sm border border-white/8 bg-white/[0.02] px-2 py-1.5">
+              <div key={k} className="rounded-[2px] border border-white/8 px-2 py-1.5">
                 <p className="font-mono text-[7.5px] tracking-[0.18em] text-muted-foreground">{k}</p>
                 <p className="mt-0.5 font-mono text-[10px] text-foreground">{v}</p>
               </div>
@@ -269,9 +281,10 @@ export function HeroHud() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-white/10 bg-[#070f1c]/85 backdrop-blur-md">
-        <div className="border-b border-white/8 bg-white/[0.03] px-3 py-2 font-mono text-[9px] tracking-[0.22em] text-gold">
-          SENSOR LAYER
+      <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 backdrop-blur-md">
+        <div className="flex items-center gap-3 border-b border-gold/15 px-3 py-2">
+          <span className="font-mono text-[9px] tracking-[0.22em] text-gold">THE SENSOR LAYER</span>
+          <span className="h-px flex-1 bg-gold/20" />
         </div>
         <ul className="divide-y divide-white/5">
           {[
