@@ -1,4 +1,3 @@
-import heroVideo from "@/assets/hero-video.mp4.asset.json";
 import heraUi from "@/assets/hera-ui.jpg";
 import satelliteNetwork from "@/assets/satellite-network.jpg";
 import ocean from "@/assets/ocean.jpg";
@@ -10,14 +9,7 @@ import { CountUp, Reveal, SectionBackground } from "./primitives";
 export function HeroSection() {
   return (
     <section className="relative flex h-screen items-center justify-center overflow-hidden">
-      <video
-        className="absolute inset-0 h-full w-full object-cover opacity-25"
-        src={heroVideo.url}
-        autoPlay
-        muted
-        loop
-        playsInline
-      />
+      
       <div className="absolute inset-0 bg-navy-deep/80" />
       <HeroScene />
       <HeroHud />

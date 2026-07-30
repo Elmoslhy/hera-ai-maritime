@@ -53,22 +53,20 @@ export function HeroScene() {
             </div>
           ))}
 
-          {/* capture beams from orbit down to two vessels */}
+          {/* capture beams from orbit down to the vessels */}
           {[
-            { x: 62, y: 33, from: "66% -6%", delay: "0s" },
-            { x: 30, y: 44, from: "22% -8%", delay: "3.2s" },
+            { x: 62, y: 33, sx: 78, sy: -14, delay: "0s" },
+            { x: 30, y: 44, sx: 14, sy: -10, delay: "3.4s" },
           ].map((b, i) => (
-            <svg key={i} viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" style={{ animation: `sweep-fade 8s ease-in-out ${b.delay} infinite` }} aria-hidden>
+            <svg key={i} viewBox="0 0 100 100" className="absolute inset-0 h-full w-full overflow-visible" style={{ animation: `sweep-fade 8s ease-in-out ${b.delay} infinite` }} aria-hidden>
               <defs>
                 <linearGradient id={`beam-${i}`} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#4dd9c0" stopOpacity="0.28" />
-                  <stop offset="100%" stopColor="#4dd9c0" stopOpacity="0.05" />
+                  <stop offset="0%" stopColor="#4dd9c0" stopOpacity="0" />
+                  <stop offset="100%" stopColor="#4dd9c0" stopOpacity="0.22" />
                 </linearGradient>
               </defs>
-              <polygon
-                points={`${parseFloat(b.from)} -4, ${parseFloat(b.from) + 1.5} -4, ${b.x + 2.5} ${b.y + 1.5}, ${b.x - 2.5} ${b.y + 1.5}`}
-                fill={`url(#beam-${i})`}
-              />
+              <polygon points={`${b.sx} ${b.sy}, ${b.sx + 0.6} ${b.sy}, ${b.x + 2} ${b.y + 1}, ${b.x - 2} ${b.y + 1}`} fill={`url(#beam-${i})`} />
+              <line x1={b.sx} y1={b.sy} x2={b.x} y2={b.y} stroke="#4dd9c0" strokeWidth="0.25" strokeDasharray="1.5 2" opacity="0.75" />
             </svg>
           ))}
         </div>
