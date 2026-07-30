@@ -3,9 +3,8 @@ import { CountUp, Reveal } from "./primitives";
 import { SekerLogo } from "./Logo";
 
 const TOP_STATS = [
-  { label: "Vessels in DB", sub: "last 24 hours", to: 17253, suffix: "", tone: "text-foreground" },
-  { label: "Spoofs detected · 24h", sub: "3 zones · 11 flags", to: 23, suffix: "", tone: "text-alert" },
-  { label: "Active digital twins", sub: "avg refresh 4.2s", to: 7891, suffix: "", tone: "text-cyan" },
+  { label: "Spoofs detected · 24h", sub: "3 zones · 11 flags", to: 173, suffix: "", tone: "text-alert" },
+  { label: "Active digital twins", sub: "avg refresh 4.2s", to: 8400, suffix: "", tone: "text-cyan" },
   { label: "Stream latency P99", sub: "SLA: < 250ms", to: 112, suffix: "ms", tone: "text-foreground" },
 ];
 
@@ -354,7 +353,7 @@ function WindowChrome({ children }: { children: React.ReactNode }) {
             <span className="h-1.5 w-1.5 rounded-full bg-cyan" /> API
           </span>
           <span className="text-cyan">OPERATIONAL</span>
-          <span className="text-muted-foreground">· 14 732 VESSELS ·</span>
+          <span className="text-muted-foreground">· 14 732 SIGNALS ·</span>
           <span className="text-muted-foreground">P50</span>
           <span className="text-foreground">45MS</span>
         </div>
@@ -387,7 +386,7 @@ export function DashboardSection() {
 
         <Reveal className="mt-14">
           <WindowChrome>
-            <div className="grid grid-cols-2 gap-px border-b border-white/8 bg-white/5 lg:grid-cols-4">
+            <div className="grid grid-cols-3 gap-px border-b border-white/8 bg-white/5 lg:grid-cols-3">
               {TOP_STATS.map((s) => (
                 <div key={s.label} className="flex items-center justify-between gap-4 bg-[#070d16] px-5 py-4">
                   <div>
