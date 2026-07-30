@@ -42,12 +42,20 @@ export function Nav() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <SekerLogo className="h-7 w-auto text-foreground" />
-        <div className="flex items-center gap-5 font-mono text-[10px] tracking-[0.2em] sm:text-[11px]">
-          <span className="text-muted-foreground">{utc} UTC</span>
+        <div className="flex items-center gap-4 font-mono text-[10px] tracking-[0.2em] sm:gap-6">
+          <span className="hidden text-muted-foreground sm:inline">
+            UTC <span className="text-foreground/80">{utc}</span>
+          </span>
           <span className="flex items-center gap-2 text-cyan">
             <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" />
-            COMING SOON
+            LIVE
           </span>
+          <a
+            href="#contact"
+            className="border border-gold/60 bg-gold/90 px-4 py-2 text-[10px] tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold"
+          >
+            API ACCESS
+          </a>
         </div>
       </div>
     </header>

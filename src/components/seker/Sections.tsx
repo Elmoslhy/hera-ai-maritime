@@ -10,7 +10,7 @@ export function HeroSection() {
   return (
     <section className="relative flex h-screen items-center justify-center overflow-hidden">
       
-      <div className="absolute inset-0 bg-navy-deep/80" />
+      <div className="absolute inset-0 bg-navy-deep" />
       <HeroScene />
       <HeroHud />
       <div className="relative z-10 flex flex-col items-center px-6 text-center">
@@ -39,8 +39,18 @@ export function HeroSection() {
           </a>
         </Reveal>
       </div>
-      <div className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2 animate-bounce text-foreground/60">
-        <svg width="22" height="52" viewBox="0 0 22 52" fill="none" aria-hidden>
+      <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3">
+        <span className="font-mono text-[9px] tracking-[0.3em] text-muted-foreground/70">
+          SCROLL TO EXPLORE
+        </span>
+        <svg
+          width="20"
+          height="46"
+          viewBox="0 0 22 52"
+          fill="none"
+          aria-hidden
+          className="animate-bounce text-foreground/50"
+        >
           <rect x="1" y="1" width="20" height="32" rx="10" stroke="currentColor" strokeWidth="1" />
           <circle cx="11" cy="10" r="2" fill="currentColor" />
           <path d="M5 40l6 5 6-5" stroke="currentColor" strokeWidth="1" fill="none" />
