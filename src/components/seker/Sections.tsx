@@ -293,12 +293,6 @@ export function ContactSection() {
             </a>
           </div>
         </Reveal>
-        <Reveal delay={0.3}>
-          <p className="mt-12 font-mono text-[9px] leading-relaxed tracking-[0.16em] text-muted-foreground/70">
-            STRICTLY CONFIDENTIAL · FOR DISCUSSION PURPOSES ONLY · SEKER SPACE INTELLIGENCE S.A. IS
-            IN FORMATION · LUXEMBOURG
-          </p>
-        </Reveal>
       </div>
     </section>
   );
