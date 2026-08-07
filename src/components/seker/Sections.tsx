@@ -119,8 +119,9 @@ export function ConstellationSection() {
           <p className="text-eyebrow text-gold">The Constellation</p>
         </Reveal>
         <Reveal delay={0.12}>
-          <h2 className="mt-6 text-3xl font-light leading-tight tracking-tight text-foreground sm:text-6xl">
-            Every vessel signal. Fused in orbit. Delivered in real time.
+          <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-6xl">
+            Every vessel signal fused in orbit
+            <span className="mt-2 block">Delivered in real time.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.24}>
