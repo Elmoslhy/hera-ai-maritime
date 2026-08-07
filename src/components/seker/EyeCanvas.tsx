@@ -185,6 +185,17 @@ export function EyeCanvas({ className }: { className?: string }) {
       ctx.translate(x, y);
       ctx.scale(s, s);
 
+      const sprite = color === "#ff4d4d" ? sprites.shipRed ?? sprites.ship : sprites.ship;
+      if (sprite) {
+        const iw = (sprite as HTMLImageElement).naturalWidth ?? sprite.width;
+        const ih = (sprite as HTMLImageElement).naturalHeight ?? sprite.height;
+        const dw = 46;
+        const dh = (dw * ih) / iw;
+        ctx.drawImage(sprite as CanvasImageSource, -dw / 2, -dh / 2, dw, dh);
+        ctx.restore();
+        return;
+      }
+
       // hull — elongated body with pointed bow (top-down view)
       ctx.fillStyle = color;
       ctx.beginPath();
