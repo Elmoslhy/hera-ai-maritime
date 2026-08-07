@@ -71,6 +71,35 @@ export function EyeCanvas({ className }: { className?: string }) {
     io.observe(canvas);
 
     const rnd = mulberry(20260807);
+
+    // real photographic assets — same satellite/vessel art as the hero scene
+    const sprites: { sat?: HTMLImageElement; ship?: HTMLImageElement; shipRed?: HTMLCanvasElement } = {};
+    const tint = (img: HTMLImageElement, color: string, amount: number) => {
+      const c = document.createElement("canvas");
+      c.width = img.naturalWidth;
+      c.height = img.naturalHeight;
+      const cx = c.getContext("2d");
+      if (!cx) return c;
+      cx.drawImage(img, 0, 0);
+      cx.globalCompositeOperation = "source-atop";
+      cx.globalAlpha = amount;
+      cx.fillStyle = color;
+      cx.fillRect(0, 0, c.width, c.height);
+      return c;
+    };
+    const loadSprite = (src: string, onDone: (img: HTMLImageElement) => void) => {
+      const img = new Image();
+      img.src = src;
+      img.decode?.().then(() => onDone(img)).catch(() => {
+        img.onload = () => onDone(img);
+      });
+    };
+    loadSprite(satelliteImg, (img) => { sprites.sat = img; });
+    loadSprite(vesselImg, (img) => {
+      sprites.ship = img;
+      sprites.shipRed = tint(img, "#ff4d4d", 0.55);
+    });
+
     const starSeed = Array.from({ length: 260 }, () => ({
       x: rnd(),
       y: rnd(),
