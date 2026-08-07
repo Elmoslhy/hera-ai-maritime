@@ -246,7 +246,7 @@ export function InsightsSection() {
         <Reveal className="text-center">
           <p className="text-eyebrow text-gold">Insights by Industry</p>
           <h2 className="text-balance mx-auto mt-6 max-w-3xl text-3xl font-light leading-[1.08] tracking-tight text-foreground sm:text-5xl">
-            We don't hand you data.
+            Data for actionable insights.
             <span className="mt-2 block text-cyan">We hand you the next move.</span>
           </h2>
           <p className="text-pretty mx-auto mt-7 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
