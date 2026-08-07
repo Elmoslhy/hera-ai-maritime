@@ -141,29 +141,6 @@ export function ConstellationSection() {
   );
 }
 
-export function OceanSection() {
-  return (
-    <section className="relative flex min-h-screen items-center overflow-hidden px-6">
-      <SectionBackground src={ocean} alt="Moonlit dark sea" overlay="bg-navy/40" />
-      <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
-        <Reveal>
-          <p className="text-eyebrow text-gold">The Problem</p>
-        </Reveal>
-        <Reveal delay={0.12}>
-          <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-6xl">
-            The dark sea is not dark to us.
-          </h2>
-        </Reveal>
-        <Reveal delay={0.24}>
-          <p className="mt-8 font-mono text-[11px] tracking-[0.2em] text-cyan">
-            $54B MARKET · 18% CAGR · ZERO EU SOVEREIGN PROVIDERS TODAY
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 const ALERTS = [
   {
     head: "AIS Spoofing ×3 YoY",
@@ -181,8 +158,9 @@ const ALERTS = [
 
 export function ProblemSection() {
   return (
-    <section className="bg-navy-deep px-6 py-28">
-      <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
+    <section className="relative overflow-hidden bg-navy-deep px-6 py-28">
+      <SectionBackground src={ocean} alt="Moonlit dark sea" overlay="bg-navy-deep/92" />
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
         <div>
           <Reveal>
             <p className="text-eyebrow text-gold">The Problem</p>
@@ -219,7 +197,7 @@ export function ProblemSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-px self-start overflow-hidden rounded-xl border border-white/10 bg-white/5">
+        <div className="grid grid-cols-2 gap-px self-start overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
           <StatBlock value={<CountUp to={54} prefix="$" suffix="B" className="font-mono text-4xl text-gold" />} label="Global MDA market by 2030" />
           <StatBlock value={<CountUp to={18} suffix="%" className="font-mono text-4xl text-cyan" />} label="Sector CAGR 2024–2030" />
           <StatBlock value={<CountUp to={3} prefix="×" className="font-mono text-4xl text-alert" />} label="YoY growth in AIS spoofing" />
