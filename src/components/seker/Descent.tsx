@@ -198,13 +198,6 @@ export function DescentSection() {
           <div className="relative flex items-start justify-end gap-6">
             <div className="absolute left-1/2 top-0 w-full max-w-lg -translate-x-1/2 space-y-2 text-center">
               <p className="font-mono text-[10px] tracking-[0.28em] text-gold">{act.title.toUpperCase()}</p>
-              <h2
-                className="text-balance text-2xl font-light leading-tight tracking-tight text-foreground sm:text-4xl"
-                style={{ textShadow: "0 0 28px rgba(77,217,192,0.45), 0 2px 18px rgba(9,18,31,0.9)" }}
-              >
-                A ship goes dark.
-                <span className="mt-1 block">We still see it.</span>
-              </h2>
             </div>
             <div className="relative shrink-0 space-y-2 text-right">
               <div className="rounded-lg border border-white/10 bg-navy/70 px-4 py-3 backdrop-blur-sm">
