@@ -291,7 +291,7 @@ export function EyeCanvas({ className }: { className?: string }) {
       }
 
       const cx = w / 2;
-      const cy = h * 0.37;
+      const cy = h * 0.44;
       const R = Math.max(70, Math.min(w * 0.15, h * 0.235));
 
       ctx.fillStyle = BG;
