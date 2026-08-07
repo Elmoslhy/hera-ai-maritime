@@ -18,14 +18,14 @@ export function HeroSection() {
           <SekerLogo className="mx-auto w-[min(72vw,460px)] text-foreground" />
         </Reveal>
         <Reveal delay={0.15}>
-          <h1 className="mt-8 text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
+          <h1 className="text-balance mt-8 text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
             We track every ship.
             <br />
             <span className="font-normal">Even when it hides.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.3}>
-          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+          <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             AIS off? Spoofed? Our satellites still see the ship. Five sensors, fused by{" "}
             <span className="text-gold">HERA AI</span> into one verified position per vessel.
           </p>
@@ -85,14 +85,14 @@ export function LaunchSection() {
           <p className="text-eyebrow text-gold/80">EU Sovereign · Real Time</p>
         </Reveal>
         <Reveal delay={0.12}>
-          <h2 className="mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">
+          <h2 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">
             Launching with
             <br />
             <span className="text-gold">HERA AI</span>
           </h2>
         </Reveal>
         <Reveal delay={0.24}>
-          <p className="mt-7 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="text-pretty mt-7 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
             The verified maritime intelligence layer Europe has been waiting for.
           </p>
         </Reveal>
@@ -150,7 +150,7 @@ export function OceanSection() {
           <p className="text-eyebrow text-gold">The Problem</p>
         </Reveal>
         <Reveal delay={0.12}>
-          <h2 className="mt-6 text-3xl font-light tracking-tight text-foreground sm:text-6xl">
+          <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-6xl">
             The dark sea is not dark to us.
           </h2>
         </Reveal>
@@ -173,12 +173,13 @@ export function VesselScanSection() {
           <p className="text-eyebrow text-gold">HERA AI · Verified Maritime Data Layer</p>
         </Reveal>
         <Reveal delay={0.12}>
-          <h2 className="mt-6 text-3xl font-light tracking-tight text-foreground sm:text-6xl">
-            We don't track vessels. We know them.
+          <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-6xl">
+            We don't track vessels.
+            <span className="mt-2 block">We know them.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.24}>
-          <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
+          <p className="text-pretty mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
             Digital twin per vessel. Tamper-proof data (Blue Tick verified). Spoofing corrected.
             Minimum latency. Everywhere.
           </p>
@@ -212,13 +213,13 @@ export function ProblemSection() {
             <p className="text-eyebrow text-gold">The Problem</p>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+            <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
               Maritime intelligence is broken.
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
             <blockquote className="mt-8 border-l border-gold/40 pl-6">
-              <p className="text-base leading-relaxed text-muted-foreground">
+              <p className="text-pretty text-base leading-relaxed text-muted-foreground">
                 76% of all EU trade by weight moves by sea — yet a growing shadow fleet of over
                 3,300 vessels operates outside the system, moving billions in sanctioned cargo
                 through AIS manipulation, GPS jamming, and identity fraud. The intelligence layer
@@ -272,7 +273,7 @@ export function ContactSection() {
     <section className="bg-navy px-6 py-32">
       <div className="mx-auto max-w-2xl text-center">
         <Reveal>
-          <h2 className="text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+          <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             Get in touch.
           </h2>
         </Reveal>
