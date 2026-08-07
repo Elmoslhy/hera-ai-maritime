@@ -141,29 +141,6 @@ export function ConstellationSection() {
   );
 }
 
-export function OceanSection() {
-  return (
-    <section className="relative flex min-h-screen items-center overflow-hidden px-6">
-      <SectionBackground src={ocean} alt="Moonlit dark sea" overlay="bg-navy/40" />
-      <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
-        <Reveal>
-          <p className="text-eyebrow text-gold">The Problem</p>
-        </Reveal>
-        <Reveal delay={0.12}>
-          <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-6xl">
-            The dark sea is not dark to us.
-          </h2>
-        </Reveal>
-        <Reveal delay={0.24}>
-          <p className="mt-8 font-mono text-[11px] tracking-[0.2em] text-cyan">
-            $54B MARKET · 18% CAGR · ZERO EU SOVEREIGN PROVIDERS TODAY
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 const ALERTS = [
   {
     head: "AIS Spoofing ×3 YoY",
