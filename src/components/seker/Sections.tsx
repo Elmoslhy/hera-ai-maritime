@@ -164,31 +164,6 @@ export function OceanSection() {
   );
 }
 
-export function VesselScanSection() {
-  return (
-    <section className="relative flex min-h-screen items-center overflow-hidden px-6">
-      <SectionBackground src={vessels} alt="Vessel surveillance view" overlay="bg-navy/50" />
-      <div className="relative z-10 mx-auto w-full max-w-3xl">
-        <Reveal>
-          <p className="text-eyebrow text-gold">HERA AI · Verified Maritime Data Layer</p>
-        </Reveal>
-        <Reveal delay={0.12}>
-          <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-6xl">
-            We don't track vessels.
-            <span className="mt-2 block">We know them.</span>
-          </h2>
-        </Reveal>
-        <Reveal delay={0.24}>
-          <p className="text-pretty mt-8 max-w-xl text-base leading-relaxed text-muted-foreground">
-            Digital twin per vessel. Tamper-proof data (Blue Tick verified). Spoofing corrected.
-            Minimum latency. Everywhere.
-          </p>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 const ALERTS = [
   {
     head: "AIS Spoofing ×3 YoY",
