@@ -255,12 +255,13 @@ export function EyeCanvas({ className }: { className?: string }) {
       }
 
       // the dark vessel — no AIS, only a faint wake until HERA pins it
+      const darkColor = lock > 0.4 ? "#ff4d4d" : "#33455c";
       ctx.globalAlpha = seaA * (0.18 + 0.82 * lock);
       // wake trail behind the stern
       ctx.save();
       ctx.globalAlpha = seaA * (0.08 + 0.12 * lock);
       const wakeGrad = ctx.createLinearGradient(tgt.x - 18, tgt.y, tgt.x - 60, tgt.y);
-      wakeGrad.addColorStop(0, color === "#ff4d4d" ? "rgba(255,77,77,0.25)" : "rgba(143,163,189,0.25)");
+      wakeGrad.addColorStop(0, lock > 0.4 ? "rgba(255,77,77,0.25)" : "rgba(143,163,189,0.25)");
       wakeGrad.addColorStop(1, "rgba(143,163,189,0)");
       ctx.fillStyle = wakeGrad;
       ctx.beginPath();
@@ -271,7 +272,7 @@ export function EyeCanvas({ className }: { className?: string }) {
       ctx.closePath();
       ctx.fill();
       ctx.restore();
-      drawShip(tgt.x, tgt.y, 1.05, lock > 0.4 ? "#ff4d4d" : "#33455c", seaA * (0.3 + 0.7 * lock));
+      drawShip(tgt.x, tgt.y, 1.05, darkColor, seaA * (0.3 + 0.7 * lock));
       ctx.globalAlpha = seaA;
 
       if (hunt > 0.15) {
