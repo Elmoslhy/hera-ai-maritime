@@ -1,4 +1,6 @@
 import { useEffect, useRef } from "react";
+import satelliteImg from "@/assets/satellite-real.png";
+import vesselImg from "@/assets/vessel-top.png";
 
 const BG = "#09121F";
 const ACCENT = "#c9a84c";
