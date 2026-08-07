@@ -289,7 +289,7 @@ function DigitalTwin() {
       <div className="space-y-6 p-5">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="text-xl font-light leading-tight tracking-wide text-foreground">
+            <h3 className="text-balance text-xl font-light leading-tight tracking-wide text-foreground">
               ATLANTIC
               <br />
               PEARL
@@ -465,7 +465,7 @@ export function DashboardSection() {
     <section className="bg-navy px-6 py-28">
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
-          <h2 className="text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+          <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             We don't track vessels. <span className="text-gold">We know them.</span>
           </h2>
         </Reveal>
@@ -475,7 +475,7 @@ export function DashboardSection() {
             <EyeCanvas />
             <div className="pointer-events-none absolute inset-x-0 top-0 px-6 pt-6 text-center">
               <p className="font-mono text-[9px] tracking-[0.28em] text-gold">HERA AI · INSIGHT</p>
-              <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+              <p className="text-pretty mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
                 The constellation looks down, finds the ship that switched its AIS off, and names it.
               </p>
             </div>
@@ -514,8 +514,8 @@ export function DashboardSection() {
             <Reveal key={f.title} delay={i * 0.1}>
               <div className="h-full rounded-xl border border-white/10 bg-white/[0.02] p-6">
                 <span className="font-mono text-[9px] tracking-[0.24em] text-gold">0{i + 1}</span>
-                <h3 className="mt-3 text-lg font-medium text-foreground">{f.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
+                <h3 className="text-balance mt-3 text-lg font-medium text-foreground">{f.title}</h3>
+                <p className="text-pretty mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
               </div>
             </Reveal>
           ))}
