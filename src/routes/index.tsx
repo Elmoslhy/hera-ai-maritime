@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
+import { AnalyticsSection } from "@/components/seker/Analytics";
 import { DashboardSection } from "@/components/seker/Dashboard";
 import { DescentSection } from "@/components/seker/Descent";
 import {
