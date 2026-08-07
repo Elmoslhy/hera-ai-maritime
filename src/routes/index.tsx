@@ -41,6 +41,7 @@ function Index() {
         <OceanSection />
         <ProblemSection />
         <DashboardSection />
+        <AnalyticsSection />
         <ContactSection />
       </main>
       <Footer />
