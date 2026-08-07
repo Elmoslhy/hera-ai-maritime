@@ -9,7 +9,6 @@ import {
   LaunchSection,
   OceanSection,
   ProblemSection,
-  VesselScanSection,
 } from "@/components/seker/Sections";
 
 const TITLE = "SEKER · Verified Maritime Intelligence from Orbit";
@@ -39,7 +38,6 @@ function Index() {
         <ConstellationSection />
         <DescentSection />
         <OceanSection />
-        <VesselScanSection />
         <ProblemSection />
         <DashboardSection />
         <ContactSection />
