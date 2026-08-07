@@ -17,6 +17,14 @@ type Industry = {
   blurb: string;
   metrics: { label: string; to: number; suffix?: string; decimals?: number }[];
   insights: Insight[];
+  chart: {
+    title: string;
+    unit: string;
+    series: number[];
+    baseline: number[];
+    mix: { label: string; value: number; tone: "gold" | "cyan" | "alert" }[];
+    gauge: { label: string; value: number; note: string };
+  };
 };
 
 const INDUSTRIES: Industry[] = [
