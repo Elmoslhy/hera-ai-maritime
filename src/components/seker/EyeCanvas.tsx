@@ -144,16 +144,40 @@ export function EyeCanvas({ className }: { className?: string }) {
       ctx.globalAlpha = a;
       ctx.translate(x, y);
       ctx.scale(s, s);
+
+      // hull — elongated body with pointed bow (top-down view)
       ctx.fillStyle = color;
       ctx.beginPath();
-      ctx.moveTo(-9, -3);
-      ctx.lineTo(7, -3);
-      ctx.lineTo(10, 0);
-      ctx.lineTo(7, 3);
-      ctx.lineTo(-9, 3);
+      ctx.moveTo(-13, -3.2);
+      ctx.quadraticCurveTo(-15.5, 0, -13, 3.2);
+      ctx.lineTo(7, 3.2);
+      ctx.quadraticCurveTo(16, 2.8, 16, 0);
+      ctx.quadraticCurveTo(16, -2.8, 7, -3.2);
       ctx.closePath();
       ctx.fill();
-      ctx.fillRect(-3, -7, 5, 4);
+
+      // deck edge highlight
+      ctx.strokeStyle = "rgba(255,255,255,0.14)";
+      ctx.lineWidth = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(-11, -2);
+      ctx.lineTo(8, -2);
+      ctx.moveTo(-11, 2);
+      ctx.lineTo(8, 2);
+      ctx.stroke();
+
+      // cargo hatch rows
+      ctx.globalAlpha = a * 0.55;
+      for (const hx of [-6, -2.5, 1, 4.5]) {
+        ctx.fillRect(hx, -1.8, 2.2, 3.6);
+      }
+      ctx.globalAlpha = a;
+
+      // bridge / superstructure near the stern
+      ctx.fillStyle = color === "#ff4d4d" ? "#ff7a7a" : "rgba(232,190,82,0.85)";
+      ctx.fillRect(-10, -1.4, 2.6, 2.8);
+      ctx.fillRect(-9, -2.2, 0.8, 4.4);
+
       ctx.restore();
     };
 
