@@ -95,7 +95,7 @@ export function EyeCanvas({ className }: { className?: string }) {
 
     const satPos = (i: number) => {
       const f = (i + 0.5) / SAT_COUNT;
-      return { x: w * (0.12 + 0.76 * f), y: h * (0.235 - 0.075 * Math.sin(Math.PI * f)) };
+      return { x: w * (0.12 + 0.76 * f), y: h * (0.30 - 0.075 * Math.sin(Math.PI * f)) };
     };
 
     const drawSatellite = (x: number, y: number, a: number, scale: number) => {
