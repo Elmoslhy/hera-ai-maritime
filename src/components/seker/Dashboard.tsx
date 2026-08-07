@@ -476,7 +476,7 @@ export function DashboardSection() {
             <div className="pointer-events-none absolute inset-x-0 top-0 px-6 pt-6 text-center">
               <p className="font-mono text-[9px] tracking-[0.28em] text-gold">HERA AI · INSIGHT</p>
               <p className="text-pretty mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                The constellation looks down, finds the ship that switched its AIS off, and names it.
+                Our payloads in the sky find the ship that switched its AIS off, and name it.
               </p>
             </div>
           </div>
