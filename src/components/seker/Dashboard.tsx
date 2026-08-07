@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CountUp, Reveal } from "./primitives";
 import { SekerLogo } from "./Logo";
+import { EyeCanvas } from "./EyeCanvas";
 
 const TOP_STATS = [
   { label: "Spoofs detected · 24h", sub: "3 zones · 11 flags", to: 173, suffix: "", tone: "text-alert" },
@@ -467,6 +468,18 @@ export function DashboardSection() {
           <h2 className="text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             We don't track vessels. <span className="text-gold">We know them.</span>
           </h2>
+        </Reveal>
+
+        <Reveal className="mt-12">
+          <div className="relative h-[340px] overflow-hidden rounded-xl border border-white/10 sm:h-[440px]">
+            <EyeCanvas />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy via-navy/70 to-transparent px-6 pb-6 pt-16 text-center">
+              <p className="font-mono text-[9px] tracking-[0.28em] text-gold">HERA AI · INSIGHT</p>
+              <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                Every satellite pass, downlink and vessel track converges into one verified picture.
+              </p>
+            </div>
+          </div>
         </Reveal>
 
         <Reveal className="mt-14">
