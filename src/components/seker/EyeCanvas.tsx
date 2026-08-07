@@ -95,7 +95,7 @@ export function EyeCanvas({ className }: { className?: string }) {
 
     const satPos = (i: number) => {
       const f = (i + 0.5) / SAT_COUNT;
-      return { x: w * (0.12 + 0.76 * f), y: h * (0.235 - 0.075 * Math.sin(Math.PI * f)) };
+      return { x: w * (0.12 + 0.76 * f), y: h * (0.30 - 0.075 * Math.sin(Math.PI * f)) };
     };
 
     const drawSatellite = (x: number, y: number, a: number, scale: number) => {
@@ -144,16 +144,40 @@ export function EyeCanvas({ className }: { className?: string }) {
       ctx.globalAlpha = a;
       ctx.translate(x, y);
       ctx.scale(s, s);
+
+      // hull — elongated body with pointed bow (top-down view)
       ctx.fillStyle = color;
       ctx.beginPath();
-      ctx.moveTo(-9, -3);
-      ctx.lineTo(7, -3);
-      ctx.lineTo(10, 0);
-      ctx.lineTo(7, 3);
-      ctx.lineTo(-9, 3);
+      ctx.moveTo(-13, -3.2);
+      ctx.quadraticCurveTo(-15.5, 0, -13, 3.2);
+      ctx.lineTo(7, 3.2);
+      ctx.quadraticCurveTo(16, 2.8, 16, 0);
+      ctx.quadraticCurveTo(16, -2.8, 7, -3.2);
       ctx.closePath();
       ctx.fill();
-      ctx.fillRect(-3, -7, 5, 4);
+
+      // deck edge highlight
+      ctx.strokeStyle = "rgba(255,255,255,0.14)";
+      ctx.lineWidth = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(-11, -2);
+      ctx.lineTo(8, -2);
+      ctx.moveTo(-11, 2);
+      ctx.lineTo(8, 2);
+      ctx.stroke();
+
+      // cargo hatch rows
+      ctx.globalAlpha = a * 0.55;
+      for (const hx of [-6, -2.5, 1, 4.5]) {
+        ctx.fillRect(hx, -1.8, 2.2, 3.6);
+      }
+      ctx.globalAlpha = a;
+
+      // bridge / superstructure near the stern
+      ctx.fillStyle = color === "#ff4d4d" ? "#ff7a7a" : "rgba(232,190,82,0.85)";
+      ctx.fillRect(-10, -1.4, 2.6, 2.8);
+      ctx.fillRect(-9, -2.2, 0.8, 4.4);
+
       ctx.restore();
     };
 
@@ -231,8 +255,24 @@ export function EyeCanvas({ className }: { className?: string }) {
       }
 
       // the dark vessel — no AIS, only a faint wake until HERA pins it
+      const darkColor = lock > 0.4 ? "#ff4d4d" : "#33455c";
       ctx.globalAlpha = seaA * (0.18 + 0.82 * lock);
-      drawShip(tgt.x, tgt.y, 1.05, lock > 0.4 ? "#ff4d4d" : "#33455c", seaA * (0.3 + 0.7 * lock));
+      // wake trail behind the stern
+      ctx.save();
+      ctx.globalAlpha = seaA * (0.08 + 0.12 * lock);
+      const wakeGrad = ctx.createLinearGradient(tgt.x - 18, tgt.y, tgt.x - 60, tgt.y);
+      wakeGrad.addColorStop(0, lock > 0.4 ? "rgba(255,77,77,0.25)" : "rgba(143,163,189,0.25)");
+      wakeGrad.addColorStop(1, "rgba(143,163,189,0)");
+      ctx.fillStyle = wakeGrad;
+      ctx.beginPath();
+      ctx.moveTo(tgt.x - 16, tgt.y - 2.5);
+      ctx.lineTo(tgt.x - 55, tgt.y - 7);
+      ctx.lineTo(tgt.x - 55, tgt.y + 7);
+      ctx.lineTo(tgt.x - 16, tgt.y + 2.5);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+      drawShip(tgt.x, tgt.y, 1.05, darkColor, seaA * (0.3 + 0.7 * lock));
       ctx.globalAlpha = seaA;
 
       if (hunt > 0.15) {
@@ -291,7 +331,7 @@ export function EyeCanvas({ className }: { className?: string }) {
       }
 
       const cx = w / 2;
-      const cy = h * 0.37;
+      const cy = h * 0.44;
       const R = Math.max(70, Math.min(w * 0.15, h * 0.235));
 
       ctx.fillStyle = BG;
