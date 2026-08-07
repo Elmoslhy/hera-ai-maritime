@@ -1,4 +1,6 @@
 import { useEffect, useRef } from "react";
+import satelliteImg from "@/assets/satellite-real.png";
+import vesselImg from "@/assets/vessel-top.png";
 
 const BG = "#09121F";
 const ACCENT = "#c9a84c";
@@ -69,6 +71,35 @@ export function EyeCanvas({ className }: { className?: string }) {
     io.observe(canvas);
 
     const rnd = mulberry(20260807);
+
+    // real photographic assets — same satellite/vessel art as the hero scene
+    const sprites: { sat?: HTMLImageElement; ship?: HTMLImageElement; shipRed?: HTMLCanvasElement } = {};
+    const tint = (img: HTMLImageElement, color: string, amount: number) => {
+      const c = document.createElement("canvas");
+      c.width = img.naturalWidth;
+      c.height = img.naturalHeight;
+      const cx = c.getContext("2d");
+      if (!cx) return c;
+      cx.drawImage(img, 0, 0);
+      cx.globalCompositeOperation = "source-atop";
+      cx.globalAlpha = amount;
+      cx.fillStyle = color;
+      cx.fillRect(0, 0, c.width, c.height);
+      return c;
+    };
+    const loadSprite = (src: string, onDone: (img: HTMLImageElement) => void) => {
+      const img = new Image();
+      img.src = src;
+      img.decode?.().then(() => onDone(img)).catch(() => {
+        img.onload = () => onDone(img);
+      });
+    };
+    loadSprite(satelliteImg, (img) => { sprites.sat = img; });
+    loadSprite(vesselImg, (img) => {
+      sprites.ship = img;
+      sprites.shipRed = tint(img, "#ff4d4d", 0.55);
+    });
+
     const starSeed = Array.from({ length: 260 }, () => ({
       x: rnd(),
       y: rnd(),
@@ -103,6 +134,15 @@ export function EyeCanvas({ className }: { className?: string }) {
       ctx.translate(x, y);
       ctx.scale(scale, scale);
       ctx.globalAlpha = a;
+      if (sprites.sat) {
+        const iw = sprites.sat.naturalWidth || 1;
+        const ih = sprites.sat.naturalHeight || 1;
+        const dw = 74;
+        const dh = (dw * ih) / iw;
+        ctx.drawImage(sprites.sat, -dw / 2, -dh / 2, dw, dh);
+        ctx.restore();
+        return;
+      }
       ctx.strokeStyle = ACCENT;
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -144,6 +184,17 @@ export function EyeCanvas({ className }: { className?: string }) {
       ctx.globalAlpha = a;
       ctx.translate(x, y);
       ctx.scale(s, s);
+
+      const sprite = color === "#ff4d4d" ? sprites.shipRed ?? sprites.ship : sprites.ship;
+      if (sprite) {
+        const iw = (sprite as HTMLImageElement).naturalWidth ?? sprite.width;
+        const ih = (sprite as HTMLImageElement).naturalHeight ?? sprite.height;
+        const dw = 46;
+        const dh = (dw * ih) / iw;
+        ctx.drawImage(sprite as CanvasImageSource, -dw / 2, -dh / 2, dw, dh);
+        ctx.restore();
+        return;
+      }
 
       // hull — elongated body with pointed bow (top-down view)
       ctx.fillStyle = color;
