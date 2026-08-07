@@ -578,6 +578,19 @@ export function InsightsSection() {
             </div>
 
             {/* insight cards */}
+            <div className="mt-6 grid gap-5 lg:grid-cols-[1.6fr_1fr]">
+              <TrendChart
+                series={industry.chart.series}
+                baseline={industry.chart.baseline}
+                title={industry.chart.title}
+                unit={industry.chart.unit}
+              />
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                <MixBars mix={industry.chart.mix} />
+                <Gauge gauge={industry.chart.gauge} />
+              </div>
+            </div>
+
             <div className="mt-8 grid gap-5 lg:grid-cols-3">
               {industry.insights.map((ins, idx) => {
                 const tone = TONE[ins.tone];
