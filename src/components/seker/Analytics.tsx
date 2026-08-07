@@ -392,7 +392,7 @@ function GaugePanel() {
             </defs>
             {/* tick marks */}
             {Array.from({ length: 11 }).map((_, i) => {
-              const a = ((startAngle + (i / 10) * sweep) * Math.PI) / 180);
+              const a = ((startAngle + (i / 10) * sweep) * Math.PI) / 180;
               const x1 = cx + Math.cos(a) * (R + 12);
               const y1 = cy + Math.sin(a) * (R + 12);
               const x2 = cx + Math.cos(a) * (R + 18);
