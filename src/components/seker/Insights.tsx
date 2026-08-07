@@ -249,6 +249,9 @@ export function InsightsSection() {
             Data for actionable insights.
             <span className="mt-2 block text-cyan">We hand you the next move.</span>
           </h2>
+          <p className="text-pretty mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            AI fused and trained — with a human touch.
+          </p>
           <p className="text-pretty mx-auto mt-7 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             The same fused picture answers a different question for every desk.
             Pick yours.
