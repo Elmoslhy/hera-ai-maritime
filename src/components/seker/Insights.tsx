@@ -38,6 +38,18 @@ const INDUSTRIES: Industry[] = [
       { label: "Median warning time", to: 42, suffix: " min" },
       { label: "Identification confidence", to: 96.8, suffix: "%", decimals: 1 },
     ],
+    chart: {
+      title: "Dark-vessel detections",
+      unit: "per week",
+      series: [82, 91, 88, 104, 119, 126, 141, 148],
+      baseline: [80, 82, 83, 85, 86, 88, 90, 92],
+      mix: [
+        { label: "Thermal IR", value: 41, tone: "alert" },
+        { label: "RF geolocation", value: 34, tone: "cyan" },
+        { label: "AIS anomaly", value: 25, tone: "gold" },
+      ],
+      gauge: { label: "AI identification", value: 96.8, note: "Model v4 · human-verified" },
+    },
     insights: [
       {
         tag: "DARK VESSEL",
@@ -77,6 +89,18 @@ const INDUSTRIES: Industry[] = [
       { label: "Claims evidence packs / mo", to: 2400 },
       { label: "Position audit accuracy", to: 99.1, suffix: "%", decimals: 1 },
     ],
+    chart: {
+      title: "Sanction breaches caught",
+      unit: "per month",
+      series: [61, 74, 88, 97, 112, 134, 158, 173],
+      baseline: [60, 63, 67, 70, 74, 78, 82, 86],
+      mix: [
+        { label: "Port-call proof", value: 46, tone: "gold" },
+        { label: "Track forensics", value: 33, tone: "cyan" },
+        { label: "Identity spoof", value: 21, tone: "alert" },
+      ],
+      gauge: { label: "Audit accuracy", value: 99.1, note: "Tamper-proof position history" },
+    },
     insights: [
       {
         tag: "SANCTIONS",
@@ -115,6 +139,18 @@ const INDUSTRIES: Industry[] = [
       { label: "Port call detection", to: 98.6, suffix: "%", decimals: 1 },
       { label: "Signal-to-desk latency", to: 38, suffix: " ms" },
     ],
+    chart: {
+      title: "Cargo movements tracked",
+      unit: "per day (×100)",
+      series: [54, 61, 66, 72, 79, 86, 93, 98],
+      baseline: [52, 55, 58, 61, 64, 67, 70, 73],
+      mix: [
+        { label: "Draught change", value: 44, tone: "cyan" },
+        { label: "Port call", value: 38, tone: "gold" },
+        { label: "STS transfer", value: 18, tone: "alert" },
+      ],
+      gauge: { label: "Port-call detection", value: 98.6, note: "38 ms signal-to-desk" },
+    },
     insights: [
       {
         tag: "FLOW SHIFT",
@@ -151,6 +187,18 @@ const INDUSTRIES: Industry[] = [
       { label: "Berth hours recovered / mo", to: 640 },
       { label: "Vessels in live picture", to: 120, suffix: "K" },
     ],
+    chart: {
+      title: "Berth hours recovered",
+      unit: "per month",
+      series: [310, 366, 402, 448, 501, 552, 598, 640],
+      baseline: [300, 320, 340, 360, 380, 400, 420, 440],
+      mix: [
+        { label: "ETA correction", value: 52, tone: "cyan" },
+        { label: "Anchorage load", value: 31, tone: "gold" },
+        { label: "Unidentified hull", value: 17, tone: "alert" },
+      ],
+      gauge: { label: "Arrival ETA accuracy", value: 94.7, note: "Rolling 24 h forecast" },
+    },
     insights: [
       {
         tag: "ETA",
@@ -188,6 +236,18 @@ const INDUSTRIES: Industry[] = [
       { label: "Protected-zone coverage", to: 100, suffix: "%" },
       { label: "Discharge detections / mo", to: 57 },
     ],
+    chart: {
+      title: "IUU events flagged",
+      unit: "per month",
+      series: [128, 156, 181, 204, 233, 262, 289, 312],
+      baseline: [125, 138, 150, 163, 175, 188, 200, 212],
+      mix: [
+        { label: "Dark fishing", value: 48, tone: "alert" },
+        { label: "Transshipment", value: 33, tone: "cyan" },
+        { label: "Discharge", value: 19, tone: "gold" },
+      ],
+      gauge: { label: "Protected-zone coverage", value: 100, note: "Persistent revisit, day and night" },
+    },
     insights: [
       {
         tag: "IUU FISHING",
