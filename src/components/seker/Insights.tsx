@@ -296,6 +296,204 @@ const TONE = {
   },
 } as const;
 
+const HEX = { gold: "#C9A84C", cyan: "#4dd9c0", alert: "#ff4d4d" } as const;
+
+function path(points: number[], w: number, h: number, pad = 6) {
+  const max = Math.max(...points) * 1.12;
+  const min = Math.min(...points) * 0.82;
+  const stepX = (w - pad * 2) / (points.length - 1);
+  return points.map((v, i) => {
+    const x = pad + i * stepX;
+    const y = h - pad - ((v - min) / (max - min || 1)) * (h - pad * 2);
+    return `${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+}
+
+function TrendChart({
+  series,
+  baseline,
+  title,
+  unit,
+}: {
+  series: number[];
+  baseline: number[];
+  title: string;
+  unit: string;
+}) {
+  const w = 620;
+  const h = 210;
+  const d = path(series, w, h).join(" ");
+  const b = path(baseline.map((v, i) => Math.min(v, Math.max(...series))), w, h).join(" ");
+  const area = `${d} L${w - 6},${h - 6} L6,${h - 6} Z`;
+  const last = series[series.length - 1];
+  const first = series[0];
+  const growth = Math.round(((last - first) / first) * 100);
+
+  return (
+    <div className="rounded-xl border border-white/10 bg-[#070d16] p-6">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted-foreground">
+            {title}
+          </p>
+          <p className="mt-1 font-mono text-[9px] tracking-[0.16em] uppercase text-muted-foreground/60">
+            {unit} · 8-week window
+          </p>
+        </div>
+        <span className="rounded border border-cyan/40 bg-cyan/10 px-2 py-0.5 font-mono text-[9px] tracking-[0.14em] text-cyan">
+          +{growth}% AI-DETECTED
+        </span>
+      </div>
+
+      <svg viewBox={`0 0 ${w} ${h}`} className="mt-5 w-full" role="img" aria-label={title}>
+        <defs>
+          <linearGradient id="insFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={HEX.gold} stopOpacity="0.28" />
+            <stop offset="100%" stopColor={HEX.gold} stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        {[0, 1, 2, 3].map((i) => (
+          <line
+            key={i}
+            x1="6"
+            x2={w - 6}
+            y1={6 + (i * (h - 12)) / 3}
+            y2={6 + (i * (h - 12)) / 3}
+            stroke="rgba(255,255,255,0.06)"
+            strokeWidth="1"
+          />
+        ))}
+        <motion.path
+          d={b}
+          fill="none"
+          stroke="rgba(255,255,255,0.22)"
+          strokeWidth="1.2"
+          strokeDasharray="4 5"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        />
+        <motion.path
+          d={area}
+          fill="url(#insFill)"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.35 }}
+        />
+        <motion.path
+          d={d}
+          fill="none"
+          stroke={HEX.gold}
+          strokeWidth="2"
+          strokeLinecap="round"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        />
+        {series.map((v, i) => {
+          const p = path(series, w, h)[i].slice(1).split(",");
+          return (
+            <motion.circle
+              key={i}
+              cx={p[0]}
+              cy={p[1]}
+              r={i === series.length - 1 ? 4 : 2.2}
+              fill={i === series.length - 1 ? HEX.cyan : HEX.gold}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 + i * 0.06 }}
+            />
+          );
+        })}
+      </svg>
+
+      <div className="mt-3 flex items-center gap-5 font-mono text-[9px] tracking-[0.14em] uppercase text-muted-foreground">
+        <span className="flex items-center gap-2">
+          <span className="h-[2px] w-5 bg-gold" /> HERA fused
+        </span>
+        <span className="flex items-center gap-2">
+          <span className="h-[2px] w-5 bg-white/25" /> AIS only
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function MixBars({ mix }: { mix: Industry["chart"]["mix"] }) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-[#070d16] p-6">
+      <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted-foreground">
+        Signal contribution
+      </p>
+      <div className="mt-5 space-y-4">
+        {mix.map((m, i) => (
+          <div key={m.label}>
+            <div className="flex items-baseline justify-between">
+              <span className="text-xs text-foreground">{m.label}</span>
+              <span className="font-mono text-[11px] text-muted-foreground">
+                {m.value}%
+              </span>
+            </div>
+            <div className="mt-2 h-[6px] overflow-hidden rounded-full bg-white/8">
+              <motion.div
+                className="h-full rounded-full"
+                style={{ background: HEX[m.tone] }}
+                initial={{ width: 0 }}
+                animate={{ width: `${m.value}%` }}
+                transition={{ duration: 1, delay: 0.2 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+      <p className="text-pretty mt-5 border-t border-white/8 pt-4 text-[11px] leading-relaxed text-muted-foreground">
+        Every conclusion is traceable to the sensors that produced it.
+      </p>
+    </div>
+  );
+}
+
+function Gauge({ gauge }: { gauge: Industry["chart"]["gauge"] }) {
+  const r = 52;
+  const c = 2 * Math.PI * r;
+  return (
+    <div className="flex flex-col items-center rounded-xl border border-white/10 bg-[#070d16] p-6 text-center">
+      <p className="font-mono text-[9px] tracking-[0.2em] uppercase text-muted-foreground">
+        {gauge.label}
+      </p>
+      <svg viewBox="0 0 140 140" className="mt-4 h-[140px] w-[140px]">
+        <circle cx="70" cy="70" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="8" />
+        <motion.circle
+          cx="70"
+          cy="70"
+          r={r}
+          fill="none"
+          stroke={HEX.cyan}
+          strokeWidth="8"
+          strokeLinecap="round"
+          transform="rotate(-90 70 70)"
+          strokeDasharray={c}
+          initial={{ strokeDashoffset: c }}
+          animate={{ strokeDashoffset: c * (1 - gauge.value / 100) }}
+          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        />
+        <text
+          x="70"
+          y="76"
+          textAnchor="middle"
+          className="fill-foreground font-mono"
+          style={{ fontSize: 24, fontWeight: 300 }}
+        >
+          {gauge.value}%
+        </text>
+      </svg>
+      <p className="text-pretty mt-3 text-[11px] leading-relaxed text-muted-foreground">
+        {gauge.note}
+      </p>
+    </div>
+  );
+}
+
 export function InsightsSection() {
   const [active, setActive] = useState(INDUSTRIES[0].id);
   const industry = INDUSTRIES.find((i) => i.id === active)!;
