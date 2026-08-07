@@ -535,8 +535,8 @@ export function EyeCanvas({ className }: { className?: string }) {
         const sacc = alive > 0 ? Math.sin(alive * 0.31) * Math.sin(alive * 1.7) : 0;
         const ox = Math.abs(sacc) > 0.85 ? sacc * 5 : 0;
 
-        const lidW = R * 1.55;
-        const lidH = R * 1.12 * Math.max(aperture, 0.001);
+        const lidW = R * 1.72;
+        const lidH = R * 1.1 * Math.max(aperture, 0.001);
 
         ctx.save();
         ctx.beginPath();
@@ -548,32 +548,45 @@ export function EyeCanvas({ className }: { className?: string }) {
 
         ctx.translate(ox, 0);
 
-        const irisWash = ctx.createRadialGradient(cx, cy, R * 0.2, cx, cy, R);
-        irisWash.addColorStop(0, "rgba(9,18,31,1)");
-        irisWash.addColorStop(0.75, "rgba(10,31,60,0.9)");
-        irisWash.addColorStop(1, "rgba(9,18,31,0.2)");
+        const irisWash = ctx.createRadialGradient(cx, cy, R * 0.2, cx, cy, R * 1.05);
+        irisWash.addColorStop(0, "rgba(20,36,68,1)");
+        irisWash.addColorStop(0.55, "rgba(38,58,104,0.98)");
+        irisWash.addColorStop(0.88, "rgba(20,38,72,0.95)");
+        irisWash.addColorStop(1, "rgba(9,18,31,0.35)");
         ctx.fillStyle = irisWash;
         ctx.beginPath();
         ctx.arc(cx, cy, R * 1.12, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.globalAlpha = reveal * 0.5;
+        ctx.globalAlpha = reveal * 0.42;
         ctx.strokeStyle = ACCENT;
-        ctx.lineWidth = 0.7;
-        for (const kr of [0.46, 0.6, 0.72, 0.86]) {
+        ctx.lineWidth = 0.6;
+        for (const kr of [0.42, 0.52, 0.62, 0.72, 0.82, 0.92]) {
           ctx.beginPath();
           ctx.arc(cx, cy, R * kr, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        // fine minor ticks around the rim
+        ctx.globalAlpha = reveal * 0.55;
+        ctx.strokeStyle = ACCENT;
+        ctx.lineWidth = 0.8;
+        for (let i = 0; i < 96; i++) {
+          const a = (i / 96) * Math.PI * 2 + spin;
+          ctx.beginPath();
+          ctx.moveTo(cx + Math.cos(a) * R * 0.985, cy + Math.sin(a) * R * 0.985);
+          ctx.lineTo(cx + Math.cos(a) * R * 1.035, cy + Math.sin(a) * R * 1.035);
           ctx.stroke();
         }
 
         for (let i = 0; i < SHIP_COUNT; i++) {
           const { ang } = tickPos(i);
           const major = i % 5 === 0;
-          const inner = R * (major ? 0.9 : 0.95);
-          const outer = R * (major ? 1.08 : 1.03);
-          ctx.globalAlpha = reveal * (major ? 0.95 : 0.6);
+          const inner = R * (major ? 0.9 : 0.955);
+          const outer = R * (major ? 1.09 : 1.045);
+          ctx.globalAlpha = reveal * (major ? 1 : 0.7);
           ctx.strokeStyle = major ? ACCENT_LIT : ACCENT;
-          ctx.lineWidth = major ? 1.4 : 0.9;
+          ctx.lineWidth = major ? 2 : 1.2;
           ctx.beginPath();
           ctx.moveTo(cx + Math.cos(ang) * inner, cy + Math.sin(ang) * inner);
           ctx.lineTo(cx + Math.cos(ang) * outer, cy + Math.sin(ang) * outer);
@@ -591,37 +604,38 @@ export function EyeCanvas({ className }: { className?: string }) {
           ctx.stroke();
         }
 
+        // pupil
+        const pr = R * 0.33 * breathe;
         ctx.globalAlpha = reveal;
-        ctx.fillStyle = "#04101f";
+        const pg = ctx.createRadialGradient(cx, cy, 0, cx, cy, pr);
+        pg.addColorStop(0, "#0b1524");
+        pg.addColorStop(0.7, "#060d18");
+        pg.addColorStop(1, "#03080f");
+        ctx.fillStyle = pg;
         ctx.beginPath();
-        ctx.arc(cx, cy, R * 0.34 * breathe, 0, Math.PI * 2);
+        ctx.arc(cx, cy, pr, 0, Math.PI * 2);
         ctx.fill();
-        ctx.strokeStyle = "rgba(232,190,82,0.6)";
-        ctx.lineWidth = 1;
-        ctx.stroke();
 
+        // bright rim
         ctx.strokeStyle = ACCENT_LIT;
-        ctx.lineWidth = 2.2;
+        ctx.lineWidth = 3.2;
         ctx.globalAlpha = reveal * aperture;
+        ctx.shadowColor = "rgba(232,190,82,0.55)";
+        ctx.shadowBlur = 14;
         ctx.beginPath();
         ctx.arc(cx, cy, R, 0, Math.PI * 2);
         ctx.stroke();
+        ctx.shadowBlur = 0;
 
-        const cl = ctx.createRadialGradient(
-          cx - R * 0.3,
-          cy - R * 0.32,
-          0,
-          cx - R * 0.3,
-          cy - R * 0.32,
-          R * 0.3,
-        );
-        cl.addColorStop(0, "rgba(244,246,249,0.35)");
-        cl.addColorStop(1, "rgba(244,246,249,0)");
-        ctx.globalAlpha = reveal;
-        ctx.fillStyle = cl;
+        // catchlight arc on the pupil
+        ctx.globalAlpha = reveal * 0.75;
+        ctx.strokeStyle = "rgba(226,232,240,0.85)";
+        ctx.lineWidth = 2.4;
+        ctx.lineCap = "round";
         ctx.beginPath();
-        ctx.arc(cx - R * 0.3, cy - R * 0.32, R * 0.3, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.arc(cx, cy, pr * 0.7, Math.PI * 1.12, Math.PI * 1.52);
+        ctx.stroke();
+        ctx.lineCap = "butt";
         ctx.restore();
 
         ctx.save();
