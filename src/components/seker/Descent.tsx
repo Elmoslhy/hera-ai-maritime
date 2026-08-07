@@ -195,14 +195,18 @@ export function DescentSection() {
 
         {/* HUD + captions */}
         <div className="pointer-events-none relative z-10 flex h-full flex-col justify-between p-6 pt-24 sm:p-10 sm:pt-28">
-          <div className="flex items-start justify-between gap-6">
-            <div className="space-y-2">
+          <div className="relative flex items-start justify-end gap-6">
+            <div className="absolute left-1/2 top-0 w-full max-w-lg -translate-x-1/2 space-y-2 text-center">
               <p className="font-mono text-[10px] tracking-[0.28em] text-gold">{act.title.toUpperCase()}</p>
-              <h2 className="max-w-md text-2xl font-light leading-tight tracking-tight text-foreground sm:text-4xl">
-                A ship goes dark. We still see it.
+              <h2
+                className="text-balance text-2xl font-light leading-tight tracking-tight text-foreground sm:text-4xl"
+                style={{ textShadow: "0 0 28px rgba(77,217,192,0.45), 0 2px 18px rgba(9,18,31,0.9)" }}
+              >
+                A ship goes dark.
+                <span className="mt-1 block">We still see it.</span>
               </h2>
             </div>
-            <div className="shrink-0 space-y-2 text-right">
+            <div className="relative shrink-0 space-y-2 text-right">
               <div className="rounded-lg border border-white/10 bg-navy/70 px-4 py-3 backdrop-blur-sm">
                 <p className="font-mono text-[9px] tracking-[0.22em] text-muted-foreground">DISTANCE</p>
                 <p className="font-mono text-xl text-cyan sm:text-2xl">
