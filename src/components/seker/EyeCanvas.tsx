@@ -134,6 +134,15 @@ export function EyeCanvas({ className }: { className?: string }) {
       ctx.translate(x, y);
       ctx.scale(scale, scale);
       ctx.globalAlpha = a;
+      if (sprites.sat) {
+        const iw = sprites.sat.naturalWidth || 1;
+        const ih = sprites.sat.naturalHeight || 1;
+        const dw = 74;
+        const dh = (dw * ih) / iw;
+        ctx.drawImage(sprites.sat, -dw / 2, -dh / 2, dw, dh);
+        ctx.restore();
+        return;
+      }
       ctx.strokeStyle = ACCENT;
       ctx.lineWidth = 1;
       ctx.beginPath();
