@@ -9,7 +9,6 @@ import {
   ContactSection,
   HeroSection,
   LaunchSection,
-  OceanSection,
   ProblemSection,
 } from "@/components/seker/Sections";
 
@@ -39,7 +38,6 @@ function Index() {
         <LaunchSection />
         <ConstellationSection />
         <DescentSection />
-        <OceanSection />
         <ProblemSection />
         <DashboardSection />
         <AnalyticsSection />
