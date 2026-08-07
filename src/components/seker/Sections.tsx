@@ -173,8 +173,9 @@ export function VesselScanSection() {
           <p className="text-eyebrow text-gold">HERA AI · Verified Maritime Data Layer</p>
         </Reveal>
         <Reveal delay={0.12}>
-          <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-6xl">
-            We don't track vessels. We know them.
+          <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-6xl">
+            We don't track vessels.
+            <span className="mt-2 block">We know them.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.24}>
