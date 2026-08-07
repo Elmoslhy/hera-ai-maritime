@@ -227,9 +227,7 @@ export function DescentSection() {
           </div>
 
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-            <p key={actIndex} className="max-w-lg animate-fade-in text-lg font-light leading-snug text-foreground sm:text-3xl">
-              {act.line}
-            </p>
+            <div />
             <div
               className={`rounded-lg border px-4 py-3 backdrop-blur-sm transition-colors duration-500 ${
                 p > 0.86 ? "border-gold/50 bg-gold/10" : p > 0.32 ? "border-alert/40 bg-alert/10" : "border-white/10 bg-navy/70"
