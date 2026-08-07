@@ -158,8 +158,9 @@ const ALERTS = [
 
 export function ProblemSection() {
   return (
-    <section className="bg-navy-deep px-6 py-28">
-      <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
+    <section className="relative overflow-hidden bg-navy-deep px-6 py-28">
+      <SectionBackground src={ocean} alt="Moonlit dark sea" overlay="bg-navy-deep/92" />
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
         <div>
           <Reveal>
             <p className="text-eyebrow text-gold">The Problem</p>
@@ -196,7 +197,7 @@ export function ProblemSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-px self-start overflow-hidden rounded-xl border border-white/10 bg-white/5">
+        <div className="grid grid-cols-2 gap-px self-start overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
           <StatBlock value={<CountUp to={54} prefix="$" suffix="B" className="font-mono text-4xl text-gold" />} label="Global MDA market by 2030" />
           <StatBlock value={<CountUp to={18} suffix="%" className="font-mono text-4xl text-cyan" />} label="Sector CAGR 2024–2030" />
           <StatBlock value={<CountUp to={3} prefix="×" className="font-mono text-4xl text-alert" />} label="YoY growth in AIS spoofing" />
