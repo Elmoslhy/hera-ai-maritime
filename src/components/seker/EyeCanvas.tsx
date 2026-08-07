@@ -34,7 +34,14 @@ const T = {
   net: [3.5, 4.3],
   converge: [4.3, 5.4],
   open: [5.2, 6.4],
+  dive: [7.2, 9.6],
+  sea: [7.4, 9.2],
+  hunt: [9.6, 11.6],
+  lock: [11.6, 12.8],
+  reveal: [12.8, 13.8],
 } as const;
+
+const LOOP = 21;
 
 /** HERA "insight" aperture animation — satellites, downlinks and vessel
  *  tracks converging into a watching eye. Starts when scrolled into view. */
@@ -126,9 +133,162 @@ export function EyeCanvas({ className }: { className?: string }) {
       ctx.restore();
     };
 
+    const seaShips = Array.from({ length: 9 }, () => ({
+      x: 0.08 + rnd() * 0.84,
+      y: 0.66 + rnd() * 0.28,
+      p: rnd(),
+    }));
+
+    const drawShip = (x: number, y: number, s: number, color: string, a: number) => {
+      ctx.save();
+      ctx.globalAlpha = a;
+      ctx.translate(x, y);
+      ctx.scale(s, s);
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(-9, -3);
+      ctx.lineTo(7, -3);
+      ctx.lineTo(10, 0);
+      ctx.lineTo(7, 3);
+      ctx.lineTo(-9, 3);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillRect(-3, -7, 5, 4);
+      ctx.restore();
+    };
+
+    /** Act 2 — the eye descends to the sea and pins a vessel running dark. */
+    const drawSea = (t: number, eyeX: number, eyeY: number) => {
+      const seaA = easeOut(seg(t, T.sea[0], T.sea[1]));
+      if (seaA <= 0.001) return;
+
+      const horizon = h * 0.58;
+      const tgt = { x: w * 0.63, y: h * 0.84 };
+      const hunt = easeInOut(seg(t, T.hunt[0], T.hunt[1]));
+      const lock = easeInOut(seg(t, T.lock[0], T.lock[1]));
+      const reveal = easeOut(seg(t, T.reveal[0], T.reveal[1]));
+
+      ctx.save();
+      ctx.globalAlpha = seaA;
+
+      // water
+      const water = ctx.createLinearGradient(0, horizon, 0, h);
+      water.addColorStop(0, "rgba(11,26,45,0.75)");
+      water.addColorStop(1, "rgba(4,12,22,0.98)");
+      ctx.fillStyle = water;
+      ctx.fillRect(0, horizon, w, h - horizon);
+
+      // horizon line
+      ctx.strokeStyle = "rgba(201,168,76,0.35)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, horizon);
+      ctx.lineTo(w, horizon);
+      ctx.stroke();
+
+      // swell
+      ctx.strokeStyle = "rgba(143,163,189,0.10)";
+      for (let i = 1; i <= 8; i++) {
+        const y = horizon + ((h - horizon) * i) / 8;
+        ctx.beginPath();
+        for (let x = 0; x <= w; x += 12) {
+          const yy = y + Math.sin(x * 0.012 + t * 0.8 + i) * (1.2 + i * 0.35);
+          x === 0 ? ctx.moveTo(x, yy) : ctx.lineTo(x, yy);
+        }
+        ctx.stroke();
+      }
+
+      // search beam from the eye, sweeping then settling on the target
+      const sweepX = w * (0.5 + 0.34 * Math.sin(t * 1.6));
+      const beamX = sweepX + (tgt.x - sweepX) * lock;
+      if (hunt > 0) {
+        const g = ctx.createLinearGradient(0, eyeY, 0, tgt.y);
+        g.addColorStop(0, "rgba(201,168,76,0.02)");
+        g.addColorStop(1, `rgba(201,168,76,${0.14 + 0.12 * lock})`);
+        const spread = (w * 0.09) * (1 - 0.55 * lock);
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.moveTo(eyeX, eyeY);
+        ctx.lineTo(beamX - spread, h);
+        ctx.lineTo(beamX + spread, h);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      // cooperative traffic — broadcasting AIS
+      for (const s of seaShips) {
+        const x = ((s.x + t * 0.008 * (s.p > 0.5 ? 1 : -1)) % 1.1) * w;
+        const y = horizon + (h - horizon) * ((s.y - 0.58) / 0.42);
+        drawShip(x, y, 0.55 + s.p * 0.25, MUTED, seaA * 0.7);
+        const ping = (t * 0.6 + s.p) % 1;
+        ctx.globalAlpha = seaA * (1 - ping) * 0.5;
+        ctx.strokeStyle = ACCENT;
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.arc(x, y, 6 + ping * 26, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.globalAlpha = seaA;
+      }
+
+      // the dark vessel — no AIS, only a faint wake until HERA pins it
+      ctx.globalAlpha = seaA * (0.18 + 0.82 * lock);
+      drawShip(tgt.x, tgt.y, 1.05, lock > 0.4 ? "#ff4d4d" : "#33455c", seaA * (0.3 + 0.7 * lock));
+      ctx.globalAlpha = seaA;
+
+      if (hunt > 0.15) {
+        // reticle closes in
+        const rr = 64 - 30 * lock;
+        ctx.strokeStyle = lock > 0.5 ? "#ff4d4d" : ACCENT_LIT;
+        ctx.lineWidth = 1.2;
+        ctx.globalAlpha = seaA * (0.35 + 0.65 * lock);
+        ctx.setLineDash([5, 5]);
+        ctx.beginPath();
+        ctx.arc(tgt.x, tgt.y, rr, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        for (const [dx, dy] of [
+          [-1, 0],
+          [1, 0],
+          [0, -1],
+          [0, 1],
+        ]) {
+          ctx.beginPath();
+          ctx.moveTo(tgt.x + dx * (rr - 12), tgt.y + dy * (rr - 12));
+          ctx.lineTo(tgt.x + dx * (rr + 10), tgt.y + dy * (rr + 10));
+          ctx.stroke();
+        }
+      }
+
+      if (reveal > 0) {
+        ctx.globalAlpha = seaA * reveal;
+        ctx.font = '11px "Space Mono", ui-monospace, monospace';
+        ctx.textAlign = "left";
+        const lx = tgt.x + 48;
+        const ly = tgt.y - 52;
+        ctx.strokeStyle = "rgba(255,77,77,0.7)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(tgt.x + 26, tgt.y - 26);
+        ctx.lineTo(lx - 8, ly + 6);
+        ctx.stroke();
+        ctx.fillStyle = "#ff4d4d";
+        ctx.fillText("AIS OFF · RUNNING DARK", lx, ly);
+        ctx.fillStyle = ACCENT_LIT;
+        ctx.fillText("FOUND BY RF + THERMAL", lx, ly + 18);
+        ctx.fillStyle = "#e6edf5";
+        ctx.fillText("36.21 N  13.60 E · 11.4 kn", lx, ly + 36);
+      }
+
+      ctx.restore();
+    };
+
     const frame = (now: number) => {
       let t = start === null ? 0 : (now - start) / 1000;
       if (reduced) t = Math.max(t, 9);
+      if (t > LOOP && start !== null) {
+        start = now;
+        t = 0;
+      }
 
       const cx = w / 2;
       const cy = h * 0.37;
@@ -246,6 +406,12 @@ export function EyeCanvas({ className }: { className?: string }) {
       const alive = t - T.open[1];
       const spin = alive > 0 ? alive * 0.035 : 0;
 
+      const dive = easeInOut(seg(t, T.dive[0], T.dive[1]));
+      const diveS = 1 - 0.58 * dive;
+      const diveDy = -h * 0.16 * dive;
+      const eyeX = cx;
+      const eyeY = cy + diveDy;
+
       const tickPos = (i: number) => {
         const ang = (i / SHIP_COUNT) * Math.PI * 2 - Math.PI / 2 + spin;
         return { ang, x: cx + Math.cos(ang) * R * 1.02, y: cy + Math.sin(ang) * R * 1.02 };
@@ -269,6 +435,10 @@ export function EyeCanvas({ className }: { className?: string }) {
       ctx.globalAlpha = 1;
 
       if (conv > 0.75) {
+        ctx.save();
+        ctx.translate(cx, cy + diveDy);
+        ctx.scale(diveS, diveS);
+        ctx.translate(-cx, -cy);
         const reveal = clamp01((conv - 0.75) / 0.25);
         const breathe = alive > 0 ? 1 + 0.035 * Math.sin(alive * 0.9) : 1;
         const sacc = alive > 0 ? Math.sin(alive * 0.31) * Math.sin(alive * 1.7) : 0;
@@ -373,9 +543,11 @@ export function EyeCanvas({ className }: { className?: string }) {
         ctx.quadraticCurveTo(cx, cy + lidH * 2, cx - lidW, cy);
         ctx.stroke();
         ctx.restore();
+        ctx.restore();
       }
 
       ctx.globalAlpha = 1;
+      drawSea(t, eyeX, eyeY);
       raf = requestAnimationFrame(frame);
     };
 

@@ -471,12 +471,12 @@ export function DashboardSection() {
         </Reveal>
 
         <Reveal className="mt-12">
-          <div className="relative h-[340px] overflow-hidden rounded-xl border border-white/10 sm:h-[440px]">
+          <div className="relative h-[420px] overflow-hidden rounded-xl border border-white/10 sm:h-[560px]">
             <EyeCanvas />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy via-navy/70 to-transparent px-6 pb-6 pt-16 text-center">
+            <div className="pointer-events-none absolute inset-x-0 top-0 px-6 pt-6 text-center">
               <p className="font-mono text-[9px] tracking-[0.28em] text-gold">HERA AI · INSIGHT</p>
               <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                Every satellite pass, downlink and vessel track converges into one verified picture.
+                The constellation looks down, finds the ship that switched its AIS off, and names it.
               </p>
             </div>
           </div>
