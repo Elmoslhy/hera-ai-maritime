@@ -13,7 +13,7 @@ import {
 
 const TITLE = "SEKER · Verified Maritime Intelligence from Orbit";
 const DESCRIPTION =
-  "HERA AI fuses AIS, SAR, RF and optical signals in orbit to deliver verified, tamper-proof maritime intelligence. EU sovereign. Launching 2026.";
+  "HERA AI fuses AIS, SAR, RF and optical signals in orbit to deliver verified, tamper-proof maritime intelligence. EU sovereign. Launching 2027.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
