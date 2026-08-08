@@ -68,7 +68,7 @@ export function LaunchSection() {
       <div className="absolute inset-0">
         <video
           className="h-full w-full object-cover"
-          src="/hero-video.mp4"
+          src={heroVideo.url}
           poster={vessels}
           autoPlay
           muted
