@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { z } from "zod";
 import satelliteNetwork from "@/assets/satellite-network.jpg";
 import ocean from "@/assets/ocean.jpg";
 import vessels from "@/assets/vessels.jpg";
