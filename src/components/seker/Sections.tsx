@@ -20,7 +20,7 @@ export function HeroSection() {
           <h1 className="text-balance mt-8 text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
             We track every ship.
             <br />
-            <span className="font-normal">Even when it hides 2027.</span>
+            <span className="font-normal">Even when it hides.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.3}>
