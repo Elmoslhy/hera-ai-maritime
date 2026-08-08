@@ -466,7 +466,7 @@ export function DashboardSection() {
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
           <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-            We don't track vessels. <span className="text-gold">We know them.</span>
+            We don't hand you positions. <span className="text-gold">We hand you intelligence.</span>
           </h2>
         </Reveal>
 
@@ -474,7 +474,8 @@ export function DashboardSection() {
           <div className="mb-6 text-center">
             <p className="font-mono text-[9px] tracking-[0.28em] text-gold">HERA AI · INSIGHT</p>
             <p className="text-pretty mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-              Our payloads in the sky find the ship that switched its AIS off, and name it.
+              Every signal is resolved into one verified picture — our payloads in the sky keep that
+              picture honest.
             </p>
           </div>
           <div className="relative h-[420px] overflow-hidden rounded-xl border border-white/10 sm:h-[560px]">
