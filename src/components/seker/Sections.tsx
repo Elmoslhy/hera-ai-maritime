@@ -73,7 +73,7 @@ export function LaunchSection() {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
         />
         <div className="absolute inset-0 bg-navy/60" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,transparent_0%,rgba(9,18,31,0.85)_80%)]" />
