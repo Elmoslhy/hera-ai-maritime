@@ -4,5 +4,5 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
-  nitro: { preset: "cloudflare-pages" },
+  nitro: { preset: "cloudflare-module" },
 });
