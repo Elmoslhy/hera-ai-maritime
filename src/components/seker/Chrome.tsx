@@ -68,7 +68,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 text-center">
         <SekerLogo className="h-6 w-auto text-gold opacity-60" />
         <p className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
-          © 2027 SEKER SPACE INTELLIGENCE S.A. · LUXEMBOURG · SEKER-SPACE.COM
+          © 2026 SEKER SPACE INTELLIGENCE S.A. · LUXEMBOURG · SEKER-SPACE.COM
         </p>
       </div>
     </footer>
