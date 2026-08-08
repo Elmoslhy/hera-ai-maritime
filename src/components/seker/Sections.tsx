@@ -265,12 +265,13 @@ const labelClass =
 function ContactForm() {
   const [values, setValues] = useState({ name: "", company: "", email: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [sent, setSent] = useState(false);
+  const [website, setWebsite] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const set = (k: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setValues((v) => ({ ...v, [k]: e.target.value }));
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     const parsed = contactSchema.safeParse(values);
     if (!parsed.success) {
@@ -280,16 +281,35 @@ function ContactForm() {
       return;
     }
     setErrors({});
-    const d = parsed.data;
-    const body = `Name: ${d.name}\nCompany: ${d.company}\nEmail: ${d.email}\n\n${d.message}`;
-    window.location.href = `mailto:info@seker-space.com?subject=${encodeURIComponent(
-      "Intelligence brief request — " + d.company,
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...parsed.data, website }),
+      });
+      if (!res.ok) throw new Error("request failed");
+      setValues({ name: "", company: "", email: "", message: "" });
+      setWebsite("");
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
     <form onSubmit={onSubmit} noValidate className="mt-10 space-y-5 text-left">
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        value={website}
+        onChange={(e) => setWebsite(e.target.value)}
+        className="absolute h-px w-px overflow-hidden opacity-0"
+        style={{ position: "absolute", left: "-9999px" }}
+      />
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label className={labelClass} htmlFor="c-name">NAME</label>
@@ -315,13 +335,19 @@ function ContactForm() {
       <div className="flex flex-col items-center gap-3 pt-2">
         <button
           type="submit"
-          className="inline-flex items-center gap-3 rounded-full bg-gold px-7 py-3.5 font-mono text-[11px] tracking-[0.2em] text-navy transition-opacity hover:opacity-90"
+          disabled={status === "sending"}
+          className="inline-flex items-center gap-3 rounded-full bg-gold px-7 py-3.5 font-mono text-[11px] tracking-[0.2em] text-navy transition-opacity hover:opacity-90 disabled:opacity-60"
         >
-          REQUEST INTELLIGENCE BRIEF →
+          {status === "sending" ? "SENDING…" : "REQUEST INTELLIGENCE BRIEF →"}
         </button>
-        {sent && (
+        {status === "sent" && (
           <p className="font-mono text-[10px] tracking-[0.18em] text-cyan">
-            OPENING YOUR EMAIL CLIENT…
+            Thank you. We will be in touch.
+          </p>
+        )}
+        {status === "error" && (
+          <p className="font-mono text-[10px] tracking-[0.18em] text-alert">
+            Something went wrong. Please email info@seker-space.com directly.
           </p>
         )}
       </div>
