@@ -18,15 +18,15 @@ export function HeroSection() {
         </Reveal>
         <Reveal delay={0.15}>
           <h1 className="text-balance mt-8 text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
-            We track every ship.
+            Maritime intelligence
             <br />
-            <span className="font-normal">Even when it hides.</span>
+            <span className="font-normal">you can act on.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.3}>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            AIS off? Spoofed? Our satellites still see the ship. Five sensors, fused by{" "}
-            <span className="text-gold">HERA AI</span> into one verified position per vessel.
+            <span className="text-gold">HERA AI</span> turns fragmented maritime signals into
+            verified, decision-ready intelligence — strengthened by our own space infrastructure.
           </p>
         </Reveal>
         <Reveal delay={0.45}>
@@ -92,7 +92,7 @@ export function LaunchSection() {
         </Reveal>
         <Reveal delay={0.24}>
           <p className="text-pretty mt-7 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
-            The verified maritime intelligence layer Europe has been waiting for.
+            The trusted maritime intelligence platform Europe has been waiting for.
           </p>
         </Reveal>
         <Reveal delay={0.36}>
@@ -115,13 +115,19 @@ export function ConstellationSection() {
       <SectionBackground src={satelliteNetwork} alt="Satellite constellation" overlay="bg-navy/70" />
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
         <Reveal>
-          <p className="text-eyebrow text-gold">The Constellation</p>
+          <p className="text-eyebrow text-gold">The Intelligence Layer</p>
         </Reveal>
         <Reveal delay={0.12}>
           <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-6xl">
-            Every vessel signal fused in orbit
-            <span className="mt-2 block">Delivered in real time.</span>
+            Intelligence you can trust
+            <span className="mt-2 block">Strengthened from orbit.</span>
           </h2>
+        </Reveal>
+        <Reveal delay={0.18}>
+          <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground">
+            Our proprietary space infrastructure keeps making the intelligence layer sharper — the
+            platform, not the sensor, is the product.
+          </p>
         </Reveal>
         <Reveal delay={0.24}>
           <div className="mt-10 flex flex-wrap justify-center gap-2">
