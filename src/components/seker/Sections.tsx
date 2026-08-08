@@ -98,7 +98,7 @@ export function LaunchSection() {
         <Reveal delay={0.36}>
           <div className="mt-14 flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] text-cyan">
             <span className="h-px w-10 bg-cyan/40" />
-            LAUNCHING 2026
+            LAUNCHING 2027
             <span className="h-px w-10 bg-cyan/40" />
           </div>
         </Reveal>
