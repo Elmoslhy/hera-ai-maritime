@@ -172,7 +172,7 @@ export function ProblemSection() {
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-              Maritime intelligence is broken.
+              Maritime decisions rest on broken intelligence.
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
@@ -228,32 +228,101 @@ function StatBlock({ value, label }: { value: React.ReactNode; label: string }) 
 
 export function ContactSection() {
   return (
-    <section className="bg-navy px-6 py-32">
-      <div className="mx-auto max-w-2xl text-center">
+    <section id="contact" className="scroll-mt-24 bg-navy px-6 py-32">
+      <div className="mx-auto max-w-2xl">
         <Reveal>
-          <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+          <h2 className="text-balance text-center text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             Get in touch.
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
-          <a
-            href="mailto:info@seker-space.com"
-            className="mt-6 inline-block font-mono text-sm tracking-[0.14em] text-cyan hover:underline"
-          >
-            info@seker-space.com
-          </a>
+          <p className="mt-6 text-center font-mono text-sm tracking-[0.14em] text-cyan">
+            <span className="select-all">info@seker-space.com</span>
+          </p>
         </Reveal>
         <Reveal delay={0.2}>
-          <div className="mt-10">
-            <a
-              href="mailto:info@seker-space.com"
-              className="inline-flex items-center gap-3 rounded-full bg-gold px-7 py-3.5 font-mono text-[11px] tracking-[0.2em] text-navy transition-opacity hover:opacity-90"
-            >
-              REQUEST INTELLIGENCE BRIEF →
-            </a>
-          </div>
+          <ContactForm />
         </Reveal>
       </div>
     </section>
+  );
+}
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100),
+  company: z.string().trim().min(1, "Company is required").max(120),
+  email: z.string().trim().email("Enter a valid work email").max(255),
+  message: z.string().trim().min(1, "Message is required").max(1000),
+});
+
+const fieldClass =
+  "w-full rounded-md border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-colors focus:border-gold/60";
+const labelClass =
+  "mb-2 block font-mono text-[10px] tracking-[0.2em] text-muted-foreground";
+
+function ContactForm() {
+  const [values, setValues] = useState({ name: "", company: "", email: "", message: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sent, setSent] = useState(false);
+
+  const set = (k: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setValues((v) => ({ ...v, [k]: e.target.value }));
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const parsed = contactSchema.safeParse(values);
+    if (!parsed.success) {
+      const next: Record<string, string> = {};
+      for (const issue of parsed.error.issues) next[String(issue.path[0])] = issue.message;
+      setErrors(next);
+      return;
+    }
+    setErrors({});
+    const d = parsed.data;
+    const body = `Name: ${d.name}\nCompany: ${d.company}\nEmail: ${d.email}\n\n${d.message}`;
+    window.location.href = `mailto:info@seker-space.com?subject=${encodeURIComponent(
+      "Intelligence brief request — " + d.company,
+    )}&body=${encodeURIComponent(body)}`;
+    setSent(true);
+  }
+
+  return (
+    <form onSubmit={onSubmit} noValidate className="mt-10 space-y-5 text-left">
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label className={labelClass} htmlFor="c-name">NAME</label>
+          <input id="c-name" className={fieldClass} value={values.name} onChange={set("name")} maxLength={100} placeholder="Jane Doe" />
+          {errors.name && <p className="mt-1.5 font-mono text-[10px] text-alert">{errors.name}</p>}
+        </div>
+        <div>
+          <label className={labelClass} htmlFor="c-company">COMPANY</label>
+          <input id="c-company" className={fieldClass} value={values.company} onChange={set("company")} maxLength={120} placeholder="Organisation" />
+          {errors.company && <p className="mt-1.5 font-mono text-[10px] text-alert">{errors.company}</p>}
+        </div>
+      </div>
+      <div>
+        <label className={labelClass} htmlFor="c-email">WORK EMAIL</label>
+        <input id="c-email" type="email" className={fieldClass} value={values.email} onChange={set("email")} maxLength={255} placeholder="jane@company.com" />
+        {errors.email && <p className="mt-1.5 font-mono text-[10px] text-alert">{errors.email}</p>}
+      </div>
+      <div>
+        <label className={labelClass} htmlFor="c-message">MESSAGE</label>
+        <textarea id="c-message" rows={5} className={fieldClass} value={values.message} onChange={set("message")} maxLength={1000} placeholder="What decisions are you trying to make?" />
+        {errors.message && <p className="mt-1.5 font-mono text-[10px] text-alert">{errors.message}</p>}
+      </div>
+      <div className="flex flex-col items-center gap-3 pt-2">
+        <button
+          type="submit"
+          className="inline-flex items-center gap-3 rounded-full bg-gold px-7 py-3.5 font-mono text-[11px] tracking-[0.2em] text-navy transition-opacity hover:opacity-90"
+        >
+          REQUEST INTELLIGENCE BRIEF →
+        </button>
+        {sent && (
+          <p className="font-mono text-[10px] tracking-[0.18em] text-cyan">
+            OPENING YOUR EMAIL CLIENT…
+          </p>
+        )}
+      </div>
+    </form>
   );
 }
