@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 /** Compact left-hand intelligence summary for the hero — HERA AI fusion at a glance. */
 
 function EyeMark() {
@@ -43,25 +45,65 @@ function EyeMark() {
   );
 }
 
-const SOURCES: [string, number][] = [
-  ["AIS", 96],
-  ["THERMAL IR", 84],
-  ["RF", 78],
-  ["SAR", 71],
-];
+type Industry = {
+  key: string;
+  metric: string;
+  metricLabel: string;
+  insight: string;
+  bars: [string, number][];
+};
 
-const FEED = [
-  ["AIS GAP", "resolved by RF · 41s", "text-cyan"],
-  ["SPOOF", "identity corrected", "text-alert"],
-  ["DARK SHIP", "named · IR + SAR", "text-gold"],
+const INDUSTRIES: Industry[] = [
+  {
+    key: "DEFENCE",
+    metric: "+38%",
+    metricLabel: "DARK ACTIVITY FLAGGED",
+    insight: "Sanctioned transfers surfaced before port arrival.",
+    bars: [["Zone risk", 88], ["Ident. confidence", 96], ["Response lead", 74]],
+  },
+  {
+    key: "ENERGY",
+    metric: "2.1d",
+    metricLabel: "EARLIER CARGO SIGNAL",
+    insight: "Crude flows read from behaviour, not declarations.",
+    bars: [["Flow accuracy", 93], ["Storage draw", 81], ["Route shift", 67]],
+  },
+  {
+    key: "INSURANCE",
+    metric: "−24%",
+    metricLabel: "EXPOSURE MISPRICING",
+    insight: "Underwriting priced on verified vessel behaviour.",
+    bars: [["Claim signal", 79], ["Fraud flags", 85], ["Zone breach", 71]],
+  },
+  {
+    key: "SUPPLY CHAIN",
+    metric: "96%",
+    metricLabel: "ETA RELIABILITY",
+    insight: "Congestion and delay called days ahead of schedule.",
+    bars: [["ETA precision", 96], ["Port dwell", 77], ["Reroute alert", 83]],
+  },
+  {
+    key: "ENVIRONMENT",
+    metric: "412",
+    metricLabel: "ANOMALIES · 30 DAYS",
+    insight: "Illegal discharge and IUU fishing attributed to a hull.",
+    bars: [["Detection", 90], ["Attribution", 86], ["Evidence pack", 69]],
+  },
 ];
 
 export function IntelPanel() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setI((v) => (v + 1) % INDUSTRIES.length), 4200);
+    return () => clearInterval(id);
+  }, []);
+  const ind = INDUSTRIES[i];
+
   return (
     <div className="pointer-events-none absolute left-6 top-1/2 z-10 hidden w-[268px] -translate-y-1/2 lg:block">
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
         <div className="flex items-center justify-between border-b border-gold/15 px-3 py-2">
-          <span className="font-mono text-[9px] tracking-[0.22em] text-gold">HERA AI · FUSION</span>
+          <span className="font-mono text-[9px] tracking-[0.22em] text-gold">HERA AI · INSIGHTS</span>
           <span className="flex items-center gap-1.5 font-mono text-[8px] tracking-[0.2em] text-cyan">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan" />
             LIVE
@@ -72,31 +114,43 @@ export function IntelPanel() {
           <EyeMark />
         </div>
 
-        <div className="flex items-end justify-between px-3 pb-3 pt-2">
-          <div>
-            <p className="font-mono text-3xl leading-none text-foreground">
-              98.4<span className="text-sm text-muted-foreground">%</span>
-            </p>
-            <p className="mt-1 font-mono text-[8px] tracking-[0.18em] text-muted-foreground">
-              IDENTIFICATION ACCURACY
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="font-mono text-lg leading-none text-cyan">45<span className="text-[10px]">ms</span></p>
-            <p className="mt-1 font-mono text-[8px] tracking-[0.18em] text-muted-foreground">P50 LATENCY</p>
-          </div>
+        <div className="flex flex-wrap gap-1 px-3 pt-3">
+          {INDUSTRIES.map((x, xi) => (
+            <span
+              key={x.key}
+              className={`rounded-sm border px-1.5 py-0.5 font-mono text-[7.5px] tracking-[0.14em] transition-colors ${
+                xi === i
+                  ? "border-gold/50 bg-gold/10 text-gold"
+                  : "border-white/10 text-muted-foreground/60"
+              }`}
+            >
+              {x.key}
+            </span>
+          ))}
+        </div>
+
+        <div key={ind.key} className="px-3 pb-3 pt-3">
+          <p className="font-mono text-3xl leading-none text-foreground">{ind.metric}</p>
+          <p className="mt-1 font-mono text-[8px] tracking-[0.18em] text-muted-foreground">
+            {ind.metricLabel}
+          </p>
+          <p className="text-pretty mt-2 text-[11px] leading-relaxed text-muted-foreground">
+            {ind.insight}
+          </p>
         </div>
 
         <div className="space-y-2 border-t border-white/8 px-3 py-3">
-          <p className="font-mono text-[8px] tracking-[0.22em] text-muted-foreground">SIGNAL CONTRIBUTION</p>
-          {SOURCES.map(([label, v]) => (
+          <p className="font-mono text-[8px] tracking-[0.22em] text-muted-foreground">
+            DECISION SIGNALS
+          </p>
+          {ind.bars.map(([label, v]) => (
             <div key={label} className="flex items-center gap-2">
-              <span className="w-[62px] shrink-0 font-mono text-[8px] tracking-[0.14em] text-muted-foreground">
-                {label}
+              <span className="w-[74px] shrink-0 truncate font-mono text-[8px] tracking-[0.1em] text-muted-foreground">
+                {label.toUpperCase()}
               </span>
               <span className="h-[3px] flex-1 overflow-hidden rounded-full bg-white/8">
                 <span
-                  className="block h-full rounded-full bg-gradient-to-r from-cyan/70 to-gold"
+                  className="block h-full rounded-full bg-gradient-to-r from-cyan/70 to-gold transition-[width] duration-700"
                   style={{ width: `${v}%` }}
                 />
               </span>
@@ -105,14 +159,8 @@ export function IntelPanel() {
           ))}
         </div>
 
-        <div className="space-y-1.5 border-t border-white/8 px-3 py-3">
-          <p className="font-mono text-[8px] tracking-[0.22em] text-muted-foreground">RESOLVED · LAST HOUR</p>
-          {FEED.map(([k, v, tone]) => (
-            <div key={k} className="flex items-baseline justify-between gap-2 font-mono text-[9px]">
-              <span className={`tracking-[0.14em] ${tone}`}>{k}</span>
-              <span className="truncate text-muted-foreground">{v}</span>
-            </div>
-          ))}
+        <div className="border-t border-white/8 px-3 py-2.5 font-mono text-[8px] tracking-[0.16em] text-muted-foreground">
+          AI FUSED · HUMAN VERIFIED
         </div>
       </div>
     </div>
