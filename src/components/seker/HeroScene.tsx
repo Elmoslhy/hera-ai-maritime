@@ -215,7 +215,7 @@ export function HeroHud() {
                 IMO 9412783 · 35.8104N 14.4903E
               </p>
             </div>
-            <span className="rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-0.5 font-mono text-[10px] tracking-[0.16em] text-gold">
+            <span className="rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono text-xs tracking-[0.16em] text-gold">
               VERIFIED
             </span>
           </div>
