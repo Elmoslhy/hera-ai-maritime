@@ -129,7 +129,7 @@ export function IntelPanel() {
           ))}
         </div>
 
-        <div key={ind.key} className="animate-fade-in px-3 pb-3 pt-3">
+        <div key={ind.key} className="px-3 pb-3 pt-3">
           <p className="font-mono text-3xl leading-none text-foreground">{ind.metric}</p>
           <p className="mt-1 font-mono text-[8px] tracking-[0.18em] text-muted-foreground">
             {ind.metricLabel}
