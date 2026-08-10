@@ -3,6 +3,21 @@ import { useEffect, useState } from "react";
 /** Compact left-hand intelligence summary for the hero — HERA AI fusion at a glance. */
 
 function EyeMark() {
+  const irisTicks = Array.from({ length: 24 }, (_, i) => {
+    const angle = (i / 24) * Math.PI * 2;
+    const point = (radius: number, axis: "x" | "y") => {
+      const offset = axis === "x" ? Math.cos(angle) : Math.sin(angle);
+      return Number((axis === "x" ? 60 + offset * radius : 30 + offset * radius).toFixed(4));
+    };
+
+    return {
+      x1: point(17, "x"),
+      y1: point(17, "y"),
+      x2: point(19.4, "x"),
+      y2: point(19.4, "y"),
+    };
+  });
+
   return (
     <svg viewBox="0 0 120 60" className="h-12 w-full" aria-hidden>
       <defs>
@@ -87,21 +102,15 @@ function EyeMark() {
         <animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.93;0.955;0.98;1" dur="9s" repeatCount="indefinite" />
       </path>
 
-      {Array.from({ length: 24 }).map((_, i) => {
-        const a = (i / 24) * Math.PI * 2;
-        return (
-          <line
-            key={i}
-            x1={60 + Math.cos(a) * 17}
-            y1={30 + Math.sin(a) * 17}
-            x2={60 + Math.cos(a) * 19.4}
-            y2={30 + Math.sin(a) * 19.4}
-            stroke="#c9a84c"
-            strokeWidth="0.6"
-            opacity={i % 3 === 0 ? 0.8 : 0.35}
-          />
-        );
-      })}
+      {irisTicks.map((tick, i) => (
+        <line
+          key={i}
+          {...tick}
+          stroke="#c9a84c"
+          strokeWidth="0.6"
+          opacity={i % 3 === 0 ? 0.8 : 0.35}
+        />
+      ))}
     </svg>
   );
 }
