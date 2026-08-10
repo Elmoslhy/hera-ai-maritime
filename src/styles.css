@@ -17,10 +17,11 @@
 
 @utility text-eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.875rem;
+  font-size: 1rem;
   line-height: 1.4;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+  font-weight: 500;
 }
 
 @utility ken-burns {
