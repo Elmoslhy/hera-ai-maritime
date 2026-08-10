@@ -41,7 +41,7 @@ export function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <SekerLogo className="h-7 w-auto text-foreground" />
+        <SekerLogo className="h-9 w-auto text-foreground" />
         <div className="flex items-center gap-4 font-mono text-[10px] tracking-[0.2em] sm:gap-6">
           <span className="hidden text-muted-foreground sm:inline">
             UTC <span className="text-foreground/80">{utc}</span>
