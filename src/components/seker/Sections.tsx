@@ -78,8 +78,7 @@ export function LaunchSection() {
           playsInline
           preload="metadata"
         >
-          <source src="/hero-video.webm" type="video/webm" />
-          <source src="/hero-video.mp4" type="video/mp4" />
+          <source src="/hero-video.webm" type='video/webm; codecs="vp9"' />
         </video>
         <div className="absolute inset-0 bg-navy/60" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,transparent_0%,rgba(9,18,31,0.85)_80%)]" />
