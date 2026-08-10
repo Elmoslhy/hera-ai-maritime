@@ -519,8 +519,7 @@ export function InsightsSection() {
             AI fused and trained — with a human touch.
           </p>
           <p className="text-pretty mx-auto mt-7 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            The same fused picture answers a different question for every desk.
-            Pick yours.
+            One intelligence feed — shaped to the decisions your team actually makes.
           </p>
         </Reveal>
 
