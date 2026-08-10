@@ -197,7 +197,7 @@ export function DescentSection() {
         <div className="pointer-events-none relative z-10 flex h-full flex-col justify-between p-6 pt-24 sm:p-10 sm:pt-28">
           <div className="relative flex items-start justify-end gap-6">
             <div className="absolute left-1/2 top-0 w-full max-w-lg -translate-x-1/2 space-y-2 text-center">
-              <p className="font-mono text-[10px] tracking-[0.28em] text-gold">{act.title.toUpperCase()}</p>
+              <p className="font-mono text-[12px] tracking-[0.28em] text-gold">{act.title.toUpperCase()}</p>
             </div>
             <div className="relative shrink-0 space-y-2 text-right">
               <div className="rounded-lg border border-white/10 bg-navy/70 px-4 py-3 backdrop-blur-sm">

@@ -607,7 +607,7 @@ export function InsightsSection() {
                   >
                     <div className="flex items-center justify-between gap-3">
                       <span
-                        className={`rounded border px-2 py-0.5 font-mono text-[8px] tracking-[0.2em] ${tone.chip}`}
+                        className={`rounded border px-2 py-1 font-mono text-[10px] tracking-[0.2em] ${tone.chip}`}
                       >
                         {ins.tag}
                       </span>
