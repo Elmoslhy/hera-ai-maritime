@@ -308,7 +308,7 @@ function DigitalTwin() {
           </div>
         </div>
 
-        <div className="rounded border border-gold/40 bg-gold/10 px-3 py-2 font-mono text-[11px] tracking-[0.2em] text-gold">
+        <div className="rounded border border-gold/40 bg-gold/10 px-3 py-2 font-mono text-xs tracking-[0.2em] text-gold">
           ○ UNVERIFIED · IMO REQUIRED
         </div>
 
@@ -472,7 +472,7 @@ export function DashboardSection() {
 
         <Reveal className="mt-12">
           <div className="mb-6 text-center">
-            <p className="font-mono text-[11px] tracking-[0.28em] text-gold">HERA AI · INSIGHT</p>
+            <p className="font-mono text-xs tracking-[0.28em] text-gold">HERA AI · INSIGHT</p>
             <p className="text-pretty mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
               Every signal is resolved into one verified picture — our payloads in the sky keep that
               picture honest.
@@ -514,7 +514,7 @@ export function DashboardSection() {
           {FEATURES.map((f, i) => (
             <Reveal key={f.title} delay={i * 0.1}>
               <div className="h-full rounded-xl border border-white/10 bg-white/[0.02] p-6">
-                <span className="font-mono text-[11px] tracking-[0.24em] text-gold">0{i + 1}</span>
+                <span className="font-mono text-xs tracking-[0.24em] text-gold">0{i + 1}</span>
                 <h3 className="text-balance mt-3 text-lg font-medium text-foreground">{f.title}</h3>
                 <p className="text-pretty mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
               </div>

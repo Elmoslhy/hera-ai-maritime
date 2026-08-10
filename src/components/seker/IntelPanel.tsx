@@ -173,7 +173,7 @@ export function IntelPanel() {
     <div className="pointer-events-none absolute left-6 top-1/2 z-10 hidden w-[268px] -translate-y-1/2 lg:block">
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
         <div className="flex items-center justify-between border-b border-gold/15 px-3 py-2">
-          <span className="font-mono text-[11px] tracking-[0.22em] text-gold">HERA AI · INSIGHTS</span>
+          <span className="font-mono text-xs tracking-[0.22em] text-gold">HERA AI · INSIGHTS</span>
           <span className="flex items-center gap-1.5 font-mono text-[8px] tracking-[0.2em] text-cyan">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan" />
             LIVE

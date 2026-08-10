@@ -86,7 +86,7 @@ export function LaunchSection() {
 
       <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center">
         <Reveal>
-          <p className="text-eyebrow text-gold/80">EU Sovereign · Real Time</p>
+          <p className="text-eyebrow text-gold">EU Sovereign · Real Time</p>
         </Reveal>
         <Reveal delay={0.12}>
           <h2 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">

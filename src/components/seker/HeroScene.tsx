@@ -201,7 +201,7 @@ export function HeroHud() {
     <div className="pointer-events-none absolute right-6 top-1/2 z-10 hidden w-[286px] -translate-y-1/2 space-y-3 lg:block">
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
         <div className="flex items-center justify-between border-b border-gold/15 px-3 py-2">
-          <span className="font-mono text-[11px] tracking-[0.22em] text-gold">HERA AI · FUSION</span>
+          <span className="font-mono text-xs tracking-[0.22em] text-gold">HERA AI · FUSION</span>
           <span className="flex items-center gap-1.5 font-mono text-[8px] tracking-[0.18em] text-muted-foreground">
             <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" /> FUSING
           </span>
@@ -283,7 +283,7 @@ export function HeroHud() {
 
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 backdrop-blur-md">
         <div className="flex items-center gap-3 border-b border-gold/15 px-3 py-2">
-          <span className="font-mono text-[11px] tracking-[0.22em] text-gold">THE SENSOR LAYER</span>
+          <span className="font-mono text-xs tracking-[0.22em] text-gold">THE SENSOR LAYER</span>
           <span className="h-px flex-1 bg-gold/20" />
         </div>
         <ul className="divide-y divide-white/5">
