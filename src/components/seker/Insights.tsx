@@ -567,7 +567,7 @@ export function InsightsSection() {
                     to={m.to}
                     suffix={m.suffix ?? ""}
                     decimals={m.decimals ?? 0}
-                    className="font-mono text-2xl font-light text-gold sm:text-3xl"
+                    className="font-mono text-3xl font-light text-gold sm:text-4xl"
                   />
                   <p className="mt-2 font-mono text-[9px] tracking-[0.18em] uppercase text-muted-foreground">
                     {m.label}
