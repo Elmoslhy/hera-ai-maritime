@@ -11,6 +11,9 @@ function EyeMark() {
           <stop offset="60%" stopColor="#0d2135" />
           <stop offset="100%" stopColor="#071320" />
         </radialGradient>
+        <clipPath id="ip-lid">
+          <path d="M6 30C24 8 96 8 114 30C96 52 24 52 6 30Z" />
+        </clipPath>
       </defs>
       <path
         d="M6 30C24 8 96 8 114 30C96 52 24 52 6 30Z"
@@ -19,13 +22,71 @@ function EyeMark() {
         strokeWidth="1.2"
         opacity="0.95"
       />
-      <circle cx="60" cy="30" r="15" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.8" />
-      <circle cx="60" cy="30" r="10" fill="none" stroke="#4dd9c0" strokeWidth="0.7" opacity="0.55">
-        <animate attributeName="r" values="8;13;8" dur="4s" repeatCount="indefinite" />
-        <animate attributeName="opacity" values="0.6;0.1;0.6" dur="4s" repeatCount="indefinite" />
-      </circle>
-      <circle cx="60" cy="30" r="5.4" fill="#040a12" />
-      <path d="M56 26.6a5.4 5.4 0 0 1 3.2-2.2" stroke="#e9f2ff" strokeWidth="1" fill="none" opacity="0.8" />
+
+      {/* sea traffic drifting under the gaze */}
+      <g clipPath="url(#ip-lid)" opacity="0.55">
+        {[
+          [0, 20, 26, "#4dd9c0"],
+          [-3, 38, 22, "#4a9eff"],
+          [-6, 30, 30, "#8fa3bb"],
+        ].map(([d, y, dur, c], i) => (
+          <g key={i}>
+            <polygon points="0,-1.6 3,1.4 -3,1.4" fill={c as string} transform={`translate(0 ${y}) rotate(90)`}>
+              <animateTransform
+                attributeName="transform"
+                type="translate"
+                values={`4 ${y};116 ${y}`}
+                dur={`${dur}s`}
+                begin={`${d}s`}
+                repeatCount="indefinite"
+              />
+            </polygon>
+          </g>
+        ))}
+      </g>
+
+      {/* scanning sweep */}
+      <g clipPath="url(#ip-lid)">
+        <rect x="0" y="4" width="10" height="52" fill="#4dd9c0" opacity="0.12">
+          <animate attributeName="x" values="0;110;0" dur="7s" repeatCount="indefinite" />
+        </rect>
+      </g>
+
+      {/* gaze: iris + pupil track a target, then lock */}
+      <g>
+        <animateTransform
+          attributeName="transform"
+          type="translate"
+          values="0 0; -13 -3; -13 -3; 11 4; 11 4; 0 0; 0 0"
+          keyTimes="0;0.14;0.3;0.46;0.66;0.84;1"
+          dur="9s"
+          calcMode="spline"
+          keySplines="0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1;0 0 1 1;0.4 0 0.2 1;0 0 1 1"
+          repeatCount="indefinite"
+        />
+        <circle cx="60" cy="30" r="15" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.8" />
+        <circle cx="60" cy="30" r="10" fill="none" stroke="#4dd9c0" strokeWidth="0.7" opacity="0.55">
+          <animate attributeName="r" values="8;13;8" dur="4s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.6;0.1;0.6" dur="4s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="60" cy="30" r="5.4" fill="#040a12">
+          <animate attributeName="r" values="5.4;3.8;5.4;6.2;5.4" dur="9s" repeatCount="indefinite" />
+        </circle>
+        <path d="M56 26.6a5.4 5.4 0 0 1 3.2-2.2" stroke="#e9f2ff" strokeWidth="1" fill="none" opacity="0.8" />
+        {/* lock reticle on acquisition */}
+        <g stroke="#ff4d4d" strokeWidth="0.8" fill="none" opacity="0">
+          <animate attributeName="opacity" values="0;0;0.9;0;0;0.9;0;0" keyTimes="0;0.22;0.3;0.4;0.58;0.66;0.76;1" dur="9s" repeatCount="indefinite" />
+          <rect x="52" y="22" width="16" height="16" />
+          <line x1="60" y1="18" x2="60" y2="22" />
+          <line x1="60" y1="38" x2="60" y2="42" />
+        </g>
+      </g>
+
+      {/* blink */}
+      <path d="M6 30C24 8 96 8 114 30C96 52 24 52 6 30Z" fill="#060d18" opacity="0">
+        <animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.93;0.955;0.98;1" dur="9s" repeatCount="indefinite" />
+      </path>
+
       {Array.from({ length: 24 }).map((_, i) => {
         const a = (i / 24) * Math.PI * 2;
         return (
