@@ -182,6 +182,145 @@ export const jobs: Job[] = [
     ],
   },
   {
+    id: "SKR-SPC-003",
+    slug: "skr-spc-003",
+    status: "open",
+    family: "SPC",
+    title: "Payload Systems Engineer",
+    location: "Luxembourg",
+    workArrangement: "Hybrid. Candidates willing to relocate are welcome.",
+    employmentType: "Full-time, permanent",
+    reportsTo: "VP of Engineering, Space Segment",
+    datePosted: "2026-10-05",
+    summary: "Own the requirements, budgets and interfaces that hold a multi-sensor payload together, from first design to flight.",
+    sections: [
+      {
+        heading: "The role",
+        paragraphs: [
+          "The Payload Systems Engineer is the systems backbone of our payload. You own the requirements, the mass, power, thermal and data budgets, the interface with the host spacecraft and the verification matrix, and you make sure every design decision closes against them.",
+        ],
+      },
+      {
+        heading: "What you will do",
+        bullets: [
+          "Derive and maintain payload requirements, from mission objectives down to unit specifications.",
+          "Own the mass, power, thermal, data and pointing budgets, with margins that hold through every review.",
+          "Prepare and negotiate the interface control document with the host spacecraft operator.",
+          "Build and run the verification matrix, linking each requirement to its test, analysis, inspection or review.",
+          "Lead trade-offs across instruments, processing and accommodation, and record the decisions and their rationale.",
+          "Prepare the systems evidence for the preliminary and critical design reviews.",
+          "Work with our platform team so that payload data arrives on the ground ready to use.",
+        ],
+      },
+      {
+        heading: "What you bring",
+        bullets: [
+          "Systems engineering experience on space missions, ideally at payload or instrument level.",
+          "Hands-on ownership of technical budgets and interface control documents.",
+          "Requirements management and verification planning, for example under the ECSS-E-ST-10 series.",
+          "Comfort working across mechanical, electrical, radio-frequency and software disciplines.",
+          "Clear technical writing for formal reviews.",
+        ],
+      },
+      {
+        heading: "Valued, not required",
+        bullets: [
+          "Multi-sensor or hosted payloads.",
+          "Model-based systems engineering tools.",
+          "Small satellite missions.",
+          "Earth observation or maritime missions.",
+        ],
+      },
+      {
+        heading: "What this role is not",
+        paragraphs: [
+          "This is not a desk role far from the hardware. You will be in design reviews, test campaigns and supplier meetings, and your budgets will decide what flies.",
+        ],
+      },
+      {
+        heading: "What we offer",
+        paragraphs: [
+          "Systems ownership of a first-of-its-kind European payload, in a small and senior team where your numbers drive real decisions.",
+        ],
+      },
+      {
+        heading: "How to apply",
+        paragraphs: [
+          "Send your CV to info@seker-space.com with the subject SKR-SPC-003 Payload Systems Engineer. Our process includes a written technical assessment and interviews with our leadership team.",
+        ],
+      },
+    ],
+  },
+  {
+    id: "SKR-SPC-004",
+    slug: "skr-spc-004",
+    status: "open",
+    family: "SPC",
+    title: "RF & Electronics Engineer",
+    location: "Luxembourg",
+    workArrangement: "Hybrid, with regular lab presence. Candidates willing to relocate are welcome.",
+    employmentType: "Full-time, permanent",
+    reportsTo: "VP of Engineering, Space Segment",
+    datePosted: "2026-10-05",
+    summary: "Design the receive chains and electronics of our multi-sensor payload, and keep sensitive receivers quiet next to processors and power converters.",
+    sections: [
+      {
+        heading: "The role",
+        paragraphs: [
+          "You will design and verify the radio-frequency and electronic heart of our payload: sensitive receive chains, digitisers and the electronics around them.",
+          "You will also own the hardest problem on board: making sensitive receivers coexist with onboard processing and power electronics, and proving it by measurement.",
+        ],
+      },
+      {
+        heading: "What you will do",
+        bullets: [
+          "Design and analyse receive chains, from antenna interfaces and low-noise front ends through filtering, frequency conversion and digitisation.",
+          "Define and apply electromagnetic compatibility design rules across the payload: grounding, shielding, filtering, layout and clock frequency planning.",
+          "Run interference analysis and measurement campaigns on engineering models, from near-field scanning to full EMC testing.",
+          "Specify, select and qualify components, including commercial parts for use in orbit.",
+          "Write the electrical requirements for suppliers and the host spacecraft interface, and verify them at acceptance.",
+          "Support integration and test in our lab and at external test facilities.",
+        ],
+      },
+      {
+        heading: "What you bring",
+        bullets: [
+          "Hands-on radio-frequency and electronics design experience, from schematic to tested hardware.",
+          "Practical EMC experience: diagnosing and fixing interference, and testing to standards such as ECSS-E-ST-20-07 or MIL-STD-461.",
+          "Strong measurement skills with spectrum analysers, network analysers and near-field probes.",
+          "Experience with mixed-signal boards and power electronics noise.",
+        ],
+      },
+      {
+        heading: "Valued, not required",
+        bullets: [
+          "Space hardware delivered to flight.",
+          "Software-defined radio or digital signal processing.",
+          "Commercial components in orbit, including radiation effects.",
+          "Small satellite experience.",
+        ],
+      },
+      {
+        heading: "What this role is not",
+        paragraphs: [
+          "This is not a simulation-only role. You will spend real time at the bench, with a probe in your hand.",
+        ],
+      },
+      {
+        heading: "What we offer",
+        paragraphs: [
+          "Ownership of the most important technical challenge on a first-of-its-kind European payload, with the lab time and the authority to solve it properly.",
+        ],
+      },
+      {
+        heading: "How to apply",
+        paragraphs: [
+          "Send your CV to info@seker-space.com with the subject SKR-SPC-004 RF & Electronics Engineer. Our process includes a written technical assessment and interviews with our leadership team.",
+        ],
+      },
+    ],
+  },
+  {
     id: "SKR-PLT-001",
     slug: "skr-plt-001",
     status: "open",
@@ -192,8 +331,7 @@ export const jobs: Job[] = [
     employmentType: "Full-time, permanent",
     reportsTo: "Head of Engineering",
     datePosted: "2026-10-05",
-    summary:
-      "Lead HERA, our AI-driven maritime intelligence platform, and the team that turns large-scale vessel data into verified intelligence.",
+    summary: "Lead HERA, our AI-driven maritime intelligence platform, and the team that turns large-scale vessel data into verified intelligence.",
     sections: [
       {
         heading: "The role",
@@ -254,4 +392,161 @@ export const jobs: Job[] = [
       },
     ],
   },
+  {
+    id: "SKR-PRG-001",
+    slug: "skr-prg-001",
+    status: "open",
+    family: "PRG",
+    title: "Programme Manager",
+    location: "Luxembourg",
+    workArrangement: "Hybrid. Candidates willing to relocate are welcome.",
+    employmentType: "Full-time, permanent",
+    reportsTo: "Chief Executive Officer",
+    datePosted: "2026-10-05",
+    summary: "Run our space programme's schedule, cost, risk and reporting, and keep every milestone on time and fully evidenced.",
+    sections: [
+      {
+        heading: "The role",
+        paragraphs: [
+          "The Programme Manager owns the delivery framework of our space programme: the integrated schedule, the budget, the risk register, contract obligations and reporting to our institutional partners.",
+          "You work alongside engineering without being part of it, so that progress is measured honestly and every milestone is delivered with complete evidence.",
+        ],
+      },
+      {
+        heading: "What you will do",
+        bullets: [
+          "Build and maintain the integrated master schedule and the critical path, including long-lead procurement.",
+          "Own budget tracking, forecasts and earned value for the programme.",
+          "Run the risk and opportunity register, with monthly reviews and clear owners.",
+          "Manage contract obligations, deliverables and milestone evidence with institutional partners and suppliers.",
+          "Organise the review gates, from requirements through preliminary and critical design to acceptance, and track every action to closure.",
+          "Produce clear monthly reporting for leadership and partners.",
+        ],
+      },
+      {
+        heading: "What you bring",
+        bullets: [
+          "Programme or project management of space or other high-technology hardware programmes.",
+          "Experience with ESA, EU or other institutional contracts, including milestone reporting.",
+          "Schedule and cost control tools, for example MS Project or Primavera, and earned value methods.",
+          "Working knowledge of ECSS management standards for planning, risk and configuration.",
+          "Calm, precise communication with engineers, suppliers and institutional stakeholders.",
+        ],
+      },
+      {
+        heading: "Valued, not required",
+        bullets: [
+          "Hosted payload or small satellite programmes.",
+          "Supplier contract management.",
+          "A recognised project management certification, such as PMP or PRINCE2.",
+        ],
+      },
+      {
+        heading: "What this role is not",
+        paragraphs: [
+          "This is not an engineering leadership role: technical decisions sit with engineering and the technical authority. It is also not an administrative role: you own the plan, and you call out risk early.",
+        ],
+      },
+      {
+        heading: "What we offer",
+        paragraphs: [
+          "A central seat in a first-of-its-kind European space programme, working directly with the leadership team in a small and senior company.",
+        ],
+      },
+      {
+        heading: "How to apply",
+        paragraphs: [
+          "Send your CV to info@seker-space.com with the subject SKR-PRG-001 Programme Manager. Our process includes a written technical assessment and interviews with our leadership team.",
+        ],
+      },
+    ],
+  },
 ];
+
+export const careersPage = {
+  hero: {
+    heading: "Build Europe's sovereign eye on the oceans",
+    subheading: "We design our own multi-sensor space payload and the AI platform that turns its data into verified maritime intelligence. Join a small, senior team that ships real hardware and real software.",
+    primaryCta: "See open roles",
+    secondaryCta: "Send a speculative application",
+    image: "/careers/hero.webp",
+    alt: "Engineers in cleanroom suits integrating a compact satellite payload on an integration stand, lit in cool blue with warm gold highlights.",
+  },
+  whatWeBuild: {
+    heading: "What we build",
+    items: [
+      {
+        key: "payload",
+        title: "The payload",
+        text: "Our space segment engineers take a multi-sensor payload from architecture to qualified flight hardware: budgets, electronics, integration and test.",
+        image: "/careers/payload.webp",
+        alt: "Gloved hands connecting a harness to satellite payload electronics on an ESD-safe workbench, test equipment softly out of focus.",
+      },
+      {
+        key: "platform",
+        title: "The platform",
+        text: "Our platform team builds HERA, turning large-scale vessel data into verified intelligence with traceable confidence.",
+        image: "/careers/platform.webp",
+        alt: "Software engineers reviewing glowing vessel tracks on a large screen showing a dark ocean map.",
+      },
+      {
+        key: "mission",
+        title: "The mission",
+        text: "Together they give commercial and public institutions a clear picture of activity at sea, including the vessels that do not want to be seen.",
+        image: "/careers/mission.webp",
+        alt: "A small satellite in orbit above the ocean at dawn, with faint vessel wakes on the sea below.",
+      },
+    ],
+  },
+  values: {
+    heading: "How we work",
+    items: [
+      {
+        title: "Evidence over opinion",
+        text: "Decisions close on numbers, tests and traceable data, not on who argues loudest.",
+        icon: "ShieldCheck",
+      },
+      {
+        title: "Small and senior",
+        text: "Every person owns a real part of the mission, with the authority to match.",
+        icon: "Users",
+      },
+      {
+        title: "One system",
+        text: "Hardware and software are designed together, from orbit to the customer's screen.",
+        icon: "Layers",
+      },
+      {
+        title: "Built for Europe",
+        text: "We build sovereign capability for European institutions and the industries they protect.",
+        icon: "Globe",
+      },
+    ],
+  },
+  process: {
+    heading: "How we hire",
+    steps: [
+      {
+        title: "Apply",
+        text: "Send your CV to info@seker-space.com with the job ID in the subject line.",
+      },
+      {
+        title: "Written assessment",
+        text: "A technical assessment built around real engineering problems. We value your reasoning over a single right answer.",
+      },
+      {
+        title: "Interviews",
+        text: "Conversations with our leadership team about your answers, your experience and how you work.",
+      },
+      {
+        title: "Decision",
+        text: "We aim to give every candidate a clear answer promptly.",
+      },
+    ],
+  },
+  familyImages: {
+    SPC: "/careers/payload.webp",
+    PLT: "/careers/platform.webp",
+    PRG: "/careers/mission.webp",
+  },
+};

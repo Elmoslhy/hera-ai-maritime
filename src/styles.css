@@ -239,3 +239,7 @@
   0%, 100% { opacity: 0; }
   25%, 60% { opacity: 1; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .vessel-tracks .vt-dot { display: none; }
+}
