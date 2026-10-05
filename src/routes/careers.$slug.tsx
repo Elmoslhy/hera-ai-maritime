@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Footer, Nav } from "@/components/seker/Chrome";
-import { applicantPrivacy, jobs, type Job } from "@/content/careers";
+import { applicantPrivacy, careersPage, jobFamilies, jobs, type Job } from "@/content/careers";
 
 function plain(job: Job) {
   return job.sections
@@ -57,6 +57,17 @@ export const Route = createFileRoute("/careers/$slug")({
           ← BACK TO ALL ROLES
         </Link>
       </main>
+      <aside className="hidden w-64 shrink-0 pt-10 lg:block">
+        <div className="sticky top-28 rounded-xl border border-gold/30 bg-navy-deep p-6">
+          <p className="font-mono text-[11px] tracking-[0.15em] text-gold">{job.id}</p>
+          <p className="mt-2 text-sm text-foreground">{job.title}</p>
+          <a href={href} className="mt-5 block bg-gold px-5 py-3 text-center font-mono text-[11px] tracking-[0.2em] text-navy-deep hover:opacity-90">APPLY →</a>
+        </div>
+      </aside>
+      </div>
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gold/30 bg-navy-deep/95 p-3 backdrop-blur lg:hidden">
+        <a href={href} className="block bg-gold py-3.5 text-center font-mono text-xs tracking-[0.2em] text-navy-deep">APPLY FOR THIS ROLE →</a>
+      </div>
       <Footer />
     </div>
   ),
@@ -72,18 +83,32 @@ function JobPage() {
     ["Employment type", job.employmentType],
     ["Reports to", job.reportsTo],
   ];
+  const img = (careersPage.familyImages as Record<string, string>)[job.family] ?? careersPage.hero.image;
+  const fam = jobFamilies.find((f) => f.key === job.family)?.name;
+  const href = `mailto:info@seker-space.com?subject=${subject}`;
   return (
-    <div className="min-h-screen bg-navy">
+    <div className="min-h-screen bg-navy pb-20 lg:pb-0">
       <Nav />
-      <main className="mx-auto max-w-3xl px-6 pb-24 pt-36">
-        <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-gold hover:underline">
-          ← BACK TO ALL ROLES
-        </Link>
-        <h1 className="mt-8 text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-          {job.title}
-        </h1>
-        <p className="mt-3 font-mono text-sm tracking-[0.2em] text-cyan">{job.id}</p>
-        <dl className="mt-8 grid gap-4 border-y border-white/10 py-6 sm:grid-cols-2">
+      <header className="relative isolate overflow-hidden pt-24">
+        <img src={img} alt="" width={1600} height={1200} className="absolute inset-0 -z-20 h-full w-full object-cover" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy via-navy/90 to-navy/60" />
+        <div className="mx-auto flex min-h-[280px] max-w-6xl flex-col justify-end px-6 py-10">
+          <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-gold hover:underline">
+            ← BACK TO ALL ROLES
+          </Link>
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] tracking-[0.15em] text-gold">{job.id}</span>
+            {fam && <span className="font-mono text-[11px] tracking-[0.15em] text-foreground/70">{fam.toUpperCase()}</span>}
+          </div>
+          <h1 className="mt-4 max-w-4xl text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">{job.title}</h1>
+          <p className="mt-4 font-mono text-[11px] leading-relaxed tracking-[0.08em] text-foreground/80">
+            {job.location} · {job.workArrangement} · {job.employmentType}
+          </p>
+        </div>
+      </header>
+      <div className="mx-auto flex max-w-6xl gap-12 px-6">
+      <main className="max-w-[70ch] flex-1 pb-24 pt-10">
+        <dl className="grid gap-4 border-b border-white/10 pb-6 sm:grid-cols-2">
           {meta.map(([k, v]) => (
             <div key={k}>
               <dt className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground">{k.toUpperCase()}</dt>
