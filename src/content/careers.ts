@@ -16,7 +16,7 @@ export type Job = {
 };
 
 export const careersIntro =
-  "Seker Space Intelligence is a Luxembourg maritime space company building European sovereign capability in maritime intelligence. We combine our own multi-sensor space payload with HERA, our AI-driven data-fusion platform, to deliver verified vessel intelligence to commercial and public institutions. We are building the most advanced maritime engineering company in Europe — real hardware, real software, at global scale.";
+  "Seker Space Intelligence is a Luxembourg maritime space company building European sovereign capability in maritime intelligence. We combine our own multi-sensor space payload with HERA AI, our data-fusion platform, to deliver verified vessel intelligence to commercial and public institutions. We are building the most advanced maritime engineering company in Europe — real hardware, real software, at global scale.";
 
 export const applicantPrivacy =
   "By sending your application, you agree that Seker Space Intelligence processes your personal data for recruitment purposes only. We keep applications for 12 months, unless you ask us to delete yours sooner by writing to info@seker-space.com.";
@@ -29,7 +29,7 @@ export const speculative = {
 
 export const jobFamilies = [
   { key: "SPC", name: "Space Segment Engineering", description: "Payload architecture, integration, verification and delivery to orbit." },
-  { key: "PLT", name: "Platform Engineering", description: "HERA: data pipelines, fusion models, product and infrastructure." },
+  { key: "PLT", name: "Platform Engineering", description: "HERA AI: data pipelines, fusion models, product and infrastructure." },
   { key: "PRG", name: "Programme Management", description: "Schedule, cost, risk and reporting across our programmes." },
   { key: "QAS", name: "Product Assurance & Safety", description: "Independent quality, safety and configuration control." },
   { key: "SEC", name: "Security & Compliance", description: "Information security, export control and regulatory compliance." },
@@ -325,25 +325,25 @@ export const jobs: Job[] = [
     slug: "skr-plt-001",
     status: "open",
     family: "PLT",
-    title: "Head of Platform Engineering, HERA",
+    title: "Head of Platform Engineering, HERA AI",
     location: "Luxembourg",
     workArrangement: "Hybrid. Candidates willing to relocate are welcome.",
     employmentType: "Full-time, permanent",
     reportsTo: "Head of Engineering",
     datePosted: "2026-10-05",
-    summary: "Lead HERA, our AI-driven maritime intelligence platform, and the team that turns large-scale vessel data into verified intelligence.",
+    summary: "Lead HERA AI, our maritime intelligence platform, and the team that turns large-scale vessel data into verified intelligence.",
     sections: [
       {
         heading: "The role",
         paragraphs: [
-          "The Head of Platform Engineering owns HERA, Seker's AI-driven data-fusion platform, end to end: the data pipelines, the fusion and machine-learning models in production, the APIs and product our customers use, and the reliability and security behind them.",
+          "The Head of Platform Engineering owns HERA AI, Seker's data-fusion platform, end to end: the data pipelines, the fusion and machine-learning models in production, the APIs and product our customers use, and the reliability and security behind them.",
           "You will lead the platform team and work closely with our data fusion scientists, our commercial team and our space segment team, whose payload data will feed the platform.",
         ],
       },
       {
         heading: "What you will do",
         bullets: [
-          "Own HERA's architecture: ingestion, storage, processing and delivery of large-scale vessel data from space-based, terrestrial and third-party sources.",
+          "Own HERA AI's architecture: ingestion, storage, processing and delivery of large-scale vessel data from space-based, terrestrial and third-party sources.",
           "Take fusion and machine-learning models from research into monitored production, with clear and calibrated confidence scores.",
           "Build and run the APIs and customer-facing product that commercial and public institutions rely on, with multi-tenant isolation and fine-grained access control.",
           "Make provenance a first-class feature, so that every derived result is traceable to its sources, method and assumptions.",
@@ -485,7 +485,7 @@ export const careersPage = {
       {
         key: "platform",
         title: "The platform",
-        text: "Our platform team builds HERA, turning large-scale vessel data into verified intelligence with traceable confidence.",
+        text: "Our platform team builds HERA AI, turning large-scale vessel data into verified intelligence with traceable confidence.",
         image: "/careers/platform.webp",
         alt: "Software engineers reviewing glowing vessel tracks on a large screen showing a dark ocean map.",
       },

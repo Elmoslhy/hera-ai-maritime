@@ -409,7 +409,7 @@ function TrendChart({
 
       <div className="mt-3 flex items-center gap-5 font-mono text-[9px] tracking-[0.14em] uppercase text-muted-foreground">
         <span className="flex items-center gap-2">
-          <span className="h-[2px] w-5 bg-gold" /> HERA fused
+          <span className="h-[2px] w-5 bg-gold" /> HERA AI fused
         </span>
         <span className="flex items-center gap-2">
           <span className="h-[2px] w-5 bg-white/25" /> AIS only
