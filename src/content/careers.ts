@@ -190,7 +190,7 @@ export const jobs: Job[] = [
     location: "Luxembourg",
     workArrangement: "Hybrid. Candidates willing to relocate are welcome.",
     employmentType: "Full-time, permanent",
-    reportsTo: "Chief Executive Officer",
+    reportsTo: "Head of Engineering",
     datePosted: "2026-10-05",
     summary:
       "Lead HERA, our AI-driven maritime intelligence platform, and the team that turns large-scale vessel data into verified intelligence.",
