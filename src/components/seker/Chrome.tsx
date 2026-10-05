@@ -54,12 +54,12 @@ export function Nav() {
           <Link to="/careers" className="text-foreground/80 transition-colors hover:text-gold">
             CAREERS
           </Link>
-          <a
-            href="/#contact"
+          <Link
+            to="/access"
             className="border border-gold/60 bg-gold/90 px-4 py-2 text-[10px] tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold"
           >
             API ACCESS
-          </a>
+          </Link>
         </div>
       </div>
     </header>
