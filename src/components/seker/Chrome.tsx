@@ -1,5 +1,6 @@
 import { motion, useScroll, useSpring } from "motion/react";
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { SekerLogo } from "./Logo";
 
 export function ScrollProgress() {
@@ -50,8 +51,11 @@ export function Nav() {
             <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" />
             LIVE
           </span>
+          <Link to="/careers" className="text-foreground/80 transition-colors hover:text-gold">
+            CAREERS
+          </Link>
           <a
-            href="#contact"
+            href="/#contact"
             className="border border-gold/60 bg-gold/90 px-4 py-2 text-[10px] tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold"
           >
             API ACCESS
@@ -67,6 +71,9 @@ export function Footer() {
     <footer className="border-t border-white/5 bg-navy-deep px-6 py-14">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 text-center">
         <SekerLogo className="h-6 w-auto text-gold opacity-60" />
+        <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
+          CAREERS
+        </Link>
         <p className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
           © 2026 SEKER SPACE INTELLIGENCE S.A. · LUXEMBOURG · SEKER-SPACE.COM
         </p>
