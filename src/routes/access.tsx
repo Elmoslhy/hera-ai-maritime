@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer, Nav } from "@/components/seker/Chrome";
 
 const TITLE = "Platform Access | Seker Space Intelligence";
-const DESC = "Sign in to the Seker HERA platform with your username and password.";
+const DESC = "Sign in to the Seker HERA AI platform with your username and password.";
 
 export const Route = createFileRoute("/access")({
   head: () => ({
@@ -49,7 +49,7 @@ function AccessPage() {
               Welcome, {username.trim()}
             </h1>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              You are signed in to the HERA platform. The full workspace will appear here
+              You are signed in to the HERA AI platform. The full workspace will appear here
               once the platform goes live.
             </p>
             <button
@@ -65,7 +65,7 @@ function AccessPage() {
         ) : (
           <section className="w-full max-w-md">
             <div className="text-center">
-              <p className="font-mono text-sm tracking-[0.2em] text-gold">HERA PLATFORM</p>
+              <p className="font-mono text-sm tracking-[0.2em] text-gold">HERA AI PLATFORM</p>
               <h1 className="mt-4 text-3xl font-light tracking-tight text-foreground sm:text-4xl">
                 Platform access
               </h1>
