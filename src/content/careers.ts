@@ -66,7 +66,6 @@ export const jobs: Job[] = [
           "Manage radio-frequency compatibility and sensor coexistence, and close those risks by measurement before design freeze.",
           "Lead assembly, integration, test and verification, including the model philosophy, the test campaigns and the evidence required at each review gate.",
           "Plan and release long-lead procurement against frozen parameters, so that hardware arrives in time for integration.",
-          "Own the interface with host spacecraft operators, covering pointing, attitude knowledge, power, duty cycle and the electromagnetic environment.",
           "Define the next stage of the space segment beyond the first mission, including constellation and formation architecture.",
           "Build and lead a multidisciplinary engineering team in Luxembourg.",
           "Act as the company's technical lead in front of independent reviewers, institutional partners and investors.",
