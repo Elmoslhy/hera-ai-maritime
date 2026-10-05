@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Globe, Layers, ShieldCheck, Users, type LucideIcon } from "lucide-react";
 import { Footer, Nav } from "@/components/seker/Chrome";
-import { VesselTracks } from "@/components/seker/VesselTracks";
 import { careersIntro, careersPage, jobFamilies, jobs, speculative } from "@/content/careers";
 
 const TITLE = "Careers | Seker Space Intelligence";
@@ -51,7 +50,6 @@ function CareersPage() {
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-navy via-navy/85 to-navy/40" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy/90 via-navy/50 to-transparent" />
-        <VesselTracks />
         <div className="relative mx-auto w-full max-w-6xl px-6 pb-20 pt-40">
           <p className="text-eyebrow text-gold">Careers</p>
           <h1 className="mt-5 max-w-3xl text-balance text-4xl font-light tracking-tight text-foreground sm:text-6xl">
