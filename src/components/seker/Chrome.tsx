@@ -42,7 +42,9 @@ export function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <SekerLogo className="h-9 w-auto text-foreground" />
+        <Link to="/" aria-label="SEKER — home" className="inline-flex">
+          <SekerLogo className="h-9 w-auto text-foreground" />
+        </Link>
         <div className="flex items-center gap-4 font-mono text-[10px] tracking-[0.2em] sm:gap-6">
           <span className="hidden text-muted-foreground sm:inline">
             UTC <span className="text-foreground/80">{utc}</span>
@@ -70,7 +72,9 @@ export function Footer() {
   return (
     <footer className="border-t border-white/5 bg-navy-deep px-6 py-14">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 text-center">
-        <SekerLogo className="h-6 w-auto text-gold opacity-60" />
+        <Link to="/" aria-label="SEKER — home" className="inline-flex">
+          <SekerLogo className="h-6 w-auto text-gold opacity-60" />
+        </Link>
         <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
           CAREERS
         </Link>
