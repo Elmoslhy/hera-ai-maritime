@@ -13,6 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccessRouteImport } from './routes/access'
 import { Route as CareersIndexRouteImport } from './routes/careers.index'
 import { Route as CareersSlugRouteImport } from './routes/careers.$slug'
+import { Route as NewsroomIndexRouteImport } from './routes/newsroom.index'
+import { Route as NewsroomSlugRouteImport } from './routes/newsroom.$slug'
+import { Route as NewsroomRssDotxmlRouteImport } from './routes/newsroom.rss[.]xml'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,39 +37,88 @@ const CareersSlugRoute = CareersSlugRouteImport.update({
   path: '/careers/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewsroomIndexRoute = NewsroomIndexRouteImport.update({
+  id: '/newsroom/',
+  path: '/newsroom/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsroomSlugRoute = NewsroomSlugRouteImport.update({
+  id: '/newsroom/$slug',
+  path: '/newsroom/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsroomRssDotxmlRoute = NewsroomRssDotxmlRouteImport.update({
+  id: '/newsroom/rss.xml',
+  path: '/newsroom/rss.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/access': typeof AccessRoute
   '/careers/$slug': typeof CareersSlugRoute
+  '/newsroom/$slug': typeof NewsroomSlugRoute
+  '/newsroom/rss.xml': typeof NewsroomRssDotxmlRoute
   '/careers/': typeof CareersIndexRoute
+  '/newsroom/': typeof NewsroomIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/access': typeof AccessRoute
   '/careers/$slug': typeof CareersSlugRoute
+  '/newsroom/$slug': typeof NewsroomSlugRoute
+  '/newsroom/rss.xml': typeof NewsroomRssDotxmlRoute
   '/careers': typeof CareersIndexRoute
+  '/newsroom': typeof NewsroomIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/access': typeof AccessRoute
   '/careers/$slug': typeof CareersSlugRoute
+  '/newsroom/$slug': typeof NewsroomSlugRoute
+  '/newsroom/rss.xml': typeof NewsroomRssDotxmlRoute
   '/careers/': typeof CareersIndexRoute
+  '/newsroom/': typeof NewsroomIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/access' | '/careers/$slug' | '/careers/'
+  fullPaths:
+    | '/'
+    | '/access'
+    | '/careers/$slug'
+    | '/newsroom/$slug'
+    | '/newsroom/rss.xml'
+    | '/careers/'
+    | '/newsroom/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/access' | '/careers/$slug' | '/careers'
-  id: '__root__' | '/' | '/access' | '/careers/$slug' | '/careers/'
+  to:
+    | '/'
+    | '/access'
+    | '/careers/$slug'
+    | '/newsroom/$slug'
+    | '/newsroom/rss.xml'
+    | '/careers'
+    | '/newsroom'
+  id:
+    | '__root__'
+    | '/'
+    | '/access'
+    | '/careers/$slug'
+    | '/newsroom/$slug'
+    | '/newsroom/rss.xml'
+    | '/careers/'
+    | '/newsroom/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccessRoute: typeof AccessRoute
   CareersSlugRoute: typeof CareersSlugRoute
+  NewsroomSlugRoute: typeof NewsroomSlugRoute
+  NewsroomRssDotxmlRoute: typeof NewsroomRssDotxmlRoute
   CareersIndexRoute: typeof CareersIndexRoute
+  NewsroomIndexRoute: typeof NewsroomIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +151,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CareersSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/newsroom/': {
+      id: '/newsroom/'
+      path: '/newsroom'
+      fullPath: '/newsroom/'
+      preLoaderRoute: typeof NewsroomIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/newsroom/$slug': {
+      id: '/newsroom/$slug'
+      path: '/newsroom/$slug'
+      fullPath: '/newsroom/$slug'
+      preLoaderRoute: typeof NewsroomSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/newsroom/rss.xml': {
+      id: '/newsroom/rss.xml'
+      path: '/newsroom/rss.xml'
+      fullPath: '/newsroom/rss.xml'
+      preLoaderRoute: typeof NewsroomRssDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -106,7 +179,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccessRoute: AccessRoute,
   CareersSlugRoute: CareersSlugRoute,
+  NewsroomSlugRoute: NewsroomSlugRoute,
+  NewsroomRssDotxmlRoute: NewsroomRssDotxmlRoute,
   CareersIndexRoute: CareersIndexRoute,
+  NewsroomIndexRoute: NewsroomIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
