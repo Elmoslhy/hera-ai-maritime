@@ -57,17 +57,6 @@ export const Route = createFileRoute("/careers/$slug")({
           ← BACK TO ALL ROLES
         </Link>
       </main>
-      <aside className="hidden w-64 shrink-0 pt-10 lg:block">
-        <div className="sticky top-28 rounded-xl border border-gold/30 bg-navy-deep p-6">
-          <p className="font-mono text-[11px] tracking-[0.15em] text-gold">{job.id}</p>
-          <p className="mt-2 text-sm text-foreground">{job.title}</p>
-          <a href={href} className="mt-5 block bg-gold px-5 py-3 text-center font-mono text-[11px] tracking-[0.2em] text-navy-deep hover:opacity-90">APPLY →</a>
-        </div>
-      </aside>
-      </div>
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gold/30 bg-navy-deep/95 p-3 backdrop-blur lg:hidden">
-        <a href={href} className="block bg-gold py-3.5 text-center font-mono text-xs tracking-[0.2em] text-navy-deep">APPLY FOR THIS ROLE →</a>
-      </div>
       <Footer />
     </div>
   ),
@@ -153,6 +142,17 @@ function JobPage() {
           ← BACK TO ALL ROLES
         </Link>
       </main>
+      <aside className="hidden w-64 shrink-0 pt-10 lg:block">
+        <div className="sticky top-28 rounded-xl border border-gold/30 bg-navy-deep p-6">
+          <p className="font-mono text-[11px] tracking-[0.15em] text-gold">{job.id}</p>
+          <p className="mt-2 text-sm text-foreground">{job.title}</p>
+          <a href={href} className="mt-5 block bg-gold px-5 py-3 text-center font-mono text-[11px] tracking-[0.2em] text-navy-deep hover:opacity-90">APPLY →</a>
+        </div>
+      </aside>
+      </div>
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-gold/30 bg-navy-deep/95 p-3 backdrop-blur lg:hidden">
+        <a href={href} className="block bg-gold py-3.5 text-center font-mono text-xs tracking-[0.2em] text-navy-deep">APPLY FOR THIS ROLE →</a>
+      </div>
       <Footer />
     </div>
   );
