@@ -492,7 +492,7 @@ export const careersPage = {
       {
         key: "mission",
         title: "The mission",
-        text: "Together they give commercial and public institutions a clear picture of activity at sea, including the vessels that do not want to be seen.",
+        text: "The team of Seker deliver the most sophisticated data intelligence.",
         image: "/careers/mission.webp",
         alt: "A small satellite in orbit above the ocean at dawn, with faint vessel wakes on the sea below.",
       },
