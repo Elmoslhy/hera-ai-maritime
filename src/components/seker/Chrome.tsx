@@ -56,6 +56,9 @@ export function Nav() {
           <Link to="/careers" className="text-foreground/80 transition-colors hover:text-gold">
             CAREERS
           </Link>
+          <Link to="/newsroom" className="text-foreground/80 transition-colors hover:text-gold">
+            NEWSROOM
+          </Link>
           <Link
             to="/access"
             className="border border-gold/60 bg-gold/90 px-4 py-2 text-[10px] tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold"
@@ -75,9 +78,14 @@ export function Footer() {
         <Link to="/" aria-label="SEKER — home" className="inline-flex">
           <SekerLogo className="h-6 w-auto text-gold opacity-60" />
         </Link>
-        <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
-          CAREERS
-        </Link>
+        <div className="flex gap-8">
+          <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
+            CAREERS
+          </Link>
+          <Link to="/newsroom" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
+            NEWSROOM
+          </Link>
+        </div>
         <p className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
           © 2026 SEKER SPACE INTELLIGENCE S.A. · LUXEMBOURG · SEKER-SPACE.COM
         </p>
