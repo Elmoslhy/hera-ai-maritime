@@ -43,11 +43,11 @@ export const jobs: Job[] = [
     slug: "skr-spc-001",
     status: "open",
     family: "SPC",
-    title: "VP of Engineering, Space Segment",
+    title: "VP of Engineering",
     location: "Luxembourg",
     workArrangement: "Hybrid. Candidates willing to relocate are welcome.",
     employmentType: "Full-time, permanent",
-    reportsTo: "Chief Executive Officer",
+    reportsTo: "Chief Technology Officer",
     datePosted: "2026-10-05",
     summary:
       "Lead Seker's space segment, from the first hosted payload to the constellation that follows.",
@@ -121,7 +121,7 @@ export const jobs: Job[] = [
     location: "Luxembourg",
     workArrangement: "Hybrid, with regular on-site presence for integration and test. Candidates willing to relocate are welcome.",
     employmentType: "Full-time, permanent",
-    reportsTo: "VP of Engineering, Space Segment",
+    reportsTo: "VP of Engineering",
     datePosted: "2026-10-05",
     summary:
       "Turn our payload design into qualified flight hardware, and lead the hands-on team that builds and tests it.",
