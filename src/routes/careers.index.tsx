@@ -49,6 +49,7 @@ function CareersPage() {
           fetchPriority="high"
           className="absolute inset-0 -z-20 h-full w-full object-cover"
         />
+        <CareersSatellitesOverlay />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-navy via-navy/85 to-navy/40" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy/90 via-navy/50 to-transparent" />
         <div className="relative mx-auto w-full max-w-6xl px-6 pb-20 pt-40">
