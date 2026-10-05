@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Globe, Layers, ShieldCheck, Users, type LucideIcon } from "lucide-react";
 import { Footer, Nav } from "@/components/seker/Chrome";
-import { CareersSatellites } from "@/components/seker/CareersSatellites";
+import { CareersSatellites, CareersSatellitesOverlay } from "@/components/seker/CareersSatellites";
 import { careersIntro, careersPage, jobFamilies, jobs, speculative } from "@/content/careers";
 
 const TITLE = "Careers | Seker Space Intelligence";
