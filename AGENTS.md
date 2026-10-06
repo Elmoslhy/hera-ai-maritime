@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Keep careers satellite animation in a dedicated presentation component using bundled satellite imagery and reduced-motion-aware Motion animations, so the original header photo and copy remain independent.
+- Keep careers satellite animation in a dedicated presentation component using transparent bundled satellite imagery and shared Motion values for satellite positions and connection paths, with reduced-motion support, so links stay attached and the original photo and copy remain independent.
