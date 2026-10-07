@@ -38,7 +38,7 @@ export function HeroSection() {
             href="#contact"
             className="mt-10 inline-block bg-gold px-8 py-4 font-mono text-[11px] tracking-[0.22em] text-navy-deep transition-opacity hover:opacity-90"
           >
-            REQUEST API ACCESS →
+            PLATFORM LOGIN →
           </a>
         </Reveal>
       </div>
