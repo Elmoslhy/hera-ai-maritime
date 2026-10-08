@@ -90,9 +90,9 @@ export function LaunchSection() {
         </Reveal>
         <Reveal delay={0.12}>
           <h2 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">
-            Launching with
+            HERA AI is
             <br />
-            <span className="text-gold">HERA AI</span>
+            <span className="text-gold">already in operation</span>
           </h2>
         </Reveal>
         <Reveal delay={0.24}>
