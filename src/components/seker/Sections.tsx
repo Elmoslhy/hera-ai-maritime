@@ -97,7 +97,7 @@ export function LaunchSection() {
         </Reveal>
         <Reveal delay={0.24}>
           <p className="text-pretty mt-7 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
-            The trusted maritime intelligence platform Europe has been waiting for.
+            HERA AI is live and running — already delivering verified maritime intelligence to customers today.
           </p>
         </Reveal>
       </div>
