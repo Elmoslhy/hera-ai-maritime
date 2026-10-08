@@ -334,7 +334,7 @@ function ContactForm() {
           disabled={status === "sending"}
           className="inline-flex items-center gap-3 rounded-full bg-gold px-7 py-3.5 font-mono text-[11px] tracking-[0.2em] text-navy transition-opacity hover:opacity-90 disabled:opacity-60"
         >
-          {status === "sending" ? "SENDING…" : "REQUEST INTELLIGENCE BRIEF →"}
+          {status === "sending" ? "SENDING…" : "DISCUSS YOUR USE CASE →"}
         </button>
         {status === "sent" && (
           <p className="font-mono text-[10px] tracking-[0.18em] text-cyan">
