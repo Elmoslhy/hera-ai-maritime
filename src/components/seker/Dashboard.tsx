@@ -14,7 +14,7 @@ const TOP_STATS = [
 type Ship = { x: number; y: number; c: string; r: number; lane: boolean };
 const CLASS_COLORS = ["#4a9eff", "#f59e42", "#3ddc84", "#4dd9c0", "#a855f7", "#ec4899", "#8fa3bb"];
 
-/* --- real web-mercator basemap (CARTO dark), z5 tiles x15..19 y11..13 --- */
+/* --- real web-mercator basemap (Esri Dark Gray, keyless), z5 tiles x15..19 y11..13 --- */
 const Z = 5, TX0 = 15, TY0 = 11, TCOLS = 5, TROWS = 3, TS = 256;
 const W = TCOLS * TS, H = TROWS * TS;
 const WORLD = TS * 2 ** Z;
@@ -102,15 +102,26 @@ function LiveMap() {
         <div className="relative w-full" style={{ aspectRatio: `${W} / ${H}` }}>
           {/* real basemap tiles */}
           <div className="absolute inset-0 grid" style={{ gridTemplateColumns: `repeat(${TCOLS}, 1fr)` }}>
-            {Array.from({ length: TCOLS * TROWS }).map((_, i) => (
-              <img
-                key={i}
-                src={`https://basemaps.cartocdn.com/dark_all/${Z}/${TX0 + (i % TCOLS)}/${TY0 + Math.floor(i / TCOLS)}.png`}
-                alt=""
-                loading="lazy"
-                className="block h-full w-full"
-              />
-            ))}
+            {Array.from({ length: TCOLS * TROWS }).map((_, i) => {
+              const x = TX0 + (i % TCOLS);
+              const y = TY0 + Math.floor(i / TCOLS);
+              return (
+                <div key={i} className="relative h-full w-full">
+                  <img
+                    src={`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/${Z}/${y}/${x}`}
+                    alt=""
+                    loading="lazy"
+                    className="block h-full w-full"
+                  />
+                  <img
+                    src={`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/${Z}/${y}/${x}`}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 block h-full w-full"
+                  />
+                </div>
+              );
+            })}
           </div>
           <div className="absolute inset-0 bg-[#09121f]/35" />
 
