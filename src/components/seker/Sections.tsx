@@ -90,14 +90,15 @@ export function LaunchSection() {
         </Reveal>
         <Reveal delay={0.12}>
           <h2 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">
-            HERA AI is
+            A digital twin of
             <br />
-            <span className="text-gold">already in operation</span>
+            <span className="text-gold">every vessel at sea.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.24}>
           <p className="text-pretty mt-7 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
-            HERA AI is live and running — already delivering verified maritime intelligence to customers today.
+            HERA AI builds and maintains a live digital twin for every vessel on the ocean, then
+            delivers verified intelligence to customers every day.
           </p>
         </Reveal>
       </div>
