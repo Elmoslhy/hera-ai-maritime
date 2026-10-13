@@ -103,13 +103,13 @@ export function TaskingSection() {
                   <div className="min-w-[620px]">
                     <div className="grid grid-cols-[150px_1fr] gap-3">
                       <div />
-                      <div className="relative h-14">
+                      <div className="relative h-16">
                         {/* night band */}
                         <div className="absolute inset-y-0 left-0 rounded-sm bg-white/[0.05]" style={{ width: pct(s.nightHours) }}>
                           <span className="absolute left-2 top-1 font-mono text-[9px] tracking-[0.16em] text-muted-foreground">NIGHT</span>
                         </div>
                         {/* cloud */}
-                        <div className="absolute inset-x-0 bottom-5 grid grid-cols-4">
+                        <div className="absolute inset-x-0 bottom-4 grid grid-cols-4">
                           {s.cloud.map((c, i) => (
                             <div key={i} className="border-l border-white/10 px-2 font-mono text-[9px] tracking-[0.12em] text-foreground/60">
                               CLOUD {c}%
