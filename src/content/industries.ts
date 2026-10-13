@@ -18,6 +18,12 @@ export type Industry = {
   blocks: { label: string; title: string; text: string; bullets: string[]; image: string; alt: string }[];
   useCaseIds: string[];
   roadmapNote: string;
+  rebuild?: {
+    roles: { role: string; question: string }[];
+    signature: { title: string; stages: { key: string; title: string; items: { label: string; value: string }[] }[] };
+    missions: { title: string; need: string; hera: string; deliverable: string }[];
+    deliverables: { name: string; cadence: string }[];
+  };
 };
 
 export const industries: Industry[] = [
@@ -79,14 +85,43 @@ export const industries: Industry[] = [
     navName: "Insurance and P&I",
     description: "Underwrite on what a vessel actually did.",
     eyebrow: "Insurance and P&I",
-    headline: ["Price the risk", "the vessel is actually running."],
-    body: "HERA AI shows insurers what a vessel has done, not only what it declared: dark periods, encounters, identity changes and loading beyond its marks.",
+    headline: ["Know the vessel", "behind the policy."],
+    body: "HERA AI follows every insured vessel from bind to claim: where it really went, who it met, how it was loaded and whether it stayed inside its warranties.",
     heroImage: network,
     statement: { title: "Underwrite on evidence.", body: "Declarations tell you what a vessel says it did. HERA AI tells you what it was observed doing, with the source behind every finding." },
     capabilities: [{ title: "Load line and draught checks", text: "Draught against the permitted mark for zone and season." }, { title: "Sanctions exposure", text: "Encounters with listed vessels, direct or one hop away." }, { title: "Identity and flag history", text: "Name, flag and owner changes over time." }, { title: "Inspection record", text: "Port state control findings linked to each vessel." }, { title: "Fleet screening", text: "Every insured vessel screened daily." }, { title: "Claims evidence packs", text: "The full chain behind a finding, ready for a dispute." }],
     blocks: [{ label: "THE QUESTION", title: "Is this risk what the proposal says it is?", text: "Sanctions exposure, unsafe loading and identity games can sit behind declarations that look clean.", bullets: ["Encounters with listed vessels.", "Loading beyond the mark for the route.", "Repeated changes of flag and name."], image: vessels, alt: "Vessels at sea seen from orbit" }, { label: "HOW HERA AI ANSWERS", title: "Behaviour, scored and sourced", text: "HERA AI screens the fleet you insure and scores indicators with their evidence, so underwriting and claims teams see why, not only what.", bullets: ["Load line status per zone and season.", "Draught integrity checked before any warning.", "Missing data shown as not verified, never as compliant."], image: network, alt: "Satellite network above the Earth" }, { label: "HOW IT REACHES YOU", title: "Inside the underwriting workflow", text: "Results arrive where your teams already work.", bullets: ["Fleet screening by API.", "Alerts on watched vessels.", "Evidence packs for claims."], image: heraUi, alt: "HERA AI platform interface" }],
-    useCaseIds: ["load-line", "identity", "dark-transfer"],
-    roadmapNote: "Task imaging on an insured vessel after an alert, so the evidence pack is complete.",
+    useCaseIds: ["cargo-claim", "load-line"],
+    roadmapNote: "Task imaging on an insured vessel the moment an alert fires, so the file is complete before anyone asks.",
+    rebuild: {
+      roles: [
+        { role: "Underwriter", question: "Should we write this risk, and at what rate?" },
+        { role: "Sanctions compliance", question: "Has this voyage exposed us to a listed party?" },
+        { role: "Claims handler", question: "What actually happened on this voyage?" },
+        { role: "Portfolio manager", question: "How much of our book is in harm's way right now?" },
+      ],
+      signature: {
+        title: "Policy lifecycle",
+        stages: [
+          { key: "AT BIND", title: "Vessel risk report", items: [{ label: "Identity", value: "Verified" }, { label: "Flag changes", value: "3 in 5 years" }, { label: "Detentions", value: "2 in 36 months" }, { label: "Encounter network score", value: "41" }] },
+          { key: "DURING COVER", title: "Live alerts", items: [{ label: "Entered listed area", value: "Observed position, not broadcast" }, { label: "Dark period", value: "11 h" }, { label: "Encounter", value: "Vessel one hop from a listed party" }] },
+          { key: "AT CLAIM", title: "Voyage reconstruction", items: [{ label: "Route", value: "Rebuilt from stored positions" }, { label: "Speed", value: "By hour" }, { label: "Sea state", value: "By hour" }, { label: "Port calls", value: "Listed" }, { label: "Draught changes", value: "Listed" }] },
+        ],
+      },
+      missions: [
+        { title: "Warranties and listed areas", need: "Know when an insured vessel enters a listed or excluded area, even with its transponder off.", hera: "Checks trading limits and listed areas against observed position, not only broadcast position.", deliverable: "Breach Notice" },
+        { title: "Sanctions across the voyage", need: "Screen the whole voyage, not only the vessel at bind.", hera: "Checks every encounter, port call and dark period against listed vessels and terminals.", deliverable: "Voyage Sanctions Check" },
+        { title: "Claims reconstruction", need: "Test a claim against what the vessel actually did.", hera: "Rebuilds route, speed, sea state, port calls and draught for any period you name.", deliverable: "Voyage Reconstruction" },
+        { title: "Accumulation", need: "See how many insured hulls sit in one port or one storm track.", hera: "Counts your insured fleet by zone in near real time, including vessels not broadcasting.", deliverable: "Exposure Board" },
+      ],
+      deliverables: [
+        { name: "Vessel Risk Report", cadence: "At bind, PDF and API" },
+        { name: "Breach Notice", cadence: "Real time" },
+        { name: "Voyage Sanctions Check", cadence: "Per voyage" },
+        { name: "Voyage Reconstruction", cadence: "On request" },
+        { name: "Exposure Board", cadence: "Live" },
+      ],
+    },
   },
   {
     slug: "commodity-trading",
