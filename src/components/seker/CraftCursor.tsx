@@ -62,8 +62,8 @@ export function CraftCursor() {
       if (reentry > 0.05) {
         // Plasma streak trails behind the craft, opposite the heading.
         const len = 26 + reentry * 46;
-        plasma.style.width = `${len}px`;
-        plasma.style.transform = `translateX(${-len - 10}px)`;
+        plasma.style.height = `${len}px`;
+        plasma.style.transform = "translate(-1.5px, 14px)";
       }
       const settled =
         reentry < 0.05 && Math.abs(tx - x) < 0.3 && Math.abs(ty - y) < 0.3 && Math.abs(diff) < 0.002;
@@ -114,11 +114,11 @@ export function CraftCursor() {
       {/* Plasma streak: trails behind the craft during atmospheric re-entry */}
       <div
         ref={plasmaRef}
-        className="absolute left-0 top-0 h-[3px] rounded-full opacity-0 transition-opacity duration-200"
+        className="absolute left-0 top-0 w-[3px] rounded-full opacity-0 transition-opacity duration-200"
         style={{
-          transformOrigin: "right center",
+          transformOrigin: "center top",
           background:
-            "linear-gradient(to left, rgba(255,240,200,0.95), rgba(255,160,60,0.7) 35%, rgba(255,80,40,0.35) 70%, transparent)",
+            "linear-gradient(to bottom, rgba(255,240,200,0.95), rgba(255,160,60,0.7) 35%, rgba(255,80,40,0.35) 70%, transparent)",
           filter: "blur(1px)",
         }}
       />
