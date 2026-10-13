@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Reveal } from "@/components/seker/primitives";
 import type { Industry } from "@/content/industries";
@@ -32,10 +32,11 @@ export function SignatureSection({ sig }: { sig: R["signature"] }) {
   if (sig.kind === "flow") return <FlowMonitor sig={sig} />;
   if (sig.kind === "board") return <ArrivalsBoard sig={sig} />;
   if (sig.kind === "origin") return <OriginCheck sig={sig} />;
+  if (sig.kind === "cable") return <CableWatch title={sig.title} />;
   return <Lifecycle sig={sig} />;
 }
 
-type Origin = Extract<R["signature"], { kind: "origin" }>;
+type Origin = Extract<R["signature"], { kind: "origin" } | { kind: "cable" }>;
 
 const chip = { cyan: "border-cyan/50 text-cyan", amber: "border-amber/60 text-amber", alert: "border-alert/60 text-alert" };
 
@@ -221,7 +222,7 @@ function FlowMonitor({ sig }: { sig: Flow }) {
   );
 }
 
-function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" } | { kind: "board" } | { kind: "origin" }> }) {
+function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" } | { kind: "board" } | { kind: "origin" } | { kind: "cable" }> }) {
   const [sel, setSel] = useState(0);
   const reduce = useReducedMotion();
   const st = sig.stages[sel];
@@ -317,6 +318,79 @@ export function DeliverablesSection({ items, note }: { items: R["deliverables"];
           ))}
         </div>
         {note && <p className="mt-6 text-sm font-light text-foreground/70">{note}</p>}
+      </div>
+    </section>
+  );
+}
+
+const CABLE_TRACK: [number, number][] = [
+  [20, 40], [90, 70], [160, 100], [200, 118], [222, 132], [238, 124], [254, 140], [270, 132], [286, 148], [302, 140], [318, 156], [334, 150],
+];
+const SPEEDS = [11, 10.8, 9.5, 6, 3.2, 2, 1.6, 1.4, 1.5, 1.4, 1.4, 1.4];
+
+function CableWatch({ title }: { title: string }) {
+  const reduce = useReducedMotion();
+  const [p, setP] = useState(reduce ? 1 : 0);
+  const [run, setRun] = useState(0);
+  useEffect(() => {
+    if (reduce) { setP(1); return; }
+    setP(0);
+    let raf = 0;
+    const t0 = performance.now();
+    const tick = (now: number) => {
+      const v = Math.min(1, (now - t0) / 9000);
+      setP(v);
+      if (v < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [run, reduce]);
+  const n = Math.max(1, Math.round(p * (CABLE_TRACK.length - 1)));
+  const pts = CABLE_TRACK.slice(0, n + 1);
+  const [vx, vy] = pts[pts.length - 1];
+  const speed = SPEEDS[n];
+  const onCorridor = n >= 4 ? Math.round(((n - 4) / (CABLE_TRACK.length - 5)) * 192) : 0;
+  const gap = n >= 8 ? 47 : 0;
+  const alert = p >= 0.85;
+  const sx = (k: number) => 20 + (k / (SPEEDS.length - 1)) * 320;
+  const sy = (v: number) => 90 - (v / 12) * 70;
+  return (
+    <section className="bg-navy px-6 py-24">
+      <div className="mx-auto max-w-7xl">
+        <Reveal><p className="text-eyebrow text-gold">{title}</p></Reveal>
+        <div className="mt-10 rounded-lg border border-white/10 bg-navy-deep/80 p-4 backdrop-blur sm:p-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap gap-2 font-mono text-[11px] tracking-[0.15em]">
+              <span className="rounded border border-white/15 px-2 py-1 text-cyan">SPEED {speed.toFixed(1)} KN</span>
+              <span className="rounded border border-white/15 px-2 py-1 text-cyan">ON CORRIDOR {Math.floor(onCorridor / 60)} H {onCorridor % 60} MIN</span>
+              <span className="rounded border border-white/15 px-2 py-1 text-amber">AIS GAP {gap} MIN</span>
+              <span className={`rounded-full border px-3 py-1 ${alert ? "border-alert/60 text-alert" : "border-cyan/50 text-cyan"}`}>{alert ? "INDICATOR" : "WATCH"}</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[11px] tracking-[0.2em] text-foreground/50">ILLUSTRATIVE</span>
+              <button type="button" onClick={() => setRun((r) => r + 1)} className="rounded-full border border-gold/60 px-3 py-1 font-mono text-[11px] tracking-[0.2em] text-gold hover:bg-gold/10">REPLAY</button>
+            </div>
+          </div>
+          <svg viewBox="0 0 360 200" className="mt-4 w-full" role="img" aria-label="Vessel track crossing a seabed cable and pipeline corridor">
+            {Array.from({ length: 9 }, (_, k) => <line key={`v${k}`} x1={k * 45} x2={k * 45} y1={0} y2={200} stroke="currentColor" className="text-white/5" />)}
+            <path d="M0,180 C80,170 140,150 200,135 S300,150 360,160" fill="none" stroke="currentColor" strokeWidth={10} className="text-gold/10" />
+            <path d="M0,180 C80,170 140,150 200,135 S300,150 360,160" fill="none" stroke="currentColor" strokeWidth={1.2} className="text-gold" />
+            <path d="M0,195 C90,185 160,170 220,160 S310,175 360,185" fill="none" stroke="currentColor" strokeWidth={1} strokeDasharray="4 3" className="text-gold/70" />
+            <text x={6} y={172} className="fill-gold font-mono text-[8px]">CABLE</text>
+            <text x={6} y={192} className="fill-gold/70 font-mono text-[8px]">PIPELINE</text>
+            <polyline points={pts.map((q) => q.join(",")).join(" ")} fill="none" stroke="currentColor" strokeWidth={1.6} className={alert ? "text-alert" : "text-cyan"} />
+            <polygon points={`${vx},${vy - 5} ${vx + 4},${vy + 4} ${vx - 4},${vy + 4}`} className={alert ? "fill-alert" : "fill-cyan"} />
+          </svg>
+          <div className="mt-4 border-t border-white/10 pt-3">
+            <p className="font-mono text-[11px] tracking-[0.2em] text-foreground/50">SPEED TRACE · KN</p>
+            <svg viewBox="0 0 360 100" className="mt-2 w-full" aria-hidden>
+              <line x1={20} x2={340} y1={sy(0)} y2={sy(0)} stroke="currentColor" className="text-white/15" />
+              <text x={0} y={sy(11) + 3} className="fill-foreground/50 font-mono text-[8px]">11</text>
+              <text x={0} y={sy(1.4) + 3} className="fill-foreground/50 font-mono text-[8px]">1.4</text>
+              <polyline points={SPEEDS.slice(0, n + 1).map((v, k) => `${sx(k)},${sy(v)}`).join(" ")} fill="none" stroke="currentColor" strokeWidth={1.6} className="text-cyan" />
+            </svg>
+          </div>
+        </div>
       </div>
     </section>
   );
