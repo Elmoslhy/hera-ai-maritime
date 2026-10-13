@@ -23,7 +23,6 @@ export function RolesSection({ roles }: { roles: R["roles"] }) {
             </Reveal>
           ))}
         </div>
-        {note && <p className="mt-6 text-sm font-light text-foreground/70">{note}</p>}
       </div>
     </section>
   );
@@ -200,6 +199,7 @@ export function DeliverablesSection({ items, note }: { items: R["deliverables"];
             </div>
           ))}
         </div>
+        {note && <p className="mt-6 text-sm font-light text-foreground/70">{note}</p>}
         {note && <p className="mt-6 text-sm font-light text-foreground/70">{note}</p>}
       </div>
     </section>
