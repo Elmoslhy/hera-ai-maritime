@@ -240,11 +240,16 @@
   25%, 60% { opacity: 1; }
 }
 
+/* Craft cursor replaces the arrow on the homepage; controls keep the native pointer for precise clicks. */
+html.craft-cursor-on, html.craft-cursor-on body { cursor: none; }
+html.craft-cursor-on :is(a, button, input, textarea, select, label, [role='button']) { cursor: pointer; }
+html.craft-cursor-on :is(input, textarea) { cursor: text; }
+
 @media (prefers-reduced-motion: reduce) {
-  .pointer-trail { display: none; }
+  .pointer-trail, .craft-cursor { display: none; }
   .vessel-tracks .vt-dot { display: none; }
 }
 
 @media (any-pointer: coarse) and (hover: none) {
-  .pointer-trail { display: none; }
+  .pointer-trail, .craft-cursor { display: none; }
 }

@@ -4,6 +4,7 @@ import { DashboardSection } from "@/components/seker/Dashboard";
 import { DescentSection } from "@/components/seker/Descent";
 import { InsightsSection } from "@/components/seker/Insights";
 import { PointerTrail } from "@/components/seker/PointerTrail";
+import { CraftCursor } from "@/components/seker/CraftCursor";
 import {
   ConstellationSection,
   ContactSection,
@@ -35,6 +36,7 @@ function Index() {
     <div className="bg-navy">
       <ScrollProgress />
       <PointerTrail />
+      <CraftCursor />
       <Nav />
       <main>
         <HeroSection />
