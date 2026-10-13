@@ -49,7 +49,7 @@ function OpsMap({ idx, stage }: { idx: number; stage: number }) {
       <rect width="800" height="450" className="fill-navy-deep" />
       <defs>
         <pattern id="uc-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-          <path d="M40 0H0V40" fill="none" stroke="currentColor" strokeWidth="0.5" />
+          <path d="M40 0H0V40" fill="none" className="stroke-white/[0.05]" strokeWidth="0.5" />
         </pattern>
       </defs>
       <rect width="800" height="450" fill="url(#uc-grid)" className="text-white/[0.05]" />
