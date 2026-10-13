@@ -163,7 +163,7 @@ function FlowMonitor({ sig }: { sig: Flow }) {
   );
 }
 
-function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" }> }) {
+function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" } | { kind: "board" }> }) {
   const [sel, setSel] = useState(0);
   const reduce = useReducedMotion();
   const st = sig.stages[sel];
