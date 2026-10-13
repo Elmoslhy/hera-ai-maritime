@@ -82,8 +82,20 @@ function IndustryPage() {
             <RolesSection roles={i.rebuild.roles} />
             {!i.rebuild.signatureFirst && !i.rebuild.signatureAfterMissions && <SignatureSection sig={i.rebuild.signature} axis={i.rebuild.chartAxis} />}
             <MissionsSection missions={i.rebuild.missions} heading={i.rebuild.missionsHeading} />
+            {i.rebuild.afterMissions && (
+              <section className="bg-navy px-6 py-20">
+                <div className="mx-auto max-w-4xl">
+                  <Reveal>
+                    <p className="text-eyebrow text-gold">{i.rebuild.afterMissions.title}</p>
+                    <p className="mt-6 text-balance text-lg font-light text-foreground/85">{i.rebuild.afterMissions.text}</p>
+                    {i.rebuild.afterMissions.note && <p className="mt-4 text-sm font-light text-foreground/55">{i.rebuild.afterMissions.note}</p>}
+                  </Reveal>
+                </div>
+              </section>
+            )}
             {i.rebuild.signatureAfterMissions && <SignatureSection sig={i.rebuild.signature} axis={i.rebuild.chartAxis} />}
             <UseCasesSection
+              sensorLabels={i.rebuild.sensorLabels}
               cases={i.useCaseIds.map((id) => allCases.find((c) => c.id === id)!).filter(Boolean)}
               sectionId="see-it-work"
               eyebrow="See it work"

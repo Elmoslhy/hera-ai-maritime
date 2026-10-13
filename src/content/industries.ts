@@ -25,7 +25,7 @@ export type Industry = {
       | { kind: "flow"; title: string; weeks: { broadcast: number; corrected: number; floating: number }[]; summary: { label: string; value: string }[] }
       | { kind: "cable"; title: string }
       | { kind: "board"; title: string; rows: { vessel: string; eta: string; identity: string; lastPorts: string; risk: "LOW" | "MEDIUM" | "HIGH"; inspection: "RECOMMEND" | "ROUTINE"; reasons: { label: string; text: string }[] }[] }
-      | { kind: "origin"; title: string; trips: { name: string; confidence: string; track: string; checks: { label: string; value: string; tone: "cyan" | "amber" | "alert" }[] }[] }
+      | { kind: "origin"; title: string; trips: { name: string; verdict: string; flagged?: boolean; summary?: string; track: string; checks: { label: string; value: string; tone: "cyan" | "amber" | "alert" }[] }[] }
       | { kind?: "lifecycle"; title: string; stages: { key: string; title: string; items: { label: string; value: string }[] }[] };
     missions: { title: string; need: string; hera: string; deliverable: string; note?: string }[];
     deliverables: { name: string; cadence: string; fields?: string }[];
@@ -36,6 +36,8 @@ export type Industry = {
     signatureFirst?: boolean;
     signatureAfterMissions?: boolean;
     reach?: { title: string; text: string };
+    afterMissions?: { title: string; text: string; note?: string };
+    sensorLabels?: Record<string, string>;
     afterDeliverables?: { title: string; text: string };
   };
 };
@@ -304,27 +306,41 @@ export const industries: Industry[] = [
     navName: "Fisheries and environment",
     description: "Protect what lies under the surface.",
     eyebrow: "Fisheries and environment",
-    headline: ["From the fishing ground", "to the plate."],
-    body: "HERA AI follows fishing fleets where they work, where they meet carriers at sea and where their catch lands, so enforcement, regulators and seafood buyers can trust the origin.",
+    headline: ["From the fishing ground", "to the landing port."],
+    body: "HERA AI compares where a vessel fished, who it met at sea and where it landed with what was declared, so inspectors can prioritise and buyers can document their due diligence.",
     heroImage: fisheries,
     statement: { title: "Enforcement needs evidence.", body: "A fishing vessel that switches off inside a protected area leaves no broadcast trail. HERA AI looks for what remains." },
     capabilities: [{ title: "Protected area watch", text: "Alerts inside closed and protected areas." }, { title: "Dark fishing indicators", text: "Broadcast gaps where fishing patterns stop and start." }, { title: "Transshipment encounters", text: "Meetings with carrier vessels at sea." }, { title: "Fleet identity checks", text: "Flag, name and MMSI history for fishing fleets." }, { title: "Patrol prioritisation", text: "Ranked lists of vessels worth a look." }, { title: "Evidence packs", text: "The chain behind each case." }],
     blocks: [{ label: "THE QUESTION", title: "Who is fishing where they should not?", text: "Closed areas only work if someone can see who enters them.", bullets: ["Broadcast gaps inside protected areas.", "Loitering typical of fishing.", "Meetings with carrier vessels."], image: vessels, alt: "Vessels at sea seen from orbit" }, { label: "HOW HERA AI ANSWERS", title: "Patterns, positions and identities", text: "HERA AI scores encounters and silent periods, and measures position independently of what the vessel reports.", bullets: ["Encounters scored by duration, distance and location.", "Independent position for silent vessels.", "Identity history across flags and names."], image: network, alt: "Satellite network above the Earth" }, { label: "HOW IT REACHES YOU", title: "Built for patrol planning", text: "Results arrive ranked, so scarce patrols go where they matter.", bullets: ["Prioritised lists for patrols.", "Alerts on watched areas.", "Evidence packs for enforcement."], image: heraUi, alt: "HERA AI platform interface" }],
     useCaseIds: ["transshipment"],
     roadmapNote: "Task a pass or a drone over a protected area when a vessel goes dark inside it.",
+    closing: {
+      headline: ["Test it on one fishery", "or protected area."],
+      body: "Name the area and the fleet. For 30 days, we return every indicator HERA AI raises, with its sources, for your inspectors to grade.",
+      button: "REQUEST A PILOT",
+    },
     rebuild: {
+      sensorLabels: { reg: "Registries, RFMO and IUU lists" },
+      afterMissions: {
+        title: "Works with your control data",
+        text: "Where you share VMS positions, logbook and landing data, HERA AI compares them with independent detections and raises an indicator wherever they disagree, with each source attached.",
+        note: "HERA AI follows vessels that carry AIS or appear in satellite imaging. Small vessels without AIS are covered only where imaging resolution allows.",
+      },
       signatureAfterMissions: true,
       roles: [
         { role: "Fisheries patrol", question: "Which vessel do we board this week?" },
         { role: "Fisheries regulator", question: "Is this catch certificate consistent with the trip?" },
         { role: "Seafood importer", question: "Can we prove the origin of what we buy?" },
         { role: "Protected area manager", question: "Who entered the reserve, and how fast were they going?" },
+        { role: "Marine environment agency", question: "Which vessel left that slick?" },
       ],
       missions: [
         { title: "Zone incursions", need: "Know when foreign fleets fish inside your zone with transponders off.", hera: "Watches fleets that go dark at the zone boundary and measures their position independently.", deliverable: "Incursion Alert" },
-        { title: "Transshipment", need: "See where catch changes hands at sea.", hera: "Scores meetings between fishing vessels and carriers by duration, distance and location.", deliverable: "Transshipment Register" },
+        { title: "Transshipment", need: "See where catch changes hands at sea.", hera: "Scores meetings between fishing vessels and carriers by duration, distance and location, then checks each pair against RFMO authorised vessel records, IUU vessel lists and transshipment declarations.", deliverable: "Transshipment Register" },
         { title: "Catch origin", need: "Verify that a catch came from where it is declared.", hera: "Checks each trip's track, encounters and landing against the catch certificate.", deliverable: "Trip Origin Report" },
         { title: "Protected zone conduct", need: "Check speed limits and no-entry rules in protected zones.", hera: "Measures speed and presence inside each zone and reports breaches with the track.", deliverable: "Zone Compliance Report" },
+        { title: "Discharge linking", need: "Link a slick to the vessel that left it.", hera: "Links a slick seen on partner radar imagery to the vessels whose tracks crossed it, ranked by timing and drift.", deliverable: "Slick Source Report" },
+        { title: "Supplier vessel screen", need: "Screen the vessels behind each consignment before you accept it.", hera: "Checks each vessel for transshipment, closed-area and identity indicators, ready to support your catch certificate checks.", deliverable: "Supplier Vessel Screen" },
       ],
       signature: {
         kind: "origin",
@@ -332,7 +348,7 @@ export const industries: Industry[] = [
         trips: [
           {
             name: "TRIP 1 · CLEAN",
-            confidence: "0.96",
+            verdict: "CONSISTENT",
             track: "M60,190 C90,150 120,140 150,120 S200,100 230,110 S270,140 250,165 S190,180 160,170",
             checks: [
               { label: "Fishing inside declared area", value: "MATCH", tone: "cyan" },
@@ -344,7 +360,9 @@ export const industries: Industry[] = [
           },
           {
             name: "TRIP 2 · FLAGGED",
-            confidence: "0.64",
+            verdict: "REVIEW ADVISED",
+            flagged: true,
+            summary: "2 h 10 min of fishing behaviour inside a closed area, and one carrier encounter without a matching declaration.",
             track: "M60,190 C90,150 120,140 160,120 S240,60 290,55 S320,90 270,120 S200,160 170,170",
             checks: [
               { label: "Fishing inside declared area", value: "MATCH", tone: "cyan" },
@@ -361,6 +379,7 @@ export const industries: Industry[] = [
         { name: "Transshipment Register", cadence: "Daily" },
         { name: "Trip Origin Report", cadence: "Per trip, API and PDF" },
         { name: "Zone Compliance Report", cadence: "Monthly" },
+        { name: "Slick Source Report", cadence: "Per slick" },
       ],
     },
   },
