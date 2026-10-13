@@ -3,10 +3,10 @@ import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
 import { UseCasesSection } from "@/components/seker/UseCases";
 import { getIndustry } from "@/content/industries";
-import { cargoClaimCase, closingCta, useCases } from "@/content/intelligence";
+import { cargoClaimCase, closingCta, originCase, useCases } from "@/content/intelligence";
 import { DeliverablesSection, MissionsSection, RolesSection, SignatureSection } from "@/components/seker/IndustrySections";
 
-const allCases = [...useCases, cargoClaimCase];
+const allCases = [...useCases, cargoClaimCase, originCase];
 
 const gold = "border border-gold/60 bg-gold/90 px-6 py-3 font-mono text-xs tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold";
 const outline = "border border-gold/60 px-6 py-3 font-mono text-xs tracking-[0.22em] text-gold transition-colors hover:bg-gold/10";
@@ -95,7 +95,7 @@ function IndustryPage() {
               eyebrow="See it work"
               headline={["Mission walkthroughs,", "step by step."]}
             />
-            <DeliverablesSection items={i.rebuild.deliverables} />
+            <DeliverablesSection items={i.rebuild.deliverables} note={i.rebuild.deliverablesNote} />
           </>
         ) : (
           <>

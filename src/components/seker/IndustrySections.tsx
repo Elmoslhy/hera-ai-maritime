@@ -23,12 +23,88 @@ export function RolesSection({ roles }: { roles: R["roles"] }) {
             </Reveal>
           ))}
         </div>
+        {note && <p className="mt-6 text-sm font-light text-foreground/70">{note}</p>}
       </div>
     </section>
   );
 }
 
 export function SignatureSection({ sig }: { sig: R["signature"] }) {
+  if (sig.kind === "flow") return <FlowMonitor sig={sig} />;
+  return <Lifecycle sig={sig} />;
+}
+
+type Flow = Extract<R["signature"], { kind: "flow" }>;
+
+function FlowMonitor({ sig }: { sig: Flow }) {
+  const [floating, setFloating] = useState(false);
+  const reduce = useReducedMotion();
+  const W = 640, H = 260, pad = 28;
+  const max = Math.max(...sig.weeks.map((w) => w.corrected)) * 1.15;
+  const step = (W - pad * 2) / sig.weeks.length;
+  const y = (v: number) => H - pad - (v / max) * (H - pad * 2);
+  const line = sig.weeks.map((w, n) => `${n ? "L" : "M"}${pad + step * (n + 0.5)},${y(w.floating)}`).join(" ");
+  return (
+    <section className="bg-navy px-6 py-24">
+      <div className="mx-auto max-w-7xl">
+        <Reveal><p className="text-eyebrow text-gold">{sig.title}</p></Reveal>
+        <div className="mt-10 grid gap-4 lg:grid-cols-[1fr_300px]">
+          <div className="min-w-0 rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <span className="font-mono text-xs uppercase tracking-[0.2em] text-gold">Export terminal · 8 weeks</span>
+              <button type="button" onClick={() => setFloating((f) => !f)} aria-pressed={floating}
+                className={`rounded-full border px-3 py-1 font-mono text-[11px] tracking-[0.2em] ${floating ? "border-amber text-amber" : "border-white/20 text-foreground/60"}`}>
+                FLOATING STORAGE
+              </button>
+            </div>
+            <svg viewBox={`0 0 ${W} ${H}`} className="mt-4 w-full" role="img" aria-label="Weekly loaded departures, seen by broadcast and HERA AI corrected">
+              {[0.25, 0.5, 0.75, 1].map((f) => (
+                <line key={f} x1={pad} x2={W - pad} y1={y(max * f / 1.15)} y2={y(max * f / 1.15)} stroke="currentColor" className="text-white/10" />
+              ))}
+              {sig.weeks.map((w, n) => {
+                const x = pad + step * n + step * 0.18, bw = step * 0.3;
+                return (
+                  <g key={n}>
+                    <motion.rect x={x} width={bw} fill="currentColor" className="text-white/30"
+                      initial={reduce ? false : { height: 0, y: H - pad }} whileInView={{ height: H - pad - y(w.broadcast), y: y(w.broadcast) }} viewport={{ once: true }} transition={{ duration: 0.6, delay: n * 0.05 }} />
+                    <motion.rect x={x + bw + 2} width={bw} fill="currentColor" className="text-cyan"
+                      initial={reduce ? false : { height: 0, y: H - pad }} whileInView={{ height: H - pad - y(w.corrected), y: y(w.corrected) }} viewport={{ once: true }} transition={{ duration: 0.6, delay: n * 0.05 + 0.1 }} />
+                    <text x={pad + step * (n + 0.5)} y={H - 8} textAnchor="middle" className="fill-foreground/50 font-mono text-[11px]">W{n + 1}</text>
+                  </g>
+                );
+              })}
+              {floating && (
+                <motion.path d={line} fill="none" stroke="currentColor" strokeWidth={2} strokeDasharray="5 4" className="text-amber"
+                  initial={reduce ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8 }} />
+              )}
+            </svg>
+            <div className="mt-3 flex flex-wrap gap-5 font-mono text-[11px] tracking-[0.15em] text-foreground/60">
+              <span className="flex items-center gap-2"><span className="h-2 w-3 bg-white/30" />SEEN BY BROADCAST</span>
+              <span className="flex items-center gap-2"><span className="h-2 w-3 bg-cyan" />HERA AI CORRECTED</span>
+              {floating && <span className="flex items-center gap-2"><span className="h-0.5 w-3 bg-amber" />FLOATING STORAGE</span>}
+            </div>
+          </div>
+          <div className="rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-mono text-xs tracking-[0.2em] text-gold">THIS WEEK</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] text-foreground/50">ILLUSTRATIVE</span>
+            </div>
+            <dl className="mt-4 divide-y divide-white/10">
+              {sig.summary.map((it) => (
+                <div key={it.label} className="py-3">
+                  <dt className="text-sm font-light text-foreground/70">{it.label}</dt>
+                  <dd className="mt-1 font-mono text-lg text-cyan">{it.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" }> }) {
   const [sel, setSel] = useState(0);
   const reduce = useReducedMotion();
   const st = sig.stages[sel];
@@ -105,12 +181,13 @@ export function MissionsSection({ missions }: { missions: R["missions"] }) {
             </Reveal>
           ))}
         </div>
+        {note && <p className="mt-6 text-sm font-light text-foreground/70">{note}</p>}
       </div>
     </section>
   );
 }
 
-export function DeliverablesSection({ items }: { items: R["deliverables"] }) {
+export function DeliverablesSection({ items, note }: { items: R["deliverables"]; note?: string }) {
   return (
     <section className="bg-navy px-6 py-24">
       <div className="mx-auto max-w-4xl">
@@ -123,6 +200,7 @@ export function DeliverablesSection({ items }: { items: R["deliverables"] }) {
             </div>
           ))}
         </div>
+        {note && <p className="mt-6 text-sm font-light text-foreground/70">{note}</p>}
       </div>
     </section>
   );

@@ -20,9 +20,12 @@ export type Industry = {
   roadmapNote: string;
   rebuild?: {
     roles: { role: string; question: string }[];
-    signature: { title: string; stages: { key: string; title: string; items: { label: string; value: string }[] }[] };
+    signature:
+      | { kind: "flow"; title: string; weeks: { broadcast: number; corrected: number; floating: number }[]; summary: { label: string; value: string }[] }
+      | { kind?: "lifecycle"; title: string; stages: { key: string; title: string; items: { label: string; value: string }[] }[] };
     missions: { title: string; need: string; hera: string; deliverable: string }[];
     deliverables: { name: string; cadence: string }[];
+    deliverablesNote?: string;
   };
 };
 
@@ -128,14 +131,55 @@ export const industries: Industry[] = [
     navName: "Commodity trading",
     description: "Read the flows that declarations miss.",
     eyebrow: "Commodity trading",
-    headline: ["Read the flows", "the declarations miss."],
-    body: "HERA AI counts the ships that are really waiting, estimates what they carry and flags the transfers that move cargo out of sight.",
+    headline: ["See the barrels", "before the statistics do."],
+    body: "HERA AI turns vessel behaviour into flow data: what left, what is waiting, what is floating and what changed hands at sea, days before official figures arrive.",
     heroImage: vessels,
     statement: { title: "Trade on what is really at sea.", body: "Flow models built on broadcasts undercount the vessels that go silent. HERA AI adds them back, with stated confidence." },
     capabilities: [{ title: "Anchorage census", text: "Every hull counted, broadcasting or not." }, { title: "Cargo estimates", text: "Estimated from draught, with a stated range." }, { title: "Dark transfer indicators", text: "Cargo moved at sea, out of sight." }, { title: "Port call reconstruction", text: "Loading and discharge inferred from behaviour." }, { title: "Seker briefs", text: "Client-only weekly and daily intelligence." }, { title: "Data feeds", text: "Records that drop straight into your models." }],
     blocks: [{ label: "THE QUESTION", title: "How much is really moving, and where?", text: "Silent arrivals and transfers at sea distort the picture your positions are priced on.", bullets: ["Silent arrivals at key anchorages.", "Transfers that relocate cargo.", "Draught changes that reveal loading."], image: vessels, alt: "Vessels at sea seen from orbit" }, { label: "HOW HERA AI ANSWERS", title: "Counts and estimates you can audit", text: "Every vessel in a census carries its attribution confidence, and every cargo estimate carries its method and range.", bullets: ["Hull detections matched to identities.", "Cargo estimated from draught.", "Unattributed vessels reported, never guessed."], image: network, alt: "Satellite network above the Earth" }, { label: "HOW IT REACHES YOU", title: "Straight into your flow models", text: "Daily feeds and briefs, built for analysts.", bullets: ["Daily census and encounter feeds.", "Client-only Seker briefs.", "API records with full provenance."], image: heraUi, alt: "HERA AI platform interface" }],
-    useCaseIds: ["anchorage", "dark-transfer"],
-    roadmapNote: "Task a collection over any anchorage or chokepoint you trade on.",
+    useCaseIds: ["origin", "anchorage"],
+    roadmapNote: "Task a collection over any terminal, anchorage or transfer hub you trade on.",
+    rebuild: {
+      roles: [
+        { role: "Crude and products analyst", question: "How much is really leaving each terminal?" },
+        { role: "Freight trader", question: "How tight is tonnage in this basin next week?" },
+        { role: "Trade compliance", question: "Could this cargo carry a sanctioned origin?" },
+        { role: "Quant researcher", question: "Is the signal stable enough to trade on?" },
+      ],
+      signature: {
+        kind: "flow",
+        title: "Flow monitor",
+        weeks: [
+          { broadcast: 9, corrected: 11, floating: 4 },
+          { broadcast: 10, corrected: 12, floating: 5 },
+          { broadcast: 8, corrected: 11, floating: 5 },
+          { broadcast: 11, corrected: 13, floating: 6 },
+          { broadcast: 10, corrected: 12, floating: 7 },
+          { broadcast: 9, corrected: 12, floating: 7 },
+          { broadcast: 11, corrected: 13, floating: 8 },
+          { broadcast: 12, corrected: 14, floating: 8 },
+        ],
+        summary: [
+          { label: "Loaded departures", value: "14" },
+          { label: "Not broadcasting", value: "2" },
+          { label: "Estimated volume", value: "About 11.6 million barrels" },
+        ],
+      },
+      missions: [
+        { title: "Export nowcast", need: "Read loadings days before customs data.", hera: "Detects loading from draught change at the berth and estimates volume for every departure.", deliverable: "Terminal Flow Feed" },
+        { title: "Floating storage", need: "Know how much oil sits idle at sea.", hera: "Tracks laden tankers idle for more than 20 days with unchanged draught.", deliverable: "Floating Storage Index" },
+        { title: "Hidden origin", need: "Know when a cargo's origin is being disguised.", hera: "Links transfers at sea, dark periods and earlier terminal visits into one chain of custody.", deliverable: "STS Ledger" },
+        { title: "Congestion and freight", need: "Price freight on real waiting times.", hera: "Counts every vessel waiting, silent or not, and measures time from arrival to berth.", deliverable: "Waiting Time Index" },
+      ],
+      deliverables: [
+        { name: "Terminal Flow Feed", cadence: "Daily, API and CSV" },
+        { name: "Floating Storage Index", cadence: "Weekly" },
+        { name: "STS Ledger", cadence: "Daily" },
+        { name: "Waiting Time Index", cadence: "Daily" },
+        { name: "Seker briefs", cadence: "Weekly, clients only" },
+      ],
+      deliverablesNote: "Every dataset ships with full history for backtesting, method versions and a confidence value on every record.",
+    },
   },
   {
     slug: "ports",
