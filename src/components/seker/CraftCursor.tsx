@@ -30,8 +30,16 @@ export function CraftCursor() {
       const b = d.getBoundingClientRect();
       const p = -b.top / Math.max(1, b.height - window.innerHeight);
       sea = Math.max(0, Math.min(1, (p - 0.06) / 0.26));
+      // Re-entry intensity peaks mid-descent (sea ≈ 0.5) and fades at both ends.
+      reentry = Math.max(0, 1 - Math.abs(sea - 0.5) * 2.4);
       sat.style.opacity = String(1 - sea);
       ship.style.opacity = String(sea);
+      // Heat glow: gold in orbit, burning amber-white at peak re-entry.
+      sat.style.filter =
+        reentry > 0.05
+          ? `drop-shadow(0 0 ${6 + reentry * 14}px rgba(255, ${Math.round(150 - reentry * 70)}, 40, ${0.6 + reentry * 0.4}))`
+          : "";
+      plasma.style.opacity = String(reentry * (visible ? 1 : 0));
       el.dataset.environment = sea === 0 ? "space" : sea === 1 ? "sea" : "transition";
     };
     const tick = () => {
@@ -40,9 +48,21 @@ export function CraftCursor() {
       let diff = target - heading;
       diff = Math.atan2(Math.sin(diff), Math.cos(diff));
       heading += diff * 0.18;
-      const scale = overControl ? 0.55 : 1;
-      el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${heading + Math.PI / 2}rad) scale(${scale})`;
+      // Atmospheric buffeting: the craft tumbles while burning through re-entry.
+      const now = performance.now();
+      const tumble = reentry * (Math.sin(now / 90) * 0.22 + Math.sin(now / 47) * 0.1);
+      const shake = reentry * 1.6;
+      const jx = (Math.random() - 0.5) * shake;
+      const jy = (Math.random() - 0.5) * shake;
+      const scale = (overControl ? 0.55 : 1) * (1 + reentry * 0.12);
+      el.style.transform = `translate3d(${x + jx}px, ${y + jy}px, 0) rotate(${heading + Math.PI / 2 + tumble}rad) scale(${scale})`;
       el.style.opacity = visible && !overControl ? "1" : "0";
+      if (reentry > 0.05) {
+        // Plasma streak trails behind the craft, opposite the heading.
+        const len = 26 + reentry * 46;
+        plasma.style.width = `${len}px`;
+        plasma.style.transform = `translateX(${-len - 10}px)`;
+      }
       const settled = Math.abs(tx - x) < 0.3 && Math.abs(ty - y) < 0.3 && Math.abs(diff) < 0.002;
       frame = settled ? 0 : requestAnimationFrame(tick);
     };
