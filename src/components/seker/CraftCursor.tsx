@@ -41,6 +41,8 @@ export function CraftCursor() {
           : "";
       plasma.style.opacity = String(reentry * (visible ? 1 : 0));
       el.dataset.environment = sea === 0 ? "space" : sea === 1 ? "sea" : "transition";
+      // Re-entry shake must keep animating even when the pointer is idle.
+      if (reentry > 0.05 && !frame) frame = requestAnimationFrame(tick);
     };
     const tick = () => {
       x += (tx - x) * 0.45;
