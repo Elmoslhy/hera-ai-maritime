@@ -37,8 +37,8 @@ function Tile({ grey, title, conf }: { grey?: boolean; title: string; conf: stri
         className="absolute inset-0"
         style={{
           backgroundImage: `url(${vessels})`,
-          backgroundSize: "560% auto",
-          backgroundPosition: "52.3% 52.5%",
+          backgroundSize: "420% auto",
+          backgroundPosition: "58% 48%",
           filter: grey ? "grayscale(1) contrast(1.6) brightness(1.6)" : "brightness(1.8) saturate(1.1)",
         }}
       />
