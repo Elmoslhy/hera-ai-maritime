@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
 import { UseCasesSection } from "@/components/seker/UseCases";

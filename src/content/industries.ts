@@ -20,10 +20,10 @@ export type Industry = {
 
 export const industries: Industry[] = [
   {
-    slug: "maritime-security",
-    navName: "Maritime security and coast guard",
+    slug: "defense",
+    navName: "Defense and coast guard",
     description: "Find the vessels that do not want to be seen.",
-    eyebrow: "Maritime security and coast guard",
+    eyebrow: "Defense and coast guard",
     headline: ["Know which hull is in your waters", "before it reaches them."],
     body: "HERA AI flags vessels that go dark, falsify their position or meet at sea, and tells your watch officers what it saw, from which source, and how sure it is.",
     heroImage: ocean,
