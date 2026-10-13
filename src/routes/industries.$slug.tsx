@@ -49,14 +49,6 @@ export const Route = createFileRoute("/industries/$slug")({
   component: IndustryPage,
 });
 
-function Pill() {
-  return (
-    <span className="inline-flex rounded-full border border-gold/60 px-3 py-1 font-mono text-[10px] tracking-[0.2em] text-gold">
-      ON OUR ROADMAP
-    </span>
-  );
-}
-
 function IndustryPage() {
   const { slug } = Route.useLoaderData();
   const i = getIndustry(slug)!;
@@ -120,7 +112,6 @@ function IndustryPage() {
                   <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-6 backdrop-blur">
                     <div className="flex items-center justify-between gap-3">
                       <span className="h-2 w-2 rounded-full bg-cyan shadow-[0_0_8px_var(--color-cyan)]" />
-                      {c.roadmap && <Pill />}
                     </div>
                     <h3 className="mt-5 text-lg font-light text-foreground">{c.title}</h3>
                     <p className="mt-2 text-sm font-light text-foreground/70">{c.text}</p>
@@ -176,7 +167,7 @@ function IndustryPage() {
             hash="tasking"
             className="mx-auto flex max-w-7xl flex-wrap items-center gap-4 rounded-lg border border-white/10 bg-navy/70 px-5 py-4 backdrop-blur transition-colors hover:border-gold/40"
           >
-            <Pill />
+            <span className="font-mono text-xs tracking-[0.2em] text-gold">TASKING</span>
             <span className="min-w-0 flex-1 text-sm font-light text-foreground/85">{i.roadmapNote}</span>
             <span className="font-mono text-xs tracking-[0.2em] text-gold">→</span>
           </Link>
