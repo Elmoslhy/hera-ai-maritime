@@ -7,12 +7,14 @@ export function CraftCursor() {
   const ref = useRef<HTMLDivElement>(null);
   const satRef = useRef<SVGSVGElement>(null);
   const shipRef = useRef<SVGSVGElement>(null);
+  const plasmaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = ref.current;
     const sat = satRef.current;
     const ship = shipRef.current;
-    if (!el || !sat || !ship) return;
+    const plasma = plasmaRef.current;
+    if (!el || !sat || !ship || !plasma) return;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const fine = window.matchMedia("(any-pointer: fine)");
     const root = document.documentElement;
