@@ -3,7 +3,6 @@ import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { DashboardSection } from "@/components/seker/Dashboard";
 import { DescentSection } from "@/components/seker/Descent";
 import { InsightsSection } from "@/components/seker/Insights";
-import { PointerTrail } from "@/components/seker/PointerTrail";
 import {
   ConstellationSection,
   ContactSection,
@@ -34,7 +33,6 @@ function Index() {
   return (
     <div className="bg-navy">
       <ScrollProgress />
-      <PointerTrail />
       <Nav />
       <main>
         <HeroSection />
