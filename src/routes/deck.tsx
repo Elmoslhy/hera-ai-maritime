@@ -403,15 +403,14 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
           </div>
         </div>
       </div>
-      <div className="deck-text absolute right-[100px] top-[330px] w-[620px] space-y-6" onClick={stop}>
+      <div className="deck-text absolute right-[100px] top-[330px] w-[620px] space-y-5" onClick={stop}>
         <p className="font-mono text-[16px] tracking-[0.2em] text-muted-foreground">{uc.audience.toUpperCase()}</p>
         <h3 className="-mt-3 text-[40px] font-light leading-tight text-foreground">{uc.question}</h3>
         <div>
           <p className="font-mono text-[20px] tracking-[0.2em] text-gold">0{stage + 1} · {STAGE_NAMES[stage].toUpperCase()}</p>
           <p className="mt-2 text-[30px] font-light leading-snug text-foreground/85">{uc.stages[stage].text}</p>
         </div>
-        {stage < 4 ? (
-          <div className="rounded-lg border border-white/10 bg-navy/70 p-5">
+        <div className="rounded-lg border border-white/10 bg-navy/70 p-5">
             <p className="font-mono text-[15px] tracking-[0.2em] text-muted-foreground">SENSORS IN USE</p>
             <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
               {sensors.map((x) => {
@@ -425,9 +424,7 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
               })}
             </ul>
           </div>
-        ) : (
-          <div className="origin-top-left scale-[1.3]" style={{ width: 620 / 1.3 }}><FindingCard uc={uc} /></div>
-        )}
+        {stage >= 4 && <div className="origin-top-left scale-[1.1]" style={{ width: 620 / 1.1 }}><FindingCard uc={uc} /></div>}
       </div>
       <p className="absolute bottom-[50px] left-[100px] font-mono text-[14px] tracking-[0.2em] text-muted-foreground">SCENARIOS ARE ILLUSTRATIVE</p>
     </>
