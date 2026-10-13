@@ -82,9 +82,9 @@ function OriginCheck({ sig }: { sig: Origin }) {
                 </li>
               ))}
             </ul>
-            <div className="mt-4 flex items-baseline justify-between border-t border-white/10 pt-4">
-              <span className="font-mono text-xs tracking-[0.2em] text-gold">ORIGIN CONFIDENCE</span>
-              <span className="font-mono text-3xl text-gold">{t.confidence}</span>
+            <div className="mt-4 border-t border-white/10 pt-4">
+              <p className={`font-mono text-sm tracking-[0.2em] ${t.flagged ? "text-amber" : "text-cyan"}`}>ORIGIN INDICATOR: {t.verdict}</p>
+              {t.summary && <p className="mt-2 text-sm font-light text-foreground/75">{t.summary}</p>}
             </div>
           </div>
         </div>

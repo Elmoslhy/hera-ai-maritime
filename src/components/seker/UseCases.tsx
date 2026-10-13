@@ -158,12 +158,14 @@ function recordJson(uc: UseCase) {
 export function UseCasesSection({
   ids,
   cases,
+  sensorLabels,
   sectionId = "use-cases",
   eyebrow = s.eyebrow,
   headline = s.headline,
 }: {
   ids?: string[];
   cases?: UseCase[];
+  sensorLabels?: Record<string, string>;
   sectionId?: string;
   eyebrow?: string;
   headline?: readonly string[];
@@ -307,7 +309,7 @@ export function UseCasesSection({
                   return (
                     <li key={x.id} className={`flex items-center gap-3 font-mono text-[11px] tracking-[0.1em] ${on ? "text-foreground" : "text-muted-foreground/60"}`}>
                       <span className={`h-2 w-2 rounded-full ${on ? "bg-cyan shadow-[0_0_8px_var(--color-cyan)]" : "bg-white/15"}`} />
-                      {x.label.toUpperCase()}
+                      {(sensorLabels?.[x.id] ?? x.label).toUpperCase()}
                     </li>
                   );
                 })}
