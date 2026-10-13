@@ -403,7 +403,7 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
           </div>
         </div>
       </div>
-      <div className="deck-text absolute right-[100px] top-[330px] w-[620px] space-y-5" onClick={stop}>
+      <div className="deck-text absolute right-[100px] top-[300px] w-[620px] space-y-4" onClick={stop}>
         <p className="font-mono text-[16px] tracking-[0.2em] text-muted-foreground">{uc.audience.toUpperCase()}</p>
         <h3 className="-mt-3 text-[40px] font-light leading-tight text-foreground">{uc.question}</h3>
         <div>
@@ -424,7 +424,7 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
               })}
             </ul>
           </div>
-        {stage >= 4 && <div className="origin-top-left scale-[1.1]" style={{ width: 620 / 1.1 }}><FindingCard uc={uc} /></div>}
+        {stage >= 4 && <FindingCard uc={uc} />}
       </div>
       <p className="absolute bottom-[50px] left-[100px] font-mono text-[14px] tracking-[0.2em] text-muted-foreground">SCENARIOS ARE ILLUSTRATIVE</p>
     </>
