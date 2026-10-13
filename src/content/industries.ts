@@ -18,6 +18,7 @@ export type Industry = {
   blocks: { label: string; title: string; text: string; bullets: string[]; image: string; alt: string }[];
   useCaseIds: string[];
   roadmapNote: string;
+  closing?: { headline: [string, string]; body?: string; button: string };
   rebuild?: {
     roles: { role: string; question: string }[];
     signature:

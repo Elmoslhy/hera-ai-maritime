@@ -176,11 +176,12 @@ function IndustryPage() {
         <section className="bg-navy px-6 py-28 text-center">
           <Reveal>
             <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-              {closingCta.headline[0]}
+              {(i.closing ?? closingCta).headline[0]}
               <br />
-              <span className="text-gold">{closingCta.headline[1]}</span>
+              <span className="text-gold">{(i.closing ?? closingCta).headline[1]}</span>
             </h2>
-            <Link to="/" hash="contact" className={`mt-10 inline-block ${gold}`}>{closingCta.button} →</Link>
+            {i.closing?.body && <p className="mx-auto mt-6 max-w-2xl text-balance text-lg font-light text-foreground/75">{i.closing.body}</p>}
+            <Link to="/" hash="contact" className={`mt-10 inline-block ${gold}`}>{(i.closing ?? closingCta).button} →</Link>
           </Reveal>
         </section>
       </main>
