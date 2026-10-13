@@ -311,7 +311,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
     title: "One case, end to end",
     node: (
       <Pad>
-        <Eyebrow>One case, end to end · {dark.tab ?? "Dark transfer"}</Eyebrow>
+        <Eyebrow>One case, end to end · Dark transfer</Eyebrow>
         <div className="mt-10 grid grid-cols-[1.5fr_1fr] gap-8">
           <div className="overflow-hidden rounded-xl border border-white/10 bg-[#050a12]">
             <div className="flex items-center gap-2 border-b border-white/8 bg-navy-deep px-4 py-3">
