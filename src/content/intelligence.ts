@@ -138,3 +138,84 @@ export const useCases: UseCase[] = [
     record: { type: "pilot_boarding_advisory", evidence: ["repeat_approaches_2_of_5", "transfer_deficiency_12m", "swell_2.6m_wsw_9s", "lee_course_change_40deg"], sources: ["AIS", "Sea state", "Registry"] },
   },
 ];
+
+export const workspaceSection = {
+  eyebrow: "Inside HERA AI",
+  headline: ["One screen for the picture,", "the news and the answer."],
+  body: "HERA AI fuses detections, keeps the operational picture and briefs you with Seker's own client-only intelligence alongside public news, each item linked to the vessels you watch. Ask a question in plain language and HERA AI answers with its sources.",
+  frameTitle: "HERA AI · WORKSPACE PREVIEW",
+  note: "Preview with synthetic vessels, briefs and news items.",
+};
+
+export type WsVessel = {
+  id: string;
+  chip: string;
+  status: string;
+  tone: "alert" | "amber";
+  confidence: number;
+  fields: { label: string; value: string; source: string }[];
+};
+
+export const wsVessels: WsVessel[] = [
+  {
+    id: "a",
+    chip: "Vessel A",
+    status: "DARK TRANSFER INDICATOR · 82",
+    tone: "alert",
+    confidence: 0.91,
+    fields: [
+      { label: "Identity", value: "IMO 9XXXXX4, tanker", source: "Registry + length match" },
+      { label: "Length", value: "183 m ±6 m", source: "Imaging" },
+      { label: "Last broadcast", value: "9 h 48 min ago", source: "AIS" },
+      { label: "Transmitter", value: "0.4 km from hull", source: "Geolocation" },
+    ],
+  },
+  {
+    id: "u",
+    chip: "Unattributed hull",
+    status: "UNDER REVIEW",
+    tone: "amber",
+    confidence: 0.38,
+    fields: [
+      { label: "Identity", value: "Not attributed", source: "Registry + length match" },
+      { label: "Length", value: "142 m ±8 m", source: "Imaging" },
+      { label: "Last broadcast", value: "No broadcast matched", source: "AIS" },
+      { label: "Transmitter", value: "Not detected", source: "Geolocation" },
+    ],
+  },
+  {
+    id: "c",
+    chip: "Vessel C",
+    status: "IDENTITY RISK 74",
+    tone: "alert",
+    confidence: 0.74,
+    fields: [
+      { label: "Identity", value: "Flag disagrees with registry", source: "Registry" },
+      { label: "Length", value: "Matches registered length and beam", source: "Imaging" },
+      { label: "Last broadcast", value: "Reports three days at anchor", source: "AIS" },
+      { label: "Transmitter", value: "34 km from reported position", source: "Geolocation" },
+    ],
+  },
+];
+
+export const wsLayers = ["Vessels", "Dark detections", "Transfer areas", "Ports", "Incidents", "Sea state"] as const;
+
+export const sekerBriefs = [
+  { text: "Transfer activity in the eastern area rose for a third week. Fourteen encounters scored above 50, up from nine. Two involve vessels on your watchlist.", meta: "Weekly brief · 2 h ago", linked: 2 },
+  { text: "Six silent arrivals at the eastern anchorage overnight. Four attributed by length and last known track. Two remain unattributed.", meta: "Daily census · 6 h ago", linked: 0 },
+  { text: "Flag change ahead of a port call. A watched bulk carrier changed its broadcast flag 48 hours before arrival.", meta: "Alert · 1 day ago", linked: 1 },
+];
+
+export const publicNews = [
+  { text: "New sanctions designations published.", did: "HERA AI re-screened every watched vessel within the hour. One now sits one hop from a listed vessel.", meta: "3 h ago", linked: 1 },
+  { text: "Port authority extends anchorage limits as waiting times rise.", did: "Consistent with the HERA AI census: vessels at anchor up 20% on the week.", meta: "5 h ago", linked: 0 },
+  { text: "Gale warning for the northern approaches.", did: "Two watched vessels are due at the pilot boarding ground inside the warning window.", meta: "8 h ago", linked: 2 },
+];
+
+export const askExamples = [
+  { q: "Which watched vessels went dark this week?", a: "Three vessels on your watchlist had broadcast gaps longer than six hours. Vessel A, at 9 h 48 min, is linked to a dark transfer indicator scored 82. The other two gaps fall in areas of weak reception, so HERA AI gives them little weight.", sources: ["Encounter record", "Weekly brief", "Reception coverage"] },
+  { q: "What changed in the sanctions picture today?", a: "Today's public designations added two vessels. After re-screening, no watched vessel is listed directly, but one is now one hop from a listed vessel through an encounter recorded in August.", sources: ["Public designations", "Encounter network", "Watchlist"] },
+  { q: "Is the eastern anchorage getting busier?", a: "Yes. The census counts 47 vessels at anchor against 39 a week ago, and vessels not broadcasting rose from two to six. Four of the six are attributed.", sources: ["Anchorage census", "Daily brief"] },
+];
+
+export const askFallback = "In this preview HERA AI answers the example questions. Book a session to put your own question to it.";

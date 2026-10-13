@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
 import { UseCasesSection } from "@/components/seker/UseCases";
+import { WorkspaceSection } from "@/components/seker/Workspace";
 import vessels from "@/assets/vessels.jpg";
 import { intelligenceHero as h, intelligenceSteps } from "@/content/intelligence";
 
@@ -110,6 +111,7 @@ function IntelligencePage() {
           </div>
         </section>
         <UseCasesSection />
+        <WorkspaceSection />
       </main>
       <Footer />
     </div>
