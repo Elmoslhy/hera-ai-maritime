@@ -111,6 +111,17 @@ export function CraftCursor() {
       className="craft-cursor pointer-events-none fixed left-0 top-0 z-[70] opacity-0 transition-opacity duration-150"
       style={{ width: 0, height: 0 }}
     >
+      {/* Plasma streak: trails behind the craft during atmospheric re-entry */}
+      <div
+        ref={plasmaRef}
+        className="absolute left-0 top-0 h-[3px] rounded-full opacity-0 transition-opacity duration-200"
+        style={{
+          transformOrigin: "right center",
+          background:
+            "linear-gradient(to left, rgba(255,240,200,0.95), rgba(255,160,60,0.7) 35%, rgba(255,80,40,0.35) 70%, transparent)",
+          filter: "blur(1px)",
+        }}
+      />
       {/* Satellite, nose pointing up (heading direction) */}
       <svg ref={satRef} width="44" height="44" viewBox="-22 -22 44 44" className="absolute -left-[22px] -top-[22px] text-gold drop-shadow-[0_0_6px_var(--color-gold)] transition-opacity duration-300">
         <g fill="none" stroke="currentColor" strokeWidth="1">
