@@ -222,15 +222,15 @@ export const askExamples = [
 export const askFallback = "In this preview HERA AI answers the example questions. Book a session to put your own question to it.";
 
 export const taskingSection = {
-  pill: "ON OUR ROADMAP",
   eyebrow: "Tasking and follow",
   headline: ["Task a satellite.", "Follow the vessel."],
-  body: "Clients will be able to put a vessel under watch and task collection on it directly from HERA AI. HERA AI picks the source that answers the question soonest, then hands custody from one collection to the next as the vessel moves.",
+  body: "Clients put a vessel under watch and task collection on it directly from HERA AI. HERA AI picks the source that answers the question soonest, then hands custody from one collection to the next as the vessel moves.",
   cards: [
-    { title: "Our own payload", text: "Seker's own sensors in orbit, designed around the maritime question: where a vessel really is and what it is doing after dark." },
+    { title: "Signal geolocation", text: "Partner satellites locate where a vessel's transmissions really come from, whatever position it reports." },
     { title: "Partner constellations", text: "On-demand imaging from commercial constellations, requested, scheduled and checked through HERA AI." },
     { title: "Close-range drone", text: "For the last mile, a drone approaches the vessel to document its name, draught marks and deck activity, where regulations permit." },
   ],
+  networkNote: "Seker's own sensors, designed around the maritime question, join this network as they launch.",
   consoleTitle: "WATCH · VESSEL A · AFTER DARK TRANSFER ALERT",
   nightHours: 5.5,
   cloud: [90, 85, 60, 30],
@@ -242,7 +242,7 @@ export type Pass = { id: string; start: number; end?: number; status: PassStatus
 
 export const taskingLanes: { name: string; passes: Pass[] }[] = [
   {
-    name: "Seker payload",
+    name: "Signal geolocation",
     passes: [
       { id: "p08", start: 0.8, status: "selected", reason: "First look. Listening for transmissions narrows an 18 nm search area to 2 km, and heat sensing confirms activity in the dark." },
       { id: "p69", start: 6.9, status: "standby", reason: "Held in reserve to keep custody if the vessel moves before imaging." },

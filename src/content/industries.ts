@@ -14,7 +14,7 @@ export type Industry = {
   body: string;
   heroImage: string;
   statement: { title: string; body: string };
-  capabilities: { title: string; text: string; roadmap?: boolean }[];
+  capabilities: { title: string; text: string }[];
   blocks: { label: string; title: string; text: string; bullets: string[]; image: string; alt: string }[];
   useCaseIds: string[];
   roadmapNote: string;
@@ -52,7 +52,7 @@ export const industries: Industry[] = [
       { title: "Encounter indicators", text: "Meetings at sea scored by duration, distance and location." },
       { title: "Watched areas", text: "Alerts when vessels enter, loiter or go dark inside your zones." },
       { title: "Tip and cue", text: "HERA AI recommends the next collection that would answer the question." },
-      { title: "Vessel follow", text: "Keep custody of a vessel from one pass, or one drone flight, to the next.", roadmap: true },
+      { title: "Vessel follow", text: "Keep custody of a vessel from one pass, or one drone flight, to the next." },
     ],
     blocks: [
       {

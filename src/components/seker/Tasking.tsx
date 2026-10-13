@@ -50,10 +50,7 @@ export function TaskingSection() {
       <section id="tasking" className="scroll-mt-24 bg-navy px-6 py-24">
         <div className="mx-auto max-w-7xl">
           <Reveal>
-            <span className="inline-block rounded-full border border-gold/60 px-3 py-1 font-mono text-[10px] tracking-[0.2em] text-gold">
-              {s.pill}
-            </span>
-            <p className="text-eyebrow mt-6 text-gold">{s.eyebrow}</p>
+            <p className="text-eyebrow text-gold">{s.eyebrow}</p>
             <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
               {s.headline[0]}
               <br />
@@ -72,6 +69,7 @@ export function TaskingSection() {
                       <Icon className="h-5 w-5 text-gold" />
                       <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
                     </div>
+          <p className="mt-4 text-sm font-light text-foreground/55">{s.networkNote}</p>
                     <h3 className="mt-4 font-mono text-sm uppercase tracking-[0.18em] text-foreground">{c.title}</h3>
                     <p className="mt-2 text-sm font-light text-foreground/75">{c.text}</p>
                   </div>
@@ -91,9 +89,6 @@ export function TaskingSection() {
               <p className="mr-auto min-w-0 truncate font-mono text-[10px] tracking-[0.2em] text-muted-foreground">
                 {s.consoleTitle}
               </p>
-              <span className="shrink-0 rounded border border-gold/50 px-2 py-0.5 font-mono text-[9px] tracking-[0.16em] text-gold">
-                PREVIEW
-              </span>
             </div>
 
             <div className="grid min-w-0 gap-4 p-4 lg:grid-cols-[minmax(0,1fr)_260px]">
