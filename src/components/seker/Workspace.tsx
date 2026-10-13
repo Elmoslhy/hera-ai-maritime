@@ -38,12 +38,12 @@ function Tile({ grey, title, conf }: { grey?: boolean; title: string; conf: stri
         style={{
           backgroundImage: `url(${vessels})`,
           backgroundSize: "420% auto",
-          backgroundPosition: "58% 48%",
-          filter: grey ? "grayscale(1) contrast(1.6) brightness(1.6)" : "brightness(1.8) saturate(1.1)",
+          backgroundPosition: "55.5% 49%",
+          filter: grey ? "grayscale(1) contrast(1.3) brightness(2.6)" : "brightness(1.8) saturate(1.1)",
         }}
       />
       {grey && (
-        <svg className="absolute inset-0 h-full w-full mix-blend-overlay opacity-70" aria-hidden>
+        <svg className="absolute inset-0 h-full w-full mix-blend-screen opacity-25" aria-hidden>
           <filter id="ws-speckle">
             <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" />
           </filter>
