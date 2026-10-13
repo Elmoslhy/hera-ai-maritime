@@ -119,12 +119,12 @@ function GlobeScene() {
   return (
     <div className="deck-bg absolute inset-0 bg-navy-deep">
       <Stars />
-      <img src={globe} alt="" className="absolute left-1/2 top-1/2 w-[1000px] -translate-x-1/2 -translate-y-1/2 opacity-90 drop-shadow-[0_0_120px_rgba(77,217,192,0.25)]" />
+      <img src={globe} alt="" className="absolute left-1/2 top-1/2 w-[820px] -translate-x-1/2 -translate-y-1/2 opacity-80 drop-shadow-[0_0_120px_rgba(77,217,192,0.25)]" />
       <svg viewBox="0 0 1920 1080" className="absolute inset-0 h-full w-full" aria-hidden>
         <ellipse cx="960" cy="540" rx="640" ry="190" transform="rotate(-14 960 540)" fill="none" stroke="#4dd9c0" strokeWidth="1.5" strokeDasharray="8 10" opacity="0.5" />
         <ellipse cx="960" cy="540" rx="600" ry="260" transform="rotate(22 960 540)" fill="none" stroke="#c9a84c" strokeWidth="1.2" strokeDasharray="4 12" opacity="0.45" />
       </svg>
-      <div className="absolute inset-0 bg-navy-deep/45" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(9,18,31,0.55),rgba(9,18,31,0.2)_60%)]" />
     </div>
   );
 }
@@ -141,8 +141,8 @@ const SLIDES: { title: string; node: ReactNode }[] = [
     node: (
       <>
         <GlobeScene />
-        <div className="deck-text absolute left-[40px] top-1/2 z-10 w-[300px] origin-left -translate-y-1/2 scale-[1.5] [&_*]:![position:relative] [&_.lg\:block]:!block [&>div>*]:!left-0 [&>div>*]:!top-0 [&>div>*]:!translate-y-0"><IntelPanel /></div>
-        <div className="deck-text absolute right-[40px] top-1/2 z-10 w-[286px] origin-right -translate-y-1/2 scale-[1.5] [&>*]:!static [&>*]:!block [&>*]:!translate-y-0"><HeroHud /></div>
+        <div className="deck-text absolute left-[70px] top-[300px] z-10 h-[500px] w-[268px] origin-top-left scale-[1.6] [&>*]:!left-0 [&>*]:!right-auto [&>*]:!top-0 [&>*]:!translate-y-0 [&>*]:!block"><IntelPanel /></div>
+        <div className="deck-text absolute right-[70px] top-[300px] z-10 h-[500px] w-[286px] origin-top-right scale-[1.6] [&>*]:!left-0 [&>*]:!right-auto [&>*]:!top-0 [&>*]:!translate-y-0 [&>*]:!block"><HeroHud /></div>
         <TitleCentre />
       </>
     ),
