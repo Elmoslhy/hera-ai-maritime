@@ -209,15 +209,15 @@ const SLIDES: { title: string; node: ReactNode }[] = [
     node: (
       <>
         <Bg src={ocean} dim="bg-navy/65" />
-        {[["left-[620px]", "SEKER-1"], ["left-[1180px]", "SEKER-2"]].map(([l, n]) => (
-          <div key={n} className={`absolute top-[60px] ${l} w-[140px] text-center`}>
+        {[["left-[580px]", "SEKER-1"], ["left-[1200px]", "SEKER-2"]].map(([l, n]) => (
+          <div key={n} className={`absolute top-[300px] ${l} w-[140px] text-center`}>
             <img src={satReal} alt="" className="w-full" />
             <p className="mt-1 font-mono text-[16px] tracking-[0.2em] text-cyan">{n}</p>
           </div>
         ))}
         <svg viewBox="0 0 1920 1080" className="absolute inset-0 h-full w-full" aria-hidden>
-          <line x1="690" y1="170" x2="960" y2="680" stroke="#4dd9c0" strokeWidth="2" strokeDasharray="10 10" />
-          <line x1="1250" y1="170" x2="960" y2="680" stroke="#4dd9c0" strokeWidth="2" strokeDasharray="10 10" />
+          <line x1="650" y1="400" x2="960" y2="680" stroke="#4dd9c0" strokeWidth="2" strokeDasharray="10 10" />
+          <line x1="1270" y1="400" x2="960" y2="680" stroke="#4dd9c0" strokeWidth="2" strokeDasharray="10 10" />
         </svg>
         <div className="absolute left-[960px] top-[680px] -translate-x-1/2 -translate-y-1/2">
           <img src={vesselTop} alt="" className="w-[480px]" />
@@ -313,7 +313,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
           {industries.slice(0, 5).map((i) => (
             <div key={i.slug} className="relative h-[640px] overflow-hidden rounded-lg border border-white/10">
               <img src={i.heroImage} alt="" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/75 to-navy-deep/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/50 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-7">
                 <p className="flex items-center gap-3 font-mono text-[16px] tracking-[0.18em] text-gold"><span className="h-2 w-2 rounded-full bg-cyan" />{i.navName.toUpperCase()}</p>
                 <p className="mt-5 text-[30px] font-light leading-tight text-foreground">{i.headline[0]}<br /><span className="text-gold">{i.headline[1]}</span></p>
