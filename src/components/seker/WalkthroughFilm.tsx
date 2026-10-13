@@ -47,7 +47,7 @@ export function WalkthroughViewToggle({ mode, onChange, available, deck = false 
   </div>;
 }
 
-export function WalkthroughFilm({ uc, stage, active = true, frozen = false, deck = false }: { uc: UseCase; stage: number; active?: boolean; frozen?: boolean; deck?: boolean }) {
+export function WalkthroughFilm({ uc, stage, active = true, frozen = false, deck = false, paused = false }: { uc: UseCase; stage: number; active?: boolean; frozen?: boolean; deck?: boolean; paused?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const visible = useInView(ref, { amount: 0.1 });
@@ -57,14 +57,14 @@ export function WalkthroughFilm({ uc, stage, active = true, frozen = false, deck
   useEffect(() => {
     const element = video.current;
     if (!element) return;
-    if (moving && stage >= 3) void element.play().catch(() => undefined);
+    if (moving && stage >= 3 && !paused) void element.play().catch(() => undefined);
     else element.pause();
-  }, [moving, stage]);
+  }, [moving, stage, paused]);
   if (!film) return null;
   const current = frozen ? 4 : stage;
   const scene = current < 2 ? 0 : current === 2 ? 1 : 2;
   const tags = film.tags[current];
-  return <div ref={ref} className={`walkthrough-film relative isolate w-full overflow-hidden bg-navy-deep ${deck ? "walkthrough-film-deck" : "aspect-[800/450]"}`} data-moving={moving} role="img" aria-label={`${uc.tag}, stage ${current + 1}`}>
+  return <div ref={ref} className={`walkthrough-film relative isolate w-full overflow-hidden bg-navy-deep ${deck ? "walkthrough-film-deck" : "aspect-[800/450]"}`} data-moving={moving && !paused} data-scenario={uc.id} role="img" aria-label={`${uc.tag}, stage ${current + 1}`}>
     <div className={`wf-scene ${scene === 0 ? "wf-visible" : ""}`}><img src={vessels} alt="" className="wf-vessels h-full w-full object-cover" /></div>
     <div className={`wf-scene ${scene === 1 ? "wf-visible" : ""}`}>
       <img src={network} alt="" className="h-full w-full object-cover" />
@@ -72,7 +72,7 @@ export function WalkthroughFilm({ uc, stage, active = true, frozen = false, deck
     </div>
     <div className={`wf-scene ${scene === 2 ? "wf-visible" : ""}`}>
       <img src={film.poster} alt="" className="h-full w-full object-cover" />
-      {moving && stage >= 3 && <video ref={video} poster={film.poster} muted loop playsInline autoPlay preload="none" className="wf-video absolute inset-0 h-full w-full object-cover"><source src={WEBM[uc.id]} type="video/webm" /><source src={film.url} type="video/mp4" /></video>}
+      {moving && stage >= 3 && <video ref={video} poster={film.poster} muted loop playsInline autoPlay={!paused} preload={paused ? "metadata" : "none"} className="wf-video absolute inset-0 h-full w-full object-cover"><source src={WEBM[uc.id]} type="video/webm" /><source src={film.url} type="video/mp4" /></video>}
     </div>
     <div className="pointer-events-none absolute inset-0 bg-navy/30" />
     <div className="wf-tags pointer-events-none absolute left-[3%] top-[4%] flex max-w-[90%] flex-col items-start gap-2">
@@ -82,7 +82,7 @@ export function WalkthroughFilm({ uc, stage, active = true, frozen = false, deck
     {current >= 3 && <div className="wf-reticle pointer-events-none absolute left-1/2 top-1/2 h-[24%] w-[20%] -translate-x-1/2 -translate-y-1/2">
       <span className="absolute left-0 top-0 h-5 w-5 border-l-2 border-t-2 border-gold" /><span className="absolute right-0 top-0 h-5 w-5 border-r-2 border-t-2 border-gold" /><span className="absolute bottom-0 left-0 h-5 w-5 border-b-2 border-l-2 border-gold" /><span className="absolute bottom-0 right-0 h-5 w-5 border-b-2 border-r-2 border-gold" />
     </div>}
-    {current >= 4 && <div className="wf-score pointer-events-none absolute left-[63%] top-[49%] max-w-[34%]"><FilmChip tone="alert" text={`${uc.finding.label} · ${uc.finding.score}/100`} /></div>}
+    {current >= 4 && <div className="wf-score pointer-events-none absolute bottom-[5%] right-[3%] max-w-[58%]"><FilmChip tone="alert" text={`${uc.finding.label} · ${uc.finding.score}/100`} /></div>}
   </div>;
 }
 
