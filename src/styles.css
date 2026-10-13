@@ -241,5 +241,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .pointer-trail { display: none; }
   .vessel-tracks .vt-dot { display: none; }
+}
+
+@media (any-pointer: coarse) and (hover: none) {
+  .pointer-trail { display: none; }
 }
