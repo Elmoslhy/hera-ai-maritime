@@ -528,6 +528,7 @@ function Deck() {
           .deck-root { position: static !important; overflow: visible !important; }
           .deck-chrome, .deck-screen-only { display: none !important; }
           .deck-slide { display: block !important; position: relative !important; transform: none !important; left: 0 !important; top: 0 !important; margin: 0 !important; break-after: page; page-break-after: always; }
+          .deck-slide.deck-screen-only { display: none !important; }
           .deck-bg, .deck-text, .deck-drift { animation: none !important; opacity: 1 !important; }
           .deck-drift { translate: -50% -50%; }
           * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
