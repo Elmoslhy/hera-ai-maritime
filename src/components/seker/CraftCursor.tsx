@@ -7,18 +7,20 @@ export function CraftCursor() {
   const ref = useRef<HTMLDivElement>(null);
   const satRef = useRef<SVGSVGElement>(null);
   const shipRef = useRef<SVGSVGElement>(null);
+  const plasmaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = ref.current;
     const sat = satRef.current;
     const ship = shipRef.current;
-    if (!el || !sat || !ship) return;
+    const plasma = plasmaRef.current;
+    if (!el || !sat || !ship || !plasma) return;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const fine = window.matchMedia("(any-pointer: fine)");
     const root = document.documentElement;
     let x = -100, y = -100, tx = -100, ty = -100;
     let heading = -Math.PI / 4, target = heading;
-    let visible = false, overControl = false, frame = 0, sea = 0;
+    let visible = false, overControl = false, frame = 0, sea = 0, reentry = 0;
 
     const enabled = () => !motion.matches && fine.matches;
     const sync = () => root.classList.toggle("craft-cursor-on", enabled());
@@ -28,9 +30,19 @@ export function CraftCursor() {
       const b = d.getBoundingClientRect();
       const p = -b.top / Math.max(1, b.height - window.innerHeight);
       sea = Math.max(0, Math.min(1, (p - 0.06) / 0.26));
+      // Re-entry intensity peaks mid-descent (sea ≈ 0.5) and fades at both ends.
+      reentry = Math.max(0, 1 - Math.abs(sea - 0.5) * 2.4);
       sat.style.opacity = String(1 - sea);
       ship.style.opacity = String(sea);
+      // Heat glow: gold in orbit, burning amber-white at peak re-entry.
+      sat.style.filter =
+        reentry > 0.05
+          ? `drop-shadow(0 0 ${6 + reentry * 14}px rgba(255, ${Math.round(150 - reentry * 70)}, 40, ${0.6 + reentry * 0.4}))`
+          : "";
+      plasma.style.opacity = String(reentry * (visible ? 1 : 0));
       el.dataset.environment = sea === 0 ? "space" : sea === 1 ? "sea" : "transition";
+      // Re-entry shake must keep animating even when the pointer is idle.
+      if (reentry > 0.05 && !frame) frame = requestAnimationFrame(tick);
     };
     const tick = () => {
       x += (tx - x) * 0.45;
@@ -38,10 +50,23 @@ export function CraftCursor() {
       let diff = target - heading;
       diff = Math.atan2(Math.sin(diff), Math.cos(diff));
       heading += diff * 0.18;
-      const scale = overControl ? 0.55 : 1;
-      el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${heading + Math.PI / 2}rad) scale(${scale})`;
+      // Atmospheric buffeting: the craft tumbles while burning through re-entry.
+      const now = performance.now();
+      const tumble = reentry * (Math.sin(now / 90) * 0.22 + Math.sin(now / 47) * 0.1);
+      const shake = reentry * 1.6;
+      const jx = (Math.random() - 0.5) * shake;
+      const jy = (Math.random() - 0.5) * shake;
+      const scale = (overControl ? 0.55 : 1) * (1 + reentry * 0.12);
+      el.style.transform = `translate3d(${x + jx}px, ${y + jy}px, 0) rotate(${heading + Math.PI / 2 + tumble}rad) scale(${scale})`;
       el.style.opacity = visible && !overControl ? "1" : "0";
-      const settled = Math.abs(tx - x) < 0.3 && Math.abs(ty - y) < 0.3 && Math.abs(diff) < 0.002;
+      if (reentry > 0.05) {
+        // Plasma streak trails behind the craft, opposite the heading.
+        const len = 26 + reentry * 46;
+        plasma.style.height = `${len}px`;
+        plasma.style.transform = "translate(-1.5px, 14px)";
+      }
+      const settled =
+        reentry < 0.05 && Math.abs(tx - x) < 0.3 && Math.abs(ty - y) < 0.3 && Math.abs(diff) < 0.002;
       frame = settled ? 0 : requestAnimationFrame(tick);
     };
     const kick = () => { if (!frame) frame = requestAnimationFrame(tick); };
@@ -86,6 +111,17 @@ export function CraftCursor() {
       className="craft-cursor pointer-events-none fixed left-0 top-0 z-[70] opacity-0 transition-opacity duration-150"
       style={{ width: 0, height: 0 }}
     >
+      {/* Plasma streak: trails behind the craft during atmospheric re-entry */}
+      <div
+        ref={plasmaRef}
+        className="absolute left-0 top-0 w-[3px] rounded-full opacity-0 transition-opacity duration-200"
+        style={{
+          transformOrigin: "center top",
+          background:
+            "linear-gradient(to bottom, rgba(255,240,200,0.95), rgba(255,160,60,0.7) 35%, rgba(255,80,40,0.35) 70%, transparent)",
+          filter: "blur(1px)",
+        }}
+      />
       {/* Satellite, nose pointing up (heading direction) */}
       <svg ref={satRef} width="44" height="44" viewBox="-22 -22 44 44" className="absolute -left-[22px] -top-[22px] text-gold drop-shadow-[0_0_6px_var(--color-gold)] transition-opacity duration-300">
         <g fill="none" stroke="currentColor" strokeWidth="1">
