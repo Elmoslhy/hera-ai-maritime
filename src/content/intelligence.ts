@@ -364,3 +364,30 @@ export const collectsSection = {
     { label: "THROUGH PARTNERS, ON REQUEST", text: "Satellite signal geolocation, all-weather and high-resolution imaging, and close-range drones where regulations permit." },
   ],
 };
+
+export const cableCorridorCase: UseCase = {
+  id: "cable-corridor",
+  geo: 1,
+  tag: "CABLE CORRIDOR",
+  question: "Is that vessel dragging its anchor over our cable?",
+  audience: "Navies, coast guards, infrastructure operators",
+  stages: [
+    { text: "A bulk carrier crossing a cable corridor slows from 11 knots to 1.4 knots and begins a slow zigzag along the cable route.", sensors: ["ais"] },
+    { text: "HERA AI matches the track against the corridor and requests partner geolocation and an all-weather pass.", sensors: ["ais", "geo", "sar"] },
+    { text: "The vessel stops broadcasting for 47 minutes. Geolocation keeps its position, and imaging shows the hull on the corridor.", sensors: ["geo", "sar"] },
+    { text: "Track and speed match a dragging pattern along 9 km of the corridor. The registry shows a change of owner two months ago.", sensors: ["ais", "geo", "reg"] },
+    { text: "Corridor risk indicator, 88 of 100.", sensors: ["ais", "geo", "sar", "reg"] },
+    { text: "The record, with track, speed trace and imagery, reaches the operations centre while the vessel is still in your waters.", sensors: ["reg"] },
+  ],
+  finding: { tone: "alert", label: "CORRIDOR RISK INDICATOR", score: 88, indicators: ["Speed fell from 11 kn to 1.4 kn on the corridor", "Zigzag track along 9 km of the cable route", "47-minute broadcast gap, position kept by geolocation", "Change of owner two months ago"] },
+  action: "Consider an inspection before the vessel leaves territorial waters.",
+  record: { type: "corridor_risk", evidence: ["speed_11_to_1.4kn", "dragging_track_9km", "ais_gap_47min", "owner_change_2mo"], sources: ["AIS", "Geolocation", "SAR", "Registry"] },
+};
+
+export const darkTransferDefenseCase: UseCase = {
+  ...useCases.find((c) => c.id === "dark-transfer")!,
+  id: "dark-transfer-defense",
+  geo: 0,
+  question: "Did two vessels make an unreported transfer in our waters while one was dark?",
+  audience: "Maritime operations centres, coast guards",
+};
