@@ -318,3 +318,22 @@ export const originCase: UseCase = {
   action: "Treat both cargoes as high-risk origin in compliance checks and flow models.",
   record: { type: "origin_indicator", evidence: ["dark_52h", "geo_alongside_terminal", "draught_rise_5.8m", "sts_transfer"], sources: ["AIS", "Geolocation", "SAR", "Registry"] },
 };
+
+export const preArrivalCase: UseCase = {
+  id: "pre-arrival",
+  geo: 1,
+  tag: "PRE-ARRIVAL",
+  question: "Is the declared voyage true?",
+  audience: "Port security, port state control",
+  stages: [
+    { text: "A product tanker sends its pre-arrival notice, declaring its last ten port calls.", sensors: ["reg"] },
+    { text: "HERA AI compares the list with the port calls it observed over the same period.", sensors: ["ais", "reg"] },
+    { text: "It finds a three-day broadcast gap that matches the time needed to reach and leave an undeclared terminal.", sensors: ["ais"] },
+    { text: "Independent geolocation and draught confirm a call at that terminal: draught rose 4.1 m during the gap.", sensors: ["geo", "ais"] },
+    { text: "Declaration mismatch indicator, 81 of 100: one undeclared call, consistent with loading.", sensors: ["geo", "ais", "reg"] },
+    { text: "The Pre-Arrival Sheet reaches the port security officer 36 hours before arrival.", sensors: ["reg"] },
+  ],
+  finding: { tone: "alert", label: "DECLARATION MISMATCH INDICATOR", score: 81, indicators: ["Three-day broadcast gap", "Gap matches a call at an undeclared terminal", "Independent geolocation at the terminal", "Draught rose 4.1 m during the gap"] },
+  action: "Request the cargo documents and the ship's log before berth allocation.",
+  record: { type: "declaration_mismatch", evidence: ["ais_gap_72h", "geo_at_terminal", "draught_rise_4.1m", "undeclared_call_1"], sources: ["AIS", "Geolocation", "Registry"] },
+};

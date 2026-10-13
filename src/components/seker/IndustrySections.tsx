@@ -30,7 +30,67 @@ export function RolesSection({ roles }: { roles: R["roles"] }) {
 
 export function SignatureSection({ sig }: { sig: R["signature"] }) {
   if (sig.kind === "flow") return <FlowMonitor sig={sig} />;
+  if (sig.kind === "board") return <ArrivalsBoard sig={sig} />;
   return <Lifecycle sig={sig} />;
+}
+
+type Board = Extract<R["signature"], { kind: "board" }>;
+
+const tone = (v: string) =>
+  ["VERIFIED", "MATCH", "LOW"].includes(v) ? "text-cyan" : ["MEDIUM"].includes(v) ? "text-amber" : "text-alert";
+
+function ArrivalsBoard({ sig }: { sig: Board }) {
+  const [sel, setSel] = useState(0);
+  const r = sig.rows[sel];
+  const cols = ["VESSEL", "ETA", "IDENTITY", "LAST PORTS", "BOARDING RISK", "INSPECTION"];
+  return (
+    <section className="bg-navy px-6 py-24">
+      <div className="mx-auto max-w-7xl">
+        <Reveal><p className="text-eyebrow text-gold">{sig.title}</p></Reveal>
+        <div className="mt-10 grid gap-4 lg:grid-cols-[1fr_320px]">
+          <div className="min-w-0 overflow-x-auto rounded-lg border border-white/10 bg-navy-deep/80 p-4 backdrop-blur">
+            <table className="w-full min-w-[640px] font-mono text-xs">
+              <thead>
+                <tr className="text-left tracking-[0.18em] text-gold">
+                  {cols.map((c) => <th key={c} className="px-3 py-2 font-normal">{c}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {sig.rows.map((row, n) => (
+                  <tr key={row.vessel} onClick={() => setSel(n)} tabIndex={0}
+                    onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setSel(n)}
+                    aria-selected={sel === n}
+                    className={`cursor-pointer border-t border-white/10 tracking-[0.12em] transition-colors ${sel === n ? "bg-gold/10" : "hover:bg-white/5"}`}>
+                    <td className="px-3 py-3 text-foreground">{row.vessel}</td>
+                    <td className="px-3 py-3 text-foreground/80">{row.eta}</td>
+                    <td className={`px-3 py-3 ${tone(row.identity)}`}>{row.identity}</td>
+                    <td className={`px-3 py-3 ${tone(row.lastPorts)}`}>{row.lastPorts}</td>
+                    <td className={`px-3 py-3 ${tone(row.risk)}`}>{row.risk}</td>
+                    <td className="px-3 py-3 text-gold">P{row.inspection}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="mt-3 px-3 font-mono text-[11px] tracking-[0.2em] text-foreground/50">ILLUSTRATIVE · SELECT A ROW</p>
+          </div>
+          <div className="rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-mono text-xs tracking-[0.2em] text-gold">{r.vessel} · ETA {r.eta}</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] text-foreground/50">PRIORITY {r.inspection}</span>
+            </div>
+            <dl className="mt-4 divide-y divide-white/10">
+              {r.reasons.map((x) => (
+                <div key={x.label} className="py-3">
+                  <dt className="font-mono text-[11px] tracking-[0.2em] text-foreground/60">{x.label}</dt>
+                  <dd className="mt-1 text-sm font-light text-foreground/85">{x.text}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 type Flow = Extract<R["signature"], { kind: "flow" }>;
@@ -103,7 +163,7 @@ function FlowMonitor({ sig }: { sig: Flow }) {
   );
 }
 
-function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" }> }) {
+function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" } | { kind: "board" }> }) {
   const [sel, setSel] = useState(0);
   const reduce = useReducedMotion();
   const st = sig.stages[sel];
