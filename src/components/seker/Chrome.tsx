@@ -53,6 +53,9 @@ export function Nav() {
             <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" />
             LIVE
           </span>
+          <Link to="/intelligence" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
+            INTELLIGENCE
+          </Link>
           <Link to="/careers" className="text-foreground/80 transition-colors hover:text-gold">
             CAREERS
           </Link>
@@ -79,6 +82,9 @@ export function Footer() {
           <SekerLogo className="h-6 w-auto text-gold opacity-60" />
         </Link>
         <div className="flex gap-8">
+          <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
+            INTELLIGENCE
+          </Link>
           <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
             CAREERS
           </Link>
