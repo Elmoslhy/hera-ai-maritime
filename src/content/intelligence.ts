@@ -299,3 +299,22 @@ export const cargoClaimCase: UseCase = {
   action: "Instruct a surveyor and request the deck log for the stop.",
   record: { type: "voyage_inconsistency", evidence: ["sea_state_peak_3.1m", "speed_13kn", "undeclared_stop_19h", "draught_change_0.6m"], sources: ["AIS", "Sea state", "Registry"] },
 };
+
+export const originCase: UseCase = {
+  id: "origin",
+  geo: 0,
+  tag: "ORIGIN",
+  question: "Where did this cargo really load?",
+  audience: "Analysts, trade compliance, refiners",
+  stages: [
+    { text: "A tanker discharges at a refinery with papers declaring a cargo loaded from another tanker at sea.", sensors: ["ais", "reg"] },
+    { text: "HERA AI walks the tanker's history back through every encounter and dark period over 60 days.", sensors: ["ais", "reg"] },
+    { text: "Thirty-one days earlier, the tanker went dark for 52 hours near an export terminal. Independent geolocation placed it alongside the terminal.", sensors: ["geo", "ais"] },
+    { text: "Draught rose by 5.8 m during the dark period. A later transfer at sea moved part of the cargo to a second tanker.", sensors: ["ais", "sar"] },
+    { text: "Origin indicator, 79 of 100: the cargo most likely loaded at the terminal, not at sea. The second tanker inherits the same flag.", sensors: ["ais", "geo", "reg"] },
+    { text: "Both cargoes enter the STS Ledger, and the terminal's export estimate is revised upward.", sensors: ["reg"] },
+  ],
+  finding: { tone: "amber", label: "ORIGIN INDICATOR", score: 79, indicators: ["52-hour dark period near an export terminal", "Independent geolocation alongside the terminal", "Draught rose by 5.8 m while dark", "Part of the cargo moved to a second tanker at sea"] },
+  action: "Treat both cargoes as high-risk origin in compliance checks and flow models.",
+  record: { type: "origin_indicator", evidence: ["dark_52h", "geo_alongside_terminal", "draught_rise_5.8m", "sts_transfer"], sources: ["AIS", "Geolocation", "SAR", "Registry"] },
+};
