@@ -33,7 +33,6 @@ function Index() {
   return (
     <div className="bg-navy">
       <ScrollProgress />
-      <PointerTrail />
       <Nav />
       <main>
         <HeroSection />
