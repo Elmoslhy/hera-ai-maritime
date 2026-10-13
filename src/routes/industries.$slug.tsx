@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
 import { UseCasesSection } from "@/components/seker/UseCases";
@@ -10,6 +10,10 @@ const outline = "border border-gold/60 px-6 py-3 font-mono text-xs tracking-[0.2
 
 export const Route = createFileRoute("/industries/$slug")({
   loader: ({ params }) => {
+    if (params.slug === "maritime-security") {
+      // eslint-disable-next-line @typescript-eslint/only-throw-error
+      throw redirect({ to: "/industries/$slug", params: { slug: "defense" }, replace: true });
+    }
     const industry = getIndustry(params.slug);
     if (!industry) throw notFound();
     return { slug: industry.slug };
@@ -17,7 +21,7 @@ export const Route = createFileRoute("/industries/$slug")({
   head: ({ loaderData }) => {
     const i = loaderData ? getIndustry(loaderData.slug) : undefined;
     if (!i) return { meta: [{ title: "Industry not found · SEKER" }, { name: "robots", content: "noindex" }] };
-    const title = `${i.navName} · HERA AI by SEKER`;
+    const title = `${i.navName} | Seker Space Intelligence`;
     const url = `https://hera-sea-spy.lovable.app/industries/${i.slug}`;
     return {
       meta: [
