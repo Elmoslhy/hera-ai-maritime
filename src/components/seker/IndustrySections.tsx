@@ -28,8 +28,8 @@ export function RolesSection({ roles }: { roles: R["roles"] }) {
   );
 }
 
-export function SignatureSection({ sig }: { sig: R["signature"] }) {
-  if (sig.kind === "flow") return <FlowMonitor sig={sig} />;
+export function SignatureSection({ sig, axis }: { sig: R["signature"]; axis?: string }) {
+  if (sig.kind === "flow") return <FlowMonitor sig={sig} axis={axis} />;
   if (sig.kind === "board") return <ArrivalsBoard sig={sig} />;
   if (sig.kind === "origin") return <OriginCheck sig={sig} />;
   if (sig.kind === "cable") return <CableWatch title={sig.title} />;
@@ -154,10 +154,10 @@ function ArrivalsBoard({ sig }: { sig: Board }) {
 
 type Flow = Extract<R["signature"], { kind: "flow" }>;
 
-function FlowMonitor({ sig }: { sig: Flow }) {
+function FlowMonitor({ sig, axis }: { sig: Flow; axis?: string }) {
   const [floating, setFloating] = useState(false);
   const reduce = useReducedMotion();
-  const W = 640, H = 260, pad = 28;
+  const W = 640, H = 260, pad = axis ? 44 : 28;
   const max = Math.max(...sig.weeks.map((w) => w.corrected)) * 1.15;
   const step = (W - pad * 2) / sig.weeks.length;
   const y = (v: number) => H - pad - (v / max) * (H - pad * 2);
@@ -179,6 +179,10 @@ function FlowMonitor({ sig }: { sig: Flow }) {
               {[0.25, 0.5, 0.75, 1].map((f) => (
                 <line key={f} x1={pad} x2={W - pad} y1={y(max * f / 1.15)} y2={y(max * f / 1.15)} stroke="currentColor" className="text-white/10" />
               ))}
+              {axis && [0.25, 0.5, 0.75, 1].map((f) => (
+                <text key={`t${f}`} x={pad - 6} y={y(max * f / 1.15) + 4} textAnchor="end" className="fill-foreground/50 font-mono text-[11px]">{Math.round(max * f / 1.15)}</text>
+              ))}
+              {axis && <text x={12} y={H / 2} transform={`rotate(-90 12 ${H / 2})`} textAnchor="middle" className="fill-foreground/50 font-mono text-[11px]">{axis}</text>}
               {sig.weeks.map((w, n) => {
                 const x = pad + step * n + step * 0.18, bw = step * 0.3;
                 return (
@@ -274,11 +278,11 @@ function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" } | { 
   );
 }
 
-export function MissionsSection({ missions }: { missions: R["missions"] }) {
+export function MissionsSection({ missions, heading = "Missions" }: { missions: R["missions"]; heading?: string }) {
   return (
     <section className="bg-navy-deep px-6 py-24">
       <div className="mx-auto max-w-7xl">
-        <Reveal><p className="text-eyebrow text-gold">Missions</p></Reveal>
+        <Reveal><p className="text-eyebrow text-gold">{heading}</p></Reveal>
         <div className="mt-10 grid gap-4 md:grid-cols-2">
           {missions.map((m, n) => (
             <Reveal key={m.title} delay={n * 0.05}>
@@ -291,6 +295,7 @@ export function MissionsSection({ missions }: { missions: R["missions"] }) {
                 <p className="mt-1 font-light text-foreground/85">{m.need}</p>
                 <p className="mt-4 font-mono text-[11px] tracking-[0.2em] text-foreground/50">HERA AI</p>
                 <p className="mt-1 font-light text-foreground/85">{m.hera}</p>
+                {m.note && <p className="mt-4 text-sm font-light text-foreground/60">{m.note}</p>}
                 <div className="mt-auto flex items-center gap-2 pt-6">
                   <span className="h-2 w-2 rounded-full bg-cyan shadow-[0_0_8px_var(--color-cyan)]" />
                   <span className="font-mono text-xs tracking-[0.2em] text-cyan">DELIVERABLE · {m.deliverable.toUpperCase()}</span>
@@ -312,7 +317,10 @@ export function DeliverablesSection({ items, note }: { items: R["deliverables"];
         <div className="mt-10 rounded-lg border border-white/10 bg-navy/70 backdrop-blur">
           {items.map((d, n) => (
             <div key={d.name} className={`flex flex-wrap items-center justify-between gap-2 px-6 py-4 ${n ? "border-t border-white/10" : ""}`}>
-              <span className="font-light text-foreground">{d.name}</span>
+              <div className="min-w-0">
+                <span className="font-light text-foreground">{d.name}</span>
+                {d.fields && <p className="mt-1 text-sm font-light text-foreground/60">{d.fields}</p>}
+              </div>
               <span className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">{d.cadence}</span>
             </div>
           ))}

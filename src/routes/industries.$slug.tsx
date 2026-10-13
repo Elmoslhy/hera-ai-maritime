@@ -78,16 +78,16 @@ function IndustryPage() {
 
         {i.rebuild ? (
           <>
-            {i.rebuild.signatureFirst && <SignatureSection sig={i.rebuild.signature} />}
+            {i.rebuild.signatureFirst && <SignatureSection sig={i.rebuild.signature} axis={i.rebuild.chartAxis} />}
             <RolesSection roles={i.rebuild.roles} />
-            {!i.rebuild.signatureFirst && !i.rebuild.signatureAfterMissions && <SignatureSection sig={i.rebuild.signature} />}
-            <MissionsSection missions={i.rebuild.missions} />
-            {i.rebuild.signatureAfterMissions && <SignatureSection sig={i.rebuild.signature} />}
+            {!i.rebuild.signatureFirst && !i.rebuild.signatureAfterMissions && <SignatureSection sig={i.rebuild.signature} axis={i.rebuild.chartAxis} />}
+            <MissionsSection missions={i.rebuild.missions} heading={i.rebuild.missionsHeading} />
+            {i.rebuild.signatureAfterMissions && <SignatureSection sig={i.rebuild.signature} axis={i.rebuild.chartAxis} />}
             <UseCasesSection
               cases={i.useCaseIds.map((id) => allCases.find((c) => c.id === id)!).filter(Boolean)}
               sectionId="see-it-work"
               eyebrow="See it work"
-              headline={["Mission walkthroughs,", "step by step."]}
+              headline={i.rebuild.walkthroughHeadline ?? ["Mission walkthroughs,", "step by step."]}
             />
             {i.rebuild.reach && (
               <section className="bg-navy-deep px-6 py-20">
