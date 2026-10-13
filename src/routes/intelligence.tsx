@@ -4,6 +4,7 @@ import { Reveal, SectionBackground } from "@/components/seker/primitives";
 import { UseCasesSection } from "@/components/seker/UseCases";
 import { WorkspaceSection } from "@/components/seker/Workspace";
 import { TaskingSection } from "@/components/seker/Tasking";
+import { CollectsSection } from "@/components/seker/Collects";
 import vessels from "@/assets/vessels.jpg";
 import { intelligenceHero as h, intelligenceSteps } from "@/content/intelligence";
 
@@ -113,6 +114,7 @@ function IntelligencePage() {
         </section>
         <UseCasesSection />
         <WorkspaceSection />
+        <CollectsSection />
         <TaskingSection />
       </main>
       <Footer />

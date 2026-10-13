@@ -193,7 +193,7 @@ export function ProblemSection() {
                 <div className="flex gap-4">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-alert" />
                   <p className="font-mono text-[11px] leading-relaxed tracking-[0.06em] text-muted-foreground">
-                    <span className="text-foreground">{a.head}</span> — {a.body}
+                    <span className="text-foreground">{a.head}</span> {a.body}
                   </p>
                 </div>
               </Reveal>

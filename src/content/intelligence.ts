@@ -1,7 +1,7 @@
 export const intelligenceHero = {
   eyebrow: "Intelligence in practice",
   headline: ["From a missing signal", "to a finding you can defend."],
-  body: "Five maritime questions, worked step by step in HERA AI: what it noticed, what it collected, how it fused the sources and what our client received.",
+  body: "Five maritime questions, worked step by step in HERA AI: what it noticed, what it collected, how it fused the sources and what the client receives.",
   primaryCta: "SEE THE USE CASES",
   secondaryCta: "DISCUSS YOUR USE CASE",
   tags: {
@@ -355,4 +355,12 @@ export const transshipmentCase: UseCase = {
   finding: { tone: "alert", label: "TRANSSHIPMENT INDICATOR", score: 84, indicators: ["14-hour broadcast gap near a carrier track", "Two hulls 30 m apart for at least four hours", "Landing declaration reports no transshipment", "Same pattern on the last three trips"] },
   action: "Hold certification of the catch pending inspection of both vessels.",
   record: { type: "transshipment_indicator", evidence: ["ais_gap_14h", "sar_two_hulls_30m", "declaration_no_transshipment", "pattern_3_trips"], sources: ["AIS", "Geolocation", "SAR", "Registry"] },
+};
+
+export const collectsSection = {
+  eyebrow: "How HERA AI collects",
+  rows: [
+    { label: "ON HERA AI ITSELF", text: "Broadcast identity from coastal and satellite AIS networks; registry, ownership and sanctions reference; every derived indicator." },
+    { label: "THROUGH PARTNERS, ON REQUEST", text: "Satellite signal geolocation, all-weather and high-resolution imaging, and close-range drones where regulations permit." },
+  ],
 };

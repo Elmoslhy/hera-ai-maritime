@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { CountUp, Reveal } from "./primitives";
@@ -494,6 +495,8 @@ function Gauge({ gauge }: { gauge: Industry["chart"]["gauge"] }) {
   );
 }
 
+const SLUGS: Record<string, string> = { defence: "defense", insurance: "insurance", trading: "commodity-trading", ports: "ports", environment: "fisheries" };
+
 export function InsightsSection() {
   const [active, setActive] = useState(INDUSTRIES[0].id);
   const industry = INDUSTRIES.find((i) => i.id === active)!;
@@ -643,6 +646,15 @@ export function InsightsSection() {
                   </motion.article>
                 );
               })}
+            </div>
+            <div className="mt-8 text-center">
+              <Link
+                to="/industries/$slug"
+                params={{ slug: SLUGS[industry.id] ?? "defense" }}
+                className="font-mono text-xs tracking-[0.2em] text-gold transition-colors hover:text-foreground"
+              >
+                Explore {industry.name} →
+              </Link>
             </div>
           </motion.div>
         </AnimatePresence>
