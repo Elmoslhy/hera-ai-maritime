@@ -125,7 +125,7 @@ function ArrivalsBoard({ sig }: { sig: Board }) {
                     <td className={`px-3 py-3 ${tone(row.identity)}`}>{row.identity}</td>
                     <td className={`px-3 py-3 ${tone(row.lastPorts)}`}>{row.lastPorts}</td>
                     <td className={`px-3 py-3 ${tone(row.risk)}`}>{row.risk}</td>
-                    <td className="px-3 py-3 text-gold">P{row.inspection}</td>
+                    <td className={`px-3 py-3 ${row.inspection === "RECOMMEND" ? "text-gold" : "text-foreground/60"}`}>{row.inspection}</td>
                   </tr>
                 ))}
               </tbody>
@@ -135,7 +135,7 @@ function ArrivalsBoard({ sig }: { sig: Board }) {
           <div className="rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
             <div className="flex items-center justify-between gap-2">
               <span className="font-mono text-xs tracking-[0.2em] text-gold">{r.vessel} · ETA {r.eta}</span>
-              <span className="font-mono text-[11px] tracking-[0.2em] text-foreground/50">PRIORITY {r.inspection}</span>
+              <span className="font-mono text-[11px] tracking-[0.2em] text-foreground/50">INSPECTION: {r.inspection}</span>
             </div>
             <dl className="mt-4 divide-y divide-white/10">
               {r.reasons.map((x) => (
