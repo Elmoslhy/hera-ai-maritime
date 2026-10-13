@@ -3,6 +3,7 @@ import { Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./primitives";
 import { sensors, useCases, useCasesSection as s, type UseCase } from "@/content/intelligence";
+import { WalkthroughFilm, WalkthroughViewToggle, useWalkthroughView } from "./WalkthroughFilm";
 
 const STAGES = ["Detect", "Cue", "Collect", "Fuse", "Assess", "Deliver"];
 const STAGE_MS = 5000;
@@ -178,6 +179,7 @@ export function UseCasesSection({
   const [stage, setStage] = useState(0);
   const [playing, setPlaying] = useState(true);
   const uc = list[idx];
+  const view = useWalkthroughView(uc.id);
   const geoIdx = uc.geo ?? useCases.indexOf(uc);
   const running = playing && inView && !reduce;
 
@@ -233,6 +235,7 @@ export function UseCasesSection({
                 <p className="mr-auto truncate font-mono text-[10px] tracking-[0.2em] text-muted-foreground">
                   HERA AI · {uc.tag}
                 </p>
+                <WalkthroughViewToggle mode={view.mode} available={view.available} onChange={view.setMode} />
                 <button
                   type="button"
                   onClick={() => setPlaying((p) => !p)}
@@ -242,7 +245,7 @@ export function UseCasesSection({
                   {playing && !reduce ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
                 </button>
               </div>
-              <OpsMap idx={geoIdx} stage={stage} />
+              {view.mode === "film" ? <WalkthroughFilm key={uc.id} uc={uc} stage={stage} active={inView} /> : <OpsMap idx={geoIdx} stage={stage} />}
             </div>
 
             {/* stage rail */}

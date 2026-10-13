@@ -7,6 +7,7 @@ import { SekerLogo } from "@/components/seker/Logo";
 import { SensorImagers } from "@/components/seker/SensorImagers";
 import { FindingCard } from "@/components/seker/UseCases";
 import { DeckScenarioMap } from "@/components/seker/DeckMaps";
+import { WalkthroughFilm, WalkthroughViewToggle, useWalkthroughView } from "@/components/seker/WalkthroughFilm";
 import { cableCorridorCase, cargoClaimCase, originCase, preArrivalCase, transshipmentCase, sensors, useCases, type UseCase } from "@/content/intelligence";
 import { LiveMap, DigitalTwin, WindowChrome } from "@/components/seker/Dashboard";
 import { taskingSection, taskingLanes } from "@/content/intelligence";
@@ -367,6 +368,7 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
     return () => clearTimeout(t);
   }, [stage, active, paused, frozen]);
   const { uc } = SERVE[ind];
+  const view = useWalkthroughView(uc.id);
   const geo = uc.geo ?? Math.max(0, useCases.indexOf(uc));
   const lit = new Set(uc.stages[stage].sensors);
   const stop = (e: React.MouseEvent) => e.stopPropagation();
@@ -390,8 +392,9 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
           <div className="flex items-center gap-4 border-b border-white/10 px-5 py-3">
             <div className="flex gap-2"><span className="h-3 w-3 rounded-full bg-alert/80" /><span className="h-3 w-3 rounded-full bg-amber/80" /><span className="h-3 w-3 rounded-full bg-cyan/80" /></div>
             <p className="truncate font-mono text-[16px] tracking-[0.2em] text-muted-foreground">HERA AI · {uc.tag}</p>
+            <WalkthroughViewToggle deck mode={view.mode} available={view.available} onChange={view.setMode} />
           </div>
-          <DeckScenarioMap slug={SERVE[ind].slug} stage={stage} />
+          {(frozen || view.mode === "film") ? <WalkthroughFilm key={uc.id} uc={uc} stage={stage} active={active} frozen={frozen} deck /> : <DeckScenarioMap slug={SERVE[ind].slug} stage={stage} />}
         </div>
         <div className="relative mt-5">
           <div className="absolute inset-x-0 top-0 h-[3px] bg-white/10"><div className="h-full bg-gold transition-[width] duration-500" style={{ width: `${((stage + 1) / 6) * 100}%` }} /></div>
