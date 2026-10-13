@@ -5,6 +5,8 @@ import { HeroHud } from "@/components/seker/HeroScene";
 import { IntelPanel } from "@/components/seker/IntelPanel";
 import { SekerLogo } from "@/components/seker/Logo";
 import { SensorImagers } from "@/components/seker/SensorImagers";
+import { OpsMap, FindingCard } from "@/components/seker/UseCases";
+import { cableCorridorCase, cargoClaimCase, originCase, preArrivalCase, transshipmentCase, sensors, useCases, type UseCase } from "@/content/intelligence";
 import { LiveMap, DigitalTwin, WindowChrome } from "@/components/seker/Dashboard";
 import { taskingSection, taskingLanes } from "@/content/intelligence";
 import { industries } from "@/content/industries";
@@ -16,7 +18,10 @@ import satNet from "@/assets/satellite-network.jpg";
 import globe from "@/assets/earth-globe.png";
 
 export const Route = createFileRoute("/deck")({
-  validateSearch: (s: Record<string, unknown>) => ({ slide: Math.max(1, Number(s.slide) || 1) }),
+  validateSearch: (s: Record<string, unknown>): { slide: number; industry?: string } => ({
+    slide: Math.max(1, Number(s.slide) || 1),
+    ...(typeof s.industry === "string" ? { industry: s.industry } : {}),
+  }),
   head: () => ({
     meta: [
       { title: "Seker Space Intelligence | Deck" },
@@ -306,31 +311,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
       </>
     ),
   },
-  {
-    title: "Who we serve",
-    node: (
-      <>
-        <div className="deck-bg absolute inset-0 bg-navy-deep" />
-        <Text className="left-[120px] top-[80px]">
-          <Eyebrow>Who we serve</Eyebrow>
-          <h2 className="mt-4 text-[80px] font-light leading-[1.02] tracking-tight text-foreground">Five industries, <span className="text-gold">one verified picture.</span></h2>
-        </Text>
-        <div className="deck-text absolute bottom-[100px] left-[120px] right-[120px] grid grid-cols-5 gap-5">
-          {industries.slice(0, 5).map((i) => (
-            <div key={i.slug} className="relative h-[640px] overflow-hidden rounded-lg border border-white/10">
-              <img src={i.heroImage} alt="" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-navy-deep/50 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-7">
-                <p className="flex items-center gap-3 font-mono text-[16px] tracking-[0.18em] text-gold"><span className="h-2 w-2 rounded-full bg-cyan" />{i.navName.toUpperCase()}</p>
-                <p className="mt-5 text-[30px] font-light leading-tight text-foreground">{i.headline[0]}<br /><span className="text-gold">{i.headline[1]}</span></p>
-                <p className="mt-6 border-t border-white/15 pt-4 font-mono text-[16px] tracking-[0.12em] text-cyan">{(i.rebuild?.deliverables[0]?.name ?? "").toUpperCase()}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </>
-    ),
-  },
+  { title: "Who we serve", node: null },
   {
     title: "The market",
     node: (
@@ -363,9 +344,99 @@ const SLIDES: { title: string; node: ReactNode }[] = [
   },
 ];
 
+/* ---------- interactive industry slide ---------- */
+const STAGE_NAMES = ["Detect", "Cue", "Collect", "Fuse", "Assess", "Deliver"];
+const SERVE: { slug: string; name: string; uc: UseCase }[] = [
+  { slug: "defense", name: "Defense and coast guard", uc: cableCorridorCase },
+  { slug: "insurance", name: "Insurance and P&I", uc: cargoClaimCase },
+  { slug: "commodity-trading", name: "Commodity trading", uc: originCase },
+  { slug: "ports", name: "Ports and maritime authorities", uc: preArrivalCase },
+  { slug: "fisheries", name: "Fisheries and environment", uc: transshipmentCase },
+];
+const WHO = SLIDES.findIndex((x) => x.title === "Who we serve");
+
+function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: number) => void; active: boolean; frozen?: boolean }) {
+  const [stage, setStage] = useState(frozen ? 4 : 0);
+  const [paused, setPaused] = useState(false);
+  useEffect(() => { if (!frozen) { setStage(0); setPaused(false); } }, [ind, active, frozen]);
+  useEffect(() => {
+    if (frozen || !active || paused || stage >= 5) return;
+    const t = setTimeout(() => setStage((v) => v + 1), 4000);
+    return () => clearTimeout(t);
+  }, [stage, active, paused, frozen]);
+  const { uc } = SERVE[ind];
+  const geo = uc.geo ?? Math.max(0, useCases.indexOf(uc));
+  const lit = new Set(uc.stages[stage].sensors);
+  const stop = (e: React.MouseEvent) => e.stopPropagation();
+  return (
+    <>
+      <div className="deck-bg absolute inset-0 bg-navy-deep" />
+      <div className="deck-text absolute left-[100px] top-[70px]">
+        <Eyebrow>Who we serve</Eyebrow>
+        <h2 className="mt-4 text-[72px] font-light leading-[1.02] tracking-tight text-foreground">Five industries,<br /><span className="text-gold">one verified picture.</span></h2>
+      </div>
+      <div className="deck-text absolute right-[100px] top-[90px] flex w-[860px] flex-wrap justify-end gap-3" onClick={stop}>
+        {SERVE.map((x, k) => (
+          <button key={x.slug} type="button" onClick={() => onInd?.(k)}
+            className={`rounded-full border px-6 py-3 font-mono text-[17px] uppercase tracking-[0.14em] transition-colors ${k === ind ? "border-gold/60 bg-gold/12 text-gold" : "border-white/12 bg-white/[0.02] text-muted-foreground hover:border-white/25 hover:text-foreground"}`}>
+            {x.name}
+          </button>
+        ))}
+      </div>
+      <div className="deck-text absolute left-[100px] top-[330px] w-[1060px]" onClick={stop}>
+        <div className="overflow-hidden rounded-xl border border-white/10 bg-navy-deep">
+          <div className="flex items-center gap-4 border-b border-white/10 px-5 py-3">
+            <div className="flex gap-2"><span className="h-3 w-3 rounded-full bg-alert/80" /><span className="h-3 w-3 rounded-full bg-amber/80" /><span className="h-3 w-3 rounded-full bg-cyan/80" /></div>
+            <p className="truncate font-mono text-[16px] tracking-[0.2em] text-muted-foreground">HERA AI · {uc.tag}</p>
+          </div>
+          <div className="h-[520px] overflow-hidden"><OpsMap idx={geo} stage={stage} /></div>
+        </div>
+        <div className="relative mt-5">
+          <div className="absolute inset-x-0 top-0 h-[3px] bg-white/10"><div className="h-full bg-gold transition-[width] duration-500" style={{ width: `${((stage + 1) / 6) * 100}%` }} /></div>
+          <div className="grid grid-cols-6 pt-4">
+            {STAGE_NAMES.map((nm, k) => (
+              <button key={nm} type="button" onClick={() => { setStage(k); setPaused(true); }}
+                className={`text-left font-mono text-[16px] tracking-[0.14em] ${k === stage ? "text-gold" : "text-muted-foreground hover:text-foreground"}`}>
+                0{k + 1} {nm.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="deck-text absolute right-[100px] top-[330px] w-[620px] space-y-6" onClick={stop}>
+        <p className="font-mono text-[16px] tracking-[0.2em] text-muted-foreground">{uc.audience.toUpperCase()}</p>
+        <h3 className="-mt-3 text-[40px] font-light leading-tight text-foreground">{uc.question}</h3>
+        <div>
+          <p className="font-mono text-[20px] tracking-[0.2em] text-gold">0{stage + 1} · {STAGE_NAMES[stage].toUpperCase()}</p>
+          <p className="mt-2 text-[30px] font-light leading-snug text-foreground/85">{uc.stages[stage].text}</p>
+        </div>
+        {stage < 4 ? (
+          <div className="rounded-lg border border-white/10 bg-navy/70 p-5">
+            <p className="font-mono text-[15px] tracking-[0.2em] text-muted-foreground">SENSORS IN USE</p>
+            <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
+              {sensors.map((x) => {
+                const on = lit.has(x.id);
+                return (
+                  <li key={x.id} className={`flex items-center gap-3 font-mono text-[15px] tracking-[0.08em] ${on ? "text-foreground" : "text-muted-foreground/60"}`}>
+                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${on ? "bg-cyan shadow-[0_0_8px_var(--color-cyan)]" : "bg-white/15"}`} />
+                    {(SERVE[ind].slug === "fisheries" && x.id === "reg" ? "Registries, RFMO and IUU lists" : x.label).toUpperCase()}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : (
+          <div className="origin-top-left scale-[1.3]" style={{ width: 620 / 1.3 }}><FindingCard uc={uc} /></div>
+        )}
+      </div>
+      <p className="absolute bottom-[50px] left-[100px] font-mono text-[14px] tracking-[0.2em] text-muted-foreground">SCENARIOS ARE ILLUSTRATIVE</p>
+    </>
+  );
+}
+
 /* ---------- deck shell ---------- */
 function Deck() {
-  const { slide } = Route.useSearch();
+  const { slide, industry } = Route.useSearch();
   const navigate = useNavigate({ from: "/deck" });
   const n = SLIDES.length;
   const i = Math.min(n, slide) - 1;
@@ -375,10 +446,15 @@ function Deck() {
   const timer = useRef<number | undefined>(undefined);
   const touchX = useRef<number | null>(null);
 
-  const goTo = useCallback((k: number) => {
+  const ind = Math.max(0, SERVE.findIndex((x) => x.slug === industry));
+  const goTo = useCallback((k: number, fromEnd = false) => {
     const t = Math.min(n - 1, Math.max(0, k));
-    if (t !== i) navigate({ search: { slide: t + 1 } });
+    if (t === i) return;
+    navigate({ search: t === WHO ? { slide: t + 1, industry: SERVE[fromEnd ? 4 : 0].slug } : { slide: t + 1 } });
   }, [i, n, navigate]);
+  const setInd = useCallback((k: number) => navigate({ search: { slide: WHO + 1, industry: SERVE[k].slug } }), [navigate]);
+  const next = () => (i === WHO && ind < 4 ? setInd(ind + 1) : goTo(i + 1));
+  const prev = () => (i === WHO && ind > 0 ? setInd(ind - 1) : goTo(i - 1, true));
 
   const poke = useCallback(() => {
     setUi(true);
@@ -399,8 +475,8 @@ function Deck() {
 
   const onKey = (e: React.KeyboardEvent) => {
     const k = e.key;
-    if (k === "ArrowRight" || k === " " || k === "PageDown") { e.preventDefault(); goTo(i + 1); }
-    else if (k === "ArrowLeft" || k === "PageUp") { e.preventDefault(); goTo(i - 1); }
+    if (k === "ArrowRight" || k === " " || k === "PageDown") { e.preventDefault(); next(); }
+    else if (k === "ArrowLeft" || k === "PageUp") { e.preventDefault(); prev(); }
     else if (k === "Home") { e.preventDefault(); goTo(0); }
     else if (k === "End") { e.preventDefault(); goTo(n - 1); }
     else if (k.toLowerCase() === "f") {
@@ -421,14 +497,14 @@ function Deck() {
       onClick={(e) => {
         root.current?.focus();
         const r = root.current!.getBoundingClientRect();
-        goTo(e.clientX - r.left < r.width / 3 ? i - 1 : i + 1);
+        if (e.clientX - r.left < r.width / 3) prev(); else next();
       }}
       onTouchStart={(e) => { touchX.current = e.touches[0].clientX; poke(); }}
       onTouchEnd={(e) => {
         if (touchX.current == null) return;
         const dx = e.changedTouches[0].clientX - touchX.current;
         touchX.current = null;
-        if (Math.abs(dx) > 40) { e.preventDefault(); goTo(dx < 0 ? i + 1 : i - 1); }
+        if (Math.abs(dx) > 40) { e.preventDefault(); if (dx < 0) next(); else prev(); }
       }}
       className="deck-root fixed inset-0 z-[100] cursor-default select-none overflow-hidden bg-navy-deep outline-none"
     >
@@ -450,7 +526,7 @@ function Deck() {
           body > *:not(.deck-root):not(:has(.deck-root)) { display: none !important; }
           canvas.fixed, .fixed.pointer-events-none { display: none !important; }
           .deck-root { position: static !important; overflow: visible !important; }
-          .deck-chrome { display: none !important; }
+          .deck-chrome, .deck-screen-only { display: none !important; }
           .deck-slide { display: block !important; position: relative !important; transform: none !important; left: 0 !important; top: 0 !important; margin: 0 !important; break-after: page; page-break-after: always; }
           .deck-bg, .deck-text, .deck-drift { animation: none !important; opacity: 1 !important; }
           .deck-drift { translate: -50% -50%; }
@@ -462,19 +538,27 @@ function Deck() {
         <div className="h-full bg-gold transition-[width] duration-500" style={{ width: `${((i + 1) / n) * 100}%` }} />
       </div>
 
-      {SLIDES.map((s, k) => (
-        <div
-          key={k}
-          aria-hidden={k !== i}
-          className={`deck-slide absolute overflow-hidden bg-navy-deep ${k === i ? "deck-active" : "hidden"}`}
-          style={{ width: W, height: H, left: "50%", top: "50%", marginLeft: -W / 2, marginTop: -H / 2, transform: `scale(${scale})` }}
-        >
-          {s.node}
-        </div>
-      ))}
+      {SLIDES.map((s, k) => {
+        const style = { width: W, height: H, left: "50%", top: "50%", marginLeft: -W / 2, marginTop: -H / 2, transform: `scale(${scale})` };
+        if (k !== WHO) return (
+          <div key={k} aria-hidden={k !== i} className={`deck-slide absolute overflow-hidden bg-navy-deep ${k === i ? "deck-active" : "hidden"}`} style={style}>{s.node}</div>
+        );
+        return (
+          <div key={k} className="contents">
+            <div aria-hidden={k !== i} className={`deck-slide deck-screen-only absolute overflow-hidden bg-navy-deep ${k === i ? "deck-active" : "hidden"}`} style={style}>
+              <ServeSlide ind={ind} onInd={setInd} active={k === i} />
+            </div>
+            {SERVE.map((x, j) => (
+              <div key={x.slug} aria-hidden className="deck-slide deck-print-only absolute hidden overflow-hidden bg-navy-deep" style={style}>
+                <ServeSlide ind={j} active={false} frozen />
+              </div>
+            ))}
+          </div>
+        );
+      })}
 
-      <button type="button" aria-label="Previous slide" onClick={(e) => { stop(e); goTo(i - 1); }} className={`${btn} left-4`}><ChevronLeft className="h-6 w-6" /></button>
-      <button type="button" aria-label="Next slide" onClick={(e) => { stop(e); goTo(i + 1); }} className={`${btn} right-4`}><ChevronRight className="h-6 w-6" /></button>
+      <button type="button" aria-label="Previous slide" onClick={(e) => { stop(e); prev(); }} className={`${btn} left-4`}><ChevronLeft className="h-6 w-6" /></button>
+      <button type="button" aria-label="Next slide" onClick={(e) => { stop(e); next(); }} className={`${btn} right-4`}><ChevronRight className="h-6 w-6" /></button>
 
       <div className="deck-chrome absolute bottom-4 left-1/2 z-30 flex -translate-x-1/2 gap-1">
         {SLIDES.map((s, k) => (
@@ -485,7 +569,7 @@ function Deck() {
         ))}
       </div>
       <p className="deck-chrome absolute bottom-5 right-6 z-30 font-mono text-xs tracking-[0.2em] text-muted-foreground">
-        {String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
+        {String(i + 1).padStart(2, "0")}{i === WHO ? ` · ${ind + 1}/5` : ""} / {String(n).padStart(2, "0")}
       </p>
     </div>
   );
