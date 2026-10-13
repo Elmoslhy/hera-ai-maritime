@@ -69,7 +69,6 @@ export function TaskingSection() {
                       <Icon className="h-5 w-5 text-gold" />
                       <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
                     </div>
-          <p className="mt-4 text-sm font-light text-foreground/55">{s.networkNote}</p>
                     <h3 className="mt-4 font-mono text-sm uppercase tracking-[0.18em] text-foreground">{c.title}</h3>
                     <p className="mt-2 text-sm font-light text-foreground/75">{c.text}</p>
                   </div>
@@ -77,6 +76,7 @@ export function TaskingSection() {
               );
             })}
           </div>
+          <p className="mt-4 text-sm font-light text-foreground/55">{s.networkNote}</p>
 
           {/* console */}
           <div className="mt-10 overflow-hidden rounded-xl border border-white/10 bg-navy-deep">
