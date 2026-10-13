@@ -331,7 +331,7 @@ export const preArrivalCase: UseCase = {
     { text: "It finds a three-day broadcast gap that matches the time needed to reach and leave an undeclared terminal.", sensors: ["ais"] },
     { text: "Independent geolocation and draught confirm a call at that terminal: draught rose 4.1 m during the gap.", sensors: ["geo", "ais"] },
     { text: "Declaration mismatch indicator, 81 of 100: one undeclared call, consistent with loading.", sensors: ["geo", "ais", "reg"] },
-    { text: "The Pre-Arrival Sheet reaches the port security officer 36 hours before arrival.", sensors: ["reg"] },
+    { text: "The Pre-Arrival Sheet reaches the port security officer within an hour of the notice, 23 hours before arrival.", sensors: ["reg"] },
   ],
   finding: { tone: "alert", label: "DECLARATION MISMATCH INDICATOR", score: 81, indicators: ["Three-day broadcast gap", "Gap matches a call at an undeclared terminal", "Independent geolocation at the terminal", "Draught rose 4.1 m during the gap"] },
   action: "Request the cargo documents and the ship's log before berth allocation.",

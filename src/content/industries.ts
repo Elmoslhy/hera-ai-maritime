@@ -24,7 +24,7 @@ export type Industry = {
     signature:
       | { kind: "flow"; title: string; weeks: { broadcast: number; corrected: number; floating: number }[]; summary: { label: string; value: string }[] }
       | { kind: "cable"; title: string }
-      | { kind: "board"; title: string; rows: { vessel: string; eta: string; identity: string; lastPorts: string; risk: "LOW" | "MEDIUM" | "HIGH"; inspection: number; reasons: { label: string; text: string }[] }[] }
+      | { kind: "board"; title: string; rows: { vessel: string; eta: string; identity: string; lastPorts: string; risk: "LOW" | "MEDIUM" | "HIGH"; inspection: "RECOMMEND" | "ROUTINE"; reasons: { label: string; text: string }[] }[] }
       | { kind: "origin"; title: string; trips: { name: string; confidence: string; track: string; checks: { label: string; value: string; tone: "cyan" | "amber" | "alert" }[] }[] }
       | { kind?: "lifecycle"; title: string; stages: { key: string; title: string; items: { label: string; value: string }[] }[] };
     missions: { title: string; need: string; hera: string; deliverable: string; note?: string }[];
@@ -250,14 +250,20 @@ export const industries: Industry[] = [
     description: "See every arrival before it reaches the pilot station.",
     eyebrow: "Ports and maritime authorities",
     headline: ["Know every ship", "before it asks for a berth."],
-    body: "HERA AI checks each arrival against what it declared, scores the risk at the pilot boarding ground and keeps watch on the anchorage while ships wait.",
+    body: "HERA AI screens each arrival against its pre-arrival notification, flags indicators at the pilot boarding ground and watches the anchorage. Findings reach your port management system and VTS through our API.",
     heroImage: ports,
     statement: { title: "Safer arrivals start offshore.", body: "The best time to question an arrival is hours before it reaches the boarding ground." },
     capabilities: [{ title: "Arrival screening", text: "Identity and flag checked before berth allocation." }, { title: "Pilot boarding risk", text: "Each arrival scored before the pilot leaves the station." }, { title: "Sea state at the boarding ground", text: "Wave height, period and direction for the arrival window." }, { title: "Anchorage congestion", text: "Every vessel waiting, broadcasting or not." }, { title: "Inspection record", text: "Pilot transfer deficiencies linked to each vessel." }, { title: "Watched areas", text: "Alerts on approaches and anchorages." }],
     blocks: [{ label: "THE QUESTION", title: "What is coming, and is it safe to board?", text: "Pilot boarding is one of the most dangerous moments at sea, and most of the risk is knowable in advance.", bullets: ["Identity before berth allocation.", "Boarding history and transfer deficiencies.", "Sea state for the arrival window."], image: vessels, alt: "Vessels at sea seen from orbit" }, { label: "HOW HERA AI ANSWERS", title: "A risk score for each arrival", text: "HERA AI compares each boarding with the station's normal and checks the planned approach against the swell.", bullets: ["Boarding duration against the station baseline.", "Lee and boarding side against the swell.", "Inspection record for each vessel."], image: network, alt: "Satellite network above the Earth" }, { label: "HOW IT REACHES YOU", title: "Hours before arrival", text: "Advisories reach the station in time to brief the pilot and the boat crew.", bullets: ["Advisories before arrival.", "Alerts on watched vessels.", "API into port systems."], image: heraUi, alt: "HERA AI platform interface" }],
     useCaseIds: ["pre-arrival", "pilot-boarding"],
-    roadmapNote: "Send a close-range drone to document a ship at anchor before it berths.",
+    roadmapNote: "Send a close-range drone to document a ship at anchor before it berths, where your port authority permits.",
+    closing: {
+      headline: ["Test it on", "your own arrivals."],
+      body: "Share 90 days of arrival records. We return a Pre-Arrival Sheet for each, with every indicator, its sources and its confidence.",
+      button: "REQUEST A BACKTEST",
+    },
     rebuild: {
+      deliverablesNote: "HERA AI is decision support. Every indicator keeps its sources and time stamps for your audit trail.",
       signatureFirst: true,
       roles: [
         { role: "Port security officer", question: "Is this ship's declared history true?" },
@@ -269,25 +275,27 @@ export const industries: Industry[] = [
         kind: "board",
         title: "Arrivals board",
         rows: [
-          { vessel: "VESSEL F", eta: "06:40", identity: "VERIFIED", lastPorts: "MATCH", risk: "LOW", inspection: 5, reasons: [{ label: "IDENTITY", text: "Broadcast identity, registry and independent position agree." }, { label: "LAST PORTS", text: "All ten declared calls match observed calls." }, { label: "BOARDING RISK", text: "Clean boarding history. Swell on the planned lee is low." }, { label: "INSPECTION", text: "Good flag performance and a recent clean inspection." }] },
-          { vessel: "VESSEL G", eta: "08:15", identity: "MISMATCH", lastPorts: "MATCH", risk: "MEDIUM", inspection: 2, reasons: [{ label: "IDENTITY", text: "Reported flag disagrees with the registry." }, { label: "LAST PORTS", text: "Declared calls match observed calls." }, { label: "BOARDING RISK", text: "One second approach in the last five boardings." }, { label: "INSPECTION", text: "Flag change in the last year and an inspection overdue." }] },
-          { vessel: "VESSEL H", eta: "09:30", identity: "VERIFIED", lastPorts: "UNDECLARED CALL", risk: "LOW", inspection: 1, reasons: [{ label: "IDENTITY", text: "Identity confirmed by independent geolocation." }, { label: "LAST PORTS", text: "A three-day broadcast gap matches a call at an undeclared terminal." }, { label: "BOARDING RISK", text: "Calm sea state forecast for the arrival window." }, { label: "INSPECTION", text: "Undeclared call and a draught rise during the gap." }] },
-          { vessel: "VESSEL J", eta: "11:05", identity: "VERIFIED", lastPorts: "MATCH", risk: "HIGH", inspection: 4, reasons: [{ label: "IDENTITY", text: "Identity confirmed." }, { label: "LAST PORTS", text: "Declared calls match observed calls." }, { label: "BOARDING RISK", text: "Pilot ladder deficiency recorded twice. Swell sits on the boarding side." }, { label: "INSPECTION", text: "Transfer deficiencies in the inspection record." }] },
-          { vessel: "VESSEL K", eta: "13:50", identity: "VERIFIED", lastPorts: "MATCH", risk: "LOW", inspection: 6, reasons: [{ label: "IDENTITY", text: "Identity confirmed." }, { label: "LAST PORTS", text: "Declared calls match observed calls." }, { label: "BOARDING RISK", text: "Good boarding history and a sheltered approach." }, { label: "INSPECTION", text: "Young vessel with a strong inspection record." }] },
-          { vessel: "VESSEL L", eta: "15:20", identity: "MISMATCH", lastPorts: "UNDECLARED CALL", risk: "MEDIUM", inspection: 3, reasons: [{ label: "IDENTITY", text: "Transmitter position differs from the reported position." }, { label: "LAST PORTS", text: "One observed call is missing from the declaration." }, { label: "BOARDING RISK", text: "Moderate swell in the arrival window." }, { label: "INSPECTION", text: "Behaviour indicators and an older hull raise priority." }] },
+          { vessel: "VESSEL L", eta: "15:20", identity: "MISMATCH", lastPorts: "UNDECLARED CALL", risk: "MEDIUM", inspection: "RECOMMEND", reasons: [{ label: "IDENTITY", text: "Transmitter position differs from the reported position." }, { label: "LAST PORTS", text: "One observed call is missing from the declaration." }, { label: "BOARDING RISK", text: "Moderate swell in the arrival window." }, { label: "INSPECTION", text: "Behaviour indicators and an older hull raise priority." }] },
+          { vessel: "VESSEL H", eta: "09:30", identity: "VERIFIED", lastPorts: "UNDECLARED CALL", risk: "LOW", inspection: "RECOMMEND", reasons: [{ label: "IDENTITY", text: "Identity confirmed by independent geolocation." }, { label: "LAST PORTS", text: "A three-day broadcast gap matches a call at an undeclared terminal." }, { label: "BOARDING RISK", text: "Calm sea state forecast for the arrival window." }, { label: "INSPECTION", text: "Undeclared call and a draught rise during the gap." }] },
+          { vessel: "VESSEL G", eta: "08:15", identity: "MISMATCH", lastPorts: "MATCH", risk: "MEDIUM", inspection: "RECOMMEND", reasons: [{ label: "IDENTITY", text: "Reported flag disagrees with the registry." }, { label: "LAST PORTS", text: "Declared calls match observed calls." }, { label: "BOARDING RISK", text: "One second approach in the last five boardings." }, { label: "INSPECTION", text: "Flag change in the last year and an inspection overdue." }] },
+          { vessel: "VESSEL J", eta: "11:05", identity: "VERIFIED", lastPorts: "MATCH", risk: "HIGH", inspection: "RECOMMEND", reasons: [{ label: "IDENTITY", text: "Identity confirmed." }, { label: "LAST PORTS", text: "Declared calls match observed calls." }, { label: "BOARDING RISK", text: "Pilot ladder deficiency recorded twice. Swell sits on the boarding side." }, { label: "INSPECTION", text: "Transfer deficiencies in the inspection record." }] },
+          { vessel: "VESSEL F", eta: "06:40", identity: "VERIFIED", lastPorts: "MATCH", risk: "LOW", inspection: "ROUTINE", reasons: [{ label: "IDENTITY", text: "Broadcast identity, registry and independent position agree." }, { label: "LAST PORTS", text: "All ten declared calls match observed calls." }, { label: "BOARDING RISK", text: "Clean boarding history. Swell on the planned lee is low." }, { label: "INSPECTION", text: "Good flag performance and a recent clean inspection." }] },
+          { vessel: "VESSEL K", eta: "13:50", identity: "VERIFIED", lastPorts: "MATCH", risk: "LOW", inspection: "ROUTINE", reasons: [{ label: "IDENTITY", text: "Identity confirmed." }, { label: "LAST PORTS", text: "Declared calls match observed calls." }, { label: "BOARDING RISK", text: "Good boarding history and a sheltered approach." }, { label: "INSPECTION", text: "Young vessel with a strong inspection record." }] },
         ],
       },
       missions: [
-        { title: "Pre-arrival check", need: "Verify declared last port calls before arrival.", hera: "Compares the pre-arrival declaration with the port calls it observed, including calls made while dark.", deliverable: "Pre-Arrival Sheet" },
-        { title: "Pilot boarding", need: "Board safely, first time.", hera: "Scores each arrival on its boarding history, transfer deficiencies and sea state, and checks the lee.", deliverable: "Boarding Advisory" },
-        { title: "Anchorage safety", need: "Spot a ship dragging anchor before it reaches another.", hera: "Watches anchored ships for drift as wind and sea rise, and counts silent arrivals.", deliverable: "Anchorage Watch" },
-        { title: "Inspection targeting", need: "Inspect the ships most likely to fail.", hera: "Ranks arrivals by flag performance, age, inspection history and behaviour.", deliverable: "Inspection Priority List" },
+        { title: "Pre-arrival check", need: "Verify declared last port calls before arrival.", hera: "Compares the pre-arrival declaration with the port calls it observed, including calls made while dark. It also checks EU port access bans on listed vessels and shows each required certificate as verified or not verified.", deliverable: "Pre-Arrival Sheet" },
+        { title: "Pilot boarding", need: "Board safely, first time.", hera: "Combines wind and swell at the boarding ground, freeboard from declared draught and recorded pilot transfer deficiencies. The decision to board stays with the pilot and the master.", deliverable: "Boarding Advisory" },
+        { title: "Anchorage safety", need: "Spot a ship dragging anchor before it reaches another.", hera: "Raises a drift alert within minutes from coastal AIS when an anchored ship leaves its swing circle as the wind rises.", deliverable: "Anchorage Watch" },
+        { title: "Inspection targeting", need: "Inspect the ships most likely to fail.", hera: "Adds undeclared calls, identity changes and dark periods to the ship risk profile your inspectors already use. It informs selection under your port state control regime and does not replace it.", deliverable: "Inspection Priority List" },
+        { title: "Arrival planning", need: "Plan berths on arrival times you can trust.", hera: "Predicts arrival at the pilot boarding ground from the observed track and weather, flags declared ETAs the track no longer supports, and reports waiting times at anchor.", deliverable: "Arrival Forecast" },
       ],
       deliverables: [
-        { name: "Pre-Arrival Sheet", cadence: "Per arrival, 48 hours ahead" },
+        { name: "Pre-Arrival Sheet", cadence: "Within one hour of the pre-arrival notification" },
         { name: "Boarding Advisory", cadence: "Per arrival, 6 hours ahead" },
         { name: "Anchorage Watch", cadence: "Live" },
         { name: "Inspection Priority List", cadence: "Daily" },
+        { name: "Arrival Forecast", cadence: "Continuous" },
       ],
     },
   },
