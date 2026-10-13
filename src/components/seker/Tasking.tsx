@@ -47,7 +47,7 @@ export function TaskingSection() {
 
   return (
     <>
-      <section className="bg-navy px-6 py-24">
+      <section id="tasking" className="scroll-mt-24 bg-navy px-6 py-24">
         <div className="mx-auto max-w-7xl">
           <Reveal>
             <span className="inline-block rounded-full border border-gold/60 px-3 py-1 font-mono text-[10px] tracking-[0.2em] text-gold">

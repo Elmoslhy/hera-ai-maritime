@@ -1,7 +1,32 @@
 import { motion, useScroll, useSpring } from "motion/react";
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { ChevronDown } from "lucide-react";
 import { SekerLogo } from "./Logo";
+import { industries } from "@/content/industries";
+
+function IndustriesMenu() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="relative hidden sm:block" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <button type="button" aria-expanded={open} onClick={() => setOpen((o) => !o)} className="flex items-center gap-1 tracking-[0.2em] text-foreground/80 transition-colors hover:text-gold">
+        INDUSTRIES <ChevronDown className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <div className="absolute left-1/2 top-full w-80 -translate-x-1/2 pt-3">
+          <div className="rounded-lg border border-white/10 bg-navy/90 p-2 backdrop-blur">
+            {industries.map((i) => (
+              <Link key={i.slug} to="/industries/$slug" params={{ slug: i.slug }} onClick={() => setOpen(false)} className="block rounded-md px-3 py-3 transition-colors hover:bg-white/5">
+                <span className="block text-[10px] uppercase tracking-[0.18em] text-foreground">{i.navName}</span>
+                <span className="mt-1 block font-sans text-xs normal-case tracking-normal text-muted-foreground">{i.description}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
@@ -53,8 +78,9 @@ export function Nav() {
             <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" />
             LIVE
           </span>
+          <IndustriesMenu />
           <Link to="/intelligence" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
-            INTELLIGENCE
+            USE CASES
           </Link>
           <Link to="/careers" className="text-foreground/80 transition-colors hover:text-gold">
             CAREERS
@@ -81,9 +107,16 @@ export function Footer() {
         <Link to="/" aria-label="SEKER — home" className="inline-flex">
           <SekerLogo className="h-6 w-auto text-gold opacity-60" />
         </Link>
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
+          {industries.map((i) => (
+            <Link key={i.slug} to="/industries/$slug" params={{ slug: i.slug }} className="font-mono text-xs tracking-[0.2em] text-foreground/60 hover:text-gold">
+              {i.navName.toUpperCase()}
+            </Link>
+          ))}
+        </div>
         <div className="flex gap-8">
           <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
-            INTELLIGENCE
+            USE CASES
           </Link>
           <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
             CAREERS

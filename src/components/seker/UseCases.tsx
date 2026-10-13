@@ -155,14 +155,26 @@ function recordJson(uc: UseCase) {
   );
 }
 
-export function UseCasesSection() {
+export function UseCasesSection({
+  ids,
+  sectionId = "use-cases",
+  eyebrow = s.eyebrow,
+  headline = s.headline,
+}: {
+  ids?: string[];
+  sectionId?: string;
+  eyebrow?: string;
+  headline?: readonly string[];
+} = {}) {
+  const list = ids ? useCases.filter((c) => ids.includes(c.id)) : useCases;
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.3 });
   const [idx, setIdx] = useState(0);
   const [stage, setStage] = useState(0);
   const [playing, setPlaying] = useState(true);
-  const uc = useCases[idx];
+  const uc = list[idx];
+  const geoIdx = useCases.indexOf(uc);
   const running = playing && inView && !reduce;
 
   useEffect(() => {
@@ -174,19 +186,19 @@ export function UseCasesSection() {
   const lit = new Set(uc.stages[stage].sensors);
 
   return (
-    <section id="use-cases" className="scroll-mt-24 bg-navy px-6 py-24">
+    <section id={sectionId} className="scroll-mt-24 bg-navy px-6 py-24">
       <div className="mx-auto max-w-7xl">
         <Reveal>
-          <p className="text-eyebrow text-gold">{s.eyebrow}</p>
+          <p className="text-eyebrow text-gold">{eyebrow}</p>
           <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-            {s.headline[0]}
+            {headline[0]}
             <br />
-            <span className="text-gold">{s.headline[1]}</span>
+            <span className="text-gold">{headline[1]}</span>
           </h2>
         </Reveal>
 
         <div className="mt-10 flex flex-wrap gap-2">
-          {useCases.map((c, i) => (
+          {list.map((c, i) => (
             <button
               key={c.id}
               type="button"
@@ -226,7 +238,7 @@ export function UseCasesSection() {
                   {playing && !reduce ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
                 </button>
               </div>
-              <OpsMap idx={idx} stage={stage} />
+              <OpsMap idx={geoIdx} stage={stage} />
             </div>
 
             {/* stage rail */}

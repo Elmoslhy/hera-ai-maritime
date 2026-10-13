@@ -14,6 +14,7 @@ import { Route as AccessRouteImport } from './routes/access'
 import { Route as IntelligenceRouteImport } from './routes/intelligence'
 import { Route as CareersIndexRouteImport } from './routes/careers.index'
 import { Route as CareersSlugRouteImport } from './routes/careers.$slug'
+import { Route as IndustriesSlugRouteImport } from './routes/industries.$slug'
 import { Route as NewsroomIndexRouteImport } from './routes/newsroom.index'
 import { Route as NewsroomSlugRouteImport } from './routes/newsroom.$slug'
 import { Route as NewsroomRssDotxmlRouteImport } from './routes/newsroom.rss[.]xml'
@@ -43,6 +44,11 @@ const CareersSlugRoute = CareersSlugRouteImport.update({
   path: '/careers/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IndustriesSlugRoute = IndustriesSlugRouteImport.update({
+  id: '/industries/$slug',
+  path: '/industries/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NewsroomIndexRoute = NewsroomIndexRouteImport.update({
   id: '/newsroom/',
   path: '/newsroom/',
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/access': typeof AccessRoute
   '/intelligence': typeof IntelligenceRoute
   '/careers/$slug': typeof CareersSlugRoute
+  '/industries/$slug': typeof IndustriesSlugRoute
   '/newsroom/$slug': typeof NewsroomSlugRoute
   '/newsroom/rss.xml': typeof NewsroomRssDotxmlRoute
   '/careers/': typeof CareersIndexRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/access': typeof AccessRoute
   '/intelligence': typeof IntelligenceRoute
   '/careers/$slug': typeof CareersSlugRoute
+  '/industries/$slug': typeof IndustriesSlugRoute
   '/newsroom/$slug': typeof NewsroomSlugRoute
   '/newsroom/rss.xml': typeof NewsroomRssDotxmlRoute
   '/careers': typeof CareersIndexRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/access': typeof AccessRoute
   '/intelligence': typeof IntelligenceRoute
   '/careers/$slug': typeof CareersSlugRoute
+  '/industries/$slug': typeof IndustriesSlugRoute
   '/newsroom/$slug': typeof NewsroomSlugRoute
   '/newsroom/rss.xml': typeof NewsroomRssDotxmlRoute
   '/careers/': typeof CareersIndexRoute
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/access'
     | '/intelligence'
     | '/careers/$slug'
+    | '/industries/$slug'
     | '/newsroom/$slug'
     | '/newsroom/rss.xml'
     | '/careers/'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/access'
     | '/intelligence'
     | '/careers/$slug'
+    | '/industries/$slug'
     | '/newsroom/$slug'
     | '/newsroom/rss.xml'
     | '/careers'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/access'
     | '/intelligence'
     | '/careers/$slug'
+    | '/industries/$slug'
     | '/newsroom/$slug'
     | '/newsroom/rss.xml'
     | '/careers/'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   AccessRoute: typeof AccessRoute
   IntelligenceRoute: typeof IntelligenceRoute
   CareersSlugRoute: typeof CareersSlugRoute
+  IndustriesSlugRoute: typeof IndustriesSlugRoute
   NewsroomSlugRoute: typeof NewsroomSlugRoute
   NewsroomRssDotxmlRoute: typeof NewsroomRssDotxmlRoute
   CareersIndexRoute: typeof CareersIndexRoute
@@ -171,6 +184,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CareersSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/industries/$slug': {
+      id: '/industries/$slug'
+      path: '/industries/$slug'
+      fullPath: '/industries/$slug'
+      preLoaderRoute: typeof IndustriesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/newsroom/': {
       id: '/newsroom/'
       path: '/newsroom'
@@ -200,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccessRoute: AccessRoute,
   IntelligenceRoute: IntelligenceRoute,
   CareersSlugRoute: CareersSlugRoute,
+  IndustriesSlugRoute: IndustriesSlugRoute,
   NewsroomSlugRoute: NewsroomSlugRoute,
   NewsroomRssDotxmlRoute: NewsroomRssDotxmlRoute,
   CareersIndexRoute: CareersIndexRoute,
