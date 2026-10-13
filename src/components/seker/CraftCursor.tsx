@@ -63,7 +63,8 @@ export function CraftCursor() {
         plasma.style.width = `${len}px`;
         plasma.style.transform = `translateX(${-len - 10}px)`;
       }
-      const settled = Math.abs(tx - x) < 0.3 && Math.abs(ty - y) < 0.3 && Math.abs(diff) < 0.002;
+      const settled =
+        reentry < 0.05 && Math.abs(tx - x) < 0.3 && Math.abs(ty - y) < 0.3 && Math.abs(diff) < 0.002;
       frame = settled ? 0 : requestAnimationFrame(tick);
     };
     const kick = () => { if (!frame) frame = requestAnimationFrame(tick); };
