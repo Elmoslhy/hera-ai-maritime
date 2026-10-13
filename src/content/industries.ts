@@ -23,6 +23,7 @@ export type Industry = {
     roles: { role: string; question: string }[];
     signature:
       | { kind: "flow"; title: string; weeks: { broadcast: number; corrected: number; floating: number }[]; summary: { label: string; value: string }[] }
+      | { kind: "cable"; title: string }
       | { kind: "board"; title: string; rows: { vessel: string; eta: string; identity: string; lastPorts: string; risk: "LOW" | "MEDIUM" | "HIGH"; inspection: number; reasons: { label: string; text: string }[] }[] }
       | { kind: "origin"; title: string; trips: { name: string; confidence: string; track: string; checks: { label: string; value: string; tone: "cyan" | "amber" | "alert" }[] }[] }
       | { kind?: "lifecycle"; title: string; stages: { key: string; title: string; items: { label: string; value: string }[] }[] };
@@ -31,6 +32,7 @@ export type Industry = {
     deliverablesNote?: string;
     signatureFirst?: boolean;
     signatureAfterMissions?: boolean;
+    reach?: { title: string; text: string };
   };
 };
 
@@ -40,8 +42,8 @@ export const industries: Industry[] = [
     navName: "Defense and coast guard",
     description: "Find the vessels that do not want to be seen.",
     eyebrow: "Defense and coast guard",
-    headline: ["Know which hull is in your waters", "before it reaches them."],
-    body: "HERA AI flags vessels that go dark, falsify their position or meet at sea, and tells your watch officers what it saw, from which source, and how sure it is.",
+    headline: ["Every vessel in your waters,", "including the ones that hide."],
+    body: "HERA AI gives maritime operations centres a European picture of who is in their waters, who is hiding and which vessel deserves the next patrol hour. Every indicator shows what was seen, by which source, and how sure HERA AI is.",
     heroImage: ocean,
     statement: {
       title: "Your watch deserves the full picture.",
@@ -85,8 +87,38 @@ export const industries: Industry[] = [
         alt: "HERA AI platform interface",
       },
     ],
-    useCaseIds: ["dark-transfer", "identity"],
-    roadmapNote: "Task a satellite pass or a close-range drone on a vessel of interest, directly from HERA AI.",
+    useCaseIds: ["cable-corridor", "dark-transfer-defense"],
+    roadmapNote: "Task a partner satellite pass or a close-range drone on a vessel of interest, directly from HERA AI.",
+    closing: {
+      headline: ["Run a 30-day watch", "on one sea area."],
+      body: "Name an area and the vessel types you care about. We return every indicator HERA AI raised, with its sources, for your analysts to grade.",
+      button: "REQUEST A SEA AREA PILOT",
+    },
+    rebuild: {
+      roles: [
+        { role: "Maritime operations centre", question: "Where do we send the next patrol?" },
+        { role: "Naval intelligence", question: "Which vessels belong to the same pattern?" },
+        { role: "Infrastructure protection", question: "Who is loitering over our cables and pipelines?" },
+        { role: "Sanctions enforcement at sea", question: "Which tankers in transit deserve a document check?" },
+      ],
+      signature: { kind: "cable", title: "Undersea infrastructure watch" },
+      missions: [
+        { title: "Cable and pipeline protection", need: "Know when a vessel behaves as if it is dragging an anchor over a cable.", hera: "Draw your corridors once; it raises an indicator when a vessel loiters, slows or holds a dragging track inside one, then cues imaging.", deliverable: "Corridor Alert" },
+        { title: "Shadow fleet vetting", need: "Decide which tankers in transit merit a document check.", hera: "Scores flag history, fraudulent or unverifiable registries, false flags, reused IMO numbers, insurance that cannot be verified, and links to listed vessels.", deliverable: "Transit Watchlist" },
+        { title: "GNSS interference", need: "Know where satellite positioning cannot be trusted today.", hera: "Maps clusters of impossible positions reported by many vessels at once, hour by hour.", deliverable: "Interference Map" },
+        { title: "Patrol priority", need: "Spend scarce patrol hours on the vessels that matter.", hera: "Ranks every vessel of interest in your area each morning, with the evidence behind each rank.", deliverable: "Morning Patrol Brief" },
+      ],
+      reach: {
+        title: "How it reaches your watch",
+        text: "Findings arrive as API records and signed alerts, ready to correlate with your own coastal radar and AIS. Hull detections are matched to identities by length, track history and transmitter position, and each match shows its confidence, so your legal adviser sees exactly what supports it.",
+      },
+      deliverables: [
+        { name: "Morning Patrol Brief", cadence: "Daily, PDF and API" },
+        { name: "Corridor Alert", cadence: "As it happens, alert and API" },
+        { name: "Transit Watchlist", cadence: "Continuous, API" },
+        { name: "Interference Map", cadence: "Hourly, map layer" },
+      ],
+    },
   },
   {
     slug: "insurance",
