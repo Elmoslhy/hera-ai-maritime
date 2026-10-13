@@ -400,7 +400,7 @@ function Deck() {
           html, body { background: #09121F !important; height: auto !important; overflow: visible !important; }
           *:has(> .deck-root), *:has(.deck-root) { height: auto !important; overflow: visible !important; position: static !important; transform: none !important; }
           canvas.fixed, .fixed.pointer-events-none { display: none !important; }
-          body > *:not(:has(.deck-root)) { display: none !important; }
+          body > *:not(.deck-root):not(:has(.deck-root)) { display: none !important; }
           .deck-root { position: static !important; overflow: visible !important; }
           .deck-chrome { display: none !important; }
           .deck-slide { display: block !important; position: relative !important; transform: none !important; left: 0 !important; top: 0 !important; margin: 0 !important; break-after: page; page-break-after: always; }
