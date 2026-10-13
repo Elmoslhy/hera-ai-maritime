@@ -86,7 +86,7 @@ function OpsMap({ idx, stage }: { idx: number; stage: number }) {
           <line key={i} x1={sx} y1={sy} x2={ex} y2={ey} className="stroke-gold/60" strokeDasharray="3 6" strokeWidth="1" />
         ))}
         <circle cx={ex} cy={ey} r={4} className="fill-gold" />
-        <circle cx={ex} cy={ey} r={10} className="fill-none stroke-gold uc-pulse" strokeWidth="1" />
+        <motion.circle cx={ex} cy={ey} r={10} className="fill-none stroke-gold" strokeWidth="1" animate={stage >= 2 ? { r: [6, 22], opacity: [1, 0] } : {}} transition={{ duration: 1.8, repeat: Infinity }} />
         <Ship x={ax} y={ay} r={65} cls="fill-foreground/80" />
       </motion.g>
 

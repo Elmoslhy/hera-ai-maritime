@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
+import { UseCasesSection } from "@/components/seker/UseCases";
 import vessels from "@/assets/vessels.jpg";
 import { intelligenceHero as h, intelligenceSteps } from "@/content/intelligence";
 
@@ -92,7 +93,7 @@ function IntelligencePage() {
           </div>
         </section>
 
-        <section id="use-cases" className="scroll-mt-24 bg-navy-deep px-6 py-16">
+        <section className="bg-navy-deep px-6 py-16">
           <div className="mx-auto grid max-w-7xl grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             {intelligenceSteps.map((s, i) => (
               <Reveal key={s.n} delay={i * 0.06}>
@@ -108,6 +109,7 @@ function IntelligencePage() {
             ))}
           </div>
         </section>
+        <UseCasesSection />
       </main>
       <Footer />
     </div>
