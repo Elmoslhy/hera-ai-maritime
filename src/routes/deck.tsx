@@ -137,10 +137,10 @@ const SLIDES: { title: string; node: ReactNode }[] = [
         <Ocean dim="bg-navy/70" />
         <div className="absolute left-[38%] top-[60%] -translate-x-1/2 -translate-y-1/2">
           <img src={vesselTop} alt="" className="w-[460px]" />
-          <Brackets size={520} />
+          <Brackets size={500} />
           <p className="absolute -bottom-20 left-1/2 -translate-x-1/2 whitespace-nowrap rounded border border-gold/50 bg-navy/80 px-4 py-2 font-mono text-[20px] tracking-[0.2em] text-gold">LOCATED · TIR + RF FUSED</p>
         </div>
-        <div className="absolute right-[100px] top-[100px] w-[420px] [&_*]:!opacity-100">
+        <div className="absolute right-[100px] top-[100px] w-[560px] [&_*]:!opacity-100">
           <SensorImagers thermal={1} rf={1} fused={1} />
         </div>
         <Pad>
@@ -320,7 +320,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
             </div>
             <OpsMap idx={darkIdx} stage={4} />
           </div>
-          <div className="[&_li]:text-[20px] [&_p]:text-[18px]">
+          <div className="origin-top-left scale-[1.45]" style={{ width: 480 }}>
             <FindingCard uc={dark} />
           </div>
         </div>
@@ -397,7 +397,9 @@ function Deck() {
         @media (prefers-reduced-motion: reduce) { .deck-active .deck-inner { animation: none; } }
         @media print {
           @page { size: 1920px 1080px; margin: 0; }
-          html, body { background: #09121F !important; }
+          html, body { background: #09121F !important; height: auto !important; overflow: visible !important; }
+          *:has(> .deck-root), *:has(.deck-root) { height: auto !important; overflow: visible !important; position: static !important; transform: none !important; }
+          canvas.fixed, .fixed.pointer-events-none { display: none !important; }
           body > *:not(:has(.deck-root)) { display: none !important; }
           .deck-root { position: static !important; overflow: visible !important; }
           .deck-chrome { display: none !important; }
