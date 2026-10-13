@@ -88,7 +88,7 @@ function Defense({ s }: { s: number }) {
       </At>
       <At s={s} n={1}>
         <path d="M0 300 C250 270 500 330 940 270 L940 330 C500 390 250 330 0 360Z" fill={GOLD} fillOpacity={0.06} stroke={GOLD} strokeDasharray="8 8" strokeWidth={1.5} />
-        <Tag x={560} y={230} t="GEOLOCATION AND ALL-WEATHER PASS REQUESTED" />
+        <Tag x={40} y={540} t="GEOLOCATION AND ALL-WEATHER PASS REQUESTED" />
       </At>
       <At s={s} n={2}>
         <path d="M420 318 L470 338 L520 318 L570 340 L620 322" stroke={GREY} strokeWidth={2.5} strokeDasharray="8 7" fill="none" />
@@ -101,11 +101,11 @@ function Defense({ s }: { s: number }) {
       <At s={s} n={3}>
         <path d="M380 342 C500 350 600 340 760 318" stroke={RED} strokeWidth={4} strokeDasharray="12 8" fill="none" />
         <text x={560} y={372} fill={RED} fontSize={20} fontFamily="Space Mono, monospace">9 KM</text>
-        <Tag x={680} y={140} t="OWNER CHANGED TWO MONTHS AGO" tone={RED} anchor="middle" />
+        <Tag x={560} y={150} t="OWNER CHANGED TWO MONTHS AGO" tone={RED} />
       </At>
       <At s={s} n={4}>
         <Reticle x={620} y={322} />
-        <Tag x={660} y={500} t="CORRIDOR RISK 88/100" tone={RED} />
+        <Tag x={640} y={240} t="CORRIDOR RISK 88/100" tone={RED} />
       </At>
       <At s={s} n={5}>
         <path d="M820 0 C780 200 860 380 800 560" stroke={WHITE} strokeOpacity={0.6} strokeDasharray="10 8" strokeWidth={2} fill="none" />

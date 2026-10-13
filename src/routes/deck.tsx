@@ -373,7 +373,7 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
   return (
     <>
       <div className="deck-bg absolute inset-0 bg-navy-deep" />
-      <div className="deck-text absolute left-[100px] top-[70px]">
+      <div className="deck-text absolute left-[100px] top-[50px]">
         <Eyebrow>Who we serve</Eyebrow>
         <h2 className="mt-4 text-[72px] font-light leading-[1.02] tracking-tight text-foreground">Five industries,<br /><span className="text-gold">one verified picture.</span></h2>
       </div>
@@ -405,25 +405,22 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
           </div>
         </div>
       </div>
-      <div className="deck-text absolute right-[100px] top-[335px] w-[620px] space-y-4" onClick={stop}>
+      <div className="deck-text absolute right-[100px] top-[335px] w-[620px] space-y-3" onClick={stop}>
         <p className="font-mono text-[16px] tracking-[0.2em] text-muted-foreground">{uc.audience.toUpperCase()}</p>
         <h3 className="-mt-3 text-[40px] font-light leading-tight text-foreground">{uc.question}</h3>
         <div>
           <p className="font-mono text-[20px] tracking-[0.2em] text-gold">0{stage + 1} · {STAGE_NAMES[stage].toUpperCase()}</p>
           <p className="mt-2 text-[30px] font-light leading-snug text-foreground/85">{uc.stages[stage].text}</p>
         </div>
-        <div className="rounded-lg border border-white/10 bg-navy/70 p-5">
+        <div className="rounded-lg border border-white/10 bg-navy/70 px-5 py-4">
             <p className="font-mono text-[15px] tracking-[0.2em] text-muted-foreground">SENSORS IN USE</p>
-            <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
-              {sensors.map((x) => {
-                const on = lit.has(x.id);
-                return (
-                  <li key={x.id} className={`flex items-center gap-3 font-mono text-[15px] tracking-[0.08em] ${on ? "text-foreground" : "text-muted-foreground/60"}`}>
-                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${on ? "bg-cyan shadow-[0_0_8px_var(--color-cyan)]" : "bg-white/15"}`} />
-                    {(SERVE[ind].slug === "fisheries" && x.id === "reg" ? "Registries, RFMO and IUU lists" : x.label).toUpperCase()}
-                  </li>
-                );
-              })}
+            <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+              {sensors.filter((x) => lit.has(x.id)).map((x) => (
+                <li key={x.id} className="flex items-center gap-2.5 font-mono text-[15px] tracking-[0.08em] text-foreground">
+                  <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-cyan shadow-[0_0_8px_var(--color-cyan)]" />
+                  {(SERVE[ind].slug === "fisheries" && x.id === "reg" ? "Registries, RFMO and IUU lists" : x.label).toUpperCase()}
+                </li>
+              ))}
             </ul>
           </div>
         {stage >= 4 && <FindingCard uc={uc} />}
