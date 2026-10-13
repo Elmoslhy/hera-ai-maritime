@@ -3,7 +3,7 @@ import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
 import { UseCasesSection } from "@/components/seker/UseCases";
 import { getIndustry } from "@/content/industries";
-import { cargoClaimCase, closingCta, originCase, preArrivalCase, useCases } from "@/content/intelligence";
+import { cargoClaimCase, closingCta, originCase, preArrivalCase, transshipmentCase, useCases } from "@/content/intelligence";
 import { DeliverablesSection, MissionsSection, RolesSection, SignatureSection } from "@/components/seker/IndustrySections";
 
 const allCases = [...useCases, cargoClaimCase, originCase, preArrivalCase, transshipmentCase];
