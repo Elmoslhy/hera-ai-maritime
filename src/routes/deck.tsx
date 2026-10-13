@@ -542,15 +542,15 @@ function Deck() {
       {SLIDES.map((s, k) => {
         const style = { width: W, height: H, left: "50%", top: "50%", marginLeft: -W / 2, marginTop: -H / 2, transform: `scale(${scale})` };
         if (k !== WHO) return (
-          <div key={k} aria-hidden={k !== i} className={`deck-slide absolute overflow-hidden bg-navy-deep ${k === i ? "deck-active" : "hidden"}`} style={style}>{s.node}</div>
+          <div key={k} aria-hidden={k !== i} className={`deck-slide absolute overflow-clip bg-navy-deep ${k === i ? "deck-active" : "hidden"}`} style={style}>{s.node}</div>
         );
         return (
           <div key={k} className="contents">
-            <div aria-hidden={k !== i} className={`deck-slide deck-screen-only absolute overflow-hidden bg-navy-deep ${k === i ? "deck-active" : "hidden"}`} style={style}>
+            <div aria-hidden={k !== i} className={`deck-slide deck-screen-only absolute overflow-clip bg-navy-deep ${k === i ? "deck-active" : "hidden"}`} style={style}>
               <ServeSlide ind={ind} onInd={setInd} active={k === i} />
             </div>
             {SERVE.map((x, j) => (
-              <div key={x.slug} aria-hidden className="deck-slide deck-print-only absolute hidden overflow-hidden bg-navy-deep" style={style}>
+              <div key={x.slug} aria-hidden className="deck-slide deck-print-only absolute hidden overflow-clip bg-navy-deep" style={style}>
                 <ServeSlide ind={j} active={false} frozen />
               </div>
             ))}
