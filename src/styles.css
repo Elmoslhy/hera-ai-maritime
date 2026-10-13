@@ -245,6 +245,6 @@
   .vessel-tracks .vt-dot { display: none; }
 }
 
-@media (any-pointer: coarse) and (any-pointer: none) {
+@media (any-pointer: coarse) and (hover: none) {
   .pointer-trail { display: none; }
 }
