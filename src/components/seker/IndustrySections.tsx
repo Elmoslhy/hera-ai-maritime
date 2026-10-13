@@ -36,7 +36,7 @@ export function SignatureSection({ sig }: { sig: R["signature"] }) {
   return <Lifecycle sig={sig} />;
 }
 
-type Origin = Extract<R["signature"], { kind: "origin" } | { kind: "cable" }>;
+type Origin = Extract<R["signature"], { kind: "origin" }>;
 
 const chip = { cyan: "border-cyan/50 text-cyan", amber: "border-amber/60 text-amber", alert: "border-alert/60 text-alert" };
 
