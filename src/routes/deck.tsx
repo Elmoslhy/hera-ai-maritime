@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Satellite, Orbit, Drone, ChevronLeft, ChevronRight } from "lucide-react";
-import { HeroScene, HeroHud } from "@/components/seker/HeroScene";
+import { HeroHud } from "@/components/seker/HeroScene";
 import { IntelPanel } from "@/components/seker/IntelPanel";
 import { SekerLogo } from "@/components/seker/Logo";
 import { SensorImagers } from "@/components/seker/SensorImagers";
@@ -117,9 +117,14 @@ function TitleCentre() {
 }
 function GlobeScene() {
   return (
-    <div className="deck-bg absolute inset-0">
-      <div className="absolute inset-0 bg-navy-deep" />
-      <HeroScene />
+    <div className="deck-bg absolute inset-0 bg-navy-deep">
+      <Stars />
+      <img src={globe} alt="" className="absolute left-1/2 top-1/2 w-[820px] -translate-x-1/2 -translate-y-1/2 opacity-80 drop-shadow-[0_0_120px_rgba(77,217,192,0.25)]" />
+      <svg viewBox="0 0 1920 1080" className="absolute inset-0 h-full w-full" aria-hidden>
+        <ellipse cx="960" cy="540" rx="640" ry="190" transform="rotate(-14 960 540)" fill="none" stroke="#4dd9c0" strokeWidth="1.5" strokeDasharray="8 10" opacity="0.5" />
+        <ellipse cx="960" cy="540" rx="600" ry="260" transform="rotate(22 960 540)" fill="none" stroke="#c9a84c" strokeWidth="1.2" strokeDasharray="4 12" opacity="0.45" />
+      </svg>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(9,18,31,0.55),rgba(9,18,31,0.2)_60%)]" />
     </div>
   );
 }
@@ -136,7 +141,8 @@ const SLIDES: { title: string; node: ReactNode }[] = [
     node: (
       <>
         <GlobeScene />
-        <div className="deck-text absolute inset-0 z-10 [&_.lg\:block]:!block"><IntelPanel /><HeroHud /></div>
+        <div className="deck-text absolute left-[50px] top-[250px] z-10 h-[500px] w-[268px] origin-top-left scale-[1.35] [&>*]:!left-0 [&>*]:!right-auto [&>*]:!top-0 [&>*]:!translate-y-0 [&>*]:!block"><IntelPanel /></div>
+        <div className="deck-text absolute right-[50px] top-[250px] z-10 h-[500px] w-[286px] origin-top-right scale-[1.35] [&>*]:!left-0 [&>*]:!right-auto [&>*]:!top-0 [&>*]:!translate-y-0 [&>*]:!block"><HeroHud /></div>
         <TitleCentre />
       </>
     ),
