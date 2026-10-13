@@ -1,0 +1,16 @@
+.walkthrough-film { container-type: inline-size; }
+.walkthrough-film-deck { height: 560px; }
+.wf-scene { position: absolute; inset: 0; opacity: 0; transition: opacity 600ms ease; }
+.wf-visible { opacity: 1; }
+.wf-chip { font-size: 10px; line-height: 1.5; overflow-wrap: anywhere; }
+.walkthrough-film-deck .wf-chip { font-size: 20px; }
+.walkthrough-film[data-moving="true"] .wf-vessels { animation: wf-zoom 24s ease-out both; }
+.walkthrough-film[data-moving="true"] .wf-satellite { animation: wf-drift 14s ease-in-out infinite alternate; }
+.walkthrough-film[data-moving="true"] .wf-pulse { animation: wf-pulse 3s ease-out infinite; }
+.walkthrough-film[data-moving="false"] * { animation-play-state: paused; }
+.wf-glow { filter: drop-shadow(0 0 18px var(--color-gold)); }
+@keyframes wf-zoom { from { transform: scale(1); } to { transform: scale(1.15); } }
+@keyframes wf-drift { from { transform: translate(-14%, 4%) rotate(-3deg); } to { transform: translate(14%, -4%) rotate(3deg); } }
+@keyframes wf-pulse { from { transform: scale(.7); opacity: .4; } to { transform: scale(1.4); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .walkthrough-film *, .wf-scene { animation: none !important; transition: none !important; } }
+@media print { .walkthrough-toggle, .wf-video { display: none !important; } .walkthrough-film *, .wf-scene { animation: none !important; transition: none !important; } }
