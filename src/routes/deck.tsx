@@ -141,8 +141,8 @@ const SLIDES: { title: string; node: ReactNode }[] = [
     node: (
       <>
         <GlobeScene />
-        <div className="deck-text absolute left-[70px] top-[300px] z-10 h-[500px] w-[268px] origin-top-left scale-[1.6] [&>*]:!left-0 [&>*]:!right-auto [&>*]:!top-0 [&>*]:!translate-y-0 [&>*]:!block"><IntelPanel /></div>
-        <div className="deck-text absolute right-[70px] top-[300px] z-10 h-[500px] w-[286px] origin-top-right scale-[1.6] [&>*]:!left-0 [&>*]:!right-auto [&>*]:!top-0 [&>*]:!translate-y-0 [&>*]:!block"><HeroHud /></div>
+        <div className="deck-text absolute left-[50px] top-[250px] z-10 h-[500px] w-[268px] origin-top-left scale-[1.35] [&>*]:!left-0 [&>*]:!right-auto [&>*]:!top-0 [&>*]:!translate-y-0 [&>*]:!block"><IntelPanel /></div>
+        <div className="deck-text absolute right-[50px] top-[250px] z-10 h-[500px] w-[286px] origin-top-right scale-[1.35] [&>*]:!left-0 [&>*]:!right-auto [&>*]:!top-0 [&>*]:!translate-y-0 [&>*]:!block"><HeroHud /></div>
         <TitleCentre />
       </>
     ),
