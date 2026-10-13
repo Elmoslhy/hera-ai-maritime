@@ -32,12 +32,15 @@ function Brackets() {
 function Tile({ grey, title, conf }: { grey?: boolean; title: string; conf: string }) {
   return (
     <div className="relative aspect-square overflow-hidden rounded border border-white/10">
-      <img
-        src={vessels}
-        alt=""
-        loading="lazy"
-        className="absolute inset-0 h-full w-full scale-[3] object-cover"
-        style={{ objectPosition: "38% 55%", filter: grey ? "grayscale(1) contrast(1.4) brightness(0.8)" : undefined }}
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `url(${vessels})`,
+          backgroundSize: "560% auto",
+          backgroundPosition: "52.3% 52.5%",
+          filter: grey ? "grayscale(1) contrast(1.6) brightness(1.6)" : "brightness(1.8) saturate(1.1)",
+        }}
       />
       {grey && (
         <svg className="absolute inset-0 h-full w-full mix-blend-overlay opacity-70" aria-hidden>
