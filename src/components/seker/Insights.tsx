@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { CountUp, Reveal } from "./primitives";
@@ -30,7 +31,7 @@ type Industry = {
 const INDUSTRIES: Industry[] = [
   {
     id: "defence",
-    name: "Defence & Coast Guard",
+    name: "Defense and coast guard",
     blurb:
       "Know which hull is in your waters before it reaches them — even with the transponder off.",
     metrics: [
@@ -57,7 +58,7 @@ const INDUSTRIES: Industry[] = [
         headline: "Tanker went dark 31 NM off the coast",
         detail:
           "AIS stopped at 04:12Z. Thermal bloom and RF emissions still track the same hull heading 118°.",
-        action: "Dispatch patrol — intercept window 38 minutes.",
+        action: "Patrol intercept window: 38 minutes.",
         confidence: 97,
       },
       {
@@ -65,7 +66,7 @@ const INDUSTRIES: Industry[] = [
         tone: "gold",
         headline: "Three hulls broadcasting the same identity",
         detail:
-          "Identical MMSI reported from positions 400 NM apart. Two are synthetic.",
+          "Identical MMSI reported from positions 400 NM apart. Two of the three tracks are likely synthetic.",
         action: "Flag the fake tracks before they enter your picture.",
         confidence: 99,
       },
@@ -81,7 +82,7 @@ const INDUSTRIES: Industry[] = [
   },
   {
     id: "insurance",
-    name: "Insurance & P&I",
+    name: "Insurance and P&I",
     blurb:
       "Price the risk you can prove. Every claim backed by a tamper-proof position history.",
     metrics: [
@@ -131,7 +132,7 @@ const INDUSTRIES: Industry[] = [
   },
   {
     id: "trading",
-    name: "Commodity Trading",
+    name: "Commodity trading",
     blurb:
       "See the cargo move before the market does. Real flows, not filed paperwork.",
     metrics: [
@@ -180,7 +181,7 @@ const INDUSTRIES: Industry[] = [
   },
   {
     id: "ports",
-    name: "Ports & Authorities",
+    name: "Ports and maritime authorities",
     blurb: "Plan the berth around what is actually arriving, hour by hour.",
     metrics: [
       { label: "Arrival ETA accuracy", to: 94.7, suffix: "%", decimals: 1 },
@@ -228,7 +229,7 @@ const INDUSTRIES: Industry[] = [
   },
   {
     id: "environment",
-    name: "Fisheries & Environment",
+    name: "Fisheries and environment",
     blurb:
       "Catch the activity that hides from the register — inside protected water.",
     metrics: [
@@ -494,6 +495,8 @@ function Gauge({ gauge }: { gauge: Industry["chart"]["gauge"] }) {
   );
 }
 
+const SLUGS: Record<string, string> = { defence: "defense", insurance: "insurance", trading: "commodity-trading", ports: "ports", environment: "fisheries" };
+
 export function InsightsSection() {
   const [active, setActive] = useState(INDUSTRIES[0].id);
   const industry = INDUSTRIES.find((i) => i.id === active)!;
@@ -625,7 +628,7 @@ export function InsightsSection() {
 
                     <div className="mt-5 border-t border-white/8 pt-4">
                       <p className="font-mono text-[8px] tracking-[0.22em] text-muted-foreground/70">
-                        ACTION
+                        SUGGESTED NEXT STEP
                       </p>
                       <p className="text-pretty mt-2 text-sm leading-relaxed text-foreground">
                         {ins.action}
@@ -643,6 +646,15 @@ export function InsightsSection() {
                   </motion.article>
                 );
               })}
+            </div>
+            <div className="mt-8 text-center">
+              <Link
+                to="/industries/$slug"
+                params={{ slug: SLUGS[industry.id] ?? "defense" }}
+                className="font-mono text-xs tracking-[0.2em] text-gold transition-colors hover:text-foreground"
+              >
+                Explore {industry.name} →
+              </Link>
             </div>
           </motion.div>
         </AnimatePresence>

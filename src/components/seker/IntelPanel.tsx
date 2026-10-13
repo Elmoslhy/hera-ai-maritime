@@ -125,7 +125,7 @@ type Industry = {
 
 const INDUSTRIES: Industry[] = [
   {
-    key: "DEFENCE",
+    key: "DEFENSE",
     metric: "+38%",
     metricLabel: "DARK ACTIVITY FLAGGED",
     insight: "Sanctioned transfers surfaced before port arrival.",
@@ -156,7 +156,7 @@ const INDUSTRIES: Industry[] = [
     key: "ENVIRONMENT",
     metric: "412",
     metricLabel: "ANOMALIES · 30 DAYS",
-    insight: "Illegal discharge and IUU fishing attributed to a hull.",
+    insight: "Discharge and fishing indicators linked to a hull.",
     bars: [["Detection", 90], ["Attribution", 86], ["Evidence pack", 69]],
   },
 ];

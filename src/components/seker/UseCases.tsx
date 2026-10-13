@@ -132,7 +132,7 @@ function FindingCard({ uc }: { uc: UseCase }) {
         ))}
       </ul>
       <p className="mt-4 border-t border-white/10 pt-4 font-mono text-xs tracking-[0.12em] text-cyan">
-        ACTION · <span className="font-sans tracking-normal text-foreground">{uc.action}</span>
+        SUGGESTED NEXT STEP · <span className="font-sans tracking-normal text-foreground">{uc.action}</span>
       </p>
     </div>
   );

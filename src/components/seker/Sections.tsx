@@ -152,11 +152,11 @@ const ALERTS = [
   },
   {
     head: "$100B+ annual sanctions evasion",
-    body: "Enforcement agencies have unlimited appetite for verified maritime intelligence. No adequate tool exists.",
+    body: "Enforcement needs intelligence that does not depend on what a vessel chooses to report.",
   },
   {
-    head: "Zero EU sovereign providers",
-    body: "At any scale, in any jurisdiction, today.",
+    head: "Independent verification, built in Europe.",
+    body: "HERA AI adds measured evidence to the tools you already use.",
   },
 ];
 
@@ -180,7 +180,7 @@ export function ProblemSection() {
                 76% of all EU trade by weight moves by sea — yet a growing shadow fleet of over
                 3,300 vessels operates outside the system, moving billions in sanctioned cargo
                 through AIS manipulation, GPS jamming, and identity fraud. The intelligence layer
-                meant to stop this is fragmented, foreign-controlled, and failing.
+                meant to stop this still relies on what vessels choose to broadcast.
               </p>
               <cite className="mt-4 block font-mono text-[10px] not-italic tracking-[0.18em] text-muted-foreground/70">
                 EUROSTAT 2024 · ANU/CEPR 2025 · WINDWARD Q3 2025
@@ -193,7 +193,7 @@ export function ProblemSection() {
                 <div className="flex gap-4">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-alert" />
                   <p className="font-mono text-[11px] leading-relaxed tracking-[0.06em] text-muted-foreground">
-                    <span className="text-foreground">{a.head}</span> — {a.body}
+                    <span className="text-foreground">{a.head}</span> {a.body}
                   </p>
                 </div>
               </Reveal>
@@ -205,7 +205,7 @@ export function ProblemSection() {
           <StatBlock value={<CountUp to={54} prefix="$" suffix="B" className="font-mono text-4xl text-gold" />} label="Global MDA market by 2030" />
           <StatBlock value={<CountUp to={18} suffix="%" className="font-mono text-4xl text-cyan" />} label="Sector CAGR 2024–2030" />
           <StatBlock value={<CountUp to={3} prefix="×" className="font-mono text-4xl text-alert" />} label="YoY growth in AIS spoofing" />
-          <StatBlock value={<span className="font-mono text-4xl text-foreground">Zero</span>} label="EU sovereign providers today" />
+          <StatBlock value={<span className="font-mono text-4xl text-foreground">LU</span>} label="Built in Luxembourg, EU" />
         </div>
       </div>
     </section>
