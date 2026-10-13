@@ -157,16 +157,18 @@ function recordJson(uc: UseCase) {
 
 export function UseCasesSection({
   ids,
+  cases,
   sectionId = "use-cases",
   eyebrow = s.eyebrow,
   headline = s.headline,
 }: {
   ids?: string[];
+  cases?: UseCase[];
   sectionId?: string;
   eyebrow?: string;
   headline?: readonly string[];
 } = {}) {
-  const list = ids ? useCases.filter((c) => ids.includes(c.id)) : useCases;
+  const list = cases ? cases : ids ? useCases.filter((c) => ids.includes(c.id)) : useCases;
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.3 });
@@ -174,7 +176,7 @@ export function UseCasesSection({
   const [stage, setStage] = useState(0);
   const [playing, setPlaying] = useState(true);
   const uc = list[idx];
-  const geoIdx = useCases.indexOf(uc);
+  const geoIdx = uc.geo ?? useCases.indexOf(uc);
   const running = playing && inView && !reduce;
 
   useEffect(() => {

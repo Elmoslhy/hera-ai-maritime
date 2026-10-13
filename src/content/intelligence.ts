@@ -41,6 +41,7 @@ export const useCasesSection = {
 };
 
 export type UseCase = {
+  geo?: number;
   id: string;
   tag: string;
   question: string;
@@ -278,4 +279,23 @@ export const deliveryCards = [
 export const closingCta = {
   headline: ["Bring us the question", "you cannot answer today."],
   button: "DISCUSS YOUR USE CASE",
+};
+
+export const cargoClaimCase: UseCase = {
+  id: "cargo-claim",
+  geo: 2,
+  tag: "CARGO CLAIM",
+  question: "Did the weather really damage this cargo?",
+  audience: "Claims teams, cargo underwriters, P&I clubs",
+  stages: [
+    { text: "A cargo owner claims heavy-weather damage on a voyage last March. The vessel's log reports a severe storm on day six.", sensors: ["reg"] },
+    { text: "HERA AI rebuilds the voyage from stored positions, draught reports and port calls, and pulls sea state for every hour of the route.", sensors: ["ais", "sea", "reg"] },
+    { text: "Sea state on day six peaked at 3.1 m, well below the storm described in the log. The vessel held 13 knots throughout.", sensors: ["sea", "ais"] },
+    { text: "The track shows an unreported 19-hour stop at an anchorage, and the draught fell by 0.6 m during that stop.", sensors: ["ais", "geo"] },
+    { text: "Voyage inconsistency indicator, 77 of 100: weather below the reported severity, an undeclared stop and an unexplained draught change.", sensors: ["ais", "sea", "reg"] },
+    { text: "The reconstruction, with every source and time stamp, reaches the claims handler before the adjuster is appointed.", sensors: ["reg"] },
+  ],
+  finding: { tone: "amber", label: "VOYAGE INCONSISTENCY INDICATOR", score: 77, indicators: ["Sea state on day six peaked at 3.1 m", "Vessel held 13 knots throughout", "Unreported 19-hour stop at an anchorage", "Draught fell by 0.6 m during the stop"] },
+  action: "Instruct a surveyor and request the deck log for the stop.",
+  record: { type: "voyage_inconsistency", evidence: ["sea_state_peak_3.1m", "speed_13kn", "undeclared_stop_19h", "draught_change_0.6m"], sources: ["AIS", "Sea state", "Registry"] },
 };
