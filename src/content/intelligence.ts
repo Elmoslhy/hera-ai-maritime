@@ -219,3 +219,63 @@ export const askExamples = [
 ];
 
 export const askFallback = "In this preview HERA AI answers the example questions. Book a session to put your own question to it.";
+
+export const taskingSection = {
+  pill: "ON OUR ROADMAP",
+  eyebrow: "Tasking and follow",
+  headline: ["Task a satellite.", "Follow the vessel."],
+  body: "Clients will be able to put a vessel under watch and task collection on it directly from HERA AI. HERA AI picks the source that answers the question soonest, then hands custody from one collection to the next as the vessel moves.",
+  cards: [
+    { title: "Our own payload", text: "Seker's own sensors in orbit, designed around the maritime question: where a vessel really is and what it is doing after dark." },
+    { title: "Partner constellations", text: "On-demand imaging from commercial constellations, requested, scheduled and checked through HERA AI." },
+    { title: "Close-range drone", text: "For the last mile, a drone approaches the vessel to document its name, draught marks and deck activity, where regulations permit." },
+  ],
+  consoleTitle: "WATCH · VESSEL A · AFTER DARK TRANSFER ALERT",
+  nightHours: 5.5,
+  cloud: [90, 85, 60, 30],
+  nextTitle: "NEXT PASSES OVER VESSEL A",
+};
+
+export type PassStatus = "selected" | "standby" | "rejected";
+export type Pass = { id: string; start: number; end?: number; status: PassStatus; reason: string };
+
+export const taskingLanes: { name: string; passes: Pass[] }[] = [
+  {
+    name: "Seker payload",
+    passes: [
+      { id: "p08", start: 0.8, status: "selected", reason: "First look. Listening for transmissions narrows an 18 nm search area to 2 km, and heat sensing confirms activity in the dark." },
+      { id: "p69", start: 6.9, status: "standby", reason: "Held in reserve to keep custody if the vessel moves before imaging." },
+    ],
+  },
+  {
+    name: "Partner all-weather imaging",
+    passes: [
+      { id: "p22", start: 2.2, status: "selected", reason: "Earliest pass that sees through cloud and darkness, covering the narrowed area." },
+      { id: "p91", start: 9.1, status: "standby", reason: "Seven hours later than needed. Kept as backup." },
+    ],
+  },
+  {
+    name: "Partner high-res imaging",
+    passes: [
+      { id: "p36", start: 3.6, status: "rejected", reason: "Night and 85% cloud. The image would show nothing." },
+      { id: "p103", start: 10.3, status: "selected", reason: "Daylight and 30% cloud. Confirms hull form and transfer equipment for the evidence pack." },
+    ],
+  },
+  {
+    name: "Close-range drone",
+    passes: [
+      { id: "d109", start: 10.9, end: 11.8, status: "selected", reason: "Vessel A comes within range of a coastal drone base on its way to port. Close-range imagery of the hull name, draught marks and deck activity." },
+    ],
+  },
+];
+
+export const deliveryCards = [
+  { title: "API", text: "Every finding as a structured record keyed on IMO number, with sources, method version and confidence." },
+  { title: "Alerts", text: "Signed notifications when a watched vessel crosses a threshold you set." },
+  { title: "Evidence packs", text: "The full chain from first signal to final score, written for a case file, an underwriting decision or a regulator." },
+];
+
+export const closingCta = {
+  headline: ["Bring us the question", "you cannot answer today."],
+  button: "DISCUSS YOUR USE CASE",
+};
