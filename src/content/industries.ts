@@ -33,6 +33,7 @@ export type Industry = {
     signatureFirst?: boolean;
     signatureAfterMissions?: boolean;
     reach?: { title: string; text: string };
+    afterDeliverables?: { title: string; text: string };
   };
 };
 
@@ -126,14 +127,23 @@ export const industries: Industry[] = [
     description: "Underwrite on what a vessel actually did.",
     eyebrow: "Insurance and P&I",
     headline: ["Know the vessel", "behind the policy."],
-    body: "HERA AI follows every insured vessel from bind to claim: where it really went, who it met, how it was loaded and whether it stayed inside its warranties.",
+    body: "HERA AI screens your insured fleet at bind, watches it during cover and rebuilds the voyage at claim. It adds independent observation to the vessel data you already buy.",
     heroImage: network,
     statement: { title: "Underwrite on evidence.", body: "Declarations tell you what a vessel says it did. HERA AI tells you what it was observed doing, with the source behind every finding." },
     capabilities: [{ title: "Load line and draught checks", text: "Draught against the permitted mark for zone and season." }, { title: "Sanctions exposure", text: "Encounters with listed vessels, direct or one hop away." }, { title: "Identity and flag history", text: "Name, flag and owner changes over time." }, { title: "Inspection record", text: "Port state control findings linked to each vessel." }, { title: "Fleet screening", text: "Every insured vessel screened daily." }, { title: "Claims evidence packs", text: "The full chain behind a finding, ready for a dispute." }],
     blocks: [{ label: "THE QUESTION", title: "Is this risk what the proposal says it is?", text: "Sanctions exposure, unsafe loading and identity games can sit behind declarations that look clean.", bullets: ["Encounters with listed vessels.", "Loading beyond the mark for the route.", "Repeated changes of flag and name."], image: vessels, alt: "Vessels at sea seen from orbit" }, { label: "HOW HERA AI ANSWERS", title: "Behaviour, scored and sourced", text: "HERA AI screens the fleet you insure and scores indicators with their evidence, so underwriting and claims teams see why, not only what.", bullets: ["Load line status per zone and season.", "Draught integrity checked before any warning.", "Missing data shown as not verified, never as compliant."], image: network, alt: "Satellite network above the Earth" }, { label: "HOW IT REACHES YOU", title: "Inside the underwriting workflow", text: "Results arrive where your teams already work.", bullets: ["Fleet screening by API.", "Alerts on watched vessels.", "Evidence packs for claims."], image: heraUi, alt: "HERA AI platform interface" }],
     useCaseIds: ["cargo-claim", "load-line"],
     roadmapNote: "Task imaging on an insured vessel the moment an alert fires, so the file is complete before anyone asks.",
+    closing: {
+      headline: ["Test us", "on your own book."],
+      body: "Send a list of expired risks. We return the voyages that carried indicators, each with its sources.",
+      button: "REQUEST A BOOK BACKTEST",
+    },
     rebuild: {
+      afterDeliverables: {
+        title: "Evidence that stands up",
+        text: "Every indicator keeps the raw signal, its source, the method version and a time stamp, so a finding can be reproduced for a claims file, an arbitration or your reinsurers.",
+      },
       roles: [
         { role: "Underwriter", question: "Should we write this risk, and at what rate?" },
         { role: "Sanctions compliance", question: "Has this voyage exposed us to a listed party?" },
@@ -143,21 +153,22 @@ export const industries: Industry[] = [
       signature: {
         title: "Policy lifecycle",
         stages: [
-          { key: "AT BIND", title: "Vessel risk report", items: [{ label: "Identity", value: "Verified" }, { label: "Flag changes", value: "3 in 5 years" }, { label: "Detentions", value: "2 in 36 months" }, { label: "Encounter network score", value: "41" }] },
-          { key: "DURING COVER", title: "Live alerts", items: [{ label: "Entered listed area", value: "Observed position, not broadcast" }, { label: "Dark period", value: "11 h" }, { label: "Encounter", value: "Vessel one hop from a listed party" }] },
+          { key: "AT BIND", title: "Vessel risk report", items: [{ label: "Identity", value: "Verified" }, { label: "Flag changes", value: "3 in 5 years" }, { label: "Detentions", value: "2 in 36 months" }, { label: "Encounter network score", value: "41 of 100" }] },
+          { key: "DURING COVER", title: "Live alerts", items: [{ label: "Entered listed area", value: "Observed position, not broadcast · GEOLOCATED" }, { label: "Dark period", value: "11 h · BROADCAST" }, { label: "Encounter", value: "Vessel one hop from a listed party · IMAGED" }] },
           { key: "AT CLAIM", title: "Voyage reconstruction", items: [{ label: "Route", value: "Rebuilt from stored positions" }, { label: "Speed", value: "By hour" }, { label: "Sea state", value: "By hour" }, { label: "Port calls", value: "Listed" }, { label: "Draught changes", value: "Listed" }] },
         ],
       },
       missions: [
-        { title: "Warranties and listed areas", need: "Know when an insured vessel enters a listed or excluded area, even with its transponder off.", hera: "Checks trading limits and listed areas against observed position, not only broadcast position.", deliverable: "Breach Notice" },
+        { title: "Listed areas and warranties", need: "Know when an insured vessel enters a Joint War Committee listed area or breaks its trading limits, even with its transponder off.", hera: "Records entry and exit times against current listed areas and your warranties, each marked as broadcast, geolocated or imaged.", deliverable: "Listed Area Entry Report" },
         { title: "Sanctions across the voyage", need: "Screen the whole voyage, not only the vessel at bind.", hera: "Checks every encounter, port call and dark period against listed vessels and terminals.", deliverable: "Voyage Sanctions Check" },
         { title: "Claims reconstruction", need: "Test a claim against what the vessel actually did.", hera: "Rebuilds route, speed, sea state, port calls and draught for any period you name.", deliverable: "Voyage Reconstruction" },
-        { title: "Accumulation", need: "See how many insured hulls sit in one port or one storm track.", hera: "Counts your insured fleet by zone in near real time, including vessels not broadcasting.", deliverable: "Exposure Board" },
+        { title: "Price cap and sanctions clauses", need: "Support attestations and sanctions clauses with evidence.", hera: "Tracks changes of owner, manager, flag and P&I entry, and flags ship-to-ship transfers and AIS gaps against the official red-flag guidance.", deliverable: "Sanctions Evidence File" },
+        { title: "Accumulation", need: "See how many insured hulls sit in one port or one storm track.", hera: "Upload your schedule and HERA AI totals your sum insured by port, storm track or listed area, including vessels not broadcasting.", deliverable: "Exposure Board" },
       ],
       deliverables: [
         { name: "Vessel Risk Report", cadence: "At bind, PDF and API" },
-        { name: "Breach Notice", cadence: "Real time" },
-        { name: "Voyage Sanctions Check", cadence: "Per voyage" },
+        { name: "Listed Area Entry Report", cadence: "Within minutes from broadcast, or at the next pass when the vessel is dark" },
+        { name: "Sanctions Evidence File", cadence: "Per voyage" },
         { name: "Voyage Reconstruction", cadence: "On request" },
         { name: "Exposure Board", cadence: "Live" },
       ],
