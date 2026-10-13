@@ -3,7 +3,10 @@ import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
 import { UseCasesSection } from "@/components/seker/UseCases";
 import { getIndustry } from "@/content/industries";
-import { closingCta } from "@/content/intelligence";
+import { cargoClaimCase, closingCta, useCases } from "@/content/intelligence";
+import { DeliverablesSection, MissionsSection, RolesSection, SignatureSection } from "@/components/seker/IndustrySections";
+
+const allCases = [...useCases, cargoClaimCase];
 
 const gold = "border border-gold/60 bg-gold/90 px-6 py-3 font-mono text-xs tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold";
 const outline = "border border-gold/60 px-6 py-3 font-mono text-xs tracking-[0.22em] text-gold transition-colors hover:bg-gold/10";
@@ -81,6 +84,21 @@ function IndustryPage() {
           </div>
         </section>
 
+        {i.rebuild ? (
+          <>
+            <RolesSection roles={i.rebuild.roles} />
+            <SignatureSection sig={i.rebuild.signature} />
+            <MissionsSection missions={i.rebuild.missions} />
+            <UseCasesSection
+              cases={i.useCaseIds.map((id) => allCases.find((c) => c.id === id)!).filter(Boolean)}
+              sectionId="see-it-work"
+              eyebrow="See it work"
+              headline={["Mission walkthroughs,", "step by step."]}
+            />
+            <DeliverablesSection items={i.rebuild.deliverables} />
+          </>
+        ) : (
+          <>
         <section className="bg-navy-deep px-6 py-28 text-center">
           <Reveal>
             <h2 className="text-balance mx-auto max-w-4xl text-3xl font-light tracking-tight text-foreground sm:text-5xl">
@@ -147,6 +165,8 @@ function IndustryPage() {
         </section>
 
         <UseCasesSection ids={i.useCaseIds} sectionId="see-it-work" eyebrow="See it work" headline={["Mission walkthroughs,", "step by step."]} />
+          </>
+        )}
 
         <section className="bg-navy-deep px-6 py-8">
           <Link
