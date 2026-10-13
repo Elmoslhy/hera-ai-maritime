@@ -468,7 +468,7 @@ function WindowChrome({ children }: { children: React.ReactNode }) {
 const FEATURES = [
   { title: "Multi-source fusion", body: "Every AIS stream cross-validated against SAR, thermal and optical imagery in real time." },
   { title: "Digital twin per vessel", body: "Identity, kinematics, behavioural baseline, anomaly history and risk — refreshed every 4.2 seconds." },
-  { title: "Blue Tick verification", body: "Spoofing corrected automatically. AIS gaps logged and context-scored. Low latency, everywhere." },
+  { title: "Blue Tick verification", body: "Spoofed positions flagged, with the raw broadcast kept as evidence. AIS gaps logged and context-scored. Low latency, everywhere." },
 ];
 
 export function DashboardSection() {
@@ -477,7 +477,9 @@ export function DashboardSection() {
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
           <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-            We don't hand you positions. <span className="text-gold">We hand you intelligence.</span>
+            Positions tell you where a vessel says it is.
+            <br />
+            <span className="text-gold">HERA AI tells you whether to believe it.</span>
           </h2>
         </Reveal>
 

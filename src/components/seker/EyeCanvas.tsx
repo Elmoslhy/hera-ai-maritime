@@ -60,13 +60,19 @@ export function EyeCanvas({ className }: { className?: string }) {
     let h = 0;
     let raf = 0;
     let start: number | null = null;
+    let visible = false;
+    let paused = 0;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const io = new IntersectionObserver(
       (entries) => {
-        if (entries.some((e) => e.isIntersecting) && start === null) start = performance.now();
+        const on = entries.some((e) => e.isIntersecting);
+        const now = performance.now();
+        if (on && !visible) start = now - paused * 1000;
+        if (!on && visible && start !== null) paused = (now - start) / 1000;
+        visible = on;
       },
-      { threshold: 0.25 },
+      { threshold: 0.05 },
     );
     io.observe(canvas);
 
@@ -374,6 +380,10 @@ export function EyeCanvas({ className }: { className?: string }) {
     };
 
     const frame = (now: number) => {
+      if (!visible && start !== null) {
+        raf = requestAnimationFrame(frame);
+        return;
+      }
       let t = start === null ? 0 : (now - start) / 1000;
       if (reduced) t = Math.max(t, 9);
       if (t > LOOP && start !== null) {
