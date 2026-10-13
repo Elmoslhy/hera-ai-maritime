@@ -494,6 +494,7 @@ function Deck() {
       tabIndex={0}
       onKeyDown={onKey}
       onMouseMove={poke}
+      onClickCapture={() => root.current?.focus()}
       onClick={(e) => {
         root.current?.focus();
         const r = root.current!.getBoundingClientRect();
