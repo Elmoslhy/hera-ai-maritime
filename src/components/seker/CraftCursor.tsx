@@ -20,7 +20,7 @@ export function CraftCursor() {
     const root = document.documentElement;
     let x = -100, y = -100, tx = -100, ty = -100;
     let heading = -Math.PI / 4, target = heading;
-    let visible = false, overControl = false, frame = 0, sea = 0;
+    let visible = false, overControl = false, frame = 0, sea = 0, reentry = 0;
 
     const enabled = () => !motion.matches && fine.matches;
     const sync = () => root.classList.toggle("craft-cursor-on", enabled());
