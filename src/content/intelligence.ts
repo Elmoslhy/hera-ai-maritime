@@ -18,3 +18,123 @@ export const intelligenceSteps = [
   { n: "05", title: "Assess", text: "Indicators are scored, each with its evidence." },
   { n: "06", title: "Deliver", text: "The finding reaches the client's system, team or case file." },
 ];
+
+export type SensorId = "ais" | "geo" | "sar" | "opt" | "tir" | "sea" | "reg";
+
+export const sensors: { id: SensorId; label: string }[] = [
+  { id: "ais", label: "Identity broadcast" },
+  { id: "geo", label: "Independent geolocation" },
+  { id: "sar", label: "All-weather imaging" },
+  { id: "opt", label: "High-resolution imaging" },
+  { id: "tir", label: "Heat and activity" },
+  { id: "sea", label: "Sea state" },
+  { id: "reg", label: "Registry and sanctions" },
+];
+
+export const useCasesSection = {
+  eyebrow: "Mission walkthroughs",
+  headline: ["Five investigations,", "step by step."],
+  sensorsTitle: "SENSORS IN USE",
+  receivesTitle: "What the client receives",
+  disclaimer:
+    "Scenarios are illustrative. Vessels, positions, times and scores are synthetic. They do not describe any client, vessel or operation.",
+};
+
+export type UseCase = {
+  id: string;
+  tag: string;
+  question: string;
+  audience: string;
+  stages: { text: string; sensors: SensorId[] }[];
+  finding: { tone: "alert" | "amber" | "cyan"; label: string; score: number; indicators: string[] };
+  action: string;
+  record: { type: string; evidence: string[]; sources: string[] };
+};
+
+export const useCases: UseCase[] = [
+  {
+    id: "dark-transfer",
+    tag: "DARK TRANSFER",
+    question: "Did two ships meet to move cargo while one was dark?",
+    audience: "Sanctions compliance, commodity analysts",
+    stages: [
+      { text: "Vessel A, a 183 m tanker, stops broadcasting near a known transfer area. Vessel B has loitered there for eleven hours.", sensors: ["ais"] },
+      { text: "HERA AI computes where Vessel A could have reached and plans collection over that area, ranked by revisit, weather and light.", sensors: ["ais", "sea"] },
+      { text: "A night pass through cloud finds two hulls 60 m apart. Independent geolocation places a radar emission on the same spot.", sensors: ["sar", "geo"] },
+      { text: "Hull lengths match the registered particulars of both vessels.", sensors: ["sar", "reg"] },
+      { text: "Dark transfer indicator, 82 of 100. Vessel B is one hop from a listed vessel.", sensors: ["reg", "geo", "sar"] },
+      { text: "Vessel A reappears nine hours later, 2.1 m deeper. One record reaches the client with its full evidence chain.", sensors: ["ais"] },
+    ],
+    finding: { tone: "alert", label: "DARK TRANSFER INDICATOR", score: 82, indicators: ["AIS gap of nine hours near a transfer area", "Two hulls 60 m apart at night", "Radar emission geolocated on the same spot", "Counterpart one hop from a listed vessel", "Draught 2.1 m deeper on reappearance"] },
+    action: "Hold the cargo for enhanced due diligence before settlement.",
+    record: { type: "dark_transfer", evidence: ["ais_gap_9h", "sar_two_hulls_60m", "rf_emitter_colocated", "registry_one_hop_listed", "draught_delta_2.1m"], sources: ["AIS", "SAR", "RF", "Registry"] },
+  },
+  {
+    id: "identity",
+    tag: "IDENTITY",
+    question: "Is this ship really where it says it is?",
+    audience: "Port authorities, insurers, sanctions screening",
+    stages: [
+      { text: "Vessel C reports three days at anchor. Its positions are unnaturally steady and its flag disagrees with the registry.", sensors: ["ais", "reg"] },
+      { text: "HERA AI requests independent geolocation instead of trusting the reported position.", sensors: ["geo"] },
+      { text: "The transmitter is measured 34 km south-west of the reported position. Imaging confirms a hull there.", sensors: ["geo", "sar"] },
+      { text: "No hull at the reported anchorage. The hull at sea matches Vessel C's length and beam.", sensors: ["opt", "sar", "reg"] },
+      { text: "Identity risk 74 of 100: position divergence, flag mismatch, three flag changes in eighteen months.", sensors: ["geo", "reg"] },
+      { text: "The screening result arrives 41 hours before the next port call.", sensors: ["reg"] },
+    ],
+    finding: { tone: "alert", label: "IDENTITY RISK", score: 74, indicators: ["Transmitter 34 km from reported position", "No hull at the reported anchorage", "Flag disagrees with the registry", "Three flag changes in eighteen months"] },
+    action: "Request documents before berth allocation.",
+    record: { type: "identity_risk", evidence: ["rf_position_divergence_34km", "imaging_no_hull_at_anchorage", "flag_mismatch", "flag_changes_3_in_18m"], sources: ["AIS", "RF", "SAR", "Optical", "Registry"] },
+  },
+  {
+    id: "load-line",
+    tag: "LOAD LINE",
+    question: "Is this ship loaded deeper than its route allows?",
+    audience: "P&I clubs, charterers, cargo underwriters",
+    stages: [
+      { text: "Vessel D leaves a loading terminal reporting 14.55 m draught, within its summer mark.", sensors: ["ais"] },
+      { text: "HERA AI projects the route against load line zones and seasons. It enters a winter area in three days.", sensors: ["ais", "reg"] },
+      { text: "Archive imaging confirms 31 hours alongside the loading terminal.", sensors: ["opt", "tir"] },
+      { text: "Draught integrity 91 of 100. Cargo estimated at about 104,000 t, within 4%.", sensors: ["opt", "ais", "reg"] },
+      { text: "The winter mark is 14.30 m. The vessel will be 0.25 m too deep for the zone it is entering.", sensors: ["reg", "ais"] },
+      { text: "The alert reaches the insurer three days before the crossing.", sensors: ["reg"] },
+    ],
+    finding: { tone: "amber", label: "LOAD LINE INDICATOR", score: 91, indicators: ["Reported draught 14.55 m", "Winter mark 14.30 m on the projected route", "31 hours alongside the loading terminal", "Cargo estimate about 104,000 t, within 4%"] },
+    action: "Ask the operator to confirm loading condition before the crossing.",
+    record: { type: "load_line_exceedance", evidence: ["draught_14.55m", "winter_mark_14.30m", "alongside_31h", "cargo_est_104000t"], sources: ["AIS", "Optical", "Thermal", "Registry"] },
+  },
+  {
+    id: "anchorage",
+    tag: "ANCHORAGE",
+    question: "How many ships are really waiting off this port?",
+    audience: "Commodity and freight analysts",
+    stages: [
+      { text: "Forty-one vessels are broadcasting inside the anchorage.", sensors: ["ais"] },
+      { text: "HERA AI schedules a daily all-weather image of the anchorage.", sensors: ["sar"] },
+      { text: "The image shows 47 hulls. Six match no broadcast.", sensors: ["sar", "ais"] },
+      { text: "Four silent hulls are attributed by length and last known track.", sensors: ["sar", "ais", "reg"] },
+      { text: "Census: 47 at anchor, 45 identified, 2 reported as unattributed rather than guessed.", sensors: ["sar", "ais", "reg"] },
+      { text: "A daily census with confidence per vessel feeds the analyst's flow model.", sensors: ["ais", "sar"] },
+    ],
+    finding: { tone: "cyan", label: "ANCHORAGE CENSUS", score: 96, indicators: ["47 hulls imaged, 41 broadcasting", "Four silent hulls attributed by length and track", "Two reported as unattributed", "Confidence given per vessel"] },
+    action: "Adjust the congestion estimate in the flow model.",
+    record: { type: "anchorage_census", evidence: ["sar_hulls_47", "ais_broadcasting_41", "attributed_silent_4", "unattributed_2"], sources: ["AIS", "SAR", "Registry"] },
+  },
+  {
+    id: "pilot-boarding",
+    tag: "PILOT BOARDING",
+    question: "What should the pilot station expect?",
+    audience: "Pilot organisations, port authorities",
+    stages: [
+      { text: "Vessel E is six hours from the boarding ground. In two of its last five boardings the pilot boat needed a second approach.", sensors: ["ais", "reg"] },
+      { text: "HERA AI requests sea state at the boarding ground for the arrival window.", sensors: ["sea"] },
+      { text: "Wave model and coastal buoy agree: 2.6 m from west-south-west, 9 second period.", sensors: ["sea"] },
+      { text: "The swell sits on the boarding side. A lee needs about 40° of course change.", sensors: ["sea", "ais"] },
+      { text: "Boarding risk 63 of 100: repeat approaches, a pilot transfer deficiency within twelve months, sea state above normal.", sensors: ["sea", "reg"] },
+      { text: "The station receives the advisory six hours ahead, in time to brief the pilot and the boat crew.", sensors: ["ais"] },
+    ],
+    finding: { tone: "amber", label: "BOARDING RISK", score: 63, indicators: ["Second approach in two of five boardings", "Pilot transfer deficiency within twelve months", "Swell 2.6 m on the boarding side", "Lee needs about 40° of course change"] },
+    action: "Agree the lee and boarding side with the master before arrival.",
+    record: { type: "pilot_boarding_advisory", evidence: ["repeat_approaches_2_of_5", "transfer_deficiency_12m", "swell_2.6m_wsw_9s", "lee_course_change_40deg"], sources: ["AIS", "Sea state", "Registry"] },
+  },
+];
