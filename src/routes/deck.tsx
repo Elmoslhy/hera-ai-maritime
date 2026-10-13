@@ -5,7 +5,8 @@ import { HeroHud } from "@/components/seker/HeroScene";
 import { IntelPanel } from "@/components/seker/IntelPanel";
 import { SekerLogo } from "@/components/seker/Logo";
 import { SensorImagers } from "@/components/seker/SensorImagers";
-import { OpsMap, FindingCard } from "@/components/seker/UseCases";
+import { FindingCard } from "@/components/seker/UseCases";
+import { DeckScenarioMap } from "@/components/seker/DeckMaps";
 import { cableCorridorCase, cargoClaimCase, originCase, preArrivalCase, transshipmentCase, sensors, useCases, type UseCase } from "@/content/intelligence";
 import { LiveMap, DigitalTwin, WindowChrome } from "@/components/seker/Dashboard";
 import { taskingSection, taskingLanes } from "@/content/intelligence";
@@ -157,10 +158,11 @@ const SLIDES: { title: string; node: ReactNode }[] = [
     node: (
       <>
         <Bg src={vessels} dim="bg-navy-deep/65" />
-        <Brackets w={170} h={120} className="left-[1160px] top-[330px]" />
-        <Brackets w={150} h={110} className="left-[1480px] top-[560px]" />
-        <div className="absolute left-[1000px] top-[720px] h-[90px] w-[130px] rounded-full border-2 border-dashed border-alert/80" />
-        <Tag tone="alert" className="left-[1150px] top-[740px]">AIS · SIGNAL LOST</Tag>
+        <Brackets w={110} h={260} className="left-[993px] top-[537px] -translate-x-1/2 -translate-y-1/2 -rotate-[28deg]" />
+        <Brackets w={110} h={260} className="left-[1636px] top-[923px] -translate-x-1/2 -translate-y-1/2 -rotate-[28deg]" />
+        <span className="absolute left-[1423px] top-[88px] h-[150px] w-[150px] -translate-x-1/2 -translate-y-1/2 animate-ping rounded-full border-2 border-alert/60 [animation-duration:2.4s]" />
+        <span className="absolute left-[1423px] top-[88px] h-[150px] w-[150px] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-dashed border-alert/80" />
+        <Tag tone="alert" className="right-[530px] top-[170px]">AIS · SIGNAL LOST</Tag>
         <Text>
           <Eyebrow>The problem</Eyebrow>
           <Headline a="3,300 vessels sail" b="in the shadows." />
@@ -187,7 +189,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
           <Stars />
           <img src={satNet} alt="" className="absolute bottom-0 left-0 h-[42%] w-full object-cover object-bottom opacity-80 [mask-image:linear-gradient(to_top,black_55%,transparent)]" />
         </div>
-        <img src={satReal} alt="" className="deck-drift absolute left-1/2 top-[44%] w-[640px] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_80px_rgba(77,217,192,0.3)]" />
+        <img src={satReal} alt="" className="deck-drift absolute left-[1180px] top-[520px] w-[560px] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_0_80px_rgba(77,217,192,0.3)]" />
         <Text>
           <Eyebrow>In orbit</Eyebrow>
           <Headline a="Watching every vessel" b="from space." />
@@ -221,9 +223,9 @@ const SLIDES: { title: string; node: ReactNode }[] = [
       <>
         <Bg src={ocean} dim="bg-navy/65" />
         {[["left-[580px]", "SEKER-1"], ["left-[1200px]", "SEKER-2"]].map(([l, n]) => (
-          <div key={n} className={`absolute top-[300px] ${l} w-[140px] text-center`}>
+          <div key={n} className={`absolute top-[262px] ${l} w-[140px] text-center`}>
+            <p className="mb-1 font-mono text-[16px] tracking-[0.2em] text-cyan">{n}</p>
             <img src={satReal} alt="" className="w-full" />
-            <p className="mt-1 font-mono text-[16px] tracking-[0.2em] text-cyan">{n}</p>
           </div>
         ))}
         <svg viewBox="0 0 1920 1080" className="absolute inset-0 h-full w-full" aria-hidden>
@@ -233,12 +235,12 @@ const SLIDES: { title: string; node: ReactNode }[] = [
         <div className="absolute left-[960px] top-[680px] -translate-x-1/2 -translate-y-1/2">
           <img src={vesselTop} alt="" className="w-[480px]" />
           <Brackets w={560} h={300} className="left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" />
-          <Tag tone="gold" className="left-1/2 top-[190px] -translate-x-1/2">LOCATED · TIR + RF FUSED</Tag>
+          <Tag tone="gold" className="left-1/2 top-[calc(50%+170px)] -translate-x-1/2">LOCATED · TIR + RF FUSED</Tag>
         </div>
-        <div className="deck-text absolute left-[100px] top-[330px] z-10 w-[400px] [&_*]:!opacity-100">
+        <div className="deck-text absolute left-[60px] top-[40px] z-10 w-[178px] origin-top-left scale-[2.1] [&_*]:!opacity-100 [&>div>div]:!w-[178px]">
           <SensorImagers thermal={1} rf={1} fused={1} />
         </div>
-        <Text className="left-[100px] top-[90px]">
+        <Text className="left-[520px] top-[70px]">
           <Eyebrow>Located</Eyebrow>
           <Headline a="HERA AI keeps watching." />
         </Text>
@@ -255,8 +257,8 @@ const SLIDES: { title: string; node: ReactNode }[] = [
           <Eyebrow>HERA AI</Eyebrow>
           <h2 className="mt-4 text-[88px] font-light tracking-tight text-foreground">One verified picture.</h2>
         </Text>
-        <div className="absolute left-1/2 top-[290px] -translate-x-1/2 [perspective:2400px]">
-          <div className="deck-bg origin-top [transform:rotateX(12deg)]" style={{ width: 1632 / 1.25 + "px", transform: "rotateX(12deg) scale(1.25)" }}>
+        <div className="absolute left-1/2 top-[270px] -translate-x-1/2 [perspective:2400px]">
+          <div className="deck-bg origin-top [transform:rotateX(12deg)]" style={{ width: 1700 / 1.3 + "px", transform: "rotateX(10deg) scale(1.3)" }}>
             <WindowChrome>
               <div className="grid grid-cols-[1.6fr_1fr] gap-px bg-white/5">
                 <div className="bg-[#050a12] p-3"><LiveMap /></div>
@@ -371,25 +373,25 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
   return (
     <>
       <div className="deck-bg absolute inset-0 bg-navy-deep" />
-      <div className="deck-text absolute left-[100px] top-[70px]">
+      <div className="deck-text absolute left-[100px] top-[50px]">
         <Eyebrow>Who we serve</Eyebrow>
         <h2 className="mt-4 text-[72px] font-light leading-[1.02] tracking-tight text-foreground">Five industries,<br /><span className="text-gold">one verified picture.</span></h2>
       </div>
-      <div className="deck-text absolute right-[100px] top-[90px] flex w-[860px] flex-wrap justify-end gap-3" onClick={stop}>
+      <div className="deck-text absolute left-[100px] right-[100px] top-[268px] flex justify-between gap-3" onClick={stop}>
         {SERVE.map((x, k) => (
           <button key={x.slug} type="button" onClick={() => onInd?.(k)}
-            className={`rounded-full border px-6 py-3 font-mono text-[17px] uppercase tracking-[0.14em] transition-colors ${k === ind ? "border-gold/60 bg-gold/12 text-gold" : "border-white/12 bg-white/[0.02] text-muted-foreground hover:border-white/25 hover:text-foreground"}`}>
+            className={`whitespace-nowrap rounded-full border px-5 py-2.5 font-mono text-[15px] uppercase tracking-[0.12em] transition-colors ${k === ind ? "border-gold/60 bg-gold/12 text-gold" : "border-white/12 bg-white/[0.02] text-muted-foreground hover:border-white/25 hover:text-foreground"}`}>
             {x.name}
           </button>
         ))}
       </div>
-      <div className="deck-text absolute left-[100px] top-[330px] w-[1060px]" onClick={stop}>
+      <div className="deck-text absolute left-[100px] top-[335px] w-[1060px]" onClick={stop}>
         <div className="overflow-hidden rounded-xl border border-white/10 bg-navy-deep">
           <div className="flex items-center gap-4 border-b border-white/10 px-5 py-3">
             <div className="flex gap-2"><span className="h-3 w-3 rounded-full bg-alert/80" /><span className="h-3 w-3 rounded-full bg-amber/80" /><span className="h-3 w-3 rounded-full bg-cyan/80" /></div>
             <p className="truncate font-mono text-[16px] tracking-[0.2em] text-muted-foreground">HERA AI · {uc.tag}</p>
           </div>
-          <div className="h-[520px] overflow-hidden"><OpsMap idx={geo} stage={stage} /></div>
+          <DeckScenarioMap slug={SERVE[ind].slug} stage={stage} />
         </div>
         <div className="relative mt-5">
           <div className="absolute inset-x-0 top-0 h-[3px] bg-white/10"><div className="h-full bg-gold transition-[width] duration-500" style={{ width: `${((stage + 1) / 6) * 100}%` }} /></div>
@@ -403,30 +405,27 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
           </div>
         </div>
       </div>
-      <div className="deck-text absolute right-[100px] top-[300px] w-[620px] space-y-4" onClick={stop}>
+      <div className="deck-text absolute right-[100px] top-[335px] w-[620px] space-y-3" onClick={stop}>
         <p className="font-mono text-[16px] tracking-[0.2em] text-muted-foreground">{uc.audience.toUpperCase()}</p>
         <h3 className="-mt-3 text-[40px] font-light leading-tight text-foreground">{uc.question}</h3>
         <div>
           <p className="font-mono text-[20px] tracking-[0.2em] text-gold">0{stage + 1} · {STAGE_NAMES[stage].toUpperCase()}</p>
           <p className="mt-2 text-[30px] font-light leading-snug text-foreground/85">{uc.stages[stage].text}</p>
         </div>
-        <div className="rounded-lg border border-white/10 bg-navy/70 p-5">
+        <div className="rounded-lg border border-white/10 bg-navy/70 px-5 py-4">
             <p className="font-mono text-[15px] tracking-[0.2em] text-muted-foreground">SENSORS IN USE</p>
-            <ul className="mt-3 grid grid-cols-2 gap-x-4 gap-y-2">
-              {sensors.map((x) => {
-                const on = lit.has(x.id);
-                return (
-                  <li key={x.id} className={`flex items-center gap-3 font-mono text-[15px] tracking-[0.08em] ${on ? "text-foreground" : "text-muted-foreground/60"}`}>
-                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${on ? "bg-cyan shadow-[0_0_8px_var(--color-cyan)]" : "bg-white/15"}`} />
-                    {(SERVE[ind].slug === "fisheries" && x.id === "reg" ? "Registries, RFMO and IUU lists" : x.label).toUpperCase()}
-                  </li>
-                );
-              })}
+            <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+              {sensors.filter((x) => lit.has(x.id)).map((x) => (
+                <li key={x.id} className="flex items-center gap-2.5 font-mono text-[15px] tracking-[0.08em] text-foreground">
+                  <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-cyan shadow-[0_0_8px_var(--color-cyan)]" />
+                  {(SERVE[ind].slug === "fisheries" && x.id === "reg" ? "Registries, RFMO and IUU lists" : x.label).toUpperCase()}
+                </li>
+              ))}
             </ul>
           </div>
         {stage >= 4 && <FindingCard uc={uc} />}
       </div>
-      <p className="absolute bottom-[50px] left-[100px] font-mono text-[14px] tracking-[0.2em] text-muted-foreground">SCENARIOS ARE ILLUSTRATIVE</p>
+      <p className="absolute bottom-[24px] left-[100px] font-mono text-[14px] tracking-[0.2em] text-muted-foreground">SCENARIOS ARE ILLUSTRATIVE</p>
     </>
   );
 }
@@ -540,15 +539,15 @@ function Deck() {
       {SLIDES.map((s, k) => {
         const style = { width: W, height: H, left: "50%", top: "50%", marginLeft: -W / 2, marginTop: -H / 2, transform: `scale(${scale})` };
         if (k !== WHO) return (
-          <div key={k} aria-hidden={k !== i} className={`deck-slide absolute overflow-hidden bg-navy-deep ${k === i ? "deck-active" : "hidden"}`} style={style}>{s.node}</div>
+          <div key={k} aria-hidden={k !== i} className={`deck-slide absolute overflow-clip bg-navy-deep ${k === i ? "deck-active" : "hidden"}`} style={style}>{s.node}</div>
         );
         return (
           <div key={k} className="contents">
-            <div aria-hidden={k !== i} className={`deck-slide deck-screen-only absolute overflow-hidden bg-navy-deep ${k === i ? "deck-active" : "hidden"}`} style={style}>
+            <div aria-hidden={k !== i} className={`deck-slide deck-screen-only absolute overflow-clip bg-navy-deep ${k === i ? "deck-active" : "hidden"}`} style={style}>
               <ServeSlide ind={ind} onInd={setInd} active={k === i} />
             </div>
             {SERVE.map((x, j) => (
-              <div key={x.slug} aria-hidden className="deck-slide deck-print-only absolute hidden overflow-hidden bg-navy-deep" style={style}>
+              <div key={x.slug} aria-hidden className="deck-slide deck-print-only absolute hidden overflow-clip bg-navy-deep" style={style}>
                 <ServeSlide ind={j} active={false} frozen />
               </div>
             ))}
