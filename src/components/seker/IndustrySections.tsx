@@ -31,7 +31,65 @@ export function RolesSection({ roles }: { roles: R["roles"] }) {
 export function SignatureSection({ sig }: { sig: R["signature"] }) {
   if (sig.kind === "flow") return <FlowMonitor sig={sig} />;
   if (sig.kind === "board") return <ArrivalsBoard sig={sig} />;
+  if (sig.kind === "origin") return <OriginCheck sig={sig} />;
   return <Lifecycle sig={sig} />;
+}
+
+type Origin = Extract<R["signature"], { kind: "origin" }>;
+
+const chip = { cyan: "border-cyan/50 text-cyan", amber: "border-amber/60 text-amber", alert: "border-alert/60 text-alert" };
+
+function OriginCheck({ sig }: { sig: Origin }) {
+  const [sel, setSel] = useState(1);
+  const reduce = useReducedMotion();
+  const t = sig.trips[sel];
+  return (
+    <section className="bg-navy px-6 py-24">
+      <div className="mx-auto max-w-7xl">
+        <Reveal><p className="text-eyebrow text-gold">{sig.title}</p></Reveal>
+        <div className="mt-8 flex flex-wrap gap-2">
+          {sig.trips.map((tr, n) => (
+            <button key={tr.name} type="button" onClick={() => setSel(n)} aria-pressed={sel === n}
+              className={`rounded-full border px-4 py-2 font-mono text-[11px] tracking-[0.2em] ${sel === n ? "border-gold bg-gold/10 text-gold" : "border-white/20 text-foreground/60"}`}>
+              {tr.name}
+            </button>
+          ))}
+        </div>
+        <div className="mt-6 grid gap-4 lg:grid-cols-2">
+          <div className="min-w-0 rounded-lg border border-white/10 bg-navy-deep/80 p-4 backdrop-blur">
+            <svg viewBox="0 0 360 240" className="w-full" role="img" aria-label="Declared fishing area and observed trip track">
+              {Array.from({ length: 9 }, (_, n) => <line key={`v${n}`} x1={n * 45} x2={n * 45} y1={0} y2={240} stroke="currentColor" className="text-white/5" />)}
+              {Array.from({ length: 6 }, (_, n) => <line key={`h${n}`} y1={n * 48} y2={n * 48} x1={0} x2={360} stroke="currentColor" className="text-white/5" />)}
+              <path d="M0,200 L40,215 L70,240 L0,240 Z" fill="currentColor" className="text-white/10" />
+              <path d="M100,90 L250,80 L280,170 L130,195 Z" fill="currentColor" stroke="currentColor" strokeDasharray="6 5" strokeWidth={1.5} className="fill-gold/5 text-gold" />
+              <text x={110} y={84} className="fill-gold font-mono text-[10px]">DECLARED AREA</text>
+              <rect x={250} y={30} width={70} height={45} fill="currentColor" className="text-alert/10" stroke="currentColor" strokeDasharray="3 3" />
+              <text x={254} y={26} className="fill-alert font-mono text-[9px]">CLOSED AREA</text>
+              <motion.path key={t.name} d={t.track} fill="none" stroke="currentColor" strokeWidth={2} className="text-cyan"
+                initial={reduce ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.2 }} />
+              <circle cx={60} cy={190} r={4} className="fill-cyan" />
+              <text x={30} y={182} className="fill-foreground/60 font-mono text-[9px]">PORT</text>
+            </svg>
+            <p className="mt-2 font-mono text-[11px] tracking-[0.2em] text-foreground/50">ILLUSTRATIVE</p>
+          </div>
+          <div className="rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
+            <ul className="divide-y divide-white/10">
+              {t.checks.map((c) => (
+                <li key={c.label} className="flex flex-wrap items-center justify-between gap-2 py-3">
+                  <span className="text-sm font-light text-foreground/85">{c.label}</span>
+                  <span className={`rounded-full border px-3 py-1 font-mono text-[11px] tracking-[0.15em] ${chip[c.tone]}`}>{c.value}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 flex items-baseline justify-between border-t border-white/10 pt-4">
+              <span className="font-mono text-xs tracking-[0.2em] text-gold">ORIGIN CONFIDENCE</span>
+              <span className="font-mono text-3xl text-gold">{t.confidence}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 type Board = Extract<R["signature"], { kind: "board" }>;
@@ -163,7 +221,7 @@ function FlowMonitor({ sig }: { sig: Flow }) {
   );
 }
 
-function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" } | { kind: "board" }> }) {
+function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" } | { kind: "board" } | { kind: "origin" }> }) {
   const [sel, setSel] = useState(0);
   const reduce = useReducedMotion();
   const st = sig.stages[sel];

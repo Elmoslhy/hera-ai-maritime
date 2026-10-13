@@ -337,3 +337,22 @@ export const preArrivalCase: UseCase = {
   action: "Request the cargo documents and the ship's log before berth allocation.",
   record: { type: "declaration_mismatch", evidence: ["ais_gap_72h", "geo_at_terminal", "draught_rise_4.1m", "undeclared_call_1"], sources: ["AIS", "Geolocation", "Registry"] },
 };
+
+export const transshipmentCase: UseCase = {
+  id: "transshipment",
+  geo: 0,
+  tag: "TRANSSHIPMENT",
+  question: "Did this catch change hands at sea?",
+  audience: "Fisheries regulators, patrols, seafood importers",
+  stages: [
+    { text: "A longliner fishing on the high seas stops broadcasting for 14 hours near a carrier vessel's track.", sensors: ["ais"] },
+    { text: "HERA AI computes where both vessels could have reached and requests independent geolocation and an all-weather pass.", sensors: ["ais", "geo", "sar"] },
+    { text: "The pass shows two hulls side by side for at least four hours, 30 m apart.", sensors: ["sar", "geo"] },
+    { text: "The longliner's landing declaration reports no transshipment. The carrier calls at a port two days later.", sensors: ["reg", "ais"] },
+    { text: "Transshipment indicator, 84 of 100. The longliner's last three trips show the same pattern.", sensors: ["sar", "geo", "ais", "reg"] },
+    { text: "The Transshipment Register entry and a Trip Origin Report reach the regulator before the landing is certified.", sensors: ["reg"] },
+  ],
+  finding: { tone: "alert", label: "TRANSSHIPMENT INDICATOR", score: 84, indicators: ["14-hour broadcast gap near a carrier track", "Two hulls 30 m apart for at least four hours", "Landing declaration reports no transshipment", "Same pattern on the last three trips"] },
+  action: "Hold certification of the catch pending inspection of both vessels.",
+  record: { type: "transshipment_indicator", evidence: ["ais_gap_14h", "sar_two_hulls_30m", "declaration_no_transshipment", "pattern_3_trips"], sources: ["AIS", "Geolocation", "SAR", "Registry"] },
+};

@@ -23,11 +23,13 @@ export type Industry = {
     signature:
       | { kind: "flow"; title: string; weeks: { broadcast: number; corrected: number; floating: number }[]; summary: { label: string; value: string }[] }
       | { kind: "board"; title: string; rows: { vessel: string; eta: string; identity: string; lastPorts: string; risk: "LOW" | "MEDIUM" | "HIGH"; inspection: number; reasons: { label: string; text: string }[] }[] }
+      | { kind: "origin"; title: string; trips: { name: string; confidence: string; track: string; checks: { label: string; value: string; tone: "cyan" | "amber" | "alert" }[] }[] }
       | { kind?: "lifecycle"; title: string; stages: { key: string; title: string; items: { label: string; value: string }[] }[] };
     missions: { title: string; need: string; hera: string; deliverable: string }[];
     deliverables: { name: string; cadence: string }[];
     deliverablesNote?: string;
     signatureFirst?: boolean;
+    signatureAfterMissions?: boolean;
   };
 };
 
@@ -235,14 +237,65 @@ export const industries: Industry[] = [
     navName: "Fisheries and environment",
     description: "Protect what lies under the surface.",
     eyebrow: "Fisheries and environment",
-    headline: ["Protect what lies", "under the surface."],
-    body: "HERA AI flags fishing activity inside protected and closed areas, and the meetings at sea where catch changes hands out of sight.",
+    headline: ["From the fishing ground", "to the plate."],
+    body: "HERA AI follows fishing fleets where they work, where they meet carriers at sea and where their catch lands, so enforcement, regulators and seafood buyers can trust the origin.",
     heroImage: fisheries,
     statement: { title: "Enforcement needs evidence.", body: "A fishing vessel that switches off inside a protected area leaves no broadcast trail. HERA AI looks for what remains." },
     capabilities: [{ title: "Protected area watch", text: "Alerts inside closed and protected areas." }, { title: "Dark fishing indicators", text: "Broadcast gaps where fishing patterns stop and start." }, { title: "Transshipment encounters", text: "Meetings with carrier vessels at sea." }, { title: "Fleet identity checks", text: "Flag, name and MMSI history for fishing fleets." }, { title: "Patrol prioritisation", text: "Ranked lists of vessels worth a look." }, { title: "Evidence packs", text: "The chain behind each case." }],
     blocks: [{ label: "THE QUESTION", title: "Who is fishing where they should not?", text: "Closed areas only work if someone can see who enters them.", bullets: ["Broadcast gaps inside protected areas.", "Loitering typical of fishing.", "Meetings with carrier vessels."], image: vessels, alt: "Vessels at sea seen from orbit" }, { label: "HOW HERA AI ANSWERS", title: "Patterns, positions and identities", text: "HERA AI scores encounters and silent periods, and measures position independently of what the vessel reports.", bullets: ["Encounters scored by duration, distance and location.", "Independent position for silent vessels.", "Identity history across flags and names."], image: network, alt: "Satellite network above the Earth" }, { label: "HOW IT REACHES YOU", title: "Built for patrol planning", text: "Results arrive ranked, so scarce patrols go where they matter.", bullets: ["Prioritised lists for patrols.", "Alerts on watched areas.", "Evidence packs for enforcement."], image: heraUi, alt: "HERA AI platform interface" }],
-    useCaseIds: ["dark-transfer"],
+    useCaseIds: ["transshipment"],
     roadmapNote: "Task a pass or a drone over a protected area when a vessel goes dark inside it.",
+    rebuild: {
+      signatureAfterMissions: true,
+      roles: [
+        { role: "Fisheries patrol", question: "Which vessel do we board this week?" },
+        { role: "Fisheries regulator", question: "Is this catch certificate consistent with the trip?" },
+        { role: "Seafood importer", question: "Can we prove the origin of what we buy?" },
+        { role: "Protected area manager", question: "Who entered the reserve, and how fast were they going?" },
+      ],
+      missions: [
+        { title: "Zone incursions", need: "Know when foreign fleets fish inside your zone with transponders off.", hera: "Watches fleets that go dark at the zone boundary and measures their position independently.", deliverable: "Incursion Alert" },
+        { title: "Transshipment", need: "See where catch changes hands at sea.", hera: "Scores meetings between fishing vessels and carriers by duration, distance and location.", deliverable: "Transshipment Register" },
+        { title: "Catch origin", need: "Verify that a catch came from where it is declared.", hera: "Checks each trip's track, encounters and landing against the catch certificate.", deliverable: "Trip Origin Report" },
+        { title: "Protected zone conduct", need: "Check speed limits and no-entry rules in protected zones.", hera: "Measures speed and presence inside each zone and reports breaches with the track.", deliverable: "Zone Compliance Report" },
+      ],
+      signature: {
+        kind: "origin",
+        title: "Catch origin check",
+        trips: [
+          {
+            name: "TRIP 1 · CLEAN",
+            confidence: "0.96",
+            track: "M60,190 C90,150 120,140 150,120 S200,100 230,110 S270,140 250,165 S190,180 160,170",
+            checks: [
+              { label: "Fishing inside declared area", value: "MATCH", tone: "cyan" },
+              { label: "Time in closed areas", value: "0 MIN", tone: "cyan" },
+              { label: "Encounters with carriers", value: "0", tone: "cyan" },
+              { label: "Identity consistent", value: "MATCH", tone: "cyan" },
+              { label: "Landing port matches", value: "MATCH", tone: "cyan" },
+            ],
+          },
+          {
+            name: "TRIP 2 · FLAGGED",
+            confidence: "0.64",
+            track: "M60,190 C90,150 120,140 160,120 S240,60 290,55 S320,90 270,120 S200,160 170,170",
+            checks: [
+              { label: "Fishing inside declared area", value: "MATCH", tone: "cyan" },
+              { label: "Time in closed areas", value: "2 H 10 MIN", tone: "amber" },
+              { label: "Encounters with carriers", value: "1", tone: "alert" },
+              { label: "Identity consistent", value: "MATCH", tone: "cyan" },
+              { label: "Landing port matches", value: "MATCH", tone: "cyan" },
+            ],
+          },
+        ],
+      },
+      deliverables: [
+        { name: "Incursion Alert", cadence: "Real time" },
+        { name: "Transshipment Register", cadence: "Daily" },
+        { name: "Trip Origin Report", cadence: "Per trip, API and PDF" },
+        { name: "Zone Compliance Report", cadence: "Monthly" },
+      ],
+    },
   },
 ];
 
