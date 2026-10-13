@@ -100,6 +100,16 @@ function IndustryPage() {
               </section>
             )}
             <DeliverablesSection items={i.rebuild.deliverables} note={i.rebuild.deliverablesNote} />
+            {i.rebuild.afterDeliverables && (
+              <section className="bg-navy-deep px-6 py-20">
+                <div className="mx-auto max-w-4xl">
+                  <Reveal>
+                    <p className="text-eyebrow text-gold">{i.rebuild.afterDeliverables.title}</p>
+                    <p className="mt-6 text-balance text-lg font-light text-foreground/85">{i.rebuild.afterDeliverables.text}</p>
+                  </Reveal>
+                </div>
+              </section>
+            )}
           </>
         ) : (
           <>
