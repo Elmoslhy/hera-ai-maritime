@@ -11,7 +11,7 @@ export const intelligenceHero = {
 };
 
 export const intelligenceSteps = [
-  { n: "01", title: "Detect", text: "HERA notices what is missing or out of pattern." },
+  { n: "01", title: "Detect", text: "HERA AI notices what is missing or out of pattern." },
   { n: "02", title: "Cue", text: "It works out which collection would answer the question." },
   { n: "03", title: "Collect", text: "The right sensor looks at the right place at the right time." },
   { n: "04", title: "Fuse", text: "Every source is reconciled against one vessel identity." },
