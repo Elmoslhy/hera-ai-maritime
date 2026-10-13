@@ -33,7 +33,7 @@ function Brackets({ x, y, size = 22, cls }: { x: number; y: number; size?: numbe
   return <path d={d} fill="none" strokeWidth={2} className={cls} />;
 }
 
-function OpsMap({ idx, stage }: { idx: number; stage: number }) {
+export function OpsMap({ idx, stage }: { idx: number; stage: number }) {
   const g = GEO[idx];
   const [ax, ay] = g.a;
   const [bx, by] = g.b;
@@ -111,7 +111,7 @@ function OpsMap({ idx, stage }: { idx: number; stage: number }) {
   );
 }
 
-function FindingCard({ uc }: { uc: UseCase }) {
+export function FindingCard({ uc }: { uc: UseCase }) {
   return (
     <div className="rounded-lg border border-white/10 bg-white/[0.02] p-5">
       <div className="flex items-center justify-between gap-3">

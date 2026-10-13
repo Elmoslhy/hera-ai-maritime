@@ -91,7 +91,7 @@ const FLEET = buildFleet();
 const TARGET = { lat: 37.5, lon: 23.8 };
 const FENCE = { lat: 36.2, lon: 13.6 };
 
-function LiveMap() {
+export function LiveMap() {
   const [tab, setTab] = useState("LIVE MAP");
   return (
     <div className="rounded-lg border border-white/10 bg-[#060d18]">
@@ -289,7 +289,7 @@ const TIMELINE = [
 ];
 const SPEED_BARS = [3, 4, 5, 5, 4, 7, 9, 12, 18, 30, 46, 58, 72, 88, 96, 84, 66, 52, 40, 28, 18, 11, 7, 4];
 
-function DigitalTwin() {
+export function DigitalTwin() {
   const [tab, setTab] = useState("TWIN");
   return (
     <div className="flex h-full flex-col rounded-lg border border-white/10 bg-[#070d16]">
@@ -428,7 +428,7 @@ function useUtc() {
   return t;
 }
 
-function WindowChrome({ children }: { children: React.ReactNode }) {
+export function WindowChrome({ children }: { children: React.ReactNode }) {
   const utc = useUtc();
   return (
     <div className="overflow-hidden rounded-xl border border-white/10 bg-[#050a12] shadow-[0_40px_120px_-40px_rgba(0,0,0,0.9)]">
