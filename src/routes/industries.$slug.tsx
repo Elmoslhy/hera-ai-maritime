@@ -6,7 +6,7 @@ import { getIndustry } from "@/content/industries";
 import { cargoClaimCase, closingCta, originCase, preArrivalCase, useCases } from "@/content/intelligence";
 import { DeliverablesSection, MissionsSection, RolesSection, SignatureSection } from "@/components/seker/IndustrySections";
 
-const allCases = [...useCases, cargoClaimCase, originCase, preArrivalCase];
+const allCases = [...useCases, cargoClaimCase, originCase, preArrivalCase, transshipmentCase];
 
 const gold = "border border-gold/60 bg-gold/90 px-6 py-3 font-mono text-xs tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold";
 const outline = "border border-gold/60 px-6 py-3 font-mono text-xs tracking-[0.22em] text-gold transition-colors hover:bg-gold/10";
@@ -88,8 +88,9 @@ function IndustryPage() {
           <>
             {i.rebuild.signatureFirst && <SignatureSection sig={i.rebuild.signature} />}
             <RolesSection roles={i.rebuild.roles} />
-            {!i.rebuild.signatureFirst && <SignatureSection sig={i.rebuild.signature} />}
+            {!i.rebuild.signatureFirst && !i.rebuild.signatureAfterMissions && <SignatureSection sig={i.rebuild.signature} />}
             <MissionsSection missions={i.rebuild.missions} />
+            {i.rebuild.signatureAfterMissions && <SignatureSection sig={i.rebuild.signature} />}
             <UseCasesSection
               cases={i.useCaseIds.map((id) => allCases.find((c) => c.id === id)!).filter(Boolean)}
               sectionId="see-it-work"
