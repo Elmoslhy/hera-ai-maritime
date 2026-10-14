@@ -2,42 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import type { UseCase } from "@/content/intelligence";
-import vessels from "@/assets/vessels.jpg";
-import network from "@/assets/satellite-network.jpg";
-import satellite from "@/assets/satellite-real.png";
-import cableVideo from "@/assets/walkthroughs/cable-corridor.mp4.asset.json";
-import cargoVideo from "@/assets/walkthroughs/cargo-claim.mp4.asset.json";
-import originVideo from "@/assets/walkthroughs/origin.mp4.asset.json";
-import arrivalVideo from "@/assets/walkthroughs/pre-arrival.mp4.asset.json";
-import fishVideo from "@/assets/walkthroughs/transshipment.mp4.asset.json";
-import cablePoster from "@/assets/walkthroughs/cable-corridor.jpg.asset.json";
-import cargoPoster from "@/assets/walkthroughs/cargo-claim.jpg.asset.json";
-import originPoster from "@/assets/walkthroughs/origin.jpg.asset.json";
-import arrivalPoster from "@/assets/walkthroughs/pre-arrival.jpg.asset.json";
-import fishPoster from "@/assets/walkthroughs/transshipment.jpg.asset.json";
-import cableWebm from "@/assets/walkthroughs/cable-corridor.webm.asset.json";
-import cargoWebm from "@/assets/walkthroughs/cargo-claim.webm.asset.json";
-import originWebm from "@/assets/walkthroughs/origin.webm.asset.json";
-import arrivalWebm from "@/assets/walkthroughs/pre-arrival.webm.asset.json";
-import fishWebm from "@/assets/walkthroughs/transshipment.webm.asset.json";
+import { DeckScenarioMap } from "./DeckMaps";
 import "./walkthrough-film.css";
 
-// Self-hosted domains do not serve Lovable's asset gateway.
-const mediaUrl = (url: string) => new URL(url, "https://hera-sea-spy.lovable.app").href;
+// Flagship scenarios: industry map slug and plain public file paths.
+export const FLAGSHIP_MAP: Record<string, string> = { "cable-corridor": "defense", "cargo-claim": "insurance", origin: "commodity-trading", "pre-arrival": "ports", transshipment: "fisheries" };
+const file = (id: string, ext: string) => `/walkthroughs/${id}.${ext}`;
 
 const FILMS: Record<string, { url: string; poster: string; tags: string[][] }> = {
-  "cable-corridor": { url: cableVideo.url, poster: cablePoster.url, tags: [["11 KN TO 1.4 KN"], ["GEOLOCATION AND ALL-WEATHER PASS REQUESTED"], ["AIS GAP 47 MIN"], ["9 KM", "OWNER CHANGED TWO MONTHS AGO"], [], ["RECORD SENT TO THE OPERATIONS CENTRE"]] },
-  "cargo-claim": { url: cargoVideo.url, poster: cargoPoster.url, tags: [["LOG: SEVERE STORM"], ["VOYAGE RECONSTRUCTION"], ["SEA STATE 3.1 M MAX", "13 KN"], ["UNREPORTED 19 H STOP", "DRAUGHT DOWN 0.6 M"], [], ["RECONSTRUCTION SENT TO CLAIMS"]] },
-  origin: { url: originVideo.url, poster: originPoster.url, tags: [["DECLARED: LOADED AT SEA"], ["60 DAYS"], ["DARK 52 H"], ["DRAUGHT UP 5.8 M", "STS"], [], ["BOTH CARGOES ADDED TO THE STS LEDGER"]] },
-  "pre-arrival": { url: arrivalVideo.url, poster: arrivalPoster.url, tags: [["PRE-ARRIVAL NOTICE: 10 CALLS"], ["OBSERVED PORT CALLS"], ["BROADCAST GAP 3 DAYS"], ["DRAUGHT UP 4.1 M"], [], ["PRE-ARRIVAL SHEET SENT TO PORT SECURITY"]] },
-  transshipment: { url: fishVideo.url, poster: fishPoster.url, tags: [["AIS OFF 14 H"], ["COLLECTION REQUESTED"], ["30 M APART, AT LEAST 4 H"], ["PORT CALL IN 2 DAYS", "LANDING DECLARED NO TRANSSHIPMENT"], [], ["REGISTER ENTRY AND TRIP ORIGIN REPORT SENT"]] },
+  "cable-corridor": { url: file("cable-corridor", "mp4"), poster: file("cable-corridor", "jpg"), tags: [["11 KN TO 1.4 KN"], ["GEOLOCATION AND ALL-WEATHER PASS REQUESTED"], ["AIS GAP 47 MIN"], ["9 KM", "OWNER CHANGED TWO MONTHS AGO"], [], ["RECORD SENT TO THE OPERATIONS CENTRE"]] },
+  "cargo-claim": { url: file("cargo-claim", "mp4"), poster: file("cargo-claim", "jpg"), tags: [["LOG: SEVERE STORM"], ["VOYAGE RECONSTRUCTION"], ["SEA STATE 3.1 M MAX", "13 KN"], ["UNREPORTED 19 H STOP", "DRAUGHT DOWN 0.6 M"], [], ["RECONSTRUCTION SENT TO CLAIMS"]] },
+  origin: { url: file("origin", "mp4"), poster: file("origin", "jpg"), tags: [["DECLARED: LOADED AT SEA"], ["60 DAYS"], ["DARK 52 H"], ["DRAUGHT UP 5.8 M", "STS"], [], ["BOTH CARGOES ADDED TO THE STS LEDGER"]] },
+  "pre-arrival": { url: file("pre-arrival", "mp4"), poster: file("pre-arrival", "jpg"), tags: [["PRE-ARRIVAL NOTICE: 10 CALLS"], ["OBSERVED PORT CALLS"], ["BROADCAST GAP 3 DAYS"], ["DRAUGHT UP 4.1 M"], [], ["PRE-ARRIVAL SHEET SENT TO PORT SECURITY"]] },
+  transshipment: { url: file("transshipment", "mp4"), poster: file("transshipment", "jpg"), tags: [["AIS OFF 14 H"], ["COLLECTION REQUESTED"], ["30 M APART, AT LEAST 4 H"], ["PORT CALL IN 2 DAYS", "LANDING DECLARED NO TRANSSHIPMENT"], [], ["REGISTER ENTRY AND TRIP ORIGIN REPORT SENT"]] },
 };
-for (const film of Object.values(FILMS)) {
-  film.url = mediaUrl(film.url);
-  film.poster = mediaUrl(film.poster);
-}
-const WEBM: Record<string, string> = { "cable-corridor": mediaUrl(cableWebm.url), "cargo-claim": mediaUrl(cargoWebm.url), origin: mediaUrl(originWebm.url), "pre-arrival": mediaUrl(arrivalWebm.url), transshipment: mediaUrl(fishWebm.url) };
-
 export function useWalkthroughView(id: string) {
   const available = Boolean(FILMS[id]);
   const [choice, setChoice] = useState<{ id: string; mode: "film" | "map" }>();
@@ -69,19 +47,15 @@ export function WalkthroughFilm({ uc, stage, active = true, frozen = false, deck
   }, [moving, stage, paused]);
   if (!film) return null;
   const current = frozen ? 4 : stage;
-  const scene = current < 2 ? 0 : current === 2 ? 1 : 2;
+  const scene = current < 3 ? 0 : 2;
   const tags = film.tags[current];
-  return <div ref={ref} className={`walkthrough-film relative isolate w-full overflow-hidden bg-navy-deep ${deck ? "walkthrough-film-deck" : "aspect-[800/450]"}`} data-moving={moving && !paused} data-scenario={uc.id} role="img" aria-label={`${uc.tag}, stage ${current + 1}`}>
-    <div className={`wf-scene ${scene === 0 ? "wf-visible" : ""}`}><img src={vessels} alt="" className="wf-vessels h-full w-full object-cover" /></div>
-    <div className={`wf-scene ${scene === 1 ? "wf-visible" : ""}`}>
-      <img src={network} alt="" className="h-full w-full object-cover" />
-      <div className="wf-satellite absolute left-[35%] top-[25%] w-[45%]"><span className="wf-pulse absolute inset-0 rounded-full border border-cyan/20 bg-cyan/5" /><img src={satellite} alt="" className="wf-glow relative h-auto w-full" /></div>
-    </div>
+  return <div ref={ref} className={`walkthrough-film relative isolate w-full overflow-hidden bg-navy-deep ${deck ? "walkthrough-film-deck" : "aspect-[1060/560]"}`} data-moving={moving && !paused} data-scenario={uc.id} role="img" aria-label={`${uc.tag}, stage ${current + 1}`}>
+    <div className={`wf-scene ${scene === 0 ? "wf-visible" : ""}`}><DeckScenarioMap slug={FLAGSHIP_MAP[uc.id]} stage={Math.min(current, 2)} fluid /></div>
     <div className={`wf-scene ${scene === 2 ? "wf-visible" : ""}`}>
       <img src={film.poster} alt="" className="h-full w-full object-cover" />
-      {moving && stage >= 3 && <video ref={video} poster={film.poster} muted loop playsInline autoPlay={!paused} preload={paused ? "metadata" : "none"} className="wf-video absolute inset-0 h-full w-full object-cover"><source src={film.url} type="video/mp4" /><source src={WEBM[uc.id]} type="video/webm" /></video>}
+      {moving && stage >= 3 && <video ref={video} poster={film.poster} muted loop playsInline autoPlay={!paused} preload={paused ? "metadata" : "none"} className="wf-video absolute inset-0 h-full w-full object-cover"><source src={film.url} type="video/mp4" /></video>}
     </div>
-    <div className="pointer-events-none absolute inset-0 bg-navy/30" />
+    {scene === 2 && <div className="pointer-events-none absolute inset-0 bg-navy/30" />}
     <div className="wf-tags pointer-events-none absolute left-[3%] top-[4%] flex max-w-[90%] flex-col items-start gap-2">
       <FilmChip tone={current >= 5 ? "cyan" : "gold"} text={`${uc.tag} · ${["DETECT", "CUE", "COLLECT", "FUSE", "ASSESS", "DELIVER"][current]}`} />
       {tags.map((tag) => <FilmChip key={tag} tone={current === 2 ? "cyan" : "gold"} text={tag} />)}

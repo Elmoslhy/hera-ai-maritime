@@ -3,7 +3,8 @@ import { Pause, Play } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./primitives";
 import { sensors, useCases, useCasesSection as s, type UseCase } from "@/content/intelligence";
-import { WalkthroughFilm, WalkthroughViewToggle, useWalkthroughView } from "./WalkthroughFilm";
+import { FLAGSHIP_MAP, WalkthroughFilm, WalkthroughViewToggle, useWalkthroughView } from "./WalkthroughFilm";
+import { DeckScenarioMap } from "./DeckMaps";
 
 const STAGES = ["Detect", "Cue", "Collect", "Fuse", "Assess", "Deliver"];
 const STAGE_MS = 5000;
@@ -245,7 +246,7 @@ export function UseCasesSection({
                   {playing && !reduce ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
                 </button>
               </div>
-              {view.mode === "film" ? <WalkthroughFilm key={uc.id} uc={uc} stage={stage} active={inView} paused={!playing} /> : <OpsMap idx={geoIdx} stage={stage} />}
+              {view.mode === "film" ? <WalkthroughFilm key={uc.id} uc={uc} stage={stage} active={inView} paused={!playing} /> : FLAGSHIP_MAP[uc.id] ? <div className="aspect-[1060/560] w-full"><DeckScenarioMap slug={FLAGSHIP_MAP[uc.id]} stage={stage} fluid /></div> : <OpsMap idx={geoIdx} stage={stage} />}
             </div>
 
             {/* stage rail */}
