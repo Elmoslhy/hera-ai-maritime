@@ -5,11 +5,11 @@ import type { UseCase } from "@/content/intelligence";
 import vessels from "@/assets/vessels.jpg";
 import network from "@/assets/satellite-network.jpg";
 import satellite from "@/assets/satellite-real.png";
-import cableVideo from "../../../public/walkthroughs/cable-corridor.mp4.asset.json";
-import cargoVideo from "../../../public/walkthroughs/cargo-claim.mp4.asset.json";
-import originVideo from "../../../public/walkthroughs/origin.mp4.asset.json";
-import arrivalVideo from "../../../public/walkthroughs/pre-arrival.mp4.asset.json";
-import fishVideo from "../../../public/walkthroughs/transshipment.mp4.asset.json";
+import cableVideo from "@/assets/walkthroughs/cable-corridor.mp4.asset.json";
+import cargoVideo from "@/assets/walkthroughs/cargo-claim.mp4.asset.json";
+import originVideo from "@/assets/walkthroughs/origin.mp4.asset.json";
+import arrivalVideo from "@/assets/walkthroughs/pre-arrival.mp4.asset.json";
+import fishVideo from "@/assets/walkthroughs/transshipment.mp4.asset.json";
 import cablePoster from "@/assets/walkthroughs/cable-corridor.jpg.asset.json";
 import cargoPoster from "@/assets/walkthroughs/cargo-claim.jpg.asset.json";
 import originPoster from "@/assets/walkthroughs/origin.jpg.asset.json";
@@ -79,7 +79,7 @@ export function WalkthroughFilm({ uc, stage, active = true, frozen = false, deck
     </div>
     <div className={`wf-scene ${scene === 2 ? "wf-visible" : ""}`}>
       <img src={film.poster} alt="" className="h-full w-full object-cover" />
-      {moving && stage >= 3 && <video ref={video} poster={film.poster} muted loop playsInline autoPlay={!paused} preload={paused ? "metadata" : "none"} className="wf-video absolute inset-0 h-full w-full object-cover"><source src={WEBM[uc.id]} type="video/webm" /><source src={film.url} type="video/mp4" /></video>}
+      {moving && stage >= 3 && <video ref={video} poster={film.poster} muted loop playsInline autoPlay={!paused} preload={paused ? "metadata" : "none"} className="wf-video absolute inset-0 h-full w-full object-cover"><source src={film.url} type="video/mp4" /><source src={WEBM[uc.id]} type="video/webm" /></video>}
     </div>
     <div className="pointer-events-none absolute inset-0 bg-navy/30" />
     <div className="wf-tags pointer-events-none absolute left-[3%] top-[4%] flex max-w-[90%] flex-col items-start gap-2">
