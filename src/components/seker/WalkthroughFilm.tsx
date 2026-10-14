@@ -22,6 +22,9 @@ import arrivalWebm from "@/assets/walkthroughs/pre-arrival.webm.asset.json";
 import fishWebm from "@/assets/walkthroughs/transshipment.webm.asset.json";
 import "./walkthrough-film.css";
 
+// Self-hosted domains do not serve Lovable's asset gateway.
+const mediaUrl = (url: string) => new URL(url, "https://hera-sea-spy.lovable.app").href;
+
 const FILMS: Record<string, { url: string; poster: string; tags: string[][] }> = {
   "cable-corridor": { url: cableVideo.url, poster: cablePoster.url, tags: [["11 KN TO 1.4 KN"], ["GEOLOCATION AND ALL-WEATHER PASS REQUESTED"], ["AIS GAP 47 MIN"], ["9 KM", "OWNER CHANGED TWO MONTHS AGO"], [], ["RECORD SENT TO THE OPERATIONS CENTRE"]] },
   "cargo-claim": { url: cargoVideo.url, poster: cargoPoster.url, tags: [["LOG: SEVERE STORM"], ["VOYAGE RECONSTRUCTION"], ["SEA STATE 3.1 M MAX", "13 KN"], ["UNREPORTED 19 H STOP", "DRAUGHT DOWN 0.6 M"], [], ["RECONSTRUCTION SENT TO CLAIMS"]] },
@@ -29,7 +32,11 @@ const FILMS: Record<string, { url: string; poster: string; tags: string[][] }> =
   "pre-arrival": { url: arrivalVideo.url, poster: arrivalPoster.url, tags: [["PRE-ARRIVAL NOTICE: 10 CALLS"], ["OBSERVED PORT CALLS"], ["BROADCAST GAP 3 DAYS"], ["DRAUGHT UP 4.1 M"], [], ["PRE-ARRIVAL SHEET SENT TO PORT SECURITY"]] },
   transshipment: { url: fishVideo.url, poster: fishPoster.url, tags: [["AIS OFF 14 H"], ["COLLECTION REQUESTED"], ["30 M APART, AT LEAST 4 H"], ["PORT CALL IN 2 DAYS", "LANDING DECLARED NO TRANSSHIPMENT"], [], ["REGISTER ENTRY AND TRIP ORIGIN REPORT SENT"]] },
 };
-const WEBM: Record<string, string> = { "cable-corridor": cableWebm.url, "cargo-claim": cargoWebm.url, origin: originWebm.url, "pre-arrival": arrivalWebm.url, transshipment: fishWebm.url };
+for (const film of Object.values(FILMS)) {
+  film.url = mediaUrl(film.url);
+  film.poster = mediaUrl(film.poster);
+}
+const WEBM: Record<string, string> = { "cable-corridor": mediaUrl(cableWebm.url), "cargo-claim": mediaUrl(cargoWebm.url), origin: mediaUrl(originWebm.url), "pre-arrival": mediaUrl(arrivalWebm.url), transshipment: mediaUrl(fishWebm.url) };
 
 export function useWalkthroughView(id: string) {
   const available = Boolean(FILMS[id]);
