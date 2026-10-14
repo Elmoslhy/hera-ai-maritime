@@ -59,7 +59,7 @@ export function WalkthroughFilm({ uc, stage, active = true, frozen = false, deck
     {scene === 2 && <div className="wf-tags pointer-events-none absolute left-[3%] top-[4%] flex max-w-[90%] flex-col items-start gap-2">
       <FilmChip tone={current >= 5 ? "cyan" : "gold"} text={`${uc.tag} · ${["DETECT", "CUE", "COLLECT", "FUSE", "ASSESS", "DELIVER"][current]}`} />
       {tags.map((tag) => <FilmChip key={tag} tone={current === 2 ? "cyan" : "gold"} text={tag} />)}
-    </div>
+    </div>}
     {current >= 3 && <div className="wf-reticle pointer-events-none absolute left-1/2 top-1/2 h-[24%] w-[20%] -translate-x-1/2 -translate-y-1/2">
       <span className="absolute left-0 top-0 h-5 w-5 border-l-2 border-t-2 border-gold" /><span className="absolute right-0 top-0 h-5 w-5 border-r-2 border-t-2 border-gold" /><span className="absolute bottom-0 left-0 h-5 w-5 border-b-2 border-l-2 border-gold" /><span className="absolute bottom-0 right-0 h-5 w-5 border-b-2 border-r-2 border-gold" />
     </div>}
