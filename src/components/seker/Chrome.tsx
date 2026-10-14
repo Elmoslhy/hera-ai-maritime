@@ -1,7 +1,7 @@
 import { motion, useScroll, useSpring } from "motion/react";
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { SekerLogo } from "./Logo";
 import { industries } from "@/content/industries";
 
@@ -82,21 +82,72 @@ export function Nav() {
           <Link to="/intelligence" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
             USE CASES
           </Link>
-          <Link to="/careers" className="text-foreground/80 transition-colors hover:text-gold">
+          <Link to="/careers" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
             CAREERS
           </Link>
-          <Link to="/newsroom" className="text-foreground/80 transition-colors hover:text-gold">
+          <Link to="/newsroom" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
             NEWSROOM
           </Link>
           <Link
             to="/access"
-            className="border border-gold/60 bg-gold/90 px-4 py-2 text-[10px] tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold"
+            className="hidden border border-gold/60 bg-gold/90 px-4 py-2 text-[10px] tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold sm:inline-block"
+          >
+            PLATFORM LOGIN
+          </Link>
+          <MobileMenu />
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function MobileMenu() {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+  const close = () => setOpen(false);
+  const item = "block border-b border-white/5 py-4 font-mono text-xs tracking-[0.2em] text-foreground/90 hover:text-gold";
+  return (
+    <div className="sm:hidden">
+      <button
+        type="button"
+        aria-label={open ? "Close menu" : "Open menu"}
+        aria-expanded={open}
+        onClick={() => setOpen((o) => !o)}
+        className="flex h-9 w-9 items-center justify-center border border-gold/60 text-gold"
+      >
+        {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+      </button>
+      {open && (
+        <div className="fixed inset-x-0 bottom-0 top-[68px] z-50 overflow-y-auto bg-navy-deep/95 px-6 pb-10 backdrop-blur-md">
+          <p className="pt-6 font-mono text-[10px] tracking-[0.22em] text-gold">INDUSTRIES</p>
+          {industries.map((i) => (
+            <Link key={i.slug} to="/industries/$slug" params={{ slug: i.slug }} onClick={close} className={item}>
+              {i.navName.toUpperCase()}
+            </Link>
+          ))}
+          <p className="pt-8 font-mono text-[10px] tracking-[0.22em] text-gold">SEKER</p>
+          <Link to="/intelligence" onClick={close} className={item}>USE CASES</Link>
+          <Link to="/careers" onClick={close} className={item}>CAREERS</Link>
+          <Link to="/newsroom" onClick={close} className={item}>NEWSROOM</Link>
+          <Link
+            to="/access"
+            onClick={close}
+            className="mt-8 block border border-gold/60 bg-gold/90 px-4 py-3 text-center font-mono text-xs tracking-[0.22em] text-navy-deep"
           >
             PLATFORM LOGIN
           </Link>
         </div>
-      </div>
-    </header>
+      )}
+    </div>
   );
 }
 
