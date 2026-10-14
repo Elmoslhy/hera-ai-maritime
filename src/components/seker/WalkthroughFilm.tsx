@@ -56,7 +56,7 @@ export function WalkthroughFilm({ uc, stage, active = true, frozen = false, deck
       {moving && stage >= 3 && <video ref={video} poster={film.poster} muted loop playsInline autoPlay={!paused} preload={paused ? "metadata" : "none"} className="wf-video absolute inset-0 h-full w-full object-cover"><source src={film.url} type="video/mp4" /></video>}
     </div>
     {scene === 2 && <div className="pointer-events-none absolute inset-0 bg-navy/30" />}
-    <div className="wf-tags pointer-events-none absolute left-[3%] top-[4%] flex max-w-[90%] flex-col items-start gap-2">
+    {scene === 2 && <div className="wf-tags pointer-events-none absolute left-[3%] top-[4%] flex max-w-[90%] flex-col items-start gap-2">
       <FilmChip tone={current >= 5 ? "cyan" : "gold"} text={`${uc.tag} · ${["DETECT", "CUE", "COLLECT", "FUSE", "ASSESS", "DELIVER"][current]}`} />
       {tags.map((tag) => <FilmChip key={tag} tone={current === 2 ? "cyan" : "gold"} text={tag} />)}
     </div>
