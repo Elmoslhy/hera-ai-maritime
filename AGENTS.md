@@ -13,3 +13,4 @@
 - Keep the homepage pointer trail in a presentation-only canvas keyed to the descent section's scroll progress; keep the native cursor over controls (the CraftCursor component replaces it elsewhere on the homepage), skip controls and touch input, respect reduced motion, and stop drawing once traces fade to keep navigation accessible and idle rendering inexpensive.
 - /deck is a hidden, noindex presentation route composed from exported seker components and content files; never link it from Nav or Footer, so it stays private.
 - Share walkthrough film presentation and view selection across site walkthroughs and deck scenarios, with media pointers and extracted posters, to keep playback, accessibility and printed evidence consistent without changing scenario logic.
+- Resolve walkthrough film and poster pointers against the published Lovable host, because external hosting does not provide the Lovable asset gateway.
