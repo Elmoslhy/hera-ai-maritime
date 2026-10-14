@@ -286,10 +286,10 @@ const MAPS: Record<string, (p: { s: number }) => ReactNode> = {
   fisheries: Fisheries,
 };
 
-export function DeckScenarioMap({ slug, stage }: { slug: string; stage: number }) {
+export function DeckScenarioMap({ slug, stage, fluid = false }: { slug: string; stage: number; fluid?: boolean }) {
   const M = MAPS[slug];
   return (
-    <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} width={MAP_W} height={MAP_H} className="block" role="img" aria-label={`Scenario map, stage ${stage + 1}`}>
+    <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} width={fluid ? "100%" : MAP_W} height={fluid ? "100%" : MAP_H} className={fluid ? "block h-full w-full" : "block"} role="img" aria-label={`Scenario map, stage ${stage + 1}`}>
       <style>{`
         .deck-map-in { animation: dm-in .6s ease-out both; }
         .deck-map-pulse { animation: dm-pulse 1.8s ease-out infinite; }
