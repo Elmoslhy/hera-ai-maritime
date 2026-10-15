@@ -260,7 +260,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
           <h2 className="mt-4 text-[88px] font-light tracking-tight text-foreground">Know every vessel.</h2>
           <Line>One intelligence profile per vessel, updated continuously.</Line>
         </Text>
-        <div className="absolute left-1/2 top-[370px] -translate-x-1/2 [&_.twin-grid]:!grid-cols-2 [&_.twin-grid]:!gap-y-0 [perspective:2400px]">
+        <div className="absolute left-1/2 top-[400px] -translate-x-1/2 [&_.twin-grid]:!grid-cols-2 [&_.twin-grid]:!gap-y-0 [perspective:2400px]">
           <div className="deck-bg origin-top [transform:rotateX(12deg)]" style={{ width: 1700 / 1.3 + "px", transform: "rotateX(10deg) scale(1.3)" }}>
             <WindowChrome>
               <div className="grid grid-cols-[1.6fr_1fr] gap-px bg-white/5">
