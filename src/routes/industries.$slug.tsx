@@ -3,6 +3,7 @@ import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
 import { UseCasesSection } from "@/components/seker/UseCases";
 import { getIndustry } from "@/content/industries";
+import { SITE_URL } from "@/content/newsroom";
 import { cargoClaimCase, closingCta, originCase, preArrivalCase, transshipmentCase, cableCorridorCase, darkTransferDefenseCase, useCases } from "@/content/intelligence";
 import { DeliverablesSection, MissionsSection, RolesSection, SignatureSection } from "@/components/seker/IndustrySections";
 
@@ -25,7 +26,7 @@ export const Route = createFileRoute("/industries/$slug")({
     const i = loaderData ? getIndustry(loaderData.slug) : undefined;
     if (!i) return { meta: [{ title: "Industry not found · SEKER" }, { name: "robots", content: "noindex" }] };
     const title = `${i.navName} | Seker Space Intelligence`;
-    const url = `https://hera-sea-spy.lovable.app/industries/${i.slug}`;
+    const url = `${SITE_URL}/industries/${i.slug}`;
     return {
       meta: [
         { title },

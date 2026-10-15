@@ -76,7 +76,7 @@ export const newsItems: NewsItem[] = [
   },
 ];
 
-export const SITE_URL = "https://hera-sea-spy.lovable.app";
+export const SITE_URL = "https://seker-space.com";
 
 export const publishedNews = (): NewsItem[] =>
   newsItems
