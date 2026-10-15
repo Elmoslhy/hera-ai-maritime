@@ -230,7 +230,6 @@ export const taskingSection = {
     { title: "Partner constellations", text: "On-demand imaging from commercial constellations, requested, scheduled and checked through HERA AI." },
     { title: "Close-range drone", text: "For the last mile, a drone approaches the vessel to document its name, draught marks and deck activity, where regulations permit." },
   ],
-  networkNote: "Seker's own sensors, designed around the maritime question, join this network as they launch.",
   consoleTitle: "WATCH · VESSEL A · AFTER DARK TRANSFER ALERT",
   nightHours: 5.5,
   cloud: [90, 85, 60, 30],
