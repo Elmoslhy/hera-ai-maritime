@@ -41,7 +41,7 @@ function Chapter({ i, title, line, children }: { i: number; title: string; line:
   const flip = i % 2 === 1;
   return (
     <section className={`px-6 py-20 ${flip ? "bg-navy-deep" : "bg-navy"}`}>
-      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]">
+      <div className={`mx-auto grid max-w-7xl items-center gap-10 ${flip ? "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]"}`}>
         <Reveal className={flip ? "lg:order-2" : ""}>
           <span className="font-mono text-xs tracking-[0.24em] text-gold">0{i + 1}</span>
           <h2 className="text-balance mt-4 text-3xl font-light tracking-tight text-foreground sm:text-4xl">{title}</h2>
