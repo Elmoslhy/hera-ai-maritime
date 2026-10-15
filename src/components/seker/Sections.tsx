@@ -129,8 +129,8 @@ const PROFILE: [string, string][] = [
 const SERVE = [
   { slug: "defense", name: "Defense and coast guard", tone: "border-l-cyan", q: "Which vessels in my waters are not what they claim to be?", d: "Persistent tracking of vessels that go dark or change identity, with tasking to confirm them." },
   { slug: "insurance", name: "Insurance and P&I", tone: "border-l-gold", q: "Is this vessel the risk it claims to be?", d: "Ownership, flag standing, loading behaviour and encounter history for every vessel you cover." },
-  { slug: "commodity-trading", name: "Commodity trading", tone: "border-l-gold", q: "Where is the cargo really going?", d: "Cargo estimates, voyages and ship-to-ship transfers, including the ones that are not reported." },
-  { slug: "ports", name: "Ports and maritime authorities", tone: "border-l-cyan", q: "Who is arriving, and what risk do they bring?", d: "Arrival intelligence, vessel particulars and boarding risk before the ship reaches port." },
+  { slug: "commodity-trading", name: "Commodity trading", tone: "border-l-gold", q: "What are the vessels really doing?", d: "Vessel-level cargo estimates, voyages and ship-to-ship transfers, delivered as the data your analysts and models run on." },
+  { slug: "ports", name: "Ports and maritime authorities", tone: "border-l-cyan", q: "Who is arriving, and what risk do they bring?", d: "Arrival intelligence, vessel particulars and boarding risk before the ship reaches port, delivered into the systems you already use." },
   { slug: "fisheries", name: "Fisheries and environment", tone: "border-l-cyan", q: "Who was operating where they should not be?", d: "Activity patterns and identity history for vessels in protected and regulated waters." },
 ];
 
