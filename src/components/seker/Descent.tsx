@@ -14,10 +14,10 @@ type Act = {
 const ACTS: Act[] = [
   { at: 0.0, title: "In orbit", line: "Our satellite passes over the open sea." },
   { at: 0.15, title: "Normal traffic", line: "Every ship broadcasts who it is and where it is." },
-  { at: 0.32, title: "The signal stops", line: "This one switches its transmitter off — and disappears." },
+  { at: 0.32, title: "The signal stops", line: "This one switches its transmitter off and disappears." },
   { at: 0.5, title: "Thermal infrared", line: "But its engines are still hot. We can see the heat." },
   { at: 0.68, title: "Radio frequency", line: "Its radar and radios still leak. Two passes cross the bearings." },
-  { at: 0.86, title: "Located", line: "The ship that went dark is found — and it can't hide again." },
+  { at: 0.86, title: "Located", line: "The ship that went dark is found, and it cannot hide again." },
 ];
 
 export function DescentSection() {
@@ -235,7 +235,7 @@ export function DescentSection() {
             >
               <p className="text-xs text-muted-foreground">Vessel</p>
               <p className={`mt-1 text-sm ${p > 0.86 ? "text-gold" : p > 0.32 ? "text-alert" : "text-cyan"}`}>
-                {p > 0.86 ? "✓ Located and identified" : p > 0.32 ? "Dark — not transmitting" : "Transmitting normally"}
+                {p > 0.86 ? "✓ Located and identified" : p > 0.32 ? "Dark, not transmitting" : "Transmitting normally"}
               </p>
             </div>
           </div>

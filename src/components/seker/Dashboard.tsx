@@ -360,7 +360,7 @@ export function DigitalTwin() {
             ))}
           </div>
           <p className="mt-2 font-mono text-[9px] leading-relaxed text-muted-foreground">
-            Payload layers share SEKER-1's clock — a position discrepancy is attributable to the vessel.
+            Payload layers share SEKER-1's clock, so a position discrepancy is attributable to the vessel.
             Tasked layers are fused on the ground.
           </p>
         </div>
@@ -442,7 +442,7 @@ export function WindowChrome({ children }: { children: React.ReactNode }) {
         <div className="mr-auto">
           <p className="text-lg font-light tracking-wide text-cyan">HERA AI</p>
           <p className="font-mono text-[8px] tracking-[0.24em] text-muted-foreground">
-            VERIFIED MARITIME DATA LAYER
+            MARITIME INTELLIGENCE PLATFORM
           </p>
         </div>
         <div className="flex items-center gap-3 rounded border border-white/10 bg-white/[0.03] px-3 py-1.5 font-mono text-[10px] tracking-[0.16em]">
@@ -466,9 +466,9 @@ export function WindowChrome({ children }: { children: React.ReactNode }) {
 /* ---------------- section ---------------- */
 
 const FEATURES = [
-  { title: "Multi-source fusion", body: "Every AIS stream cross-validated against SAR, thermal and optical imagery in real time." },
-  { title: "Digital twin per vessel", body: "Identity, kinematics, behavioural baseline, anomaly history and risk — refreshed every 4.2 seconds." },
-  { title: "Blue Tick verification", body: "Spoofed positions flagged, with the raw broadcast kept as evidence. AIS gaps logged and context-scored. Low latency, everywhere." },
+  { title: "Vessel intelligence profiles", body: "Identity, voyages, cargo, encounters and compliance for every vessel, in one place." },
+  { title: "Alerts with a next step", body: "Dark activity, identity changes and meetings at sea, each with a suggested action, delivered by platform, API or briefing." },
+  { title: "Blue Tick accuracy", body: "Every field cross-checked across sources and traceable to where it came from." },
 ];
 
 export function DashboardSection() {
@@ -477,9 +477,9 @@ export function DashboardSection() {
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
           <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-            Positions tell you where a vessel says it is.
+            Data tells you where a vessel says it is.
             <br />
-            <span className="text-gold">HERA AI tells you whether to believe it.</span>
+            <span className="text-gold">SEKER tells you who it is, what it is doing and what to do next.</span>
           </h2>
         </Reveal>
 
@@ -487,7 +487,7 @@ export function DashboardSection() {
           <div className="mb-6 text-center">
             <p className="font-mono text-xs tracking-[0.28em] text-gold">HERA AI · INSIGHT</p>
             <p className="text-pretty mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-              Every signal is resolved into one verified picture — our payloads in the sky keep that
+              Every signal is resolved into one verified picture. Our payloads in the sky keep that
               picture honest.
             </p>
           </div>

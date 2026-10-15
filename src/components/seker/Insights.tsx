@@ -33,7 +33,7 @@ const INDUSTRIES: Industry[] = [
     id: "defence",
     name: "Defense and coast guard",
     blurb:
-      "Know which hull is in your waters before it reaches them — even with the transponder off.",
+      "Know which hull is in your waters before it reaches them, even with the transponder off.",
     metrics: [
       { label: "Dark vessels named / week", to: 148 },
       { label: "Median warning time", to: 42, suffix: " min" },
@@ -231,7 +231,7 @@ const INDUSTRIES: Industry[] = [
     id: "environment",
     name: "Fisheries and environment",
     blurb:
-      "Catch the activity that hides from the register — inside protected water.",
+      "Catch the activity that hides from the register, inside protected water.",
     metrics: [
       { label: "IUU events flagged / mo", to: 312 },
       { label: "Protected-zone coverage", to: 100, suffix: "%" },
@@ -513,16 +513,15 @@ export function InsightsSection() {
 
       <div className="relative z-10 mx-auto max-w-[1400px]">
         <Reveal className="text-center">
-          <p className="text-eyebrow text-gold">Insights by Industry</p>
+          <p className="text-eyebrow text-gold">Intelligence in Action</p>
           <h2 className="text-balance mx-auto mt-6 max-w-3xl text-3xl font-light leading-[1.08] tracking-tight text-foreground sm:text-5xl">
-            Data for actionable insights.
-            <span className="mt-2 block text-cyan">We hand you the next move.</span>
+            <span className="text-cyan">We hand you the next move.</span>
           </h2>
           <p className="text-pretty mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            AI fused and trained — with a human touch.
+            AI fused and trained, with a human touch.
           </p>
           <p className="text-pretty mx-auto mt-7 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            One intelligence feed — shaped to the decisions your team actually makes.
+            One intelligence feed, shaped to the decisions your team actually makes.
           </p>
         </Reveal>
 
