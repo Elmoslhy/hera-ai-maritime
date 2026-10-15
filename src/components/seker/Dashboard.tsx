@@ -276,8 +276,8 @@ const LAYERS = [
 
 /* ---------------- digital twin panel ---------------- */
 
-const IDENTITY = [["Type", "Tanker"], ["Flag", "MT"], ["IMO", "—"], ["Call sign", "—"]];
-const KINEMATICS = [["Position", "37.500, 23.800"], ["Speed", "14.1 kn"], ["Course", "90°"], ["Dest", "—"]];
+const IDENTITY = [["Type", "Tanker"], ["Flag", "MT"], ["IMO", "Not broadcast"], ["Call sign", "Not broadcast"]];
+const KINEMATICS = [["Position", "37.500, 23.800"], ["Speed", "14.1 kn"], ["Course", "90°"], ["Dest", "Not broadcast"]];
 const SOURCES: { id: string; on: boolean }[] = [
   { id: "AIS-T", on: true }, { id: "AIS-S", on: true }, { id: "SAR", on: true },
   { id: "PORT", on: true }, { id: "RF", on: false }, { id: "OPT", on: false },
