@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
 import network from "@/assets/satellite-network.jpg";
+import moustafa from "@/assets/team/moustafa-elmoslhy.jpg";
+import akash from "@/assets/team/akash-sharma.jpg";
 
 const TITLE = "Company | SEKER";
 const DESC =
@@ -25,6 +27,23 @@ const BELIEFS: [string, string][] = [
   ["Accuracy over volume", "Every ship checked field by field, so each answer can be trusted."],
   ["Independent of what ships report", "We measure for ourselves instead of relying on what ships broadcast."],
   ["Built in Europe", "Designed and operated in Luxembourg, under European rules."],
+];
+
+const TEAM = [
+  {
+    photo: moustafa,
+    alt: "Moustafa Elmoslhy, Founder and CEO of Seker",
+    name: "Moustafa Elmoslhy",
+    title: "Founder and CEO",
+    bio: "A mechatronics engineer, Moustafa was Managing Director and Head of Engineering at a European small-satellite manufacturer in Luxembourg. Before that, he led autonomous vehicle development as an R&D Engineering Manager at Amazon Robotics, across Europe and North America. He began his career as an mechatronics engineer.",
+  },
+  {
+    photo: akash,
+    alt: "Akash Sharma, Chief Growth Officer of Seker",
+    name: "Akash Sharma",
+    title: "Chief Growth Officer",
+    bio: "Akash leads Seker's commercial growth and its partnerships with customers and data providers worldwide. He was previously a Senior Manager at EY, focused on space and satellite data.",
+  },
 ];
 
 const gold =
