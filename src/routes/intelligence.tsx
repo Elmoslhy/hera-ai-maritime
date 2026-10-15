@@ -4,13 +4,54 @@ import { Reveal, SectionBackground } from "@/components/seker/primitives";
 import { UseCasesSection } from "@/components/seker/UseCases";
 import { WorkspaceSection } from "@/components/seker/Workspace";
 import { TaskingSection } from "@/components/seker/Tasking";
-import { CollectsSection } from "@/components/seker/Collects";
+import { AlertCards } from "@/components/seker/Insights";
 import vessels from "@/assets/vessels.jpg";
-import { intelligenceHero as h, intelligenceSteps } from "@/content/intelligence";
+import {
+  intelligenceHero as h,
+  closingCta,
+  cableCorridorCase,
+  cargoClaimCase,
+  originCase,
+  preArrivalCase,
+  transshipmentCase,
+} from "@/content/intelligence";
 
-const TITLE = "Intelligence in Practice · HERA AI by SEKER";
+const TITLE = "HERA AI | SEKER";
 const DESCRIPTION =
-  "How HERA AI works real maritime cases: detect, cue, collect, fuse, assess and deliver a finding you can defend.";
+  "HERA AI brings every source on a ship into one profile, flags what does not add up and tells you what to do next.";
+
+const CAPS: [string, string][] = [
+  ["Dark vessel detection", "Find ships that switch off their transponder."],
+  ["Spoofing detection", "Catch ships that fake their position or identity."],
+  ["Vessel profiles", "Owner, flag, cargo and history for every ship."],
+  ["Meetings at sea", "See which ships meet, where and for how long."],
+  ["Watched areas and alerts", "Get warned the moment a ship acts unusually."],
+  ["Satellite and drone tasking", "Send a satellite or a drone to take a look."],
+];
+
+const CASES = [
+  { ...cableCorridorCase, tag: "Defense and coast guard" },
+  { ...cargoClaimCase, tag: "Insurance and P&I" },
+  { ...originCase, tag: "Commodity trading" },
+  { ...preArrivalCase, tag: "Ports and maritime authorities" },
+  { ...transshipmentCase, tag: "Fisheries and environment" },
+];
+
+function Chapter({ i, title, line, children }: { i: number; title: string; line: string; children: React.ReactNode }) {
+  const flip = i % 2 === 1;
+  return (
+    <section className={`px-6 py-20 ${flip ? "bg-navy-deep" : "bg-navy"}`}>
+      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]">
+        <Reveal className={flip ? "lg:order-2" : ""}>
+          <span className="font-mono text-xs tracking-[0.24em] text-gold">0{i + 1}</span>
+          <h2 className="text-balance mt-4 text-3xl font-light tracking-tight text-foreground sm:text-4xl">{title}</h2>
+          <p className="text-pretty mt-5 max-w-md text-base font-light text-foreground/75">{line}</p>
+        </Reveal>
+        <Reveal delay={0.1} className="min-w-0">{children}</Reveal>
+      </div>
+    </section>
+  );
+}
 
 export const Route = createFileRoute("/intelligence")({
   head: () => ({
@@ -70,52 +111,93 @@ function IntelligencePage() {
           <Reticle className="right-[10%] bottom-[18%] h-16 w-20 sm:h-20 sm:w-28" tag={h.tags.dark} tone="alert" />
           <div className="relative mx-auto w-full max-w-7xl">
             <Reveal>
-              <p className="text-eyebrow text-gold">{h.eyebrow}</p>
+              <p className="text-eyebrow text-gold">HERA AI</p>
               <h1 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">
-                {h.headline[0]}
+                One platform.
                 <br />
-                <span className="text-gold">{h.headline[1]}</span>
+                <span className="text-gold">Every ship.</span>
               </h1>
-              <p className="mt-8 max-w-2xl text-balance text-lg font-light text-foreground/80">{h.body}</p>
+              <p className="mt-8 max-w-2xl text-balance text-lg font-light text-foreground/80">
+                HERA AI brings every source on a ship into one profile, flags what does not add up and tells you what to do next.
+              </p>
               <div className="mt-10 flex flex-wrap gap-4">
                 <a
                   href="#use-cases"
                   className="border border-gold/60 bg-gold/90 px-6 py-3 font-mono text-xs tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold"
                 >
-                  {h.primaryCta} →
+                  SEE THE USE CASES →
                 </a>
                 <Link
                   to="/"
                   hash="contact"
                   className="border border-gold/60 px-6 py-3 font-mono text-xs tracking-[0.22em] text-gold transition-colors hover:bg-gold/10"
                 >
-                  {h.secondaryCta}
+                  DISCUSS YOUR USE CASE
                 </Link>
               </div>
             </Reveal>
           </div>
         </section>
 
-        <section className="bg-navy-deep px-6 py-16">
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            {intelligenceSteps.map((s, i) => (
-              <Reveal key={s.n} delay={i * 0.06}>
-                <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
-                  <div className="flex items-center justify-between font-mono text-xs tracking-[0.2em]">
-                    <span className="text-gold">{s.n}</span>
-                    <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
+        <section className="bg-navy-deep px-6 py-24">
+          <div className="mx-auto max-w-7xl">
+            <Reveal>
+              <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">What HERA AI does.</h2>
+            </Reveal>
+            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {CAPS.map(([t, d], i) => (
+                <Reveal key={t} delay={i * 0.05}>
+                  <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-6">
+                    <span className="block h-1.5 w-1.5 rounded-full bg-cyan" />
+                    <h3 className="mt-4 text-lg font-light text-foreground">{t}</h3>
+                    <p className="mt-2 text-sm font-light text-muted-foreground">{d}</p>
                   </div>
-                  <h3 className="mt-4 font-mono text-sm uppercase tracking-[0.2em] text-foreground">{s.title}</h3>
-                  <p className="mt-2 text-sm font-light text-foreground/75">{s.text}</p>
-                </div>
-              </Reveal>
-            ))}
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
-        <UseCasesSection />
-        <WorkspaceSection />
-        <CollectsSection />
-        <TaskingSection />
+
+        <Chapter i={0} title="Sensor fusion" line="Every source on a ship, checked against the others, field by field.">
+          <WorkspaceSection part="fusion" />
+        </Chapter>
+        <Chapter i={1} title="Satellite and drone tasking" line="Put a ship under watch and HERA AI sends the right satellite or drone.">
+          <TaskingSection consoleOnly />
+        </Chapter>
+        <Chapter i={2} title="Briefings and Ask HERA AI" line="Seker briefs and public news linked to your ships, and answers that show their sources.">
+          <WorkspaceSection part="briefing" />
+        </Chapter>
+        <Chapter i={3} title="Alerts with a next step" line="Each warning arrives with what was seen and what to do about it.">
+          <AlertCards />
+        </Chapter>
+
+        <UseCasesSection cases={CASES} eyebrow="Use cases" headline={["See it work.", ""]} />
+
+        <section className="bg-navy-deep px-6 py-16 text-center">
+          <Reveal>
+            <p className="text-eyebrow text-gold">How you get it</p>
+            <p className="mt-6 font-mono text-lg tracking-[0.24em] text-foreground sm:text-2xl">
+              Platform <span className="text-gold">·</span> API <span className="text-gold">·</span> Briefings
+            </p>
+          </Reveal>
+        </section>
+
+        <section className="bg-navy px-6 py-28 text-center">
+          <Reveal>
+            <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+              {closingCta.headline[0]}
+              <br />
+              <span className="text-gold">{closingCta.headline[1]}</span>
+            </h2>
+            <Link
+              to="/"
+              hash="contact"
+              className="mt-10 inline-block border border-gold/60 bg-gold/90 px-6 py-3 font-mono text-xs tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold"
+            >
+              {closingCta.button} →
+            </Link>
+          </Reveal>
+        </section>
       </main>
       <Footer />
     </div>
