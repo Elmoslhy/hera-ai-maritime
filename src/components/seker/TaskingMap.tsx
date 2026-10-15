@@ -270,12 +270,12 @@ export function TaskingScreen() {
       // [text, tone, at, from, until, desktop offset, phone offset]
       type L = [string, Tone, LL, number, number, [number, number], [number, number]];
       const L: L[] = [
-        ["FUJAIRAH ANCH. A", "muted", [56.42, 25.25], 0, 1, [-40, -36], [-30, -40]],
-        [`VESSEL A · LAST AIS ${hhmm(0)}`, "alert", LP, 0, 1, [70, 36], [40, 60]],
+        ["FUJAIRAH ANCH. A", "muted", [56.54, 25.24], 0, 1, [40, -30], [40, -30]],
+        [`VESSEL A · LAST AIS ${hhmm(0)}`, "alert", LP, 0, 1, [40, 60], [20, 60]],
         ["REACH 18 NM", "alert", circle(LP, 33.34, 8)[1], 1, 1, [36, -30], [-20, -40]],
-        ["RF-1 · 2 KM", "cyan", T, 2, 4, [90, -70], [44, -100]],
-        [`SAR-2 · HULL 183 M · ${hhmm(132)}`, "gold", T, 3, 5, [90, 70], [44, -60]],
-        ["UAV-1 · ORBIT 3.2 KM", "gold", T, 4, 5, [110, 0], [44, 60]],
+        ["RF-1 · 2 KM", "cyan", T, 2, 4, [90, -70], [44, -90]],
+        [`SAR-2 · HULL 183 M · ${hhmm(132)}`, "gold", T, 3, 5, [90, 70], [44, -50]],
+        ["UAV-1 · ORBIT 3.2 KM", "gold", T, 4, 5, [110, 0], [60, 0]],
       ];
       for (const [text, tone, at, from, until, d, ph] of L) {
         if (step < from || step > until) continue;
@@ -284,9 +284,9 @@ export function TaskingScreen() {
         add(tag(text, tone, dx, dy, op), at);
       }
       add(dot("#e2574c", true), LP);
-      if (step >= 3) { add(dot("#c9a84c"), T); add(tag("VESSEL A", "cyan", narrow ? 44 : -90, narrow ? 100 : -70, 1), T); }
+      if (step >= 3) { add(dot("#c9a84c"), T); add(tag("VESSEL A", "cyan", narrow ? 44 : -90, narrow ? 50 : -70, 1), T); }
       if (step >= 4) { const e = document.createElement("div"); e.style.cssText = "width:9px;height:9px;background:#e0a33c;transform:rotate(45deg)"; drone.current = add(e, [T[0] + 3.2 / kmLon(T[1]), T[1]]); }
-      if (step >= 5) add(tag("PROFILE UPDATED", "cyan", narrow ? 44 : -90, narrow ? 140 : 70, 1), T);
+      if (step >= 5) add(tag("PROFILE UPDATED", "cyan", narrow ? 44 : -90, narrow ? 90 : 70, 1), T);
     })();
     const zoomed = step >= 2;
     const w = mapEl.current?.clientWidth ?? 800;
