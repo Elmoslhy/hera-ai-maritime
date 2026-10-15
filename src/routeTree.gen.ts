@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccessRouteImport } from './routes/access'
 import { Route as CompanyRouteImport } from './routes/company'
+import { Route as ConstellationRouteImport } from './routes/constellation'
 import { Route as DeckRouteImport } from './routes/deck'
 import { Route as IntelligenceRouteImport } from './routes/intelligence'
 import { Route as CareersIndexRouteImport } from './routes/careers.index'
@@ -34,6 +35,11 @@ const AccessRoute = AccessRouteImport.update({
 const CompanyRoute = CompanyRouteImport.update({
   id: '/company',
   path: '/company',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConstellationRoute = ConstellationRouteImport.update({
+  id: '/constellation',
+  path: '/constellation',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DeckRoute = DeckRouteImport.update({
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/access': typeof AccessRoute
   '/company': typeof CompanyRoute
+  '/constellation': typeof ConstellationRoute
   '/deck': typeof DeckRoute
   '/intelligence': typeof IntelligenceRoute
   '/careers/$slug': typeof CareersSlugRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/access': typeof AccessRoute
   '/company': typeof CompanyRoute
+  '/constellation': typeof ConstellationRoute
   '/deck': typeof DeckRoute
   '/intelligence': typeof IntelligenceRoute
   '/careers/$slug': typeof CareersSlugRoute
@@ -108,6 +116,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/access': typeof AccessRoute
   '/company': typeof CompanyRoute
+  '/constellation': typeof ConstellationRoute
   '/deck': typeof DeckRoute
   '/intelligence': typeof IntelligenceRoute
   '/careers/$slug': typeof CareersSlugRoute
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
     | '/'
     | '/access'
     | '/company'
+    | '/constellation'
     | '/deck'
     | '/intelligence'
     | '/careers/$slug'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/'
     | '/access'
     | '/company'
+    | '/constellation'
     | '/deck'
     | '/intelligence'
     | '/careers/$slug'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/'
     | '/access'
     | '/company'
+    | '/constellation'
     | '/deck'
     | '/intelligence'
     | '/careers/$slug'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccessRoute: typeof AccessRoute
   CompanyRoute: typeof CompanyRoute
+  ConstellationRoute: typeof ConstellationRoute
   DeckRoute: typeof DeckRoute
   IntelligenceRoute: typeof IntelligenceRoute
   CareersSlugRoute: typeof CareersSlugRoute
@@ -194,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/company'
       fullPath: '/company'
       preLoaderRoute: typeof CompanyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/constellation': {
+      id: '/constellation'
+      path: '/constellation'
+      fullPath: '/constellation'
+      preLoaderRoute: typeof ConstellationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/deck': {
@@ -259,6 +279,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccessRoute: AccessRoute,
   CompanyRoute: CompanyRoute,
+  ConstellationRoute: ConstellationRoute,
   DeckRoute: DeckRoute,
   IntelligenceRoute: IntelligenceRoute,
   CareersSlugRoute: CareersSlugRoute,
