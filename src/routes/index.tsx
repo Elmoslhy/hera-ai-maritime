@@ -2,13 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { DashboardSection } from "@/components/seker/Dashboard";
 import { DescentSection } from "@/components/seker/Descent";
-import { InsightsSection } from "@/components/seker/Insights";
 import {
   ConstellationSection,
   ContactSection,
   HeroSection,
   IndustriesSection,
-  LaunchSection,
   ProblemSection,
 } from "@/components/seker/Sections";
 
@@ -37,13 +35,11 @@ function Index() {
       <Nav />
       <main>
         <HeroSection />
-        <LaunchSection />
-        <IndustriesSection />
         <ProblemSection />
-        <ConstellationSection />
         <DescentSection />
         <DashboardSection />
-        <InsightsSection />
+        <IndustriesSection />
+        <ConstellationSection />
         <ContactSection />
       </main>
       <Footer />
