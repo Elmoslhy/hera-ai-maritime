@@ -271,7 +271,7 @@ export function TaskingScreen() {
       type L = [string, Tone, LL, number, number, [number, number], [number, number]];
       const L: L[] = [
         ["FUJAIRAH ANCH. A", "muted", [56.54, 25.24], 0, 1, [40, -30], [40, -30]],
-        [`VESSEL A · LAST AIS ${hhmm(0)}`, "alert", LP, 0, 1, [40, 60], [20, 60]],
+        [`VESSEL A · LAST AIS ${hhmm(0)}`, "alert", LP, 0, 1, [-20, 60], [-20, 60]],
         ["REACH 18 NM", "alert", circle(LP, 33.34, 8)[1], 1, 1, [36, -30], [-20, -40]],
         ["RF-1 · 2 KM", "cyan", T, 2, 4, [90, -70], [44, -90]],
         [`SAR-2 · HULL 183 M · ${hhmm(132)}`, "gold", T, 3, 5, [90, 70], [44, -50]],
