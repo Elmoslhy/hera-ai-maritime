@@ -1,8 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
-import { Reveal, SectionBackground } from "@/components/seker/primitives";
-import { DescentSection } from "@/components/seker/Descent";
-import earth from "@/assets/earth-texture.jpg";
+import { Reveal } from "@/components/seker/primitives";
 import satellite from "@/assets/satellite-real.png";
 
 const TITLE = "SEKER-1 and SEKER-2 | Seker Space Intelligence";
@@ -63,29 +61,65 @@ function Head({ eyebrow, title }: { eyebrow: string; title: string }) {
   );
 }
 
+const CALLOUTS = [
+  { n: "01", label: "THERMAL IR", pos: "left-0 top-[8%]" },
+  { n: "02", label: "RADAR RX", pos: "right-0 top-[8%] text-right" },
+  { n: "03", label: "AIS RX", pos: "left-0 bottom-[8%]" },
+  { n: "04", label: "SEA STATE", pos: "right-0 bottom-[8%] text-right" },
+];
+
+function SensorSchematic() {
+  const corner = "absolute h-6 w-6 border-gold";
+  return (
+    <div className="relative mx-auto aspect-square w-full max-w-[520px]">
+      <div className={`${corner} left-[14%] top-[14%] border-l border-t`} />
+      <div className={`${corner} right-[14%] top-[14%] border-r border-t`} />
+      <div className={`${corner} bottom-[14%] left-[14%] border-b border-l`} />
+      <div className={`${corner} bottom-[14%] right-[14%] border-b border-r`} />
+      <div aria-hidden className="absolute inset-[22%] rounded-full border border-dashed border-cyan/30" />
+      <img
+        src={satellite}
+        alt="SEKER satellite"
+        className="absolute inset-[20%] h-[60%] w-[60%] object-contain drop-shadow-[0_0_30px_rgba(77,217,192,0.25)]"
+      />
+      {CALLOUTS.map((c) => (
+        <div key={c.n} className={`absolute ${c.pos} font-mono text-[10px] tracking-[0.2em] sm:text-xs`}>
+          <span className="text-gold">{c.n}</span>{" "}
+          <span className="inline-flex items-center gap-1.5 border border-cyan/40 bg-navy/80 px-2 py-1 text-cyan">
+            <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
+            {c.label}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function ConstellationPage() {
   return (
     <div className="overflow-x-hidden bg-navy">
       <ScrollProgress />
       <Nav />
       <main>
-        <section className="relative flex min-h-screen items-center overflow-hidden px-6 py-32">
-          <SectionBackground src={earth} alt="Earth seen from orbit" overlay="bg-navy/70" />
-          <img
-            src={satellite}
-            alt=""
+        <section className="relative overflow-hidden px-6 pb-20 pt-32 sm:pt-40">
+          <div
             aria-hidden
-            className="pointer-events-none absolute right-[-10%] top-[14%] w-[70%] max-w-[640px] opacity-60 sm:top-1/2 sm:-translate-y-1/2 drop-shadow-[0_0_40px_rgba(77,217,192,0.25)] sm:right-[4%] sm:w-[42%] sm:opacity-90"
+            className="pointer-events-none absolute inset-0 opacity-[0.07]"
+            style={{
+              backgroundImage:
+                "linear-gradient(var(--color-cyan) 1px, transparent 1px), linear-gradient(90deg, var(--color-cyan) 1px, transparent 1px)",
+              backgroundSize: "64px 64px",
+            }}
           />
-          <div className="relative mx-auto w-full max-w-7xl">
+          <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
             <Reveal>
               <p className="text-eyebrow text-gold">SEKER-1 · SEKER-2</p>
-              <h1 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">
+              <h1 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-6xl">
                 Our own sensors.
                 <br />
                 <span className="text-gold">Better data, better intelligence.</span>
               </h1>
-              <p className="mt-8 max-w-2xl text-balance text-lg font-light text-foreground/80">
+              <p className="mt-8 max-w-xl text-balance text-lg font-light text-foreground/80">
                 SEKER-1 and SEKER-2 will carry sensors built for one job: checking what every ship really does, not only what it says.
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
@@ -98,17 +132,24 @@ function ConstellationPage() {
                 </Link>
               </div>
             </Reveal>
+            <Reveal delay={0.1}>
+              <SensorSchematic />
+            </Reveal>
           </div>
         </section>
-
-        <DescentSection />
 
         <section className="bg-navy-deep px-6 py-24">
           <div className="mx-auto max-w-7xl">
             <Head eyebrow="On board" title="What each sensor adds." />
-            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-white/10 bg-white/10 sm:grid-cols-2">
               {SENSORS.map(([t, d], i) => (
-                <Reveal key={t} delay={i * 0.05}><Card t={t} d={d} /></Reveal>
+                <Reveal key={t} delay={i * 0.05}>
+                  <div className="h-full bg-navy-deep p-6 sm:p-8">
+                    <span className="font-mono text-xs tracking-[0.22em] text-gold">0{i + 1}</span>
+                    <h3 className="mt-3 text-xl font-light text-foreground">{t}</h3>
+                    <p className="mt-2 text-sm font-light text-muted-foreground">{d}</p>
+                  </div>
+                </Reveal>
               ))}
             </div>
             <Reveal>
