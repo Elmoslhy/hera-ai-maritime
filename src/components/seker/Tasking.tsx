@@ -38,46 +38,14 @@ function useCountdown() {
   return t;
 }
 
-export function TaskingSection() {
+export function TaskingSection({ consoleOnly }: { consoleOnly?: boolean } = {}) {
   const [active, setActive] = useState("p08");
   const tick = useCountdown();
   const pass = allPasses.find((p) => p.id === active)!;
   const next = allPasses.filter((p) => p.status !== "rejected").sort((a, b) => a.start - b.start).slice(0, 4);
   const NOW = 0.5; // simulated hours since alert
 
-  return (
-    <>
-      <section id="tasking" className="scroll-mt-24 bg-navy px-6 py-24">
-        <div className="mx-auto max-w-7xl">
-          <Reveal>
-            <p className="text-eyebrow text-gold">{s.eyebrow}</p>
-            <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-              {s.headline[0]}
-              <br />
-              <span className="text-gold">{s.headline[1]}</span>
-            </h2>
-            <p className="mt-6 max-w-3xl text-base font-light text-foreground/80">{s.body}</p>
-          </Reveal>
-
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {s.cards.map((c, i) => {
-              const Icon = ICONS[i];
-              return (
-                <Reveal key={c.title} delay={i * 0.08}>
-                  <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
-                    <div className="flex items-center justify-between">
-                      <Icon className="h-5 w-5 text-gold" />
-                      <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
-                    </div>
-                    <h3 className="mt-4 font-mono text-sm uppercase tracking-[0.18em] text-foreground">{c.title}</h3>
-                    <p className="mt-2 text-sm font-light text-foreground/75">{c.text}</p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-
-          {/* console */}
+  const consoleEl = (
           <div className="mt-10 overflow-hidden rounded-xl border border-white/10 bg-navy-deep">
             <div className="flex items-center gap-4 border-b border-white/10 px-4 py-3">
               <div className="flex shrink-0 gap-1.5">
@@ -199,6 +167,42 @@ export function TaskingSection() {
               </div>
             </div>
           </div>
+  );
+  if (consoleOnly) return consoleEl;
+
+  return (
+    <>
+      <section id="tasking" className="scroll-mt-24 bg-navy px-6 py-24">
+        <div className="mx-auto max-w-7xl">
+          <Reveal>
+            <p className="text-eyebrow text-gold">{s.eyebrow}</p>
+            <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+              {s.headline[0]}
+              <br />
+              <span className="text-gold">{s.headline[1]}</span>
+            </h2>
+            <p className="mt-6 max-w-3xl text-base font-light text-foreground/80">{s.body}</p>
+          </Reveal>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {s.cards.map((c, i) => {
+              const Icon = ICONS[i];
+              return (
+                <Reveal key={c.title} delay={i * 0.08}>
+                  <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
+                    <div className="flex items-center justify-between">
+                      <Icon className="h-5 w-5 text-gold" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
+                    </div>
+                    <h3 className="mt-4 font-mono text-sm uppercase tracking-[0.18em] text-foreground">{c.title}</h3>
+                    <p className="mt-2 text-sm font-light text-foreground/75">{c.text}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+
+          {consoleEl}
         </div>
       </section>
 

@@ -661,3 +661,29 @@ export function InsightsSection() {
     </section>
   );
 }
+
+export function AlertCards() {
+  return (
+    <div className="grid gap-4">
+      {INDUSTRIES[0].insights.slice(0, 3).map((ins) => {
+        const tone = TONE[ins.tone];
+        return (
+          <article
+            key={ins.headline}
+            className={`relative overflow-hidden rounded-xl border border-white/10 bg-[#070d16] p-5 before:absolute before:inset-y-0 before:left-0 before:w-[2px] ${tone.edge}`}
+          >
+            <div className="flex items-center justify-between gap-3">
+              <span className={`rounded border px-2 py-1 font-mono text-[10px] tracking-[0.2em] ${tone.chip}`}>{ins.tag}</span>
+              <span className="font-mono text-[9px] tracking-[0.14em] text-muted-foreground">{ins.confidence}% CONF</span>
+            </div>
+            <h3 className="text-balance mt-3 text-base font-light leading-snug text-foreground">{ins.headline}</h3>
+            <div className="mt-4 border-t border-white/8 pt-3">
+              <p className="font-mono text-[8px] tracking-[0.22em] text-muted-foreground/70">SUGGESTED NEXT STEP</p>
+              <p className="text-pretty mt-1.5 text-sm leading-relaxed text-foreground">{ins.action}</p>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  );
+}

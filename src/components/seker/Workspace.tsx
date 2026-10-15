@@ -117,7 +117,7 @@ function WsMap({ layers, selected, onSelect }: { layers: Set<Layer>; selected: s
   );
 }
 
-export function WorkspaceSection() {
+export function WorkspaceSection({ part }: { part?: "fusion" | "briefing" } = {}) {
   const [sel, setSel] = useState("a");
   const [layers, setLayers] = useState<Set<Layer>>(new Set(wsLayers));
   const [tab, setTab] = useState<"seker" | "public">("seker");
@@ -145,9 +145,9 @@ export function WorkspaceSection() {
     });
 
   return (
-    <section className="bg-navy-deep px-6 py-24">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
+    <section className={part ? "" : "bg-navy-deep px-6 py-24"}>
+      <div className={part ? "" : "mx-auto max-w-7xl"}>
+        {!part && <Reveal>
           <p className="text-eyebrow text-gold">{s.eyebrow}</p>
           <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             {s.headline[0]}
@@ -155,9 +155,9 @@ export function WorkspaceSection() {
             <span className="text-gold">{s.headline[1]}</span>
           </h2>
           <p className="mt-6 max-w-3xl text-base font-light text-foreground/80">{s.body}</p>
-        </Reveal>
+        </Reveal>}
 
-        <div className="mt-10 overflow-hidden rounded-xl border border-white/10 bg-navy-deep">
+        <div className={`${part ? "" : "mt-10 "}overflow-hidden rounded-xl border border-white/10 bg-navy-deep`}>
           <div className="flex items-center gap-4 border-b border-white/10 px-4 py-3">
             <div className="flex gap-1.5">
               <span className="h-2.5 w-2.5 rounded-full bg-alert/80" />
@@ -167,9 +167,9 @@ export function WorkspaceSection() {
             <p className="truncate font-mono text-[10px] tracking-[0.2em] text-muted-foreground">{s.frameTitle}</p>
           </div>
 
-          <div className="grid min-w-0 gap-4 p-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_minmax(0,1fr)]">
+          <div className={`grid min-w-0 gap-4 p-4 ${part ? "" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_minmax(0,1fr)]"}`}>
             {/* LEFT */}
-            <div className="min-w-0 space-y-3">
+            {(!part || part === "fusion") && (<div className="min-w-0 space-y-3">
               <p className={label}>Sensor fusion</p>
               <div className="flex flex-wrap gap-2">
                 {wsVessels.map((x) => (
@@ -215,10 +215,9 @@ export function WorkspaceSection() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>)}
 
-            {/* CENTRE */}
-            <div className="min-w-0 space-y-3">
+            {!part && (<div className="min-w-0 space-y-3">
               <p className={label}>Operational picture</p>
               <WsMap layers={layers} selected={sel} onSelect={setSel} />
               <fieldset className={panel}>
@@ -233,10 +232,9 @@ export function WorkspaceSection() {
                   ))}
                 </div>
               </fieldset>
-            </div>
+            </div>)}
 
-            {/* RIGHT */}
-            <div className="min-w-0 space-y-3">
+            {(!part || part === "briefing") && (<div className="min-w-0 space-y-3">
               <p className={label}>Briefing</p>
               <div className="grid grid-cols-2 rounded-full border border-white/12 p-1">
                 {(["seker", "public"] as const).map((t) => (
@@ -336,10 +334,10 @@ export function WorkspaceSection() {
                   )}
                 </div>
               </div>
-            </div>
+            </div>)}
           </div>
         </div>
-        <p className="mt-6 text-xs font-light text-muted-foreground">{s.note}</p>
+        {!part && <p className="mt-6 text-xs font-light text-muted-foreground">{s.note}</p>}
       </div>
     </section>
   );
