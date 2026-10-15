@@ -76,7 +76,6 @@ export function TaskingSection() {
               );
             })}
           </div>
-          <p className="mt-4 text-sm font-light text-foreground/55">{s.networkNote}</p>
 
           {/* console */}
           <div className="mt-10 overflow-hidden rounded-xl border border-white/10 bg-navy-deep">
