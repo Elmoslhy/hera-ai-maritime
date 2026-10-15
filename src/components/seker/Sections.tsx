@@ -134,6 +134,70 @@ const SERVE = [
   { slug: "fisheries", name: "Fisheries and environment", tone: "border-l-cyan", q: "Who was operating where they should not be?", d: "Activity patterns and identity history for vessels in protected and regulated waters." },
 ];
 
+const GET_IT: {
+  title: string;
+  line: string;
+  label: string;
+  kind: "access" | "contact";
+}[] = [
+  {
+    title: "HERA AI Platform",
+    line: "See every ship, alert and briefing in one place.",
+    label: "PLATFORM LOGIN →",
+    kind: "access",
+  },
+  {
+    title: "HERA AI API",
+    line: "Plug verified vessel data straight into your own systems.",
+    label: "ASK FOR API ACCESS →",
+    kind: "contact",
+  },
+  {
+    title: "Seker Briefings",
+    line: "Written briefs on the ships and waters you care about, with the evidence behind each finding.",
+    label: "ASK FOR A BRIEFING →",
+    kind: "contact",
+  },
+];
+
+const getItLink =
+  "mt-auto inline-block self-start pt-6 font-mono text-[11px] tracking-[0.2em] text-cyan transition-colors hover:text-gold";
+
+export function GetItSection() {
+  return (
+    <section id="get-it" className="scroll-mt-24 bg-navy-deep px-6 py-28">
+      <div className="mx-auto max-w-[1500px]">
+        <Reveal className="text-center">
+          <p className="text-eyebrow text-gold">How you get it</p>
+          <h2 className="text-balance mx-auto mt-6 max-w-3xl text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+            Three ways to use HERA AI.
+          </h2>
+        </Reveal>
+        <div className="mt-14 grid gap-4 md:grid-cols-3">
+          {GET_IT.map((x, i) => (
+            <Reveal key={x.title} delay={i * 0.06}>
+              <div className="flex h-full flex-col rounded-lg border border-white/10 bg-navy/70 p-6">
+                <span className="block h-1.5 w-1.5 rounded-full bg-cyan" />
+                <h3 className="mt-4 text-lg font-light text-foreground">{x.title}</h3>
+                <p className="text-pretty mt-2 text-sm font-light text-muted-foreground">{x.line}</p>
+                {x.kind === "access" ? (
+                  <Link to="/access" className={getItLink}>
+                    {x.label}
+                  </Link>
+                ) : (
+                  <Link to="/" hash="contact" className={getItLink}>
+                    {x.label}
+                  </Link>
+                )}
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function IndustriesSection() {
   return (
     <section id="industries" className="scroll-mt-24 bg-navy px-6 py-28">

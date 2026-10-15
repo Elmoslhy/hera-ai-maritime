@@ -5,6 +5,7 @@ import { DescentSection } from "@/components/seker/Descent";
 import {
   ConstellationSection,
   ContactSection,
+  GetItSection,
   HeroSection,
   IndustriesSection,
   ProblemSection,
@@ -38,6 +39,7 @@ function Index() {
         <ProblemSection />
         <DescentSection />
         <DashboardSection />
+        <GetItSection />
         <IndustriesSection />
         <ConstellationSection />
         <ContactSection />
