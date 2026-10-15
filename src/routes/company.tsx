@@ -33,7 +33,7 @@ const TEAM = [
   {
     photo: moustafa,
     alt: "Moustafa Elmoslhy, Founder and CEO of Seker",
-    name: "Moustafa Elmoslhy",
+    name: "Mustafa Elmoslhy",
     title: "Founder and CEO",
     bio: "A mechatronics engineer, Moustafa was Managing Director and Head of Engineering at a European small-satellite manufacturer in Luxembourg. Before that, he led autonomous vehicle development as an R&D Engineering Manager at Amazon Robotics, across Europe and North America.",
   },
