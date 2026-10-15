@@ -82,6 +82,9 @@ export function Nav() {
           <Link to="/intelligence" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
             HERA AI
           </Link>
+          <Link to="/constellation" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
+            SEKER-1/2
+          </Link>
           <IndustriesMenu />
           <Link to="/company" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
             COMPANY
@@ -133,6 +136,7 @@ function MobileMenu() {
       {open && (
         <div className="fixed inset-x-0 bottom-0 top-[68px] z-50 overflow-y-auto bg-navy-deep/95 px-6 pb-10 backdrop-blur-md">
           <Link to="/intelligence" onClick={close} className={`${item} mt-4`}>HERA AI</Link>
+          <Link to="/constellation" onClick={close} className={item}>SEKER-1/2</Link>
           <p className="pt-6 font-mono text-[10px] tracking-[0.22em] text-gold">INDUSTRIES</p>
           <a href="/#industries" onClick={close} className={item}>ALL INDUSTRIES</a>
           {industries.map((i) => (
@@ -174,6 +178,9 @@ export function Footer() {
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
           <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
             HERA AI
+          </Link>
+          <Link to="/constellation" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
+            SEKER-1/2
           </Link>
           <Link to="/company" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
             COMPANY

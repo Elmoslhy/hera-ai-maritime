@@ -277,6 +277,7 @@ export function ConstellationSection() {
               </span>
             ))}
           </div>
+          <Link to="/constellation" className="mt-8 inline-block font-mono text-[11px] tracking-[0.2em] text-cyan hover:text-gold">Our sensors →</Link>
         </Reveal>
       </div>
     </section>
