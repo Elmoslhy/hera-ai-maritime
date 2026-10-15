@@ -22,7 +22,6 @@ function IndustriesMenu() {
                 <span className="mt-1 block font-sans text-xs normal-case tracking-normal text-muted-foreground">{i.description}</span>
               </Link>
             ))}
-            <Link to="/intelligence" onClick={() => setOpen(false)} className="block rounded-md px-3 py-3 text-[10px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-white/5">Use cases, step by step</Link>
           </div>
         </div>
       )}
@@ -80,7 +79,13 @@ export function Nav() {
             <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" />
             LIVE
           </span>
+          <Link to="/intelligence" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
+            HERA AI
+          </Link>
           <IndustriesMenu />
+          <Link to="/company" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
+            COMPANY
+          </Link>
           <Link to="/careers" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
             CAREERS
           </Link>
@@ -127,6 +132,7 @@ function MobileMenu() {
       </button>
       {open && (
         <div className="fixed inset-x-0 bottom-0 top-[68px] z-50 overflow-y-auto bg-navy-deep/95 px-6 pb-10 backdrop-blur-md">
+          <Link to="/intelligence" onClick={close} className={`${item} mt-4`}>HERA AI</Link>
           <p className="pt-6 font-mono text-[10px] tracking-[0.22em] text-gold">INDUSTRIES</p>
           <a href="/#industries" onClick={close} className={item}>ALL INDUSTRIES</a>
           {industries.map((i) => (
@@ -134,8 +140,8 @@ function MobileMenu() {
               {i.navName.toUpperCase()}
             </Link>
           ))}
-          <Link to="/intelligence" onClick={close} className={item}>USE CASES, STEP BY STEP</Link>
           <p className="pt-8 font-mono text-[10px] tracking-[0.22em] text-gold">SEKER</p>
+          <Link to="/company" onClick={close} className={item}>COMPANY</Link>
           <Link to="/careers" onClick={close} className={item}>CAREERS</Link>
           <Link to="/newsroom" onClick={close} className={item}>NEWSROOM</Link>
           <Link
@@ -165,9 +171,12 @@ export function Footer() {
             </Link>
           ))}
         </div>
-        <div className="flex gap-8">
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
           <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
-            USE CASES
+            HERA AI
+          </Link>
+          <Link to="/company" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
+            COMPANY
           </Link>
           <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
             CAREERS

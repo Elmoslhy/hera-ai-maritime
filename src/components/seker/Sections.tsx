@@ -5,6 +5,7 @@ import satelliteNetwork from "@/assets/satellite-network.jpg";
 import ocean from "@/assets/ocean.jpg";
 import vessels from "@/assets/vessels.jpg";
 import { SekerLogo } from "./Logo";
+import { industries } from "@/content/industries";
 import { HeroHud, HeroScene } from "./HeroScene";
 import { IntelPanel } from "./IntelPanel";
 import { Reveal, SectionBackground } from "./primitives";
@@ -30,8 +31,7 @@ export function HeroSection() {
         </Reveal>
         <Reveal delay={0.3}>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Who every vessel is, what it carries, where it has been and who it met. Built on our
-            own data fusion and delivered to the industries that act on it.
+            SEKER delivers intelligence on every ship at sea, even the ones that try to hide.
           </p>
         </Reveal>
         <Reveal delay={0.45}>
@@ -141,30 +141,41 @@ export function IndustriesSection() {
         <Reveal className="text-center">
           <p className="text-eyebrow text-gold">Industries</p>
           <h2 className="text-balance mx-auto mt-6 max-w-3xl text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-            Intelligence for the industries that run on the sea.
+            Built for the industries that run on the sea.
           </h2>
         </Reveal>
         <div className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-          {SERVE.map((x, i) => (
-            <Reveal key={x.slug} delay={i * 0.06}>
-              <Link
-                to="/industries/$slug"
-                params={{ slug: x.slug }}
-                className={`group flex h-full flex-col rounded-lg border border-white/10 border-l-2 ${x.tone} bg-white/[0.03] p-6 transition-colors hover:bg-white/[0.06]`}
-              >
-                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-gold">{x.name}</p>
-                <p className="text-balance mt-4 text-xl font-light leading-snug text-foreground">{x.q}</p>
-                <p className="mt-6 font-mono text-[10px] tracking-[0.2em] text-muted-foreground">WHAT SEKER DELIVERS</p>
-                <p className="text-pretty mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{x.d}</p>
-                <span className="mt-6 font-mono text-[11px] tracking-[0.2em] text-cyan group-hover:text-gold">Explore →</span>
-              </Link>
-            </Reveal>
-          ))}
+          {SERVE.map((x, i) => {
+            const img = industries.find((n) => n.slug === x.slug)?.heroImage;
+            return (
+              <Reveal key={x.slug} delay={i * 0.06}>
+                <Link
+                  to="/industries/$slug"
+                  params={{ slug: x.slug }}
+                  className="group relative flex h-full min-h-[340px] flex-col justify-end overflow-hidden rounded-lg border border-white/10 p-6"
+                >
+                  {img && <img src={img} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/80 to-navy/40" />
+                  <div className="relative">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-gold">{x.name}</p>
+                    <p className="text-balance mt-4 text-xl font-light leading-snug text-foreground">{x.q}</p>
+                    <span className="mt-6 inline-block font-mono text-[11px] tracking-[0.2em] text-cyan group-hover:text-gold">Learn more →</span>
+                  </div>
+                </Link>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+
+const WHY: [string, string][] = [
+  ["Accurate", "Every ship checked field by field across independent sources and our own sensors."],
+  ["Independent", "Built on what we measure, not only on what ships report."],
+  ["European", "Built in Luxembourg, for the people who act on the sea."],
+];
 
 const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "PROPRIETARY SENSORS"];
 
@@ -174,22 +185,23 @@ export function ConstellationSection() {
       <SectionBackground src={satelliteNetwork} alt="Satellite constellation" overlay="bg-navy/70" />
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
         <Reveal>
-          <p className="text-eyebrow text-gold">Our Edge</p>
+          <p className="text-eyebrow text-gold">Why SEKER</p>
         </Reveal>
         <Reveal delay={0.12}>
           <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-6xl">
             Accurate by design.
-            <span className="mt-2 block text-gold">Our own data fusion.</span>
           </h2>
         </Reveal>
-        <Reveal delay={0.18}>
-          <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Most maritime intelligence is built on what ships report about themselves. SEKER fuses
-            multiple independent sources with our own sensors and cross-checks every vessel field by
-            field, so the intelligence you act on is accurate and every answer is traceable to its
-            source.
-          </p>
-        </Reveal>
+        <div className="mt-10 grid gap-4 text-left sm:grid-cols-3">
+          {WHY.map(([t, b], i) => (
+            <Reveal key={t} delay={0.18 + i * 0.06}>
+              <div className="h-full rounded-sm border border-gold/25 bg-[#060d18]/70 p-5 backdrop-blur-md">
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t}</p>
+                <p className="text-pretty mt-3 text-sm leading-relaxed text-muted-foreground">{b}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
         <Reveal delay={0.24}>
           <div className="mt-10 flex flex-wrap justify-center gap-2">
             {CHIPS.map((c) => (
@@ -207,68 +219,32 @@ export function ConstellationSection() {
   );
 }
 
-const ALERTS = [
-  {
-    head: "AIS Spoofing ×3 YoY",
-    body: "AIS tampering and GPS jamming are used to evade sanctions. Current platforms detect it slowly and incompletely.",
-  },
-  {
-    head: "$100B+ annual sanctions evasion",
-    body: "Enforcement needs intelligence that does not depend on what a vessel chooses to report.",
-  },
-  {
-    head: "Independent verification, built in Europe.",
-    body: "HERA AI adds measured evidence to the tools you already use.",
-  },
-];
-
 export function ProblemSection() {
   return (
-    <section className="relative overflow-hidden bg-navy-deep px-6 py-28">
+    <section className="relative overflow-hidden bg-navy-deep px-6 py-24">
       <SectionBackground src={ocean} alt="Moonlit dark sea" overlay="bg-navy-deep/92" />
-      <div className="relative z-10 mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
-        <div>
-          <Reveal>
-            <p className="text-eyebrow text-gold">The Problem</p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-              Maritime decisions rest on what ships choose to report.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <blockquote className="mt-8 border-l border-gold/40 pl-6">
-              <p className="text-pretty text-base leading-relaxed text-muted-foreground">
-                76% of all EU trade by weight moves by sea, yet a growing shadow fleet of over
-                3,300 vessels operates outside the system, moving billions in sanctioned cargo
-                through AIS manipulation, GPS jamming, and identity fraud. The intelligence layer
-                meant to stop this still relies on what vessels choose to broadcast.
-              </p>
-              <cite className="mt-4 block font-mono text-[10px] not-italic tracking-[0.18em] text-muted-foreground/70">
-                EUROSTAT 2024 · ANU/CEPR 2025 · WINDWARD Q3 2025
-              </cite>
-            </blockquote>
-          </Reveal>
-          <div className="mt-10 space-y-5">
-            {ALERTS.map((a, i) => (
-              <Reveal key={a.head} delay={0.3 + i * 0.08}>
-                <div className="flex gap-4">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-alert" />
-                  <p className="font-mono text-[11px] leading-relaxed tracking-[0.06em] text-muted-foreground">
-                    <span className="text-foreground">{a.head}</span> {a.body}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+      <div className="relative z-10 mx-auto max-w-5xl text-center">
+        <Reveal>
+          <p className="text-eyebrow text-gold">The Problem</p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+            Ships can switch off and disappear.
+          </h2>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <p className="text-pretty mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
+            Thousands of ships turn off their transponder or fake their identity to move cargo unseen.
+          </p>
+        </Reveal>
+        <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
+          <StatBlock value={<span className="font-mono text-5xl text-cyan">3,300+</span>} label="Shadow fleet vessels" />
+          <StatBlock value={<span className="font-mono text-5xl text-gold">76%</span>} label="Of EU trade moves by sea" />
+          <StatBlock value={<span className="font-mono text-5xl text-alert">×3</span>} label="Growth in position spoofing in a year" />
         </div>
-
-        <div className="grid grid-cols-2 gap-px self-start overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
-          <StatBlock value={<span className="font-mono text-4xl text-gold">76%</span>} label="Of EU trade by weight moves by sea" />
-          <StatBlock value={<span className="font-mono text-4xl text-cyan">3,300+</span>} label="Shadow fleet vessels" />
-          <StatBlock value={<span className="font-mono text-4xl text-alert">×3</span>} label="YoY growth in AIS spoofing" />
-          <StatBlock value={<span className="font-mono text-4xl text-foreground">LU</span>} label="Built in Luxembourg, EU" />
-        </div>
+        <p className="mt-5 font-mono text-[10px] tracking-[0.18em] text-muted-foreground/70">
+          EUROSTAT 2024 · ANU/CEPR 2025 · WINDWARD Q3 2025
+        </p>
       </div>
     </section>
   );
