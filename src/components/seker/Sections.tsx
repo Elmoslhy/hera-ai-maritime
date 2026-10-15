@@ -236,12 +236,12 @@ export function IndustriesSection() {
 }
 
 const WHY: [string, string][] = [
-  ["Accurate", "Every ship checked field by field across independent sources and our own sensors."],
-  ["Independent", "Built on what we measure, not only on what ships report."],
-  ["European", "Built in Luxembourg, for the people who act on the sea."],
+  ["INDEPENDENT OBSERVATION", "Built on what we observe, not only on what ships choose to report."],
+  ["GROUND TRUTH FROM PORTS", "Port sources worldwide confirm what ships actually did alongside."],
+  ["A SECOND LOOK ON DEMAND", "When an answer is in doubt, HERA AI sends a satellite or a drone to look."],
 ];
 
-const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "PROPRIETARY SENSORS"];
+const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "FUSED IN HERA AI"];
 
 export function ConstellationSection() {
   return (
@@ -253,8 +253,11 @@ export function ConstellationSection() {
         </Reveal>
         <Reveal delay={0.12}>
           <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-6xl">
-            Accurate by design.
+            Better data, by design.
           </h2>
+          <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+            European-owned sensing, built in Luxembourg.
+          </p>
         </Reveal>
         <div className="mt-10 grid gap-4 text-left sm:grid-cols-3">
           {WHY.map(([t, b], i) => (
@@ -305,10 +308,10 @@ export function ProblemSection() {
         <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
           <StatBlock value={<span className="font-mono text-5xl text-cyan">3,300+</span>} label="Shadow fleet vessels" />
           <StatBlock value={<span className="font-mono text-5xl text-gold">76%</span>} label="Of EU trade moves by sea" />
-          <StatBlock value={<span className="font-mono text-5xl text-alert">×3</span>} label="Growth in position spoofing in a year" />
+          <StatBlock value={<span className="font-mono text-5xl text-alert">22</span>} label="GPS spoofing hotspots on the busiest sea lanes" />
         </div>
         <p className="mt-5 font-mono text-[10px] tracking-[0.18em] text-muted-foreground/70">
-          EUROSTAT 2024 · ANU/CEPR 2025 · WINDWARD Q3 2025
+          EUROSTAT 2024 · ANU/CEPR 2025 · GEORGIA TECH 2026
         </p>
       </div>
     </section>

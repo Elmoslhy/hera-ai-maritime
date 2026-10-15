@@ -170,14 +170,14 @@ const SLIDES: { title: string; node: ReactNode }[] = [
         </Text>
         <div className="deck-text absolute bottom-[110px] left-[120px] z-10">
           <div className="flex gap-px overflow-hidden rounded-lg border border-white/10 bg-white/10">
-            {[["76%", "of EU trade moves by sea", "text-gold"], ["×3", "AIS spoofing year on year", "text-alert"], ["$100B+", "sanctions evasion a year", "text-cyan"]].map(([v, l, t]) => (
+            {[["76%", "of EU trade moves by sea", "text-gold"], ["22", "GPS spoofing hotspots on the busiest sea lanes", "text-alert"], ["$100B+", "sanctions evasion a year", "text-cyan"]].map(([v, l, t]) => (
               <div key={v} className="w-[380px] bg-navy/85 px-8 py-6">
                 <p className={`font-mono text-[56px] leading-none ${t}`}>{v}</p>
                 <p className="mt-3 text-[22px] font-light text-foreground/80">{l}</p>
               </div>
             ))}
           </div>
-          <p className="mt-5 font-mono text-[16px] tracking-[0.2em] text-muted-foreground">EUROSTAT 2024 · ANU/CEPR 2025 · WINDWARD Q3 2025</p>
+          <p className="mt-5 font-mono text-[16px] tracking-[0.2em] text-muted-foreground">EUROSTAT 2024 · ANU/CEPR 2025 · GEORGIA TECH 2026</p>
         </div>
       </>
     ),
@@ -243,7 +243,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
         </div>
         <Text className="left-[520px] top-[70px]">
           <Eyebrow>Located</Eyebrow>
-          <Headline a="Accurate by design." />
+          <Headline a="Better data, by design." />
           <Line>Our own data fusion.</Line>
         </Text>
         <Hud km={0} ais="lost" />
