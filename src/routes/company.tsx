@@ -73,6 +73,42 @@ function CompanyPage() {
         </section>
 
         <section className="px-6 py-24">
+          <div className="mx-auto max-w-3xl">
+            <Reveal className="text-center">
+              <p className="text-eyebrow text-gold">Leadership</p>
+              <h2 className="mt-6 text-3xl font-light tracking-tight text-foreground sm:text-4xl">
+                Leadership team.
+              </h2>
+            </Reveal>
+            <div className="mt-12 grid gap-4 sm:grid-cols-2">
+              {TEAM.map((m, i) => (
+                <Reveal key={m.name} delay={i * 0.08}>
+                  <div className="h-full rounded-sm border border-gold/25 bg-[#060d18]/70 p-6">
+                    <div className="aspect-[4/5] w-full overflow-hidden">
+                      <img
+                        src={m.photo}
+                        alt={m.alt}
+                        loading="lazy"
+                        width={928}
+                        height={1152}
+                        className="h-full w-full object-cover object-top"
+                      />
+                    </div>
+                    <h3 className="mt-5 text-xl font-light text-foreground">{m.name}</h3>
+                    <p className="mt-2 font-mono text-xs uppercase tracking-[0.22em] text-gold">
+                      {m.title}
+                    </p>
+                    <p className="text-pretty mt-4 text-sm leading-relaxed text-muted-foreground">
+                      {m.bio}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-6 py-24">
           <div className="mx-auto max-w-6xl">
             <Reveal className="text-center">
               <p className="text-eyebrow text-gold">What we believe</p>
