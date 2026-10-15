@@ -228,7 +228,7 @@ export const taskingSection = {
   cards: [
     { title: "Signal geolocation", text: "Partner satellites locate where a vessel's transmissions really come from, whatever position it reports." },
     { title: "Partner constellations", text: "On-demand imaging from commercial constellations, requested, scheduled and checked through HERA AI." },
-    { title: "Close-range drone", text: "For the last mile, a drone approaches the vessel to document its name, draught marks and deck activity, where regulations permit." },
+    { title: "Long-endurance drone", text: "For the last mile, a drone approaches the vessel to document its name, draught marks and deck activity, where regulations permit." },
   ],
   consoleTitle: "WATCH · VESSEL A · AFTER DARK TRANSFER ALERT",
   nightHours: 5.5,
@@ -262,9 +262,9 @@ export const taskingLanes: { name: string; passes: Pass[] }[] = [
     ],
   },
   {
-    name: "Close-range drone",
+    name: "Long-endurance drone",
     passes: [
-      { id: "d109", start: 10.9, end: 11.8, status: "selected", reason: "Vessel A comes within range of a coastal drone base on its way to port. Close-range imagery of the hull name, draught marks and deck activity." },
+      { id: "d109", start: 3, end: 12, status: "selected", reason: "A long-endurance drone already on patrol is cued to the vessel and holds it in view until the evidence is complete: hull name, draught marks and deck activity." },
     ],
   },
 ];

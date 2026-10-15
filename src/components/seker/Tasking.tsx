@@ -38,26 +38,14 @@ function useCountdown() {
   return t;
 }
 
-export function TaskingSection({ consoleOnly }: { consoleOnly?: boolean } = {}) {
+export function TaskingSection({ consoleOnly, planBody }: { consoleOnly?: boolean; planBody?: boolean } = {}) {
   const [active, setActive] = useState("p08");
   const tick = useCountdown();
   const pass = allPasses.find((p) => p.id === active)!;
   const next = allPasses.filter((p) => p.status !== "rejected").sort((a, b) => a.start - b.start).slice(0, 4);
   const NOW = 0.5; // simulated hours since alert
 
-  const consoleEl = (
-          <div className="mt-10 overflow-hidden rounded-xl border border-white/10 bg-navy-deep">
-            <div className="flex items-center gap-4 border-b border-white/10 px-4 py-3">
-              <div className="flex shrink-0 gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-alert/80" />
-                <span className="h-2.5 w-2.5 rounded-full bg-amber/80" />
-                <span className="h-2.5 w-2.5 rounded-full bg-cyan/80" />
-              </div>
-              <p className="mr-auto min-w-0 truncate font-mono text-[10px] tracking-[0.2em] text-muted-foreground">
-                {s.consoleTitle}
-              </p>
-            </div>
-
+  const planEl = (
             <div className="grid min-w-0 gap-4 p-4 lg:grid-cols-[minmax(0,1fr)_260px]">
               <div className="min-w-0">
                 <p className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground">COLLECTION PLAN</p>
@@ -166,6 +154,22 @@ export function TaskingSection({ consoleOnly }: { consoleOnly?: boolean } = {}) 
                 </ul>
               </div>
             </div>
+  );
+  if (planBody) return planEl;
+  const consoleEl = (
+          <div className="mt-10 overflow-hidden rounded-xl border border-white/10 bg-navy-deep">
+            <div className="flex items-center gap-4 border-b border-white/10 px-4 py-3">
+              <div className="flex shrink-0 gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-alert/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-amber/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-cyan/80" />
+              </div>
+              <p className="mr-auto min-w-0 truncate font-mono text-[10px] tracking-[0.2em] text-muted-foreground">
+                {s.consoleTitle}
+              </p>
+            </div>
+
+            {planEl}
           </div>
   );
   if (consoleOnly) return consoleEl;

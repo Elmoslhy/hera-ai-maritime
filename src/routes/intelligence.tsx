@@ -3,7 +3,7 @@ import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
 import { UseCasesSection } from "@/components/seker/UseCases";
 import { WorkspaceSection } from "@/components/seker/Workspace";
-import { TaskingSection } from "@/components/seker/Tasking";
+import { TaskingScreen } from "@/components/seker/TaskingMap";
 import { AlertCards } from "@/components/seker/Insights";
 import vessels from "@/assets/vessels.jpg";
 import {
@@ -202,7 +202,7 @@ function IntelligencePage() {
           <WorkspaceSection part="fusion" />
         </Chapter>
         <Chapter i={1} status="dev" title="Satellite and drone tasking" line="Put a ship under watch, and HERA AI will send the right satellite or drone to take a look.">
-          <TaskingSection consoleOnly />
+          <TaskingScreen />
         </Chapter>
         <Chapter i={2} status="live" title="Briefings and Ask HERA AI" line="Seker briefs and public news linked to your ships, and answers that show their sources.">
           <WorkspaceSection part="briefing" />
