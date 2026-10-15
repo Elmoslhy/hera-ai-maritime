@@ -334,16 +334,16 @@ export function TaskingScreen() {
                   {(Object.keys(VCOL) as VType[]).map((k) => <span key={k} className="flex items-center gap-1.5"><span className="h-2 w-2" style={{ background: VCOL[k] }} />{k.toUpperCase()}</span>)}
                 </div>
               </div>
-              <div className="flex flex-nowrap items-center gap-1.5 border-t border-white/10 px-3 py-2">
+              <div className="@container border-t border-white/10 px-3 py-2"><div className="flex flex-nowrap items-center gap-1.5">
                 <Button variant="ghost" size="sm" onClick={() => { if (step === 5 && !playing) setStep(0); setPlaying(!playing); }} aria-label={playing ? "Pause scenario" : "Play scenario"} className="h-7 w-7 p-0 text-gold hover:bg-gold/10 hover:text-gold">
                   {playing ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
                 </Button>
                 {STEPS.map((s, i) => (
-                  <button key={s.label} type="button" onClick={() => jump(i)} aria-current={i === step} className={`shrink-0 border px-2 py-1 font-mono text-[10px] tracking-[0.1em] sm:px-1.5 transition-colors ${i === step ? "border-gold text-gold" : i < step ? "border-white/15 text-foreground/70" : "border-white/10 text-muted-foreground"} hover:border-gold/60`}>
-                    {i + 1}<span className="hidden sm:inline"> {s.label.toUpperCase()}</span>
+                  <button key={s.label} type="button" onClick={() => jump(i)} aria-current={i === step} className={`shrink-0 border px-2 py-1 font-mono text-[10px] tracking-[0.1em] @[520px]:px-1.5 transition-colors ${i === step ? "border-gold text-gold" : i < step ? "border-white/15 text-foreground/70" : "border-white/10 text-muted-foreground"} hover:border-gold/60`}>
+                    {i + 1}<span className="hidden @[520px]:inline"> {s.label.toUpperCase()}</span>
                   </button>
                 ))}
-              </div>
+              </div></div>
               <p aria-live="polite" className="border-t border-white/10 px-4 py-3 text-sm font-light text-foreground/90">{STEPS[step].cap}</p>
             </div>
 
