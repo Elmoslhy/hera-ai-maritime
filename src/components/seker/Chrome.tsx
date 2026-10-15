@@ -164,7 +164,6 @@ export function Footer() {
               {i.navName.toUpperCase()}
             </Link>
           ))}
-          <Link to="/intelligence" onClick={close} className={item}>USE CASES, STEP BY STEP</Link>
         </div>
         <div className="flex gap-8">
           <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">

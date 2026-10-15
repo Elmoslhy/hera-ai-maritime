@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { z } from "zod";
 import satelliteNetwork from "@/assets/satellite-network.jpg";
 import ocean from "@/assets/ocean.jpg";
@@ -6,7 +7,7 @@ import vessels from "@/assets/vessels.jpg";
 import { SekerLogo } from "./Logo";
 import { HeroHud, HeroScene } from "./HeroScene";
 import { IntelPanel } from "./IntelPanel";
-import { CountUp, Reveal, SectionBackground } from "./primitives";
+import { Reveal, SectionBackground } from "./primitives";
 
 export function HeroSection() {
   return (
@@ -29,8 +30,8 @@ export function HeroSection() {
         </Reveal>
         <Reveal delay={0.3}>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            <span className="text-gold">HERA AI</span> turns fragmented maritime signals into
-            verified, decision-ready intelligence — strengthened by our own space infrastructure.
+            Who every vessel is, what it carries, where it has been and who it met. Built on our
+            own data fusion and delivered to the industries that act on it.
           </p>
         </Reveal>
         <Reveal delay={0.45}>
@@ -84,23 +85,82 @@ export function LaunchSection() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,transparent_0%,rgba(9,18,31,0.85)_80%)]" />
       </div>
 
-      <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center text-center">
+      <div className="relative z-10 mx-auto w-full max-w-6xl py-24 text-center">
         <Reveal>
-          <p className="text-eyebrow text-gold">EU Sovereign · Real Time</p>
+          <p className="text-eyebrow text-gold">Vessel Intelligence</p>
         </Reveal>
         <Reveal delay={0.12}>
           <h2 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">
-            A digital twin of
-            <br />
-            <span className="text-gold">every vessel at sea.</span>
+            Know every vessel.
           </h2>
         </Reveal>
         <Reveal delay={0.24}>
-          <p className="text-pretty mt-7 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
-            HERA AI builds and maintains a live digital twin for every vessel on the ocean, then
-            delivers verified intelligence to customers every day.
+          <p className="text-pretty mx-auto mt-7 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">
+            One intelligence profile per vessel, updated continuously.
           </p>
         </Reveal>
+        <div className="mt-14 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-3">
+          {PROFILE.map(([t, b], i) => (
+            <Reveal key={t} delay={0.3 + i * 0.06}>
+              <div className="h-full rounded-sm border border-gold/25 bg-[#060d18]/70 backdrop-blur-md">
+                <div className="flex items-center gap-3 border-b border-gold/15 px-4 py-3">
+                  <span className="font-mono text-xs tracking-[0.22em] text-gold">0{i + 1}</span>
+                  <span className="font-mono text-xs uppercase tracking-[0.18em] text-foreground">{t}</span>
+                </div>
+                <p className="text-pretty px-4 py-4 text-sm leading-relaxed text-muted-foreground">{b}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const PROFILE: [string, string][] = [
+  ["Identity and ownership", "Who the vessel is, who owns it, and every name, flag and identity it has used."],
+  ["Voyages and port calls", "Where it has been, where it is going and how it got there."],
+  ["Cargo and draught", "How loaded it is and how much it is likely carrying."],
+  ["Encounters at sea", "Which vessels it met, for how long, and whether either stopped broadcasting."],
+  ["Flag and compliance", "Whether its flag is genuine and its certificates and inspections are in order."],
+  ["Risk indicators", "Sanctions exposure, identity changes and behaviour that does not add up."],
+];
+
+const SERVE = [
+  { slug: "defense", name: "Defense and coast guard", tone: "border-l-cyan", q: "Which vessels in my waters are not what they claim to be?", d: "Persistent tracking of vessels that go dark or change identity, with tasking to confirm them." },
+  { slug: "insurance", name: "Insurance and P&I", tone: "border-l-gold", q: "Is this vessel the risk it claims to be?", d: "Ownership, flag standing, loading behaviour and encounter history for every vessel you cover." },
+  { slug: "commodity-trading", name: "Commodity trading", tone: "border-l-gold", q: "Where is the cargo really going?", d: "Cargo estimates, voyages and ship-to-ship transfers, including the ones that are not reported." },
+  { slug: "ports", name: "Ports and maritime authorities", tone: "border-l-cyan", q: "Who is arriving, and what risk do they bring?", d: "Arrival intelligence, vessel particulars and boarding risk before the ship reaches port." },
+  { slug: "fisheries", name: "Fisheries and environment", tone: "border-l-cyan", q: "Who was operating where they should not be?", d: "Activity patterns and identity history for vessels in protected and regulated waters." },
+];
+
+export function IndustriesSection() {
+  return (
+    <section id="industries" className="scroll-mt-24 bg-navy px-6 py-28">
+      <div className="mx-auto max-w-[1500px]">
+        <Reveal className="text-center">
+          <p className="text-eyebrow text-gold">Industries</p>
+          <h2 className="text-balance mx-auto mt-6 max-w-3xl text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+            Intelligence for the industries that run on the sea.
+          </h2>
+        </Reveal>
+        <div className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+          {SERVE.map((x, i) => (
+            <Reveal key={x.slug} delay={i * 0.06}>
+              <Link
+                to="/industries/$slug"
+                params={{ slug: x.slug }}
+                className={`group flex h-full flex-col rounded-lg border border-white/10 border-l-2 ${x.tone} bg-white/[0.03] p-6 transition-colors hover:bg-white/[0.06]`}
+              >
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-gold">{x.name}</p>
+                <p className="text-balance mt-4 text-xl font-light leading-snug text-foreground">{x.q}</p>
+                <p className="mt-6 font-mono text-[10px] tracking-[0.2em] text-muted-foreground">WHAT SEKER DELIVERS</p>
+                <p className="text-pretty mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{x.d}</p>
+                <span className="mt-6 font-mono text-[11px] tracking-[0.2em] text-cyan group-hover:text-gold">Explore →</span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -114,18 +174,20 @@ export function ConstellationSection() {
       <SectionBackground src={satelliteNetwork} alt="Satellite constellation" overlay="bg-navy/70" />
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
         <Reveal>
-          <p className="text-eyebrow text-gold">The Intelligence Layer</p>
+          <p className="text-eyebrow text-gold">Our Edge</p>
         </Reveal>
         <Reveal delay={0.12}>
           <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-6xl">
-            Intelligence you can trust
-            <span className="mt-2 block">Strengthened from orbit.</span>
+            Accurate by design.
+            <span className="mt-2 block text-gold">Our own data fusion.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.18}>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Our proprietary space infrastructure keeps making the intelligence layer sharper — the
-            platform, not the sensor, is the product.
+            Most maritime intelligence is built on what ships report about themselves. SEKER fuses
+            multiple independent sources with our own sensors and cross-checks every vessel field by
+            field, so the intelligence you act on is accurate and every answer is traceable to its
+            source.
           </p>
         </Reveal>
         <Reveal delay={0.24}>
@@ -171,13 +233,13 @@ export function ProblemSection() {
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-              Maritime decisions rest on broken intelligence.
+              Maritime decisions rest on what ships choose to report.
             </h2>
           </Reveal>
           <Reveal delay={0.2}>
             <blockquote className="mt-8 border-l border-gold/40 pl-6">
               <p className="text-pretty text-base leading-relaxed text-muted-foreground">
-                76% of all EU trade by weight moves by sea — yet a growing shadow fleet of over
+                76% of all EU trade by weight moves by sea, yet a growing shadow fleet of over
                 3,300 vessels operates outside the system, moving billions in sanctioned cargo
                 through AIS manipulation, GPS jamming, and identity fraud. The intelligence layer
                 meant to stop this still relies on what vessels choose to broadcast.
@@ -202,9 +264,9 @@ export function ProblemSection() {
         </div>
 
         <div className="grid grid-cols-2 gap-px self-start overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
-          <StatBlock value={<CountUp to={54} prefix="$" suffix="B" className="font-mono text-4xl text-gold" />} label="Global MDA market by 2030" />
-          <StatBlock value={<CountUp to={18} suffix="%" className="font-mono text-4xl text-cyan" />} label="Sector CAGR 2024–2030" />
-          <StatBlock value={<CountUp to={3} prefix="×" className="font-mono text-4xl text-alert" />} label="YoY growth in AIS spoofing" />
+          <StatBlock value={<span className="font-mono text-4xl text-gold">76%</span>} label="Of EU trade by weight moves by sea" />
+          <StatBlock value={<span className="font-mono text-4xl text-cyan">3,300+</span>} label="Shadow fleet vessels" />
+          <StatBlock value={<span className="font-mono text-4xl text-alert">×3</span>} label="YoY growth in AIS spoofing" />
           <StatBlock value={<span className="font-mono text-4xl text-foreground">LU</span>} label="Built in Luxembourg, EU" />
         </div>
       </div>
@@ -231,8 +293,13 @@ export function ContactSection() {
       <div className="mx-auto max-w-2xl">
         <Reveal>
           <h2 className="text-balance text-center text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-            Get in touch.
+            Tell us the decision you need to make.
           </h2>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <p className="text-pretty mt-5 text-center text-base text-muted-foreground">
+            We will show you the intelligence behind it.
+          </p>
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mt-6 text-center font-mono text-sm tracking-[0.14em] text-cyan">

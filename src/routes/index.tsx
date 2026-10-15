@@ -7,13 +7,14 @@ import {
   ConstellationSection,
   ContactSection,
   HeroSection,
+  IndustriesSection,
   LaunchSection,
   ProblemSection,
 } from "@/components/seker/Sections";
 
-const TITLE = "SEKER · Verified Maritime Intelligence from Orbit";
+const TITLE = "SEKER | Maritime intelligence you can act on";
 const DESCRIPTION =
-  "HERA AI fuses AIS, SAR, RF and optical signals in orbit to deliver verified, tamper-proof maritime intelligence. EU sovereign. In operation today.";
+  "Intelligence on every vessel at sea, for defense, insurance, commodity trading, ports and fisheries. Built on SEKER's own data fusion in Luxembourg.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,9 +38,10 @@ function Index() {
       <main>
         <HeroSection />
         <LaunchSection />
+        <IndustriesSection />
+        <ProblemSection />
         <ConstellationSection />
         <DescentSection />
-        <ProblemSection />
         <DashboardSection />
         <InsightsSection />
         <ContactSection />
