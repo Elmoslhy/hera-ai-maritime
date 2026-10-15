@@ -224,14 +224,14 @@ const SLIDES: { title: string; node: ReactNode }[] = [
       <>
         <Bg src={ocean} dim="bg-navy/65" />
         {[["left-[580px]", "SEKER-1"], ["left-[1200px]", "SEKER-2"]].map(([l, n]) => (
-          <div key={n} className={`absolute top-[380px] ${l} w-[140px] text-center`}>
+          <div key={n} className={`absolute top-[450px] ${l} w-[140px] text-center`}>
             <p className="mb-1 font-mono text-[16px] tracking-[0.2em] text-cyan">{n}</p>
             <img src={satReal} alt="" className="w-full" />
           </div>
         ))}
         <svg viewBox="0 0 1920 1080" className="absolute inset-0 h-full w-full" aria-hidden>
-          <line x1="650" y1="518" x2="960" y2="680" stroke="#4dd9c0" strokeWidth="2" strokeDasharray="10 10" />
-          <line x1="1270" y1="518" x2="960" y2="680" stroke="#4dd9c0" strokeWidth="2" strokeDasharray="10 10" />
+          <line x1="650" y1="590" x2="960" y2="680" stroke="#4dd9c0" strokeWidth="2" strokeDasharray="10 10" />
+          <line x1="1270" y1="590" x2="960" y2="680" stroke="#4dd9c0" strokeWidth="2" strokeDasharray="10 10" />
         </svg>
         <div className="absolute left-[960px] top-[680px] -translate-x-1/2 -translate-y-1/2">
           <img src={vesselTop} alt="" className="w-[480px]" />
@@ -260,7 +260,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
           <h2 className="mt-4 text-[88px] font-light tracking-tight text-foreground">Know every vessel.</h2>
           <Line>One intelligence profile per vessel, updated continuously.</Line>
         </Text>
-        <div className="absolute left-1/2 top-[340px] -translate-x-1/2 [&_.twin-grid]:!grid-cols-2 [&_.twin-grid]:!gap-y-0 [perspective:2400px]">
+        <div className="absolute left-1/2 top-[370px] -translate-x-1/2 [&_.twin-grid]:!grid-cols-2 [&_.twin-grid]:!gap-y-0 [perspective:2400px]">
           <div className="deck-bg origin-top [transform:rotateX(12deg)]" style={{ width: 1700 / 1.3 + "px", transform: "rotateX(10deg) scale(1.3)" }}>
             <WindowChrome>
               <div className="grid grid-cols-[1.6fr_1fr] gap-px bg-white/5">
