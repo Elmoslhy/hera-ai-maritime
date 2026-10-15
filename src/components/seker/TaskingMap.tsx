@@ -128,13 +128,24 @@ function useUtc() {
   return t;
 }
 
-function tag(text: string, tone: "cyan" | "alert" | "gold" | "muted") {
-  const el = document.createElement("div");
-  const c = { cyan: "#4dd9c0", alert: "#ff4d4d", gold: "#c9a84c", muted: "#8fa2b8" }[tone];
-  el.style.cssText = `font:10px 'Space Mono',monospace;letter-spacing:.08em;color:${c};background:rgba(6,12,21,.82);border:1px solid ${c}55;padding:1px 5px;white-space:nowrap;pointer-events:none;transform:translate(10px,-50%)`;
-  el.textContent = text;
-  return el;
+type Tone = "cyan" | "alert" | "gold" | "muted";
+const TONE: Record<Tone, string> = { cyan: "#4dd9c0", alert: "#ff4d4d", gold: "#c9a84c", muted: "#c8d3df" };
+/* Label pinned to a feature with a fixed pixel offset and a thin leader line. */
+function tag(text: string, tone: Tone, dx: number, dy: number, opacity: number) {
+  const c = TONE[tone];
+  const root = document.createElement("div");
+  root.style.cssText = `position:relative;width:0;height:0;pointer-events:none;opacity:${opacity};transition:opacity .4s`;
+  const len = Math.hypot(dx, dy), ang = (Math.atan2(dy, dx) * 180) / Math.PI;
+  const lead = document.createElement("div");
+  lead.style.cssText = `position:absolute;left:0;top:0;width:${len}px;height:1px;background:${c};opacity:.75;transform-origin:0 0;transform:rotate(${ang}deg)`;
+  const box = document.createElement("div");
+  box.style.cssText = `position:absolute;left:${dx}px;top:${dy}px;transform:translate(${dx < 0 ? "-100%" : "0"},-50%);font:10px 'Space Mono',monospace;letter-spacing:.08em;color:${c};background:rgba(6,12,21,.88);border:1px solid ${c}66;padding:1px 5px;white-space:nowrap`;
+  box.textContent = text;
+  root.append(lead, box);
+  return root;
 }
+
+const PLACES: [string, LL][] = [["Fujairah", [56.33, 25.125]], ["Khor Fakkan", [56.345, 25.34]], ["Kalba", [56.355, 25.05]], ["Dibba", [56.27, 25.6]], ["GULF OF OMAN", [56.85, 24.85]]];
 
 export function TaskingScreen() {
   const [mode, setMode] = useState<"map" | "plan">("map");
@@ -163,7 +174,7 @@ export function TaskingScreen() {
 
   useEffect(() => {
     if (!seen || !playing || reduce || mode !== "map") return;
-    const id = setTimeout(() => { if (step < 5) setStep(step + 1); else setPlaying(false); }, STEP_MS);
+    const id = setTimeout(() => { setStep(step < 5 ? step + 1 : 0); }, step < 5 ? STEP_MS : 4000);
     return () => clearTimeout(id);
   }, [seen, playing, step, reduce, mode]);
 
@@ -179,16 +190,15 @@ export function TaskingScreen() {
       if (dead || !mapEl.current) return;
       const m = new ml.Map({
         container: mapEl.current,
-        center: [56.5, 25.1], zoom: 8.7, minZoom: 6, maxZoom: 14, attributionControl: false, dragRotate: false,
+        center: [56.5, 25.1], zoom: 8.7, minZoom: 6, maxZoom: 10.6, attributionControl: false, dragRotate: false, cooperativeGestures: true,
         style: {
           version: 8,
           sources: {
             s2: { type: "raster", tileSize: 256, maxzoom: 15, tiles: ["https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/g/{z}/{y}/{x}.jpg"], attribution: '<a href="https://s2maps.eu" target="_blank" rel="noreferrer">Sentinel-2 cloudless 2016</a> by <a href="https://eox.at" target="_blank" rel="noreferrer">EOX IT Services GmbH</a> (Contains modified Copernicus Sentinel data 2016)' },
-            lbl: { type: "raster", tileSize: 256, maxzoom: 15, tiles: ["https://tiles.maps.eox.at/wmts/1.0.0/overlay_bright_3857/default/g/{z}/{y}/{x}.png"], attribution: 'Labels &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a> contributors, rendering &copy; EOX' },
           },
           layers: [
             { id: "s2", type: "raster", source: "s2", paint: { "raster-saturation": -0.25, "raster-brightness-max": 0.85 } },
-            { id: "lbl", type: "raster", source: "lbl", paint: { "raster-opacity": 0.9 } },
+
           ],
         },
       });
@@ -205,6 +215,8 @@ export function TaskingScreen() {
         }
         m.addImage("ais", { width: size, height: size, data }, { sdf: true });
         m.addSource("ov", { type: "geojson", data: overlays(0) });
+        m.addSource("tint", { type: "geojson", data: fc([poly([[-179, -80], [179, -80], [179, 80], [-179, 80], [-179, -80]])]) });
+        m.addLayer({ id: "tint-f", type: "fill", source: "tint", paint: { "fill-color": "#0b2a4a", "fill-opacity": 0.32 } });
         m.addSource("ships", { type: "geojson", data: fc([]) });
         const is = (k: string) => ["==", ["get", "k"], k] as ["==", ["get", string], string];
         const any = (...k: string[]) => ["in", ["get", "k"], ["literal", k]] as unknown as import("maplibre-gl").FilterSpecification;
@@ -251,20 +263,35 @@ export function TaskingScreen() {
     (async () => {
       const ml = await import("maplibre-gl");
       markers.current.forEach((k) => k.remove()); markers.current = []; drone.current = null;
-      const add = (el: HTMLElement, at: LL) => { const k = new ml.Marker({ element: el, anchor: "left" }).setLngLat(at).addTo(m); markers.current.push(k); return k; };
-      const dot = (col: string, hollow = false) => { const e = document.createElement("div"); e.style.cssText = `width:10px;height:10px;border-radius:50%;border:2px solid ${col};background:${hollow ? "transparent" : col};transform:translateX(-5px)`; return e; };
-      add(tag("FUJAIRAH ANCH. A", "muted"), [56.41, 25.235]);
-      add(dot("#e2574c", true), LP); add(tag(`VESSEL A · LAST AIS ${hhmm(0)}`, "alert"), LP);
-      if (step >= 1) add(tag("REACH 18 NM", "alert"), circle(LP, 33.34, 8)[1]);
-      if (step >= 2) add(tag("RF-1 · 2 KM", "cyan"), [T[0] + 0.02, T[1] + 0.012]);
-      if (step >= 3) { add(dot("#c9a84c"), T); add(tag(`SAR-2 · HULL 183 M · ${hhmm(132)}`, "gold"), [T[0] + 0.004, T[1] - 0.012]); }
-      if (step >= 4) { const e = document.createElement("div"); e.style.cssText = "width:9px;height:9px;background:#e0a33c;transform:translateX(-4px) rotate(45deg)"; drone.current = add(e, [T[0] + 3.2 / kmLon(T[1]), T[1]]); add(tag("UAV-1 · ORBIT 3.2 KM", "gold"), [T[0] + 0.035, T[1] + 0.03]); }
-      if (step >= 5) add(tag("PROFILE UPDATED", "cyan"), [T[0] + 0.004, T[1] - 0.024]);
+      const add = (el: HTMLElement, at: LL, anchor: "left" | "center" = "center") => { const k = new ml.Marker({ element: el, anchor }).setLngLat(at).addTo(m); markers.current.push(k); return k; };
+      const dot = (col: string, hollow = false) => { const e = document.createElement("div"); e.style.cssText = `width:10px;height:10px;border-radius:50%;border:2px solid ${col};background:${hollow ? "transparent" : col}`; return e; };
+      const narrow = (mapEl.current?.clientWidth ?? 800) < 520;
+      for (const [n, at] of PLACES) { const e = document.createElement("div"); e.textContent = n; e.style.cssText = `font:${n === n.toUpperCase() ? "10px 'Space Mono',monospace;letter-spacing:.3em" : "11px Inter,sans-serif"};color:rgba(238,242,247,.75);text-shadow:0 1px 2px #000;white-space:nowrap;pointer-events:none`; add(e, at); }
+      // [text, tone, at, from, until, desktop offset, phone offset]
+      type L = [string, Tone, LL, number, number, [number, number], [number, number]];
+      const L: L[] = [
+        ["FUJAIRAH ANCH. A", "muted", [56.54, 25.24], 0, 1, [40, -30], [40, -30]],
+        [`VESSEL A · LAST AIS ${hhmm(0)}`, "alert", LP, 0, 1, [-20, 60], [-20, 60]],
+        ["REACH 18 NM", "alert", circle(LP, 33.34, 8)[1], 1, 1, [36, -30], [-20, -40]],
+        ["RF-1 · 2 KM", "cyan", T, 2, 4, [90, -70], [44, -90]],
+        [`SAR-2 · HULL 183 M · ${hhmm(132)}`, "gold", T, 3, 5, [90, 70], [44, -50]],
+        ["UAV-1 · ORBIT 3.2 KM", "gold", T, 4, 5, [110, 0], [60, 0]],
+      ];
+      for (const [text, tone, at, from, until, d, ph] of L) {
+        if (step < from || step > until) continue;
+        const op = step === 5 ? 0.4 : step === from ? 1 : 0.4;
+        const [dx, dy] = narrow ? ph : d;
+        add(tag(text, tone, dx, dy, op), at);
+      }
+      add(dot("#e2574c", true), LP);
+      if (step >= 3) { add(dot("#c9a84c"), T); add(tag("VESSEL A", "cyan", narrow ? 44 : -90, narrow ? 50 : -70, 1), T); }
+      if (step >= 4) { const e = document.createElement("div"); e.style.cssText = "width:9px;height:9px;background:#e0a33c;transform:rotate(45deg)"; drone.current = add(e, [T[0] + 3.2 / kmLon(T[1]), T[1]]); }
+      if (step >= 5) add(tag("PROFILE UPDATED", "cyan", narrow ? 44 : -90, narrow ? 90 : 70, 1), T);
     })();
     const zoomed = step >= 2;
     const w = mapEl.current?.clientWidth ?? 800;
-    const z = (zoomed ? 11.3 : 8.6) - (w < 520 ? 0.8 : 0);
-    m.easeTo({ center: zoomed ? [T[0] + 0.01, T[1]] : [56.5, 25.08], zoom: z, duration: reduce ? 0 : 1600 });
+    const z = (zoomed ? 10.4 : 8.6) - (w < 520 ? 0.6 : 0);
+    m.easeTo({ center: zoomed ? T : [56.5, 25.08], zoom: z, offset: zoomed && w < 520 ? [-90, 0] : [0, 0], duration: reduce ? 0 : 1600 });
   }, [step, readyTick, reduce]);
 
   const jump = (i: number) => { setStep(i); setPlaying(false); };
@@ -294,7 +321,7 @@ export function TaskingScreen() {
         {mode === "plan" ? <TaskingSection planBody /> : (
           <div className="grid min-w-0 lg:grid-cols-[minmax(0,1fr)_340px]">
             <div className="min-w-0 border-white/10 lg:border-r">
-              <div className="relative h-[340px] bg-navy sm:h-[480px] lg:h-[560px]">
+              <div className="relative h-[320px] bg-navy sm:h-[480px] lg:h-[560px]">
                 {gl ? <div ref={mapEl} className="tasking-map h-full w-full" aria-label="Map of the Gulf of Oman off Fujairah with vessel traffic and satellite passes" role="img" />
                   : <img src="/tasking-final.jpg" alt="Final step: Vessel A found by SAR, held by a drone orbit and confirmed by a daylight image" className="absolute inset-0 h-full w-full object-cover" />}
                 <div className="pointer-events-none absolute left-2 top-2 rounded border border-white/10 bg-navy-deep/85 px-2 py-1 font-mono text-[10px] tabular-nums text-foreground/80">
@@ -307,16 +334,16 @@ export function TaskingScreen() {
                   {(Object.keys(VCOL) as VType[]).map((k) => <span key={k} className="flex items-center gap-1.5"><span className="h-2 w-2" style={{ background: VCOL[k] }} />{k.toUpperCase()}</span>)}
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-2 border-t border-white/10 px-3 py-2">
+              <div className="@container border-t border-white/10 px-3 py-2"><div className="flex flex-nowrap items-center gap-1.5">
                 <Button variant="ghost" size="sm" onClick={() => { if (step === 5 && !playing) setStep(0); setPlaying(!playing); }} aria-label={playing ? "Pause scenario" : "Play scenario"} className="h-7 w-7 p-0 text-gold hover:bg-gold/10 hover:text-gold">
                   {playing ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
                 </Button>
                 {STEPS.map((s, i) => (
-                  <button key={s.label} type="button" onClick={() => jump(i)} aria-current={i === step} className={`border px-2 py-1 font-mono text-[10px] tracking-[0.12em] transition-colors ${i === step ? "border-gold text-gold" : i < step ? "border-white/15 text-foreground/70" : "border-white/10 text-muted-foreground"} hover:border-gold/60`}>
-                    {i + 1} {s.label.toUpperCase()}
+                  <button key={s.label} type="button" onClick={() => jump(i)} aria-current={i === step} className={`shrink-0 border px-2 py-1 font-mono text-[10px] tracking-[0.1em] @[520px]:px-1.5 transition-colors ${i === step ? "border-gold text-gold" : i < step ? "border-white/15 text-foreground/70" : "border-white/10 text-muted-foreground"} hover:border-gold/60`}>
+                    {i + 1}<span className="hidden @[520px]:inline"> {s.label.toUpperCase()}</span>
                   </button>
                 ))}
-              </div>
+              </div></div>
               <p aria-live="polite" className="border-t border-white/10 px-4 py-3 text-sm font-light text-foreground/90">{STEPS[step].cap}</p>
             </div>
 
