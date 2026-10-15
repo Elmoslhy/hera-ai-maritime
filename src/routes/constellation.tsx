@@ -75,7 +75,7 @@ function ConstellationPage() {
             src={satellite}
             alt=""
             aria-hidden
-            className="pointer-events-none absolute right-[-10%] top-1/2 w-[70%] max-w-[640px] -translate-y-1/2 opacity-60 drop-shadow-[0_0_40px_rgba(77,217,192,0.25)] sm:right-[4%] sm:w-[42%] sm:opacity-90"
+            className="pointer-events-none absolute right-[-10%] top-[14%] w-[70%] max-w-[640px] opacity-60 sm:top-1/2 sm:-translate-y-1/2 drop-shadow-[0_0_40px_rgba(77,217,192,0.25)] sm:right-[4%] sm:w-[42%] sm:opacity-90"
           />
           <div className="relative mx-auto w-full max-w-7xl">
             <Reveal>
