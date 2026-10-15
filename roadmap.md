@@ -1,9 +1,5 @@
-# Tasks
-- [x] Verify all five walkthrough films with deployment-independent media links, including a browser-only correction on the external website.
-- [ ] Deploy corrected media links to seker-space.com; blocked on the external website receiving the updated release.
-- [x] Add shared film/map walkthrough scenes, uploaded scenario films, reduced-motion and print stills, and verify all three placements.
-- [x] Add and verify a homepage mouse trail that changes from stardust to a sea wake.
-- [x] Preserve the original careers photo and remove the moving-dot overlay.
-- [x] Add realistic moving satellites connected to HERA AI over the careers photo, without covering the text.
-- [x] Refine careers satellites into the selected orbital data mesh with synchronized connections.
-- [x] Clarify that HERA AI uses platform login, not an API key requirement.
+# Roadmap
+
+- [ ] Diagnose why seker-space.com stopped updating from Lovable (GitHub sync and its deploy pipeline)
+- [ ] Restore the update path to seker-space.com (reconnect the GitHub sync or connect the domain to this project's publishing)
+- [ ] Verify seker-space.com serves the current build after the fix
