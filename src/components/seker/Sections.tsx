@@ -35,12 +35,12 @@ export function HeroSection() {
           </p>
         </Reveal>
         <Reveal delay={0.45}>
-          <a
-            href="#contact"
+          <Link
+            to="/access"
             className="mt-10 inline-block bg-gold px-8 py-4 font-mono text-[11px] tracking-[0.22em] text-navy-deep transition-opacity hover:opacity-90"
           >
             PLATFORM LOGIN →
-          </a>
+          </Link>
         </Reveal>
       </div>
       <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3">

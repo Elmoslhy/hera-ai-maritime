@@ -130,7 +130,7 @@ export function TaskingSection({ consoleOnly }: { consoleOnly?: boolean } = {}) 
                         </svg>
                       </div>
                     </div>
-                    <p className="mt-2 font-mono text-[9px] tracking-[0.16em] text-gold">— CUSTODY</p>
+                    <p className="mt-2 font-mono text-[9px] tracking-[0.16em] text-gold"><span className="mr-1.5 inline-block h-px w-3 bg-gold align-middle" />CUSTODY</p>
                   </div>
                 </div>
 
