@@ -243,7 +243,8 @@ const SLIDES: { title: string; node: ReactNode }[] = [
         </div>
         <Text className="left-[520px] top-[70px]">
           <Eyebrow>Located</Eyebrow>
-          <Headline a="HERA AI keeps watching." />
+          <Headline a="Accurate by design." />
+          <Line>Our own data fusion.</Line>
         </Text>
         <Hud km={0} ais="lost" />
       </>
@@ -255,8 +256,9 @@ const SLIDES: { title: string; node: ReactNode }[] = [
       <>
         <div className="deck-bg absolute inset-0 bg-navy-deep" />
         <Text className="left-[120px] top-[70px]">
-          <Eyebrow>HERA AI</Eyebrow>
-          <h2 className="mt-4 text-[88px] font-light tracking-tight text-foreground">One verified picture.</h2>
+          <Eyebrow>Vessel Intelligence</Eyebrow>
+          <h2 className="mt-4 text-[88px] font-light tracking-tight text-foreground">Know every vessel.</h2>
+          <Line>One intelligence profile per vessel, updated continuously.</Line>
         </Text>
         <div className="absolute left-1/2 top-[270px] -translate-x-1/2 [perspective:2400px]">
           <div className="deck-bg origin-top [transform:rotateX(12deg)]" style={{ width: 1700 / 1.3 + "px", transform: "rotateX(10deg) scale(1.3)" }}>
@@ -341,6 +343,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
       <>
         <GlobeScene />
         <TitleCentre />
+        <p className="deck-text absolute bottom-[230px] left-0 right-0 z-10 text-center text-[30px] font-light text-foreground/80">Tell us the decision you need to make.</p>
         <p className="deck-text absolute bottom-[160px] left-0 right-0 z-10 text-center font-mono text-[34px] tracking-[0.2em] text-cyan">info@seker-space.com</p>
       </>
     ),
