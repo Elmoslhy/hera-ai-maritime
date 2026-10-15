@@ -171,12 +171,24 @@ function IntelligencePage() {
           <div className="mx-auto max-w-7xl">
             <Reveal>
               <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">What HERA AI does.</h2>
+              <p className="text-pretty mt-5 max-w-2xl text-base font-light text-muted-foreground">Every feature shows where it stands today.</p>
+              <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+                {(Object.keys(STATUS) as Status[]).map((s) => (
+                  <div key={s} className="flex items-center gap-3">
+                    <StatusBadge s={s} />
+                    <span className="text-sm font-light text-muted-foreground">{STATUS[s].meaning}</span>
+                  </div>
+                ))}
+              </div>
             </Reveal>
-            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {CAPS.map(([t, d], i) => (
-                <Reveal key={t} delay={i * 0.05}>
+            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {CAPS.map(([t, d, s], i) => (
+                <Reveal key={t} delay={(i % 4) * 0.05}>
                   <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-6">
-                    <span className="block h-1.5 w-1.5 rounded-full bg-cyan" />
+                    <div className="flex items-start justify-between gap-3">
+                      <span className={`mt-1 block h-1.5 w-1.5 shrink-0 rounded-full ${STATUS[s].dot}`} />
+                      <StatusBadge s={s} />
+                    </div>
                     <h3 className="mt-4 text-lg font-light text-foreground">{t}</h3>
                     <p className="mt-2 text-sm font-light text-muted-foreground">{d}</p>
                   </div>
@@ -186,16 +198,16 @@ function IntelligencePage() {
           </div>
         </section>
 
-        <Chapter i={0} title="Sensor fusion" line="Every source on a ship, checked against the others, field by field.">
+        <Chapter i={0} status="live" title="Sensor fusion" line="Every source on a ship, checked against the others, field by field.">
           <WorkspaceSection part="fusion" />
         </Chapter>
-        <Chapter i={1} title="Satellite and drone tasking" line="Put a ship under watch and HERA AI sends the right satellite or drone.">
+        <Chapter i={1} status="dev" title="Satellite and drone tasking" line="Put a ship under watch, and HERA AI will send the right satellite or drone to take a look.">
           <TaskingSection consoleOnly />
         </Chapter>
-        <Chapter i={2} title="Briefings and Ask HERA AI" line="Seker briefs and public news linked to your ships, and answers that show their sources.">
+        <Chapter i={2} status="live" title="Briefings and Ask HERA AI" line="Seker briefs and public news linked to your ships, and answers that show their sources.">
           <WorkspaceSection part="briefing" />
         </Chapter>
-        <Chapter i={3} title="Alerts with a next step" line="Each warning arrives with what was seen and what to do about it.">
+        <Chapter i={3} status="live" title="Alerts with a next step" line="Each warning arrives with what was seen and what to do about it.">
           <AlertCards />
         </Chapter>
 
