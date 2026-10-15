@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { CountUp, Reveal } from "./primitives";
 import { SekerLogo } from "./Logo";
@@ -473,27 +474,16 @@ const FEATURES = [
 
 export function DashboardSection() {
   return (
-    <section className="bg-navy px-6 py-28">
+    <section id="hera-ai" className="bg-navy px-6 py-28">
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
-          <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-            Data tells you where a vessel says it is.
-            <br />
-            <span className="text-gold">SEKER tells you who it is, what it is doing and what to do next.</span>
+          <p className="text-eyebrow text-gold">HERA AI</p>
+          <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+            Meet HERA AI.
           </h2>
-        </Reveal>
-
-        <Reveal className="mt-12">
-          <div className="mb-6 text-center">
-            <p className="font-mono text-xs tracking-[0.28em] text-gold">HERA AI · INSIGHT</p>
-            <p className="text-pretty mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-              Every signal is resolved into one verified picture. Our payloads in the sky keep that
-              picture honest.
-            </p>
-          </div>
-          <div className="relative h-[420px] overflow-hidden rounded-xl border border-white/10 sm:h-[560px]">
-            <EyeCanvas />
-          </div>
+          <p className="text-pretty mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">
+            Data tells you where a ship says it is. HERA AI tells you who it is, what it is doing and what to do next.
+          </p>
         </Reveal>
 
         <Reveal className="mt-14">
@@ -523,16 +513,10 @@ export function DashboardSection() {
           </WindowChrome>
         </Reveal>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          {FEATURES.map((f, i) => (
-            <Reveal key={f.title} delay={i * 0.1}>
-              <div className="h-full rounded-xl border border-white/10 bg-white/[0.02] p-6">
-                <span className="font-mono text-xs tracking-[0.24em] text-gold">0{i + 1}</span>
-                <h3 className="text-balance mt-3 text-lg font-medium text-foreground">{f.title}</h3>
-                <p className="text-pretty mt-2 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-              </div>
-            </Reveal>
-          ))}
+        <div className="mt-10 text-center">
+          <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-cyan hover:text-gold">
+            Learn more →
+          </Link>
         </div>
       </div>
     </section>

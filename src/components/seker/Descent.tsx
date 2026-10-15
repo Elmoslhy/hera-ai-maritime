@@ -63,7 +63,7 @@ export function DescentSection() {
   ];
 
   return (
-    <section ref={ref} className="relative h-[640vh] bg-navy-deep" id="descent">
+    <section ref={ref} className="relative h-[320vh] bg-navy-deep" id="descent">
       <div className="sticky top-0 h-screen overflow-hidden">
         {/* stars */}
         <div style={{ opacity: starsO }} className="absolute inset-0">
