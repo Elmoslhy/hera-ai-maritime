@@ -300,9 +300,6 @@ export function HeroHud() {
               <span className="font-mono text-[9.5px] tracking-[0.12em] text-cyan">{v}</span>
             </li>
           ))}
-              </span>
-            </li>
-          ))}
         </ul>
       </div>
     </div>
