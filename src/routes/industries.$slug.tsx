@@ -49,6 +49,20 @@ export const Route = createFileRoute("/industries/$slug")({
   component: IndustryPage,
 });
 
+const BUYER: Record<string, string> = {
+  defense: "navies and coast guards",
+  insurance: "insurers",
+  "commodity-trading": "traders",
+  ports: "ports and authorities",
+  fisheries: "fisheries and environment agencies",
+};
+
+type Rebuild = NonNullable<NonNullable<ReturnType<typeof getIndustry>>["rebuild"]>;
+function proof(r: Rebuild) {
+  const t = (r.reach ?? r.afterDeliverables ?? r.afterMissions)?.text;
+  return t ? t.split(/(?<=\.)\s/)[0] : undefined;
+}
+
 function IndustryPage() {
   const { slug } = Route.useLoaderData();
   const i = getIndustry(slug)!;
@@ -78,50 +92,38 @@ function IndustryPage() {
 
         {i.rebuild ? (
           <>
-            {i.rebuild.signatureFirst && <SignatureSection sig={i.rebuild.signature} axis={i.rebuild.chartAxis} />}
-            <RolesSection roles={i.rebuild.roles} />
-            {!i.rebuild.signatureFirst && !i.rebuild.signatureAfterMissions && <SignatureSection sig={i.rebuild.signature} axis={i.rebuild.chartAxis} />}
-            <MissionsSection missions={i.rebuild.missions} heading={i.rebuild.missionsHeading} />
-            {i.rebuild.afterMissions && (
-              <section className="bg-navy px-6 py-20">
-                <div className="mx-auto max-w-4xl">
-                  <Reveal>
-                    <p className="text-eyebrow text-gold">{i.rebuild.afterMissions.title}</p>
-                    <p className="mt-6 text-balance text-lg font-light text-foreground/85">{i.rebuild.afterMissions.text}</p>
-                    {i.rebuild.afterMissions.note && <p className="mt-4 text-sm font-light text-foreground/55">{i.rebuild.afterMissions.note}</p>}
-                  </Reveal>
+            <SignatureSection sig={i.rebuild.signature} axis={i.rebuild.chartAxis} />
+            <section className="bg-navy-deep px-6 py-24">
+              <div className="mx-auto max-w-7xl">
+                <Reveal>
+                  <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">What you get.</h2>
+                </Reveal>
+                <div className="mt-12 grid gap-4 sm:grid-cols-2">
+                  {i.rebuild.missions.slice(0, 4).map((m, n) => (
+                    <Reveal key={m.title} delay={n * 0.05}>
+                      <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-6">
+                        <span className="block h-1.5 w-1.5 rounded-full bg-cyan" />
+                        <h3 className="mt-4 text-lg font-light text-foreground">{m.title.charAt(0).toUpperCase() + m.title.slice(1).toLowerCase()}</h3>
+                        <p className="mt-2 text-sm font-light text-muted-foreground">{m.need}</p>
+                        <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-cyan">{m.deliverable}</p>
+                      </div>
+                    </Reveal>
+                  ))}
                 </div>
-              </section>
-            )}
-            {i.rebuild.signatureAfterMissions && <SignatureSection sig={i.rebuild.signature} axis={i.rebuild.chartAxis} />}
+                {proof(i.rebuild) && (
+                  <Reveal>
+                    <p className="text-pretty mt-10 max-w-3xl text-lg font-light text-foreground/85">{proof(i.rebuild)}</p>
+                  </Reveal>
+                )}
+              </div>
+            </section>
             <UseCasesSection
               sensorLabels={i.rebuild.sensorLabels}
-              cases={i.useCaseIds.map((id) => allCases.find((c) => c.id === id)!).filter(Boolean)}
+              cases={[allCases.find((c) => c.id === i.useCaseIds[0])!].filter(Boolean)}
               sectionId="see-it-work"
-              eyebrow="See it work"
-              headline={i.rebuild.walkthroughHeadline ?? ["Mission walkthroughs,", "step by step."]}
+              eyebrow="Use case"
+              headline={[`How it works for ${BUYER[i.slug] ?? "you"}`, ""]}
             />
-            {i.rebuild.reach && (
-              <section className="bg-navy-deep px-6 py-20">
-                <div className="mx-auto max-w-4xl">
-                  <Reveal>
-                    <p className="text-eyebrow text-gold">{i.rebuild.reach.title}</p>
-                    <p className="mt-6 text-balance text-lg font-light text-foreground/85">{i.rebuild.reach.text}</p>
-                  </Reveal>
-                </div>
-              </section>
-            )}
-            <DeliverablesSection items={i.rebuild.deliverables} note={i.rebuild.deliverablesNote} />
-            {i.rebuild.afterDeliverables && (
-              <section className="bg-navy-deep px-6 py-20">
-                <div className="mx-auto max-w-4xl">
-                  <Reveal>
-                    <p className="text-eyebrow text-gold">{i.rebuild.afterDeliverables.title}</p>
-                    <p className="mt-6 text-balance text-lg font-light text-foreground/85">{i.rebuild.afterDeliverables.text}</p>
-                  </Reveal>
-                </div>
-              </section>
-            )}
           </>
         ) : (
           <>
@@ -192,18 +194,6 @@ function IndustryPage() {
         <UseCasesSection ids={i.useCaseIds} sectionId="see-it-work" eyebrow="See it work" headline={["Mission walkthroughs,", "step by step."]} />
           </>
         )}
-
-        <section className="bg-navy-deep px-6 py-8">
-          <Link
-            to="/intelligence"
-            hash="tasking"
-            className="mx-auto flex max-w-7xl flex-wrap items-center gap-4 rounded-lg border border-white/10 bg-navy/70 px-5 py-4 backdrop-blur transition-colors hover:border-gold/40"
-          >
-            <span className="font-mono text-xs tracking-[0.2em] text-gold">TASKING</span>
-            <span className="min-w-0 flex-1 text-sm font-light text-foreground/85">{i.roadmapNote}</span>
-            <span className="font-mono text-xs tracking-[0.2em] text-gold">→</span>
-          </Link>
-        </section>
 
         <section className="bg-navy px-6 py-28 text-center">
           <Reveal>
