@@ -15,12 +15,14 @@ function IndustriesMenu() {
       {open && (
         <div className="absolute left-1/2 top-full w-80 -translate-x-1/2 pt-3">
           <div className="rounded-lg border border-white/10 bg-navy/90 p-2 backdrop-blur">
+            <a href="/#industries" onClick={() => setOpen(false)} className="block rounded-md px-3 py-3 text-[10px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-white/5">All industries</a>
             {industries.map((i) => (
               <Link key={i.slug} to="/industries/$slug" params={{ slug: i.slug }} onClick={() => setOpen(false)} className="block rounded-md px-3 py-3 transition-colors hover:bg-white/5">
                 <span className="block text-[10px] uppercase tracking-[0.18em] text-foreground">{i.navName}</span>
                 <span className="mt-1 block font-sans text-xs normal-case tracking-normal text-muted-foreground">{i.description}</span>
               </Link>
             ))}
+            <Link to="/intelligence" onClick={() => setOpen(false)} className="block rounded-md px-3 py-3 text-[10px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-white/5">Use cases, step by step</Link>
           </div>
         </div>
       )}
@@ -79,9 +81,6 @@ export function Nav() {
             LIVE
           </span>
           <IndustriesMenu />
-          <Link to="/intelligence" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
-            USE CASES
-          </Link>
           <Link to="/careers" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
             CAREERS
           </Link>
@@ -129,13 +128,14 @@ function MobileMenu() {
       {open && (
         <div className="fixed inset-x-0 bottom-0 top-[68px] z-50 overflow-y-auto bg-navy-deep/95 px-6 pb-10 backdrop-blur-md">
           <p className="pt-6 font-mono text-[10px] tracking-[0.22em] text-gold">INDUSTRIES</p>
+          <a href="/#industries" onClick={close} className={item}>ALL INDUSTRIES</a>
           {industries.map((i) => (
             <Link key={i.slug} to="/industries/$slug" params={{ slug: i.slug }} onClick={close} className={item}>
               {i.navName.toUpperCase()}
             </Link>
           ))}
+          <Link to="/intelligence" onClick={close} className={item}>USE CASES, STEP BY STEP</Link>
           <p className="pt-8 font-mono text-[10px] tracking-[0.22em] text-gold">SEKER</p>
-          <Link to="/intelligence" onClick={close} className={item}>USE CASES</Link>
           <Link to="/careers" onClick={close} className={item}>CAREERS</Link>
           <Link to="/newsroom" onClick={close} className={item}>NEWSROOM</Link>
           <Link
@@ -164,6 +164,7 @@ export function Footer() {
               {i.navName.toUpperCase()}
             </Link>
           ))}
+          <Link to="/intelligence" onClick={close} className={item}>USE CASES, STEP BY STEP</Link>
         </div>
         <div className="flex gap-8">
           <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">

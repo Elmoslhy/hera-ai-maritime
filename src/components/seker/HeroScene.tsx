@@ -283,28 +283,23 @@ export function HeroHud() {
 
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 backdrop-blur-md">
         <div className="flex items-center gap-3 border-b border-gold/15 px-3 py-2">
-          <span className="font-mono text-xs tracking-[0.22em] text-gold">THE SENSOR LAYER</span>
+          <span className="font-mono text-xs tracking-[0.22em] text-gold">INTELLIGENCE PROFILE</span>
           <span className="h-px flex-1 bg-gold/20" />
         </div>
         <ul className="divide-y divide-white/5">
           {[
-            { k: "AIS-T", v: "identity claim", s: 4 },
-            { k: "AIS-S", v: "position claim", s: 3 },
-            { k: "RF", v: "true location", s: 5 },
-            { k: "SAR", v: "hull image", s: 4 },
-            { k: "TIR", v: "engine heat", s: 2 },
-          ].map((row) => (
-            <li key={row.k} className="flex items-center gap-2.5 px-3 py-2">
-              <span className="w-10 font-mono text-[9.5px] tracking-[0.14em] text-foreground">{row.k}</span>
-              <span className="flex-1 font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground">{row.v}</span>
-              <span className="flex items-end gap-[2px]">
-                {[1, 2, 3, 4, 5].map((b) => (
-                  <span
-                    key={b}
-                    className={`w-[2.5px] rounded-[1px] ${b <= row.s ? "bg-cyan" : "bg-white/12"}`}
-                    style={{ height: 3 + b * 1.6 }}
-                  />
-                ))}
+            ["Identity and owner", "VERIFIED"],
+            ["Flag", "MT · CONSISTENT"],
+            ["Cargo estimate", "ABOUT 62,000 T"],
+            ["Last port call", "PIRAEUS · 2 D"],
+            ["Encounters (30 days)", "2"],
+            ["Risk indicators", "LOW"],
+          ].map(([k, v]) => (
+            <li key={k} className="flex items-center gap-2.5 px-3 py-2">
+              <span className="flex-1 font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground">{k}</span>
+              <span className="font-mono text-[9.5px] tracking-[0.12em] text-cyan">{v}</span>
+            </li>
+          ))}
               </span>
             </li>
           ))}
