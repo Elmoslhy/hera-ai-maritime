@@ -16,7 +16,7 @@ export type Job = {
 };
 
 export const careersIntro =
-  "Seker Space Intelligence is a Luxembourg maritime space company building European sovereign capability in maritime intelligence. We combine our own multi-sensor space payload with HERA AI, our data-fusion platform, to deliver verified vessel intelligence to commercial and public institutions. We are building the most advanced maritime engineering company in Europe — real hardware, real software, at global scale.";
+  "Seker Space Intelligence is a Luxembourg maritime space company building European sovereign capability in maritime intelligence. We combine our own multi-sensor space payload with HERA AI, our data-fusion platform, to deliver verified vessel intelligence to commercial and public institutions. We are building the most advanced maritime engineering company in Europe. Real hardware, real software, at global scale.";
 
 export const applicantPrivacy =
   "By sending your application, you agree that Seker Space Intelligence processes your personal data for recruitment purposes only. We keep applications for 12 months, unless you ask us to delete yours sooner by writing to info@seker-space.com.";
