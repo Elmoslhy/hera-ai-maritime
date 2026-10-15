@@ -20,13 +20,38 @@ const TITLE = "HERA AI | SEKER";
 const DESCRIPTION =
   "HERA AI brings every source on a ship into one profile, flags what does not add up and tells you what to do next.";
 
-const CAPS: [string, string][] = [
-  ["Dark vessel detection", "Find ships that switch off their transponder."],
-  ["Spoofing detection", "Catch ships that fake their position or identity."],
-  ["Vessel profiles", "Owner, flag, cargo and history for every ship."],
-  ["Meetings at sea", "See which ships meet, where and for how long."],
-  ["Watched areas and alerts", "Get warned the moment a ship acts unusually."],
-  ["Satellite and drone tasking", "Send a satellite or a drone to take a look."],
+type Status = "live" | "built" | "dev";
+const STATUS: Record<Status, { label: string; badge: string; dot: string; meaning: string }> = {
+  live: { label: "LIVE", badge: "border-cyan/60 bg-cyan/10 text-cyan", dot: "bg-cyan", meaning: "Running today" },
+  built: { label: "BUILT, GOING LIVE", badge: "border-gold/60 bg-gold/10 text-gold", dot: "bg-gold", meaning: "Tested, switching on as its data loads" },
+  dev: { label: "IN DEVELOPMENT", badge: "border-muted-foreground/50 bg-muted-foreground/10 text-muted-foreground", dot: "bg-muted-foreground", meaning: "On our roadmap" },
+};
+
+function StatusBadge({ s, className = "" }: { s: Status; className?: string }) {
+  return (
+    <span className={`inline-block whitespace-nowrap rounded border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.16em] ${STATUS[s].badge} ${className}`}>
+      {STATUS[s].label}
+    </span>
+  );
+}
+
+const CAPS: [string, string, Status][] = [
+  ["Vessel digital twin", "One profile per ship, with every name, flag and transponder number it has used.", "live"],
+  ["Sanctions screening", "Five official lists from the US, UK, EU and Japan, with every version kept for audit.", "live"],
+  ["Identity risk", "Flag hopping, renaming and shared identities, each shown with its evidence.", "live"],
+  ["Track plausibility", "Reported movements checked against what a ship can physically do.", "live"],
+  ["Evidence on every answer", "Sources, method and time on every result, and gaps shown with a reason.", "live"],
+  ["Watched areas and alerts", "Draw an area or list a fleet, and get alerts as events happen.", "live"],
+  ["Ask HERA AI and briefings", "Answers in plain language, with their sources shown.", "live"],
+  ["API and data feeds", "The same intelligence as a feed, with its evidence attached.", "live"],
+  ["Meetings at sea", "Ship-to-ship meetings, filtered and scored for review.", "built"],
+  ["Network exposure", "Links to listed ships through meetings at sea.", "built"],
+  ["Coverage gaps", "Gaps in reporting, judged against where receivers can hear.", "built"],
+  ["Load line and cargo", "Draught against the permitted load line, with cargo inferred and labelled.", "built"],
+  ["Flag-state profile", "Flag standing, conventions, certificates and detention history.", "built"],
+  ["Pilot boarding risk", "What a pilot station should expect before a ship arrives.", "built"],
+  ["Port calls and voyage replay", "Every port call detected and every voyage replayed.", "dev"],
+  ["Satellite and drone tasking", "Send a satellite or a drone to take a second look.", "dev"],
 ];
 
 const CASES = [
@@ -37,13 +62,16 @@ const CASES = [
   { ...transshipmentCase, tag: "Fisheries and environment" },
 ];
 
-function Chapter({ i, title, line, children }: { i: number; title: string; line: string; children: React.ReactNode }) {
+function Chapter({ i, title, line, status, children }: { i: number; title: string; line: string; status: Status; children: React.ReactNode }) {
   const flip = i % 2 === 1;
   return (
     <section className={`px-6 py-20 ${flip ? "bg-navy-deep" : "bg-navy"}`}>
       <div className={`mx-auto grid max-w-7xl items-center gap-10 ${flip ? "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]"}`}>
         <Reveal className={flip ? "lg:order-2" : ""}>
-          <span className="font-mono text-xs tracking-[0.24em] text-gold">0{i + 1}</span>
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-xs tracking-[0.24em] text-gold">0{i + 1}</span>
+            <StatusBadge s={status} />
+          </div>
           <h2 className="text-balance mt-4 text-3xl font-light tracking-tight text-foreground sm:text-4xl">{title}</h2>
           <p className="text-pretty mt-5 max-w-md text-base font-light text-foreground/75">{line}</p>
         </Reveal>
