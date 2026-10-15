@@ -324,7 +324,7 @@ export function DigitalTwin() {
           ○ UNVERIFIED · IMO REQUIRED
         </div>
 
-        <div className="grid grid-cols-2 gap-x-6">
+        <div className="twin-grid grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 sm:gap-y-0">
           {[["IDENTITY", IDENTITY], ["KINEMATICS", KINEMATICS]].map(([title, rows]) => (
             <div key={title as string}>
               <p className="border-b border-white/10 pb-1 font-mono text-[9px] tracking-[0.2em] text-muted-foreground">
@@ -334,7 +334,7 @@ export function DigitalTwin() {
                 {(rows as string[][]).map(([k, v]) => (
                   <div key={k} className="flex items-baseline justify-between gap-3">
                     <dt className="text-[12px] text-muted-foreground">{k}</dt>
-                    <dd className="font-mono text-[11px] text-foreground">{v}</dd>
+                    <dd className="whitespace-nowrap font-mono text-[11px] text-foreground">{v}</dd>
                   </div>
                 ))}
               </dl>
