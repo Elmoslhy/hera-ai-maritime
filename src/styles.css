@@ -253,3 +253,11 @@ html.craft-cursor-on :is(input, textarea) { cursor: text; }
 @media (any-pointer: coarse) and (hover: none) {
   .pointer-trail, .craft-cursor { display: none; }
 }
+
+/* Tasking map: MapLibre controls in the site's interface colours. */
+.tasking-map .maplibregl-ctrl-group { background: var(--color-navy-deep); border: 1px solid rgba(255,255,255,.12); border-radius: 2px; box-shadow: none; }
+.tasking-map .maplibregl-ctrl-group button + button { border-top-color: rgba(255,255,255,.12); }
+.tasking-map .maplibregl-ctrl-icon { filter: invert(1) opacity(.8); }
+.tasking-map .maplibregl-ctrl-scale { background: rgba(6,12,21,.8); border-color: rgba(238,242,247,.7); color: #eef2f7; font: 10px var(--font-mono); }
+.tasking-map .maplibregl-ctrl-attrib { background: rgba(6,12,21,.8); color: #8fa2b8; font: 9px var(--font-sans); }
+.tasking-map .maplibregl-ctrl-attrib a { color: #c8d3df; }
