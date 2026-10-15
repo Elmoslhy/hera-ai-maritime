@@ -46,7 +46,6 @@ export function TaskingSection({ consoleOnly }: { consoleOnly?: boolean } = {}) 
   const NOW = 0.5; // simulated hours since alert
 
   const consoleEl = (
-          {/* console */}
           <div className="mt-10 overflow-hidden rounded-xl border border-white/10 bg-navy-deep">
             <div className="flex items-center gap-4 border-b border-white/10 px-4 py-3">
               <div className="flex shrink-0 gap-1.5">
