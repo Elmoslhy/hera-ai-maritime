@@ -28,10 +28,12 @@ export function SectionBackground({
   src,
   alt,
   overlay = "bg-navy/75",
+  imgClassName = "",
 }: {
   src: string;
   alt: string;
   overlay?: string;
+  imgClassName?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.25 });
@@ -50,7 +52,7 @@ export function SectionBackground({
           loading="lazy"
           width={1920}
           height={1088}
-          className={`h-full w-full object-cover ${inView ? "ken-burns" : ""}`}
+          className={`h-full w-full object-cover ${imgClassName} ${inView ? "ken-burns" : ""}`}
         />
       </motion.div>
       <div className={`absolute inset-0 ${overlay}`} />
