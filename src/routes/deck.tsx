@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { Satellite, Orbit, Drone, ChevronLeft, ChevronRight } from "lucide-react";
+import { Satellite, Orbit, Drone, ChevronLeft, ChevronRight, Check, X } from "lucide-react";
 import { HeroHud } from "@/components/seker/HeroScene";
 import { IntelPanel } from "@/components/seker/IntelPanel";
 import { SekerLogo } from "@/components/seker/Logo";
@@ -10,6 +10,7 @@ import { DeckScenarioMap } from "@/components/seker/DeckMaps";
 import { WalkthroughFilm, WalkthroughViewToggle, useWalkthroughView } from "@/components/seker/WalkthroughFilm";
 import { cableCorridorCase, cargoClaimCase, originCase, preArrivalCase, transshipmentCase, sensors, useCases, type UseCase } from "@/content/intelligence";
 import { LiveMap, DigitalTwin, WindowChrome } from "@/components/seker/Dashboard";
+import { OpsMap } from "@/components/seker/UseCases";
 import { taskingSection, taskingLanes } from "@/content/intelligence";
 import { industries } from "@/content/industries";
 import ocean from "@/assets/ocean.jpg";
@@ -117,7 +118,7 @@ function TitleCentre() {
     <div className="deck-text absolute inset-0 z-10 flex flex-col items-center justify-center text-center">
       <SekerLogo className="w-[520px] text-foreground" />
       <h1 className="mt-10 text-[104px] font-light leading-[1.02] tracking-tight text-foreground">
-        Maritime intelligence<br /><span className="text-gold">you can act on.</span>
+        The right intelligence<br /><span className="text-gold">starts with better data.</span>
       </h1>
     </div>
   );
@@ -352,12 +353,14 @@ const SLIDES: { title: string; node: ReactNode }[] = [
 
 /* ---------- interactive industry slide ---------- */
 const STAGE_NAMES = ["Detect", "Cue", "Collect", "Fuse", "Assess", "Deliver"];
+const SANCTIONS = useCases.find((u) => u.id === "identity")!;
 const SERVE: { slug: string; name: string; uc: UseCase }[] = [
   { slug: "defense", name: "Defense and coast guard", uc: cableCorridorCase },
   { slug: "insurance", name: "Insurance and P&I", uc: cargoClaimCase },
   { slug: "commodity-trading", name: "Commodity trading", uc: originCase },
   { slug: "ports", name: "Ports and maritime authorities", uc: preArrivalCase },
   { slug: "fisheries", name: "Fisheries and environment", uc: transshipmentCase },
+  { slug: "banks", name: "Banks and compliance", uc: SANCTIONS },
 ];
 const WHO = SLIDES.findIndex((x) => x.title === "Who we serve");
 
@@ -380,12 +383,12 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
       <div className="deck-bg absolute inset-0 bg-navy-deep" />
       <div className="deck-text absolute left-[100px] top-[50px]">
         <Eyebrow>Who we serve</Eyebrow>
-        <h2 className="mt-4 text-[72px] font-light leading-[1.02] tracking-tight text-foreground">Five industries,<br /><span className="text-gold">one verified picture.</span></h2>
+        <h2 className="mt-4 text-[72px] font-light leading-[1.02] tracking-tight text-foreground">Six industries,<br /><span className="text-gold">one complete record.</span></h2>
       </div>
       <div className="deck-text absolute left-[100px] right-[100px] top-[268px] flex justify-between gap-3" onClick={stop}>
         {SERVE.map((x, k) => (
           <button key={x.slug} type="button" onClick={() => onInd?.(k)}
-            className={`whitespace-nowrap rounded-full border px-5 py-2.5 font-mono text-[15px] uppercase tracking-[0.12em] transition-colors ${k === ind ? "border-gold/60 bg-gold/12 text-gold" : "border-white/12 bg-white/[0.02] text-muted-foreground hover:border-white/25 hover:text-foreground"}`}>
+            className={`whitespace-nowrap rounded-full border px-4 py-2.5 font-mono text-[14px] uppercase tracking-[0.08em] transition-colors ${k === ind ? "border-gold/60 bg-gold/12 text-gold" : "border-white/12 bg-white/[0.02] text-muted-foreground hover:border-white/25 hover:text-foreground"}`}>
             {x.name}
           </button>
         ))}
@@ -397,7 +400,7 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
             <p className="truncate font-mono text-[16px] tracking-[0.2em] text-muted-foreground">HERA AI · {uc.tag}</p>
             <WalkthroughViewToggle deck mode={view.mode} available={view.available} onChange={view.setMode} />
           </div>
-          {(frozen || view.mode === "film") ? <WalkthroughFilm key={uc.id} uc={uc} stage={stage} active={active} frozen={frozen} deck /> : <DeckScenarioMap slug={SERVE[ind].slug} stage={stage} />}
+          {(frozen || view.mode === "film") ? <WalkthroughFilm key={uc.id} uc={uc} stage={stage} active={active} frozen={frozen} deck /> : SERVE[ind].slug === "banks" ? <div className="h-[560px] w-[1060px]"><OpsMap idx={geo} stage={stage} /></div> : <DeckScenarioMap slug={SERVE[ind].slug} stage={stage} />}
         </div>
         <div className="relative mt-5">
           <div className="absolute inset-x-0 top-0 h-[3px] bg-white/10"><div className="h-full bg-gold transition-[width] duration-500" style={{ width: `${((stage + 1) / 6) * 100}%` }} /></div>
@@ -452,10 +455,10 @@ function Deck() {
   const goTo = useCallback((k: number, fromEnd = false) => {
     const t = Math.min(n - 1, Math.max(0, k));
     if (t === i) return;
-    navigate({ search: t === WHO ? { slide: t + 1, industry: SERVE[fromEnd ? 4 : 0].slug } : { slide: t + 1 } });
+    navigate({ search: t === WHO ? { slide: t + 1, industry: SERVE[fromEnd ? SERVE.length - 1 : 0].slug } : { slide: t + 1 } });
   }, [i, n, navigate]);
   const setInd = useCallback((k: number) => navigate({ search: { slide: WHO + 1, industry: SERVE[k].slug } }), [navigate]);
-  const next = () => (i === WHO && ind < 4 ? setInd(ind + 1) : goTo(i + 1));
+  const next = () => (i === WHO && ind < SERVE.length - 1 ? setInd(ind + 1) : goTo(i + 1));
   const prev = () => (i === WHO && ind > 0 ? setInd(ind - 1) : goTo(i - 1, true));
 
   const poke = useCallback(() => {
@@ -573,7 +576,7 @@ function Deck() {
         ))}
       </div>
       <p className="deck-chrome absolute bottom-5 right-6 z-30 font-mono text-xs tracking-[0.2em] text-muted-foreground">
-        {String(i + 1).padStart(2, "0")}{i === WHO ? ` · ${ind + 1}/5` : ""} / {String(n).padStart(2, "0")}
+        {String(i + 1).padStart(2, "0")}{i === WHO ? ` · ${ind + 1}/${SERVE.length}` : ""} / {String(n).padStart(2, "0")}
       </p>
     </div>
   );
