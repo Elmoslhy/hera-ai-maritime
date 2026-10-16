@@ -305,3 +305,48 @@ export function HeroHud() {
     </div>
   );
 }
+
+export function HeroShipCard() {
+  return (
+    <div className="pointer-events-none absolute right-6 top-1/2 z-10 hidden w-[286px] -translate-y-1/2 lg:block">
+      <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
+        <div className="flex items-center gap-3 border-b border-gold/15 px-3 py-2">
+          <span className="font-mono text-xs tracking-[0.22em] text-gold">HERA AI · SHIP RECORD</span>
+          <span className="h-px flex-1 bg-gold/20" />
+        </div>
+        <div className="flex items-end justify-between border-b border-white/5 px-3 py-3">
+          <div>
+            <p className="font-mono text-[13px] leading-none text-foreground">M/V ARGEST</p>
+            <p className="mt-1.5 font-mono text-[9px] tracking-[0.14em] text-muted-foreground">IMO 9412783</p>
+          </div>
+          <span className="rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono text-xs tracking-[0.16em] text-gold">VERIFIED</span>
+        </div>
+        <ul className="divide-y divide-white/5">
+          {[
+            ["Who owns it", "VERIFIED"],
+            ["Flag", "MALTA · CONSISTENT"],
+            ["Cargo", "ABOUT 62,000 T"],
+            ["Last port", "PIRAEUS · 2 DAYS AGO"],
+            ["Meetings at sea, 30 days", "2"],
+            ["Risk", "LOW"],
+          ].map(([k, v]) => (
+            <li key={k} className="flex items-center gap-2.5 px-3 py-2">
+              <span className="flex-1 font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground">{k}</span>
+              <span className="font-mono text-[9.5px] tracking-[0.12em] text-cyan">{v}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="border-t border-white/5 px-3 py-3">
+          <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] text-muted-foreground">
+            <span>HERA AI CONFIDENCE</span>
+            <span className="text-cyan">98%</span>
+          </div>
+          <div className="mt-1.5 h-[3px] w-full overflow-hidden rounded-full bg-white/10">
+            <div className="h-full w-[98%] rounded-full bg-cyan" />
+          </div>
+        </div>
+      </div>
+      <p className="mt-2 font-mono text-[8px] tracking-[0.2em] text-muted-foreground/70">SAMPLE SHIP</p>
+    </div>
+  );
+}

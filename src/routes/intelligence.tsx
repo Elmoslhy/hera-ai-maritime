@@ -5,6 +5,7 @@ import { UseCasesSection } from "@/components/seker/UseCases";
 import { WorkspaceSection } from "@/components/seker/Workspace";
 import { TaskingScreen } from "@/components/seker/TaskingMap";
 import { AlertCards } from "@/components/seker/Insights";
+import { HeroHud } from "@/components/seker/HeroScene";
 import vessels from "@/assets/vessels-bright.jpg";
 import {
   intelligenceHero as h,
@@ -139,8 +140,9 @@ function IntelligencePage() {
             <Reticle className="left-[52%] top-[52.5%] h-[28%] w-[10%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.matched} tone="cyan" />
             <Reticle className="hidden sm:block left-[71%] top-[59%] h-[22%] w-[9%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.dark} tone="alert" />
           </SectionBackground>
+          <HeroHud />
           <div className="relative mx-auto w-full max-w-7xl">
-            <Reveal>
+            <Reveal className="lg:max-w-[60%]">
               <p className="text-eyebrow text-gold">HERA AI</p>
               <h1 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">
                 One platform.
