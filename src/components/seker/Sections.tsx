@@ -212,7 +212,7 @@ export function IndustriesSection() {
             Built for the industries that run on the sea.
           </h2>
         </Reveal>
-        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {SERVE.map((x, i) => {
             const img = industries.find((n) => n.slug === x.slug)?.heroImage;
             return (
