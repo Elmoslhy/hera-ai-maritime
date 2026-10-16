@@ -242,7 +242,7 @@ export function IndustriesSection() {
 const WHY: [string, string][] = [
   ["INDEPENDENT OBSERVATION", "Built on what we observe, not only on what ships choose to report."],
   ["GROUND TRUTH FROM PORTS", "Port sources worldwide confirm what ships actually did alongside."],
-  ["A SECOND LOOK ON DEMAND", "When an answer is in doubt, HERA AI sends a satellite or a drone to look."],
+  ["A SECOND LOOK ON DEMAND", "When an answer is in doubt, HERA AI sends a satellite or a partner drone from the nearest port to look."],
 ];
 
 const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "FUSED IN HERA AI"];
