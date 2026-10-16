@@ -9,11 +9,13 @@ import {
   HeroSection,
   IndustriesSection,
   ProblemSection,
+  ProofSection,
+  WhyNowSection,
 } from "@/components/seker/Sections";
 
-const TITLE = "SEKER | Maritime intelligence you can act on";
+const TITLE = "SEKER | The right intelligence starts with better data";
 const DESCRIPTION =
-  "Intelligence on every vessel at sea, for defense, insurance, commodity trading, ports and fisheries. Built on SEKER's own data fusion in Luxembourg.";
+  "HERA AI is the complete record of every ship at sea: who it is, who owns it, where it has been and what it did. Built in Luxembourg.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,11 +39,13 @@ function Index() {
       <main>
         <HeroSection />
         <ProblemSection />
+        <WhyNowSection />
         <DescentSection />
         <DashboardSection />
         <GetItSection />
         <IndustriesSection />
         <ConstellationSection />
+        <ProofSection />
         <ContactSection />
       </main>
       <Footer />

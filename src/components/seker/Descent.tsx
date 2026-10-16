@@ -198,6 +198,11 @@ export function DescentSection() {
           <div className="relative flex items-start justify-end gap-6">
             <div className="absolute left-1/2 top-0 w-full max-w-lg -translate-x-1/2 space-y-2 text-center">
               <p className="font-mono text-sm tracking-[0.28em] text-gold sm:text-base">{act.title.toUpperCase()}</p>
+              {act.title === "In orbit" && (
+                <p className="inline-block rounded-sm border border-gold/40 bg-navy/70 px-2.5 py-1 font-mono text-[9px] tracking-[0.2em] text-gold backdrop-blur-sm sm:text-[10px]">
+                  IN-ORBIT DEMONSTRATION · Q4 2028
+                </p>
+              )}
             </div>
             <div className="relative shrink-0 space-y-2 text-right">
               <div className="rounded-lg border border-white/10 bg-navy/70 px-4 py-3 backdrop-blur-sm">
