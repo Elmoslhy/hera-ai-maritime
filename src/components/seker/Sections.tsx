@@ -134,6 +134,8 @@ const SERVE = [
   { slug: "ports", name: "Ports and maritime authorities", tone: "border-l-cyan", q: "Who is arriving, and what risk do they bring?", d: "Arrival intelligence, vessel particulars and boarding risk before the ship reaches port, delivered into the systems you already use." },
   { slug: "fisheries", name: "Fisheries and environment", tone: "border-l-cyan", q: "Who was operating where they should not be?", d: "Activity patterns and identity history for vessels in protected and regulated waters." },
   { slug: "banks", name: "Banks and compliance", tone: "border-l-gold", q: "Is any ship in this deal listed, or linked to one that is?", d: "Screening on five official lists with a full audit trail, and early warning before a listing." },
+  { slug: "shipping-security", name: "Shipping and ship security", tone: "border-l-cyan", q: "Is my ship safe where it is going?", d: "Alerts on piracy zones, jamming and dark ships. A flag the moment one of your ships goes dark." },
+  { slug: "search-and-rescue", name: "Search and rescue", tone: "border-l-gold", q: "Who is in distress and who is close enough to help?", d: "Context on every distress call: the ship, its recent track and every ship nearby that can help." },
 ];
 
 const GET_IT: {
@@ -210,7 +212,7 @@ export function IndustriesSection() {
             Built for the industries that run on the sea.
           </h2>
         </Reveal>
-        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {SERVE.map((x, i) => {
             const img = industries.find((n) => n.slug === x.slug)?.heroImage;
             return (
@@ -353,6 +355,14 @@ const WHY_NOW: [string, string, string][] = [
   ["0.25% → 10%", "War-risk premium as a share of a ship's value", "text-cyan"],
 ];
 
+const HORMUZ_DOES: [string, string][] = [
+  ["See what is really happening", "Which ships really cross, which wait at anchor and which positions are jammed or fake."],
+  ["Keep ships clear of danger", "Alerts on jamming, dark ships and seizures in the waters you sail."],
+  ["Price the real risk", "Where a ship really was and who it really is, before you set the war-risk premium."],
+  ["Read supply early", "Real transits, waiting tankers and dark convoys, for oil, gas and freight markets."],
+  ["Know who is arriving", "Identity and sanctions status before a ship reaches your berth."],
+];
+
 export function WhyNowSection() {
   return (
     <section className="relative overflow-hidden bg-navy-deep px-6 py-24">
@@ -377,11 +387,17 @@ export function WhyNowSection() {
           </p>
         </Reveal>
         <Reveal delay={0.15}>
-          <p className="text-pretty mx-auto mt-4 max-w-2xl text-base leading-relaxed text-foreground">
-            <span className="mr-3 font-mono text-xs tracking-[0.2em] text-gold">HERA AI</span>
-            Every ship cross-checked against independent sources, with a confidence score you can act on.
-          </p>
+          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">What HERA AI does in the Strait</p>
         </Reveal>
+        <div className="mt-5 overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left backdrop-blur-sm">
+          {HORMUZ_DOES.map(([t, l], i) => (
+            <div key={t} className={`grid grid-cols-1 gap-2 bg-navy px-6 py-5 sm:grid-cols-[minmax(0,16rem)_1fr] sm:gap-8 ${i ? "border-t border-white/10" : ""}`}>
+              <p className="text-base text-gold">{t}</p>
+              <p className="text-base leading-relaxed text-foreground">{l}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-4 text-sm text-muted-foreground">On the HERA AI platform, by API or as written briefings.</p>
         <p className="mt-5 font-mono text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground/70">
           JMIC OCT 2026 · WINDWARD Q3 2026 · MARSH; INSURANCE BUSINESS 2026
         </p>

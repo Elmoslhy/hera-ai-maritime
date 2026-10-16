@@ -57,6 +57,8 @@ const BUYER: Record<string, string> = {
   ports: "ports and authorities",
   fisheries: "fisheries and environment agencies",
   banks: "banks and compliance teams",
+  "shipping-security": "shipping companies",
+  "search-and-rescue": "rescue centres",
 };
 
 type Rebuild = NonNullable<NonNullable<ReturnType<typeof getIndustry>>["rebuild"]>;
