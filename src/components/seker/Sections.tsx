@@ -249,10 +249,9 @@ const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "FUSED IN HERA AI"];
 
 export function ConstellationSection() {
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden px-6">
+    <section className="relative overflow-hidden px-6 py-28">
       <SectionBackground src={satelliteNetwork} alt="Satellite constellation" overlay="bg-navy/70" />
-      <div className="relative z-10 mx-auto w-full max-w-4xl py-24 text-center">
-        <GapBlock />
+      <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
         <Reveal>
           <p className="text-eyebrow text-gold">Why SEKER</p>
         </Reveal>
@@ -422,66 +421,6 @@ export function ProofSection() {
         ))}
       </div>
     </section>
-  );
-}
-
-const AIS_SOURCES: [string, number][] = [
-  ["Coastal receivers", 75],
-  ["Receivers on other ships", 15],
-  ["Satellites", 10],
-];
-
-const GAP: [string, string][] = [
-  ["Kpler bought Spire Maritime", "About $241M in April 2025. Spire's satellites now deliver the space data to Kpler."],
-  ["S&P Global bought ORBCOMM's AIS business", "ORBCOMM's satellites are reaching the end of their life."],
-  ["Prices up about 2.5 times", "AIS data has become about 2.5 times more expensive since this consolidation (Seker market soundings, 2026)."],
-  ["Platforms want an independent source", "Competing platforms are looking for an AIS source they do not have to buy from a rival."],
-];
-
-function GapBlock() {
-  return (
-    <div className="mb-20">
-      <Reveal>
-        <p className="text-eyebrow text-gold">The gap we close</p>
-        <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-5xl">
-          The ship's own signal is now sold by fewer hands.
-        </h2>
-      </Reveal>
-      <Reveal delay={0.1}>
-        <div className="mx-auto mt-10 max-w-xl rounded-sm border border-gold/25 bg-[#060d18]/70 p-5 text-left backdrop-blur-md">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">Where AIS data comes from today</p>
-          <div className="mt-4 space-y-3">
-            {AIS_SOURCES.map(([k, v]) => (
-              <div key={k}>
-                <div className="flex justify-between gap-4 text-sm text-muted-foreground">
-                  <span>{k}</span>
-                  <span className="font-mono text-cyan">{v}%</span>
-                </div>
-                <div className="mt-1.5 h-1.5 rounded-full bg-white/5">
-                  <div className="h-full rounded-full bg-cyan/70" style={{ width: `${v}%` }} />
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="mt-4 font-mono text-[10px] tracking-[0.18em] text-muted-foreground/70">SEKER ESTIMATE, 2026</p>
-        </div>
-      </Reveal>
-      <div className="mt-6 grid gap-4 text-left sm:grid-cols-2">
-        {GAP.map(([t, b], i) => (
-          <Reveal key={t} delay={0.12 + i * 0.05}>
-            <div className="h-full rounded-sm border border-gold/25 bg-[#060d18]/70 p-5 backdrop-blur-md">
-              <p className="text-base font-light text-foreground">{t}</p>
-              <p className="text-pretty mt-2 text-sm leading-relaxed text-muted-foreground">{b}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-      <Reveal delay={0.2}>
-        <p className="text-pretty mt-6 rounded-sm border border-cyan/40 bg-cyan/5 px-5 py-4 text-base leading-relaxed text-foreground">
-          This is why the market needs a more accurate, independent source now. It is the exact gap Seker closes.
-        </p>
-      </Reveal>
-    </div>
   );
 }
 
