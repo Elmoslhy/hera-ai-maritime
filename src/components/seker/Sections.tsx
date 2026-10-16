@@ -24,14 +24,14 @@ export function HeroSection() {
         </Reveal>
         <Reveal delay={0.15}>
           <h1 className="text-balance mt-8 text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
-            Maritime intelligence
+            The right intelligence
             <br />
-            <span className="font-normal">you can act on.</span>
+            <span className="font-normal">starts with better data.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.3}>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            SEKER delivers intelligence on every ship at sea, even the ones that try to hide.
+            HERA AI is the complete record of every ship at sea: who it is, who owns it, where it has been and what it did. Checked, not declared.
           </p>
         </Reveal>
         <Reveal delay={0.45}>
@@ -132,6 +132,7 @@ const SERVE = [
   { slug: "commodity-trading", name: "Commodity trading", tone: "border-l-gold", q: "What are the vessels really doing?", d: "Vessel-level cargo estimates, voyages and ship-to-ship transfers, delivered as the data your analysts and models run on." },
   { slug: "ports", name: "Ports and maritime authorities", tone: "border-l-cyan", q: "Who is arriving, and what risk do they bring?", d: "Arrival intelligence, vessel particulars and boarding risk before the ship reaches port, delivered into the systems you already use." },
   { slug: "fisheries", name: "Fisheries and environment", tone: "border-l-cyan", q: "Who was operating where they should not be?", d: "Activity patterns and identity history for vessels in protected and regulated waters." },
+  { slug: "banks", name: "Banks and compliance", tone: "border-l-gold", q: "Is any ship in this deal listed, or linked to one that is?", d: "Screening on five official lists with a full audit trail, and early warning before a listing." },
 ];
 
 const GET_IT: {
@@ -148,7 +149,7 @@ const GET_IT: {
   },
   {
     title: "HERA AI API",
-    line: "Plug verified vessel data straight into your own systems.",
+    line: "Plug checked vessel data straight into your own systems.",
     label: "ASK FOR API ACCESS →",
     kind: "contact",
   },
@@ -208,7 +209,7 @@ export function IndustriesSection() {
             Built for the industries that run on the sea.
           </h2>
         </Reveal>
-        <div className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {SERVE.map((x, i) => {
             const img = industries.find((n) => n.slug === x.slug)?.heroImage;
             return (
@@ -247,7 +248,8 @@ export function ConstellationSection() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden px-6">
       <SectionBackground src={satelliteNetwork} alt="Satellite constellation" overlay="bg-navy/70" />
-      <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
+      <div className="relative z-10 mx-auto w-full max-w-4xl py-24 text-center">
+        <GapBlock />
         <Reveal>
           <p className="text-eyebrow text-gold">Why SEKER</p>
         </Reveal>
@@ -306,15 +308,140 @@ export function ProblemSection() {
           </p>
         </Reveal>
         <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
-          <StatBlock value={<span className="font-mono text-5xl text-cyan">3,300+</span>} label="Shadow fleet vessels" />
+          <StatBlock value={<span className="font-mono text-5xl text-cyan">978</span>} label="Shadow fleet tankers, 18.5% of the world's tanker fleet" />
           <StatBlock value={<span className="font-mono text-5xl text-gold">76%</span>} label="Of EU trade moves by sea" />
           <StatBlock value={<span className="font-mono text-5xl text-alert">22</span>} label="GPS spoofing hotspots on the busiest sea lanes" />
         </div>
-        <p className="mt-5 font-mono text-[10px] tracking-[0.18em] text-muted-foreground/70">
-          EUROSTAT 2024 · ANU/CEPR 2025 · GEORGIA TECH 2026
+        <Reveal>
+          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">What hidden ships cost, every year</p>
+        </Reveal>
+        <div className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
+          <StatBlock value={<span className="font-mono text-5xl text-gold">€31bn+</span>} label="Europe's illegal drug market; 70% of EU customs drug seizures happen at ports" />
+          <StatBlock value={<span className="font-mono text-5xl text-cyan">$26–50bn</span>} label="Lost to illegal fishing every year" />
+          <StatBlock value={<span className="font-mono text-5xl text-alert">$275M</span>} label="One US sanctions penalty for ships with spoofed AIS" />
+        </div>
+        <p className="mt-5 font-mono text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground/70">
+          EUROSTAT 2024 · S&amp;P GLOBAL 2025 · GEORGIA TECH 2026 · EUDA AND EUROPOL 2024 · SUMAILA ET AL. 2020 · OFAC 2026
         </p>
       </div>
     </section>
+  );
+}
+
+const WHY_NOW: [string, string, string][] = [
+  ["138 → <10", "Cargo ships crossing a day, 2025 vs October 2026", "text-alert"],
+  ["52%", "Of traffic moved with AIS switched off in September", "text-gold"],
+  ["61%", "Of logged transits in August were false, caused by jamming", "text-alert"],
+  ["0.25% → 10%", "War-risk premium as a share of a ship's value", "text-cyan"],
+];
+
+export function WhyNowSection() {
+  return (
+    <section className="relative overflow-hidden bg-navy-deep px-6 py-24">
+      <SectionBackground src={ocean} alt="Moonlit dark sea" overlay="bg-navy-deep/92" />
+      <div className="relative z-10 mx-auto max-w-5xl text-center">
+        <Reveal>
+          <p className="text-eyebrow text-gold">Why now</p>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+            When the Strait of Hormuz closed, the ship's own signal stopped telling the truth.
+          </h2>
+        </Reveal>
+        <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-2">
+          {WHY_NOW.map(([v, l, t]) => (
+            <StatBlock key={l} value={<span className={`font-mono text-4xl sm:text-5xl ${t}`}>{v}</span>} label={l} />
+          ))}
+        </div>
+        <Reveal delay={0.1}>
+          <p className="text-pretty mx-auto mt-10 max-w-2xl text-base leading-relaxed text-foreground/85">
+            Every insurer, trader, port and navy in the region now needs answers that do not depend on the ship's own signal.
+          </p>
+        </Reveal>
+        <p className="mt-5 font-mono text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground/70">
+          JMIC OCT 2026 · WINDWARD Q3 2026 · MARSH; INSURANCE BUSINESS 2026
+        </p>
+      </div>
+    </section>
+  );
+}
+
+const PROOF: [string, string][] = [
+  ["7", "HERA AI capabilities live today"],
+  ["5", "Official sanctions lists screened"],
+  ["Q4 2028", "In-orbit demonstration of our own payload"],
+  ["Luxembourg", "Built and owned in Europe"],
+];
+
+export function ProofSection() {
+  return (
+    <section className="bg-navy-deep px-6 py-20">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 text-center sm:grid-cols-2 lg:grid-cols-4">
+        {PROOF.map(([v, l], i) => (
+          <StatBlock key={l} value={<span className={`font-mono text-4xl ${i % 2 ? "text-cyan" : "text-gold"}`}>{v}</span>} label={l} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const AIS_SOURCES: [string, number][] = [
+  ["Coastal receivers", 75],
+  ["Receivers on other ships", 15],
+  ["Satellites", 10],
+];
+
+const GAP: [string, string][] = [
+  ["Kpler bought Spire Maritime", "About $241M in April 2025. Spire's satellites now deliver the space data to Kpler."],
+  ["S&P Global bought ORBCOMM's AIS business", "ORBCOMM's satellites are reaching the end of their life."],
+  ["Prices up about 2.5 times", "AIS data has become about 2.5 times more expensive since this consolidation (Seker market soundings, 2026)."],
+  ["Platforms want an independent source", "Competing platforms are looking for an AIS source they do not have to buy from a rival."],
+];
+
+function GapBlock() {
+  return (
+    <div className="mb-20">
+      <Reveal>
+        <p className="text-eyebrow text-gold">The gap we close</p>
+        <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-5xl">
+          The ship's own signal is now sold by fewer hands.
+        </h2>
+      </Reveal>
+      <Reveal delay={0.1}>
+        <div className="mx-auto mt-10 max-w-xl rounded-sm border border-gold/25 bg-[#060d18]/70 p-5 text-left backdrop-blur-md">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">Where AIS data comes from today</p>
+          <div className="mt-4 space-y-3">
+            {AIS_SOURCES.map(([k, v]) => (
+              <div key={k}>
+                <div className="flex justify-between gap-4 text-sm text-muted-foreground">
+                  <span>{k}</span>
+                  <span className="font-mono text-cyan">{v}%</span>
+                </div>
+                <div className="mt-1.5 h-1.5 rounded-full bg-white/5">
+                  <div className="h-full rounded-full bg-cyan/70" style={{ width: `${v}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 font-mono text-[10px] tracking-[0.18em] text-muted-foreground/70">SEKER ESTIMATE, 2026</p>
+        </div>
+      </Reveal>
+      <div className="mt-6 grid gap-4 text-left sm:grid-cols-2">
+        {GAP.map(([t, b], i) => (
+          <Reveal key={t} delay={0.12 + i * 0.05}>
+            <div className="h-full rounded-sm border border-gold/25 bg-[#060d18]/70 p-5 backdrop-blur-md">
+              <p className="text-base font-light text-foreground">{t}</p>
+              <p className="text-pretty mt-2 text-sm leading-relaxed text-muted-foreground">{b}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+      <Reveal delay={0.2}>
+        <p className="text-pretty mt-6 rounded-sm border border-cyan/40 bg-cyan/5 px-5 py-4 text-base leading-relaxed text-foreground">
+          This is why the market needs a more accurate, independent source from Europe now. It is the exact gap Seker closes.
+        </p>
+      </Reveal>
+    </div>
   );
 }
 

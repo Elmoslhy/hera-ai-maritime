@@ -383,6 +383,47 @@ export const industries: Industry[] = [
       ],
     },
   },
+  {
+    slug: "banks",
+    navName: "Banks and compliance",
+    description: "Screen every ship in the deal before you sign.",
+    eyebrow: "Banks and compliance",
+    headline: ["Know every ship", "behind the deal."],
+    body: "HERA AI screens the ships behind a transaction on five official lists, checks who they met at sea and keeps an audit trail for every check, with early warning when identity risk rises.",
+    heroImage: network,
+    statement: { title: "Screen on evidence.", body: "A name check tells you whether a ship is listed today. HERA AI also shows who it met at sea and whether its identity holds up." },
+    capabilities: [],
+    blocks: [],
+    useCaseIds: ["identity"],
+    roadmapNote: "",
+    closing: {
+      headline: ["Test it on", "your recent deals."],
+      body: "Send the ships behind a set of closed transactions. We return every indicator HERA AI raises, with its sources, for your compliance team to grade.",
+      button: "DISCUSS YOUR USE CASE",
+    },
+    rebuild: {
+      roles: [],
+      afterMissions: {
+        title: "An audit trail for every check",
+        text: "Every check keeps the list version, the sources and a time stamp, so your compliance team can show exactly what was screened and when.",
+      },
+      signature: {
+        title: "Deal screening",
+        stages: [
+          { key: "AT THE DEAL", title: "Sanctions screening", items: [{ label: "Official lists screened", value: "5" }, { label: "Direct listing", value: "None" }, { label: "Identity", value: "Verified against the registry" }] },
+          { key: "AT SEA", title: "Exposure through meetings", items: [{ label: "Meetings at sea, 12 months", value: "4" }, { label: "One hop from a listed ship", value: "1 · IMAGED" }, { label: "Dark periods", value: "2" }] },
+          { key: "AFTER THE DEAL", title: "Early warning", items: [{ label: "Identity risk", value: "Rising" }, { label: "Flag changes", value: "3 in 18 months" }, { label: "Alert", value: "Sent before any listing" }] },
+        ],
+      },
+      missions: [
+        { title: "Sanctions screening", need: "Screen every ship in the deal at the moment of the deal, on five official lists.", hera: "Checks each ship against US, UK, EU and Japan lists by IMO number.", deliverable: "Deal Screening Report" },
+        { title: "Exposure through meetings", need: "See when a ship is linked to a listed ship through meetings at sea.", hera: "Scores every meeting at sea and flags ships one hop from a listed ship.", deliverable: "Exposure Report" },
+        { title: "Audit trail", need: "Show what was checked, against which list and when.", hera: "Stores every check with its list version, sources and time stamp.", deliverable: "Audit Trail" },
+        { title: "Early warning", need: "Know when a ship's identity risk rises, before it is listed.", hera: "Watches flag, name and ownership changes and position faking on every ship you hold.", deliverable: "Identity Risk Alert" },
+      ],
+      deliverables: [],
+    },
+  },
 ];
 
 export const getIndustry = (slug: string) => industries.find((i) => i.slug === slug);

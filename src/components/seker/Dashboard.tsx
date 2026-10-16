@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { CountUp, Reveal } from "./primitives";
 import { SekerLogo } from "./Logo";
 import { EyeCanvas } from "./EyeCanvas";
+import heraApp from "@/assets/hera-app-hormuz.jpg";
 
 const TOP_STATS = [
-  { label: "Spoofs detected · 24h", sub: "3 zones · 11 flags", to: 173, suffix: "", tone: "text-alert" },
-  { label: "Active digital twins", sub: "avg refresh 4.2s", to: 120, suffix: "K", tone: "text-cyan" },
-  { label: "Stream latency P99", sub: "SLA: < 250ms", to: 112, suffix: "ms", tone: "text-foreground" },
+  { label: "HERA AI capabilities live today", to: 7, suffix: "", tone: "text-cyan" },
+  { label: "Official sanctions lists screened: US, UK, EU and Japan", to: 5, suffix: "", tone: "text-gold" },
+  { label: "Capabilities on one record per ship", to: 12, suffix: "", tone: "text-foreground" },
 ];
 
 /* ---------------- live map ---------------- */
@@ -469,7 +470,7 @@ export function WindowChrome({ children }: { children: React.ReactNode }) {
 const FEATURES = [
   { title: "Vessel intelligence profiles", body: "Identity, voyages, cargo, encounters and compliance for every vessel, in one place." },
   { title: "Alerts with a next step", body: "Dark activity, identity changes and meetings at sea, each with a suggested action, delivered by platform, API or briefing." },
-  { title: "Blue Tick accuracy", body: "Every field cross-checked across sources and traceable to where it came from." },
+  { title: "Checked against every source", body: "Every field cross-checked across sources and traceable to where it came from." },
 ];
 
 export function DashboardSection() {
@@ -488,29 +489,31 @@ export function DashboardSection() {
 
         <Reveal className="mt-14">
           <WindowChrome>
-            <div className="grid grid-cols-3 gap-px border-b border-white/8 bg-white/5 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-px border-b sm:grid-cols-3 border-white/8 bg-white/5 lg:grid-cols-3">
               {TOP_STATS.map((s) => (
                 <div key={s.label} className="flex items-center justify-between gap-4 bg-[#070d16] px-5 py-4">
-                  <div>
-                    <p className="font-mono text-[9px] tracking-[0.2em] text-muted-foreground">
-                      {s.label.toUpperCase()}
-                    </p>
-                    <p className="mt-1 font-mono text-[9px] tracking-[0.12em] text-muted-foreground/60">{s.sub}</p>
-                  </div>
+                  <p className="font-mono text-[9px] leading-relaxed tracking-[0.2em] text-muted-foreground">
+                    {s.label.toUpperCase()}
+                  </p>
                   <CountUp to={s.to} suffix={s.suffix} className={`font-mono text-2xl ${s.tone}`} />
                 </div>
               ))}
             </div>
 
-            <div className="grid gap-px bg-white/5 lg:grid-cols-[1.6fr_1fr]">
-              <div className="bg-[#050a12] p-3">
-                <LiveMap />
-              </div>
-              <div className="bg-[#050a12] p-3">
-                <DigitalTwin />
-              </div>
+            <div className="bg-[#050a12] p-3">
+              <img
+                src={heraApp}
+                alt="The HERA AI app showing vessels around the Strait of Hormuz"
+                width={1920}
+                height={1080}
+                loading="lazy"
+                className="block h-auto w-full rounded-lg border border-white/10"
+              />
             </div>
           </WindowChrome>
+          <p className="mt-4 text-center font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
+            The HERA AI app, shown with sample data. No real ship data.
+          </p>
         </Reveal>
 
         <div className="mt-10 text-center">

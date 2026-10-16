@@ -506,9 +506,9 @@ const SLIDES: { title: string; node: ReactNode }[] = [
           <Eyebrow>Traction and team</Eyebrow>
         </Text>
         <div className="deck-text absolute left-[120px] right-[120px] top-[190px] z-10 grid grid-cols-4 gap-6">
-          {[["2", "Clients, one in defence"], ["2", "Commercial agreements in final stages"], ["7", "HERA AI capabilities live"], ["Q4 2028", "In-orbit demonstration"]].map(([v, l]) => (
+          {[["7", "HERA AI capabilities live today"], ["5", "Official sanctions lists screened"], ["Q4 2028", "In-orbit demonstration of our own payload"], ["Luxembourg", "Built and owned in Europe"]].map(([v, l]) => (
             <div key={l} className="min-h-[250px] rounded-lg border border-white/10 bg-navy/75 p-8">
-              <p className={`whitespace-nowrap font-mono leading-none text-gold ${v.length > 3 ? "text-[84px] pt-[26px]" : "text-[110px]"}`}>{v}</p>
+              <p className={`whitespace-nowrap font-mono leading-none text-gold ${v.length > 7 ? "text-[54px] pt-[44px]" : v.length > 3 ? "text-[84px] pt-[26px]" : "text-[110px]"}`}>{v}</p>
               <p className="mt-5 text-[26px] font-light leading-snug text-foreground/85">{l}</p>
             </div>
           ))}

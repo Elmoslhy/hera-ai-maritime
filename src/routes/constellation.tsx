@@ -119,6 +119,7 @@ function ConstellationPage() {
                 <br />
                 <span className="text-gold">Better data, better intelligence.</span>
               </h1>
+              <p className="mt-5 font-mono text-xs tracking-[0.22em] text-gold">In-orbit demonstration: Q4 2028</p>
               <p className="mt-8 max-w-xl text-balance text-lg font-light text-foreground/80">
                 SEKER-1 and SEKER-2 will carry sensors built for one job: checking what every ship really does, not only what it says.
               </p>
