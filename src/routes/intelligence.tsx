@@ -140,7 +140,7 @@ function IntelligencePage() {
             <Reticle className="left-[52%] top-[52.5%] h-[28%] w-[10%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.matched} tone="cyan" />
             <Reticle className="hidden sm:block left-[71%] top-[59%] h-[22%] w-[9%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.dark} tone="alert" />
           </SectionBackground>
-          <HeroHud />
+          <HeroHud large />
           <div className="relative mx-auto w-full max-w-7xl">
             <Reveal className="lg:max-w-[60%]">
               <p className="text-eyebrow text-gold">HERA AI</p>
