@@ -13,9 +13,9 @@ import {
   WhyNowSection,
 } from "@/components/seker/Sections";
 
-const TITLE = "SEKER | The right intelligence starts with better data";
+const TITLE = "SEKER | Independent maritime intelligence";
 const DESCRIPTION =
-  "HERA AI is the complete record of every ship at sea: who it is, who owns it, where it has been and what it did. Built in Luxembourg.";
+  "The truth about every ship at sea: who it is, who owns it, where it has been and what it is doing. Checked against independent data, with a confidence score on every answer.";
 
 export const Route = createFileRoute("/")({
   head: () => ({

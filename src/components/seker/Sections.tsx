@@ -24,22 +24,23 @@ export function HeroSection() {
         </Reveal>
         <Reveal delay={0.15}>
           <h1 className="text-balance mt-8 text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
-            The right intelligence
+            Independent
             <br />
-            <span className="font-normal">starts with better data.</span>
+            <span className="font-normal">maritime intelligence.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.3}>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            HERA AI is the complete record of every ship at sea: who it is, who owns it, where it has been and what it did. Checked, not declared.
+            We tell you the truth about every ship at sea: who it is, who owns it, where it has been and what it is doing. Checked against independent data, never taken on the ship's word.
           </p>
         </Reveal>
         <Reveal delay={0.45}>
           <Link
-            to="/access"
+            to="/"
+            hash="contact"
             className="mt-10 inline-block bg-gold px-8 py-4 font-mono text-[11px] tracking-[0.22em] text-navy-deep transition-opacity hover:opacity-90"
           >
-            PLATFORM LOGIN →
+            BOOK A DEMO →
           </Link>
         </Reveal>
       </div>
@@ -295,25 +296,42 @@ export function ProblemSection() {
       <SectionBackground src={ocean} alt="Moonlit dark sea" overlay="bg-navy-deep/92" />
       <div className="relative z-10 mx-auto max-w-5xl text-center">
         <Reveal>
-          <p className="text-eyebrow text-gold">The Problem</p>
+          <p className="text-eyebrow text-gold">Why accuracy matters</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-            Ships can switch off and disappear.
+            A wrong answer at sea is expensive.
           </h2>
         </Reveal>
         <Reveal delay={0.15}>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-            Thousands of ships turn off their transponder or fake their identity to move cargo unseen.
+            Every ship reports its own name and position. That signal is self-declared. It can be switched off or faked. More ships do it every year. Any decision built on it is only as good as the ship's honesty.
+          </p>
+        </Reveal>
+        <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
+          {[
+            ["Insure the wrong ship", "You pay the claim."],
+            ["Trade with the wrong ship", "You pay the fine. Sanctions penalties now reach hundreds of millions."],
+            ["Miss the wrong ship", "The drugs, the illegal catch or the threat gets through."],
+          ].map(([t, d]) => (
+            <div key={t} className="bg-navy-deep/60 px-6 py-8">
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t}</p>
+              <p className="text-pretty mt-3 text-sm leading-relaxed text-muted-foreground">{d}</p>
+            </div>
+          ))}
+        </div>
+        <Reveal>
+          <p className="text-pretty mx-auto mt-10 max-w-2xl text-lg leading-relaxed text-foreground">
+            That is why every HERA AI answer comes with a confidence score. You know how sure we are before you act.
           </p>
         </Reveal>
         <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
           <StatBlock value={<span className="font-mono text-5xl text-cyan">978</span>} label="Shadow fleet tankers, 18.5% of the world's tanker fleet" />
-          <StatBlock value={<span className="font-mono text-5xl text-gold">76%</span>} label="Of EU trade moves by sea" />
+          <StatBlock value={<span className="font-mono text-5xl text-gold">80%+</span>} label="Of world trade by volume moves by sea" />
           <StatBlock value={<span className="font-mono text-5xl text-alert">22</span>} label="GPS spoofing hotspots on the busiest sea lanes" />
         </div>
         <Reveal>
-          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">What hidden ships cost, every year</p>
+          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">What hidden ships cost</p>
         </Reveal>
         <div className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
           <StatBlock value={<span className="font-mono text-5xl text-gold">€31bn+</span>} label="Europe's illegal drug market; 70% of EU customs drug seizures happen at ports" />
@@ -321,7 +339,7 @@ export function ProblemSection() {
           <StatBlock value={<span className="font-mono text-5xl text-alert">$275M</span>} label="One US sanctions penalty for ships with spoofed AIS" />
         </div>
         <p className="mt-5 font-mono text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground/70">
-          EUROSTAT 2024 · S&amp;P GLOBAL 2025 · GEORGIA TECH 2026 · EUDA AND EUROPOL 2024 · SUMAILA ET AL. 2020 · OFAC 2026
+          UNCTAD · S&amp;P GLOBAL 2025 · GEORGIA TECH 2026 · EUDA AND EUROPOL 2024 · SUMAILA ET AL. 2020 · OFAC 2026
         </p>
       </div>
     </section>
