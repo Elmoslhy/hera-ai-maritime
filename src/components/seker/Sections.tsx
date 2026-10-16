@@ -314,7 +314,7 @@ export function ProblemSection() {
             ["Trade with the wrong ship", "You pay the fine. Sanctions penalties now reach hundreds of millions."],
             ["Miss the wrong ship", "The drugs, the illegal catch or the threat gets through."],
           ].map(([t, d]) => (
-            <div key={t} className="bg-navy-deep/60 px-6 py-8">
+            <div key={t} className="bg-navy px-6 py-8">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t}</p>
               <p className="text-pretty mt-3 text-sm leading-relaxed text-muted-foreground">{d}</p>
             </div>
