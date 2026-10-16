@@ -228,7 +228,7 @@ export const taskingSection = {
   cards: [
     { title: "Signal geolocation", text: "Partner satellites locate where a vessel's transmissions really come from, whatever position it reports." },
     { title: "Partner constellations", text: "On-demand imaging from commercial constellations, requested, scheduled and checked through HERA AI." },
-    { title: "Long-endurance drone", text: "For the last mile, a drone approaches the vessel to document its name, draught marks and deck activity, where regulations permit." },
+    { title: "Partner drones", text: "For the last mile, a partner drone launched from the nearest port approaches the vessel to document its name, draught marks and deck activity, where regulations permit." },
   ],
   consoleTitle: "WATCH · VESSEL A · AFTER DARK TRANSFER ALERT",
   nightHours: 5.5,

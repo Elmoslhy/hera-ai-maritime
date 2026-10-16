@@ -23,6 +23,7 @@ const WHY: [string, string][] = [
 const COLLECT: [string, string][] = [
   ["In orbit", "SEKER-1 and SEKER-2 will cover the open ocean, far beyond the reach of any coast, with two satellites for more frequent passes."],
   ["Over a chosen area", "A long-endurance drone will carry the same sensors and stay over one area for days, for cases that need a closer and longer look."],
+  ["From the nearest port", "Partner drones based near the world's major ports will fly out on request to check a ship and send what they see straight into its HERA AI record."],
   ["At the port", "Our own receivers at ports will hear every arrival and departure first-hand."],
 ];
 
@@ -178,8 +179,8 @@ function ConstellationPage() {
 
         <section className="bg-navy-deep px-6 py-24">
           <div className="mx-auto max-w-7xl">
-            <Head eyebrow="How we collect" title="Three ways to get closer." />
-            <div className="mt-12 grid gap-4 md:grid-cols-3">
+            <Head eyebrow="How we collect" title="Four ways to get closer." />
+            <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {COLLECT.map(([t, d], i) => (
                 <Reveal key={t} delay={i * 0.05}><Card t={t} d={d} /></Reveal>
               ))}

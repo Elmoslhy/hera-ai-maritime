@@ -485,7 +485,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
           <div className="flex justify-between font-mono text-[18px] tracking-[0.2em]"><span className="text-gold">DATA WE BUY</span><span className="text-cyan">DATA WE OWN</span></div>
           <div className="mt-3 h-[4px] w-full rounded-full bg-gradient-to-r from-gold to-cyan" />
           <div className="mt-8 grid grid-cols-4 gap-6">
-            {[["Today", "Partner and open data", "Full intelligence for customers now, gross margin about 45%", "text-gold"], ["Next", "Our port sensors", "The first data we own and can resell", "text-gold"], ["Then", "Our airborne pod", "A second look on demand, where the question is", "text-gold"], ["Q4 2028", "Our payload in orbit", "We own the data: gross margin towards 80%, sovereign European data", "text-cyan"]].map(([k, t, v, c]) => (
+            {[["Today", "Partner and open data", "Full intelligence for customers now, gross margin about 45%", "text-gold"], ["Next", "Our port sensors", "The first data we own and can resell", "text-gold"], ["Then", "Partner drones and our pod", "A second look on demand, from bases near the world's major ports", "text-gold"], ["Q4 2028", "Our payload in orbit", "We own the data: gross margin towards 80%.", "text-cyan"]].map(([k, t, v, c]) => (
               <div key={k} className="min-h-[260px] rounded-lg border border-white/10 bg-navy/75 p-7 backdrop-blur">
                 <p className={`font-mono text-[20px] uppercase tracking-[0.2em] ${c}`}>{k}</p>
                 <p className="mt-4 text-[30px] font-light leading-tight text-foreground">{t}</p>
