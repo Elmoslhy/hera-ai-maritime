@@ -414,7 +414,112 @@ const SLIDES: { title: string; node: ReactNode }[] = [
       </>
     ),
   },
-/*NEW*/
+  {
+    title: "The data supply",
+    node: (
+      <>
+        <div className="deck-bg absolute inset-0 bg-navy-deep"><Stars /></div>
+        <Text className="left-[120px] top-[70px]">
+          <Eyebrow>The data supply</Eyebrow>
+          <Headline a="The ship's own signal is" b="now sold by fewer hands." />
+        </Text>
+        <div className="deck-text absolute left-[120px] top-[440px] z-10 w-[640px] rounded-lg border border-white/10 bg-navy/75 p-8">
+          <p className="text-[28px] font-light text-foreground">Where AIS data comes from today</p>
+          <div className="mt-8 space-y-7">
+            {[["Coastal receivers", 75, "bg-gold"], ["Receivers on other ships", 15, "bg-foreground/50"], ["Satellites", 10, "bg-cyan"]].map(([l, v, c]) => (
+              <div key={l as string}>
+                <div className="flex justify-between text-[22px] font-light text-foreground/85"><span>{l}</span><span className="font-mono">{v}%</span></div>
+                <div className="mt-3 h-4 w-full rounded bg-white/[0.06]"><div className={`h-full rounded ${c}`} style={{ width: `${v}%` }} /></div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 font-mono text-[16px] tracking-[0.2em] text-muted-foreground">SEKER ESTIMATE 2026</p>
+        </div>
+        <div className="deck-text absolute right-[120px] top-[440px] z-10 grid w-[980px] grid-cols-2 gap-5">
+          {[["Kpler bought Spire Maritime", "About $241M in April 2025. Spire's satellites now deliver the space data to Kpler."], ["S&P Global bought ORBCOMM's AIS business", "ORBCOMM's satellites are reaching the end of their life."], ["Prices up about 2.5 times", "The cost of AIS data has risen about 2.5 times since these acquisitions."], ["Rivals need an independent source", "Windward, Kpler's competitor, is looking for an independent AIS source to compete."]].map(([k, v]) => (
+            <div key={k} className="min-h-[200px] rounded-lg border border-white/10 bg-navy/75 p-7">
+              <p className="text-[27px] font-light leading-tight text-foreground">{k}</p>
+              <p className="mt-3 text-[21px] font-light leading-snug text-foreground/75">{v}</p>
+            </div>
+          ))}
+        </div>
+        <div className="deck-text absolute bottom-[70px] left-[120px] right-[120px] z-10 rounded-lg border border-cyan/50 bg-cyan/[0.06] px-8 py-5 text-[26px] font-light text-foreground">
+          This is why the market needs a more accurate, independent source from Europe now. It is the exact gap Seker closes.
+        </div>
+      </>
+    ),
+  },
+  {
+    title: "Competition",
+    node: (
+      <>
+        <div className="deck-bg absolute inset-0 bg-navy-deep"><Stars /></div>
+        <Text className="left-[120px] top-[60px]">
+          <Eyebrow>Competition</Eyebrow>
+          <h2 className="mt-4 text-[80px] font-light leading-[1.02] tracking-tight text-foreground">Others do part of the job.<br /><span className="text-gold">HERA AI does all four.</span></h2>
+        </Text>
+        <div className="deck-text absolute left-[120px] right-[120px] top-[340px] z-10 overflow-hidden rounded-lg border border-white/10 bg-navy/75">
+          <div className="grid grid-cols-[1.6fr_1fr_1fr_1fr_1fr] items-end gap-4 border-b border-white/10 px-8 py-4 font-mono text-[16px] uppercase tracking-[0.12em] text-muted-foreground">
+            <span>Company</span><span className="text-center">Sees ships independently</span><span className="text-center">Knows each ship</span><span className="text-center">Serves industry, not only governments</span><span className="text-center">European-owned and controlled</span>
+          </div>
+          {COMPETITORS.map(([nm, sub, marks], r) => (
+            <div key={nm} className={`grid grid-cols-[1.6fr_1fr_1fr_1fr_1fr] items-center gap-4 px-8 py-[11px] ${r === 0 ? "border-y border-gold/50 bg-gold/10" : "border-t border-white/5"}`}>
+              <p className="text-[24px] font-light text-foreground"><span className={r === 0 ? "text-gold" : ""}>{nm}</span> <span className="text-[18px] text-muted-foreground">({sub})</span></p>
+              {marks.map((m, c) => <div key={c} className="text-center"><Cell m={m} /></div>)}
+            </div>
+          ))}
+        </div>
+      </>
+    ),
+  },
+  {
+    title: "Roadmap",
+    node: (
+      <>
+        <Bg src={satNet} dim="bg-navy-deep/85" />
+        <Text>
+          <Eyebrow>Roadmap</Eyebrow>
+          <Headline a="We deliver today." b="By 2028 we own our data." />
+        </Text>
+        <div className="deck-text absolute bottom-[100px] left-[120px] right-[120px] z-10">
+          <div className="flex justify-between font-mono text-[18px] tracking-[0.2em]"><span className="text-gold">DATA WE BUY</span><span className="text-cyan">DATA WE OWN</span></div>
+          <div className="mt-3 h-[4px] w-full rounded-full bg-gradient-to-r from-gold to-cyan" />
+          <div className="mt-8 grid grid-cols-4 gap-6">
+            {[["Today", "Partner and open data", "Full intelligence for customers now, gross margin about 45%", "text-gold"], ["Next", "Our port sensors", "The first data we own and can resell", "text-gold"], ["Then", "Our airborne pod", "A second look on demand, where the question is", "text-gold"], ["Q4 2028", "Our payload in orbit", "We own the data: gross margin towards 80%, sovereign European data", "text-cyan"]].map(([k, t, v, c]) => (
+              <div key={k} className="min-h-[260px] rounded-lg border border-white/10 bg-navy/75 p-7 backdrop-blur">
+                <p className={`font-mono text-[20px] uppercase tracking-[0.2em] ${c}`}>{k}</p>
+                <p className="mt-4 text-[30px] font-light leading-tight text-foreground">{t}</p>
+                <p className="mt-3 text-[21px] font-light leading-snug text-foreground/75">{v}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </>
+    ),
+  },
+  {
+    title: "Where we are",
+    node: (
+      <>
+        <div className="deck-bg absolute inset-0 bg-navy-deep"><Stars /></div>
+        <Text className="left-[120px] top-[90px]">
+          <Eyebrow>Traction and team</Eyebrow>
+        </Text>
+        <div className="deck-text absolute left-[120px] right-[120px] top-[190px] z-10 grid grid-cols-4 gap-6">
+          {[["2", "Clients, one in defence"], ["2", "Commercial agreements in final stages"], ["7", "HERA AI capabilities live"], ["Q4 2028", "In-orbit demonstration"]].map(([v, l]) => (
+            <div key={l} className="min-h-[250px] rounded-lg border border-white/10 bg-navy/75 p-8">
+              <p className="whitespace-nowrap font-mono text-[110px] leading-none text-gold">{v}</p>
+              <p className="mt-5 text-[26px] font-light leading-snug text-foreground/85">{l}</p>
+            </div>
+          ))}
+        </div>
+        <div className="deck-text absolute bottom-[110px] left-[120px] right-[120px] z-10 rounded-lg border border-white/10 bg-navy/75 p-10">
+          <p className="text-[28px] font-light leading-snug text-foreground/90"><span className="text-gold">Moustafa Elmoslhy, Founder and Chief Executive.</span> ROV engineer at sea, engineering and research and development leader at Amazon Robotics in Europe and North America, then Managing Director and Head of Engineering of a Luxembourg satellite manufacturing company. Across his career he has managed projects worth $100M to $750M and contributed to several patented technologies in space and robotics.</p>
+          <p className="mt-6 text-[26px] font-light text-foreground/75">With a Chief Growth Officer, satellite integration and data fusion specialists, and two retired general officers as advisers.</p>
+        </div>
+      </>
+    ),
+  },
   {
     title: "Close",
     node: (
