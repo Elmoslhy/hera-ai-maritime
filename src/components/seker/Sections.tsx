@@ -31,7 +31,7 @@ export function HeroSection() {
         </Reveal>
         <Reveal delay={0.3}>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            We tell you the truth about every ship at sea: who it is, who owns it, where it has been and what it is doing. Checked against independent data, never taken on the ship's word.
+            The data and intelligence behind better decisions at sea. Built for defense, insurance, commodity trading, ports, shipping and finance. Every answer is checked against independent data.
           </p>
         </Reveal>
         <Reveal delay={0.45}>
