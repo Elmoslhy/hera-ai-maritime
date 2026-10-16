@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { Satellite, Orbit, Drone, ChevronLeft, ChevronRight } from "lucide-react";
+import { Satellite, Orbit, Drone, ChevronLeft, ChevronRight, Check, X } from "lucide-react";
 import { HeroHud } from "@/components/seker/HeroScene";
 import { IntelPanel } from "@/components/seker/IntelPanel";
 import { SekerLogo } from "@/components/seker/Logo";
@@ -10,6 +10,7 @@ import { DeckScenarioMap } from "@/components/seker/DeckMaps";
 import { WalkthroughFilm, WalkthroughViewToggle, useWalkthroughView } from "@/components/seker/WalkthroughFilm";
 import { cableCorridorCase, cargoClaimCase, originCase, preArrivalCase, transshipmentCase, sensors, useCases, type UseCase } from "@/content/intelligence";
 import { LiveMap, DigitalTwin, WindowChrome } from "@/components/seker/Dashboard";
+import { OpsMap } from "@/components/seker/UseCases";
 import { taskingSection, taskingLanes } from "@/content/intelligence";
 import { industries } from "@/content/industries";
 import ocean from "@/assets/ocean.jpg";
@@ -117,7 +118,7 @@ function TitleCentre() {
     <div className="deck-text absolute inset-0 z-10 flex flex-col items-center justify-center text-center">
       <SekerLogo className="w-[520px] text-foreground" />
       <h1 className="mt-10 text-[104px] font-light leading-[1.02] tracking-tight text-foreground">
-        Maritime intelligence<br /><span className="text-gold">you can act on.</span>
+        The right intelligence<br /><span className="text-gold">starts with better data.</span>
       </h1>
     </div>
   );
@@ -140,6 +141,35 @@ const ICONS = [Satellite, Orbit, Drone];
 const selected = taskingLanes
   .flatMap((l, li) => l.passes.filter((p) => p.status === "selected").map((p) => ({ ...p, li })))
   .sort((a, b) => a.start - b.start);
+
+function StatTiles({ items }: { items: string[][] }) {
+  return (
+    <div className="flex gap-px overflow-hidden rounded-lg border border-white/10 bg-white/10">
+      {items.map(([v, l, t]) => (
+        <div key={v} className="w-[380px] bg-navy/85 px-8 py-6">
+          <p className={`whitespace-nowrap font-mono leading-none ${v.length > 8 ? "text-[44px] pt-[8px]" : "text-[56px]"} ${t}`}>{v}</p>
+          <p className="mt-3 text-[22px] font-light text-foreground/80">{l}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+type Mark = "y" | "n" | "p";
+function Cell({ m }: { m: Mark }) {
+  if (m === "y") return <Check className="mx-auto h-8 w-8 text-cyan" aria-label="Yes" />;
+  if (m === "n") return <X className="mx-auto h-7 w-7 text-muted-foreground/60" aria-label="No" />;
+  return <span className="font-mono text-[20px] tracking-[0.12em] text-gold">Partly</span>;
+}
+const COMPETITORS: [string, string, Mark[]][] = [
+  ["HERA AI", "Seker, Luxembourg", ["y", "y", "y", "y"]],
+  ["OrbitSailor", "OHB LuxSpace, Luxembourg", ["n", "n", "y", "y"]],
+  ["Unseenlabs", "France", ["y", "n", "p", "y"]],
+  ["HawkEye 360", "United States", ["y", "n", "p", "n"]],
+  ["ICEYE", "Finland", ["y", "n", "p", "y"]],
+  ["Kpler", "Belgian headquarters, US capital", ["n", "y", "y", "p"]],
+  ["Windward", "Owned by a US investor", ["p", "y", "y", "n"]],
+  ["Lloyd's List Intelligence", "United Kingdom", ["n", "y", "y", "y"]],
+];
 
 /* ---------- slides ---------- */
 const SLIDES: { title: string; node: ReactNode }[] = [
@@ -166,18 +196,27 @@ const SLIDES: { title: string; node: ReactNode }[] = [
         <Tag tone="alert" className="right-[530px] top-[170px]">AIS · SIGNAL LOST</Tag>
         <Text>
           <Eyebrow>The problem</Eyebrow>
-          <Headline a="3,300 vessels sail" b="in the shadows." />
+          <Headline a="Ships that hide" b="cost billions every year." />
         </Text>
         <div className="deck-text absolute bottom-[110px] left-[120px] z-10">
-          <div className="flex gap-px overflow-hidden rounded-lg border border-white/10 bg-white/10">
-            {[["76%", "of EU trade moves by sea", "text-gold"], ["22", "GPS spoofing hotspots on the busiest sea lanes", "text-alert"], ["$100B+", "sanctions evasion a year", "text-cyan"]].map(([v, l, t]) => (
-              <div key={v} className="w-[380px] bg-navy/85 px-8 py-6">
-                <p className={`font-mono text-[56px] leading-none ${t}`}>{v}</p>
-                <p className="mt-3 text-[22px] font-light text-foreground/80">{l}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-5 font-mono text-[16px] tracking-[0.2em] text-muted-foreground">EUROSTAT 2024 · ANU/CEPR 2025 · GEORGIA TECH 2026</p>
+          <StatTiles items={[["978", "Shadow fleet tankers, 18.5% of the world's tanker fleet", "text-gold"], ["€31bn+", "Europe's illegal drug market; 70% of EU customs drug seizures happen at ports", "text-alert"], ["$26–50bn", "Lost to illegal fishing every year", "text-cyan"], ["$275M", "One US sanctions penalty for ships with spoofed AIS", "text-gold"]]} />
+          <p className="mt-5 font-mono text-[16px] tracking-[0.2em] text-muted-foreground">S&amp;P GLOBAL 2025 · EUDA AND EUROPOL 2024 · SUMAILA ET AL. 2020 · OFAC 2026</p>
+        </div>
+      </>
+    ),
+  },
+  {
+    title: "Strait of Hormuz",
+    node: (
+      <>
+        <Bg src={ocean} dim="bg-navy-deep/70" />
+        <Text>
+          <Eyebrow>Strait of Hormuz, 2026</Eyebrow>
+          <Headline a="When the Strait closes," b="the signal stops telling the truth." />
+        </Text>
+        <div className="deck-text absolute bottom-[110px] left-[120px] z-10">
+          <StatTiles items={[["138 → <10", "Cargo ships crossing a day, 2025 vs October 2026", "text-gold"], ["52%", "Of traffic moved with AIS switched off in September", "text-alert"], ["0.25% → 10%", "War-risk premium as a share of a ship's value", "text-cyan"], ["$330bn", "Extra paid by fuel importers, March to August 2026", "text-gold"]]} />
+          <p className="mt-5 font-mono text-[16px] tracking-[0.2em] text-muted-foreground">JMIC OCT 2026 · WINDWARD Q3 2026 · MARSH; INSURANCE BUSINESS 2026 · CREA 2026</p>
         </div>
       </>
     ),
@@ -194,6 +233,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
         <Text>
           <Eyebrow>In orbit</Eyebrow>
           <Headline a="Watching every vessel" b="from space." />
+          <div className="relative mt-10 h-[48px]"><Tag tone="gold" className="left-0 top-0">OUR PAYLOAD IN ORBIT · Q4 2028</Tag></div>
         </Text>
         <Hud km={547} ais="on" />
       </>
@@ -251,14 +291,42 @@ const SLIDES: { title: string; node: ReactNode }[] = [
     ),
   },
   {
+    title: "Our vision",
+    node: (
+      <>
+        <div className="deck-bg absolute inset-0 bg-navy-deep"><Stars /></div>
+        <Text className="left-[120px] top-[70px]">
+          <Eyebrow>Our vision</Eyebrow>
+          <Headline a="The complete record" b="of every ship." />
+          <Line>Who owns it, who runs it, where it has been, who it met and what it carries. Checked, not declared.</Line>
+        </Text>
+        <div className="deck-text absolute bottom-[110px] left-[120px] z-10 grid w-[1220px] grid-cols-3 gap-6">
+          {[["Ownership", "Registered owner, beneficial owner, manager and operator"], ["Identity and history", "Every name, flag and transponder, one hull"], ["Where it has been", "Every voyage and port call; faked positions rejected"], ["Meetings at sea", "Ship-to-ship meetings and draught changes"], ["Sanctions and risk", "Every official list, plus exposure through meetings"], ["News and briefings", "Public news and Seker briefings on the ship"]].map(([k, v]) => (
+            <div key={k} className="min-h-[170px] rounded-lg border border-white/10 bg-navy/75 p-7 backdrop-blur">
+              <p className="font-mono text-[18px] uppercase tracking-[0.18em] text-cyan">{k}</p>
+              <p className="mt-4 text-[24px] font-light leading-snug text-foreground/85">{v}</p>
+            </div>
+          ))}
+        </div>
+        <div className="deck-text absolute bottom-[110px] right-[120px] z-10 flex h-[364px] w-[400px] flex-col justify-center rounded-lg border border-cyan/30 bg-navy/75 p-8 backdrop-blur">
+          <p className="font-mono text-[120px] leading-none text-cyan">92%</p>
+          <p className="mt-4 text-[28px] font-light text-foreground">HERA AI confidence: high</p>
+          <div className="mt-6 h-[4px] w-full rounded-full bg-white/10"><div className="h-full w-[92%] rounded-full bg-cyan" /></div>
+          <p className="mt-4 font-mono text-[16px] tracking-[0.16em] text-muted-foreground">How many sources agree</p>
+        </div>
+        <p className="absolute bottom-[40px] left-[120px] font-mono text-[16px] tracking-[0.2em] text-muted-foreground">ILLUSTRATIVE VESSEL</p>
+      </>
+    ),
+  },
+  {
     title: "The platform",
     node: (
       <>
         <div className="deck-bg absolute inset-0 bg-navy-deep" />
         <Text className="left-[120px] top-[70px]">
-          <Eyebrow>Vessel Intelligence</Eyebrow>
-          <h2 className="mt-4 text-[88px] font-light tracking-tight text-foreground">Know every vessel.</h2>
-          <Line>One intelligence profile per vessel, updated continuously.</Line>
+          <Eyebrow>HERA AI in action</Eyebrow>
+          <h2 className="mt-4 text-[88px] font-light tracking-tight text-foreground">The real HERA AI app, working today.</h2>
+          <Line>Shown with sample ships in the Strait of Hormuz. No real ship data.</Line>
         </Text>
         <div className="absolute left-1/2 top-[400px] -translate-x-1/2 [&_.twin-grid]:!grid-cols-2 [&_.twin-grid]:!gap-y-0 [perspective:2400px]">
           <div className="deck-bg origin-top [transform:rotateX(12deg)]" style={{ width: 1700 / 1.3 + "px", transform: "rotateX(10deg) scale(1.3)" }}>
@@ -270,6 +338,9 @@ const SLIDES: { title: string; node: ReactNode }[] = [
             </WindowChrome>
           </div>
         </div>
+        <Tag tone="alert" className="right-[150px] top-[470px] z-20">CONFIDENCE 38.4% · REVIEW CANDIDATE</Tag>
+        <Tag tone="gold" className="left-[220px] top-[520px] z-20">WATCHED AREA · STRAIT OF HORMUZ</Tag>
+        <Tag tone="alert" className="left-[420px] top-[800px] z-20">POSITION ON LAND · REJECTED</Tag>
       </>
     ),
   },
@@ -326,14 +397,126 @@ const SLIDES: { title: string; node: ReactNode }[] = [
           <img src={globe} alt="" className="absolute -right-[380px] top-1/2 w-[1200px] -translate-y-1/2" />
           <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/70 to-transparent" />
         </div>
-        <Text className="left-[120px] top-[140px]">
+        <Text className="left-[120px] top-[90px]">
           <Eyebrow>The market</Eyebrow>
-          <div className="mt-12 space-y-12">
-            <div><p className="font-mono text-[160px] leading-none text-gold">$54B</p><p className="mt-3 text-[28px] font-light text-foreground/80">Global maritime domain awareness market by 2030</p></div>
-            <div><p className="font-mono text-[160px] leading-none text-cyan">18%</p><p className="mt-3 text-[28px] font-light text-foreground/80">Sector growth a year to 2030</p></div>
+          <div className="mt-10 space-y-8">
+            <div><p className="font-mono text-[150px] leading-none text-gold">$5.3bn</p><p className="mt-3 text-[28px] font-light text-foreground/80">Maritime analytics market by 2033</p></div>
+            <div><p className="font-mono text-[150px] leading-none text-cyan">15.8%</p><p className="mt-3 text-[28px] font-light text-foreground/80">Growth a year to 2033</p></div>
+          </div>
+          <div className="mt-12 flex gap-16">
+            {[["$3.85bn", "Kpler valuation, June 2026"], ["$2.4bn", "HawkEye 360 at its NYSE listing, May 2026"], ["€10bn", "ICEYE valuation, June 2026"]].map(([v, l]) => (
+              <div key={v} className="max-w-[340px]"><p className="font-mono text-[64px] leading-none text-gold">{v}</p><p className="mt-3 text-[22px] font-light text-foreground/75">{l}</p></div>
+            ))}
           </div>
           <Line>Europe needs its own independent maritime intelligence layer.</Line>
+          <p className="mt-6 font-mono text-[16px] tracking-[0.2em] text-muted-foreground">SKYQUEST 2026 · COMPANY FILINGS AND PRESS 2026</p>
         </Text>
+      </>
+    ),
+  },
+  {
+    title: "The data supply",
+    node: (
+      <>
+        <div className="deck-bg absolute inset-0 bg-navy-deep"><Stars /></div>
+        <Text className="left-[120px] top-[70px]">
+          <Eyebrow>The data supply</Eyebrow>
+          <Headline a="The ship's own signal is" b="now sold by fewer hands." />
+        </Text>
+        <div className="deck-text absolute left-[120px] top-[440px] z-10 w-[640px] rounded-lg border border-white/10 bg-navy/75 p-8">
+          <p className="text-[28px] font-light text-foreground">Where AIS data comes from today</p>
+          <div className="mt-8 space-y-7">
+            {[["Coastal receivers", 75, "bg-gold"], ["Receivers on other ships", 15, "bg-foreground/50"], ["Satellites", 10, "bg-cyan"]].map(([l, v, c]) => (
+              <div key={l as string}>
+                <div className="flex justify-between text-[22px] font-light text-foreground/85"><span>{l}</span><span className="font-mono">{v}%</span></div>
+                <div className="mt-3 h-4 w-full rounded bg-white/[0.06]"><div className={`h-full rounded ${c}`} style={{ width: `${v}%` }} /></div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 font-mono text-[16px] tracking-[0.2em] text-muted-foreground">SEKER ESTIMATE 2026</p>
+        </div>
+        <div className="deck-text absolute right-[120px] top-[440px] z-10 grid w-[980px] grid-cols-2 gap-5">
+          {[["Kpler bought Spire Maritime", "About $241M in April 2025. Spire's satellites now deliver the space data to Kpler."], ["S&P Global bought ORBCOMM's AIS business", "ORBCOMM's satellites are reaching the end of their life."], ["Prices up about 2.5 times", "The cost of AIS data has risen about 2.5 times since these acquisitions."], ["Rivals need an independent source", "Windward, Kpler's competitor, is looking for an independent AIS source to compete."]].map(([k, v]) => (
+            <div key={k} className="min-h-[200px] rounded-lg border border-white/10 bg-navy/75 p-7">
+              <p className="text-[27px] font-light leading-tight text-foreground">{k}</p>
+              <p className="mt-3 text-[21px] font-light leading-snug text-foreground/75">{v}</p>
+            </div>
+          ))}
+        </div>
+        <div className="deck-text absolute bottom-[70px] left-[120px] right-[120px] z-10 rounded-lg border border-cyan/50 bg-cyan/[0.06] px-8 py-5 text-[26px] font-light text-foreground">
+          This is why the market needs a more accurate, independent source from Europe now. It is the exact gap Seker closes.
+        </div>
+      </>
+    ),
+  },
+  {
+    title: "Competition",
+    node: (
+      <>
+        <div className="deck-bg absolute inset-0 bg-navy-deep"><Stars /></div>
+        <Text className="left-[120px] top-[60px]">
+          <Eyebrow>Competition</Eyebrow>
+          <h2 className="mt-4 text-[80px] font-light leading-[1.02] tracking-tight text-foreground">Others do part of the job.<br /><span className="text-gold">HERA AI does all four.</span></h2>
+        </Text>
+        <div className="deck-text absolute left-[120px] right-[120px] top-[340px] z-10 overflow-hidden rounded-lg border border-white/10 bg-navy/75">
+          <div className="grid grid-cols-[1.6fr_1fr_1fr_1fr_1fr] items-end gap-4 border-b border-white/10 px-8 py-4 font-mono text-[16px] uppercase tracking-[0.12em] text-muted-foreground">
+            <span>Company</span><span className="text-center">Sees ships independently</span><span className="text-center">Knows each ship</span><span className="text-center">Serves industry, not only governments</span><span className="text-center">European-owned and controlled</span>
+          </div>
+          {COMPETITORS.map(([nm, sub, marks], r) => (
+            <div key={nm} className={`grid grid-cols-[1.6fr_1fr_1fr_1fr_1fr] items-center gap-4 px-8 py-[11px] ${r === 0 ? "border-y border-gold/50 bg-gold/10" : "border-t border-white/5"}`}>
+              <p className="text-[24px] font-light text-foreground"><span className={r === 0 ? "text-gold" : ""}>{nm}</span> <span className="text-[18px] text-muted-foreground">({sub})</span></p>
+              {marks.map((m, c) => <div key={c} className="text-center"><Cell m={m} /></div>)}
+            </div>
+          ))}
+        </div>
+      </>
+    ),
+  },
+  {
+    title: "Roadmap",
+    node: (
+      <>
+        <Bg src={satNet} dim="bg-navy-deep/85" />
+        <Text>
+          <Eyebrow>Roadmap</Eyebrow>
+          <Headline a="We deliver today." b="By 2028 we own our data." />
+        </Text>
+        <div className="deck-text absolute bottom-[100px] left-[120px] right-[120px] z-10">
+          <div className="flex justify-between font-mono text-[18px] tracking-[0.2em]"><span className="text-gold">DATA WE BUY</span><span className="text-cyan">DATA WE OWN</span></div>
+          <div className="mt-3 h-[4px] w-full rounded-full bg-gradient-to-r from-gold to-cyan" />
+          <div className="mt-8 grid grid-cols-4 gap-6">
+            {[["Today", "Partner and open data", "Full intelligence for customers now, gross margin about 45%", "text-gold"], ["Next", "Our port sensors", "The first data we own and can resell", "text-gold"], ["Then", "Our airborne pod", "A second look on demand, where the question is", "text-gold"], ["Q4 2028", "Our payload in orbit", "We own the data: gross margin towards 80%, sovereign European data", "text-cyan"]].map(([k, t, v, c]) => (
+              <div key={k} className="min-h-[260px] rounded-lg border border-white/10 bg-navy/75 p-7 backdrop-blur">
+                <p className={`font-mono text-[20px] uppercase tracking-[0.2em] ${c}`}>{k}</p>
+                <p className="mt-4 text-[30px] font-light leading-tight text-foreground">{t}</p>
+                <p className="mt-3 text-[21px] font-light leading-snug text-foreground/75">{v}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </>
+    ),
+  },
+  {
+    title: "Where we are",
+    node: (
+      <>
+        <div className="deck-bg absolute inset-0 bg-navy-deep"><Stars /></div>
+        <Text className="left-[120px] top-[90px]">
+          <Eyebrow>Traction and team</Eyebrow>
+        </Text>
+        <div className="deck-text absolute left-[120px] right-[120px] top-[190px] z-10 grid grid-cols-4 gap-6">
+          {[["2", "Clients, one in defence"], ["2", "Commercial agreements in final stages"], ["7", "HERA AI capabilities live"], ["Q4 2028", "In-orbit demonstration"]].map(([v, l]) => (
+            <div key={l} className="min-h-[250px] rounded-lg border border-white/10 bg-navy/75 p-8">
+              <p className={`whitespace-nowrap font-mono leading-none text-gold ${v.length > 3 ? "text-[84px] pt-[26px]" : "text-[110px]"}`}>{v}</p>
+              <p className="mt-5 text-[26px] font-light leading-snug text-foreground/85">{l}</p>
+            </div>
+          ))}
+        </div>
+        <div className="deck-text absolute bottom-[110px] left-[120px] right-[120px] z-10 rounded-lg border border-white/10 bg-navy/75 p-10">
+          <p className="text-[28px] font-light leading-snug text-foreground/90"><span className="text-gold">Moustafa Elmoslhy, Founder and Chief Executive.</span> ROV engineer at sea, engineering and research and development leader at Amazon Robotics in Europe and North America, then Managing Director and Head of Engineering of a Luxembourg satellite manufacturing company. Across his career he has managed projects worth $100M to $750M and contributed to several patented technologies in space and robotics.</p>
+          <p className="mt-6 text-[26px] font-light text-foreground/75">With a Chief Growth Officer, satellite integration and data fusion specialists, and two retired general officers as advisers.</p>
+        </div>
       </>
     ),
   },
@@ -343,7 +526,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
       <>
         <GlobeScene />
         <TitleCentre />
-        <p className="deck-text absolute bottom-[230px] left-0 right-0 z-10 text-center text-[30px] font-light text-foreground/80">Tell us the decision you need to make.</p>
+        <p className="deck-text absolute bottom-[230px] left-0 right-0 z-10 text-center text-[30px] font-light text-foreground/80">Better data. The right intelligence.</p>
         <p className="deck-text absolute bottom-[160px] left-0 right-0 z-10 text-center font-mono text-[34px] tracking-[0.2em] text-cyan">info@seker-space.com</p>
       </>
     ),
@@ -352,12 +535,14 @@ const SLIDES: { title: string; node: ReactNode }[] = [
 
 /* ---------- interactive industry slide ---------- */
 const STAGE_NAMES = ["Detect", "Cue", "Collect", "Fuse", "Assess", "Deliver"];
+const SANCTIONS = useCases.find((u) => u.id === "identity")!;
 const SERVE: { slug: string; name: string; uc: UseCase }[] = [
   { slug: "defense", name: "Defense and coast guard", uc: cableCorridorCase },
   { slug: "insurance", name: "Insurance and P&I", uc: cargoClaimCase },
   { slug: "commodity-trading", name: "Commodity trading", uc: originCase },
   { slug: "ports", name: "Ports and maritime authorities", uc: preArrivalCase },
   { slug: "fisheries", name: "Fisheries and environment", uc: transshipmentCase },
+  { slug: "banks", name: "Banks and compliance", uc: SANCTIONS },
 ];
 const WHO = SLIDES.findIndex((x) => x.title === "Who we serve");
 
@@ -380,12 +565,12 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
       <div className="deck-bg absolute inset-0 bg-navy-deep" />
       <div className="deck-text absolute left-[100px] top-[50px]">
         <Eyebrow>Who we serve</Eyebrow>
-        <h2 className="mt-4 text-[72px] font-light leading-[1.02] tracking-tight text-foreground">Five industries,<br /><span className="text-gold">one verified picture.</span></h2>
+        <h2 className="mt-4 text-[72px] font-light leading-[1.02] tracking-tight text-foreground">Six industries,<br /><span className="text-gold">one complete record.</span></h2>
       </div>
       <div className="deck-text absolute left-[100px] right-[100px] top-[268px] flex justify-between gap-3" onClick={stop}>
         {SERVE.map((x, k) => (
           <button key={x.slug} type="button" onClick={() => onInd?.(k)}
-            className={`whitespace-nowrap rounded-full border px-5 py-2.5 font-mono text-[15px] uppercase tracking-[0.12em] transition-colors ${k === ind ? "border-gold/60 bg-gold/12 text-gold" : "border-white/12 bg-white/[0.02] text-muted-foreground hover:border-white/25 hover:text-foreground"}`}>
+            className={`whitespace-nowrap rounded-full border px-4 py-2.5 font-mono text-[14px] uppercase tracking-[0.08em] transition-colors ${k === ind ? "border-gold/60 bg-gold/12 text-gold" : "border-white/12 bg-white/[0.02] text-muted-foreground hover:border-white/25 hover:text-foreground"}`}>
             {x.name}
           </button>
         ))}
@@ -397,7 +582,7 @@ function ServeSlide({ ind, onInd, active, frozen }: { ind: number; onInd?: (k: n
             <p className="truncate font-mono text-[16px] tracking-[0.2em] text-muted-foreground">HERA AI · {uc.tag}</p>
             <WalkthroughViewToggle deck mode={view.mode} available={view.available} onChange={view.setMode} />
           </div>
-          {(frozen || view.mode === "film") ? <WalkthroughFilm key={uc.id} uc={uc} stage={stage} active={active} frozen={frozen} deck /> : <DeckScenarioMap slug={SERVE[ind].slug} stage={stage} />}
+          {((frozen && view.available) || view.mode === "film") ? <WalkthroughFilm key={uc.id} uc={uc} stage={stage} active={active} frozen={frozen} deck /> : SERVE[ind].slug === "banks" ? <div className="h-[560px] w-[1060px]"><OpsMap idx={geo} stage={stage} /></div> : <DeckScenarioMap slug={SERVE[ind].slug} stage={stage} />}
         </div>
         <div className="relative mt-5">
           <div className="absolute inset-x-0 top-0 h-[3px] bg-white/10"><div className="h-full bg-gold transition-[width] duration-500" style={{ width: `${((stage + 1) / 6) * 100}%` }} /></div>
@@ -452,10 +637,10 @@ function Deck() {
   const goTo = useCallback((k: number, fromEnd = false) => {
     const t = Math.min(n - 1, Math.max(0, k));
     if (t === i) return;
-    navigate({ search: t === WHO ? { slide: t + 1, industry: SERVE[fromEnd ? 4 : 0].slug } : { slide: t + 1 } });
+    navigate({ search: t === WHO ? { slide: t + 1, industry: SERVE[fromEnd ? SERVE.length - 1 : 0].slug } : { slide: t + 1 } });
   }, [i, n, navigate]);
   const setInd = useCallback((k: number) => navigate({ search: { slide: WHO + 1, industry: SERVE[k].slug } }), [navigate]);
-  const next = () => (i === WHO && ind < 4 ? setInd(ind + 1) : goTo(i + 1));
+  const next = () => (i === WHO && ind < SERVE.length - 1 ? setInd(ind + 1) : goTo(i + 1));
   const prev = () => (i === WHO && ind > 0 ? setInd(ind - 1) : goTo(i - 1, true));
 
   const poke = useCallback(() => {
@@ -573,7 +758,7 @@ function Deck() {
         ))}
       </div>
       <p className="deck-chrome absolute bottom-5 right-6 z-30 font-mono text-xs tracking-[0.2em] text-muted-foreground">
-        {String(i + 1).padStart(2, "0")}{i === WHO ? ` · ${ind + 1}/5` : ""} / {String(n).padStart(2, "0")}
+        {String(i + 1).padStart(2, "0")}{i === WHO ? ` · ${ind + 1}/${SERVE.length}` : ""} / {String(n).padStart(2, "0")}
       </p>
     </div>
   );
