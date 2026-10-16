@@ -259,7 +259,7 @@ export function ConstellationSection() {
             Better data, by design.
           </h2>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            European-owned sensing, built in Luxembourg.
+            Our own sensing, independent of any data reseller.
           </p>
         </Reveal>
         <div className="mt-10 grid gap-4 text-left sm:grid-cols-3">
@@ -331,15 +331,15 @@ export function ProblemSection() {
           <StatBlock value={<span className="font-mono text-5xl text-alert">22</span>} label="GPS spoofing hotspots on the busiest sea lanes" />
         </div>
         <Reveal>
-          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">What hidden ships cost</p>
+          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">The cost of hidden ships and how HERA AI helps</p>
         </Reveal>
         <div className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
-          <StatBlock value={<span className="font-mono text-5xl text-gold">€31bn+</span>} label="Europe's illegal drug market; 70% of EU customs drug seizures happen at ports" />
-          <StatBlock value={<span className="font-mono text-5xl text-cyan">$26–50bn</span>} label="Lost to illegal fishing every year" />
-          <StatBlock value={<span className="font-mono text-5xl text-alert">$275M</span>} label="One US sanctions penalty for ships with spoofed AIS" />
+          <StatBlock value={<span className="font-mono text-5xl text-gold">$426–652bn</span>} label="Global illegal drug trade every year. Colombia, the largest cocaine producer, ships mostly by sea." hera="Flags ships that go dark, meet at sea or change identity before they reach port." />
+          <StatBlock value={<span className="font-mono text-5xl text-cyan">$26–50bn</span>} label="Lost to illegal fishing every year, worldwide" hera="Shows which fishing ships switched off or worked where they should not be." />
+          <StatBlock value={<span className="font-mono text-5xl text-alert">$275M</span>} label="One US sanctions penalty for ships with spoofed AIS" hera="Screens every ship and its owners on five official lists, with a full audit trail." />
         </div>
         <p className="mt-5 font-mono text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground/70">
-          UNCTAD · S&amp;P GLOBAL 2025 · GEORGIA TECH 2026 · EUDA AND EUROPOL 2024 · SUMAILA ET AL. 2020 · OFAC 2026
+          UNCTAD · S&amp;P GLOBAL 2025 · GEORGIA TECH 2026 · GFI 2017 · UNODC 2026 · SUMAILA ET AL. 2020 · OFAC 2026
         </p>
       </div>
     </section>
@@ -376,6 +376,12 @@ export function WhyNowSection() {
             Every insurer, trader, port and navy in the region now needs answers that do not depend on the ship's own signal.
           </p>
         </Reveal>
+        <Reveal delay={0.15}>
+          <p className="text-pretty mx-auto mt-4 max-w-2xl text-base leading-relaxed text-foreground">
+            <span className="mr-3 font-mono text-xs tracking-[0.2em] text-gold">HERA AI</span>
+            Every ship cross-checked against independent sources, with a confidence score you can act on.
+          </p>
+        </Reveal>
         <p className="mt-5 font-mono text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground/70">
           JMIC OCT 2026 · WINDWARD Q3 2026 · MARSH; INSURANCE BUSINESS 2026
         </p>
@@ -388,7 +394,7 @@ const PROOF: [string, string][] = [
   ["7", "HERA AI capabilities live today"],
   ["5", "Official sanctions lists screened"],
   ["Q4 2028", "In-orbit demonstration of our own payload"],
-  ["Luxembourg", "Built and owned in Europe"],
+  ["Independent", "Not owned by any data reseller or platform"],
 ];
 
 export function ProofSection() {
@@ -456,21 +462,29 @@ function GapBlock() {
       </div>
       <Reveal delay={0.2}>
         <p className="text-pretty mt-6 rounded-sm border border-cyan/40 bg-cyan/5 px-5 py-4 text-base leading-relaxed text-foreground">
-          This is why the market needs a more accurate, independent source from Europe now. It is the exact gap Seker closes.
+          This is why the market needs a more accurate, independent source now. It is the exact gap Seker closes.
         </p>
       </Reveal>
     </div>
   );
 }
 
-function StatBlock({ value, label }: { value: React.ReactNode; label: string }) {
+function StatBlock({ value, label, hera }: { value: React.ReactNode; label: string; hera?: string }) {
   return (
-    <div className="bg-navy px-6 py-10">
-      <Reveal>
+    <div className="flex flex-col bg-navy px-6 py-10">
+      <Reveal className={hera ? "flex flex-1 flex-col" : undefined}>
         {value}
         <p className="mt-3 font-mono text-[9px] leading-relaxed tracking-[0.18em] text-muted-foreground">
           {label.toUpperCase()}
         </p>
+        {hera && (
+          <div className="mt-auto pt-6">
+            <div className="border-t border-white/10 pt-4">
+              <p className="font-mono text-[10px] tracking-[0.2em] text-gold">HERA AI</p>
+              <p className="mt-2 text-sm leading-relaxed text-foreground">{hera}</p>
+            </div>
+          </div>
+        )}
       </Reveal>
     </div>
   );
