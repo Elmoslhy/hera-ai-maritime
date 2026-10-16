@@ -1,5 +1,6 @@
 import { motion, useScroll, useSpring } from "motion/react";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { SekerLogo } from "./Logo";
@@ -133,8 +134,8 @@ function MobileMenu() {
       >
         {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
       </button>
-      {open && (
-        <div className="fixed inset-x-0 bottom-0 top-[68px] z-50 overflow-y-auto bg-navy-deep/95 px-6 pb-10 backdrop-blur-md">
+      {open && createPortal(
+        <div className="fixed inset-x-0 bottom-0 top-[68px] z-50 overflow-y-auto bg-navy-deep/95 px-6 pb-10 backdrop-blur-md sm:hidden">
           <Link to="/intelligence" onClick={close} className={`${item} mt-4`}>HERA AI</Link>
           <Link to="/constellation" onClick={close} className={item}>SEKER-1 · SEKER-2</Link>
           <p className="pt-6 font-mono text-[10px] tracking-[0.22em] text-gold">INDUSTRIES</p>
@@ -155,7 +156,8 @@ function MobileMenu() {
           >
             PLATFORM LOGIN
           </Link>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );
