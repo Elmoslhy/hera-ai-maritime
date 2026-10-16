@@ -390,7 +390,7 @@ export const industries: Industry[] = [
     eyebrow: "Banks and compliance",
     headline: ["Know every ship", "behind the deal."],
     body: "HERA AI screens the ships behind a transaction on five official lists, checks who they met at sea and keeps an audit trail for every check, with early warning when identity risk rises.",
-    heroImage: heraUi,
+    heroImage: network,
     statement: { title: "Screen on evidence.", body: "A name check tells you whether a ship is listed today. HERA AI also shows who it met at sea and whether its identity holds up." },
     capabilities: [],
     blocks: [],
