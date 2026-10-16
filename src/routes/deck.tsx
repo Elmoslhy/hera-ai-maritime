@@ -147,7 +147,7 @@ function StatTiles({ items }: { items: string[][] }) {
     <div className="flex gap-px overflow-hidden rounded-lg border border-white/10 bg-white/10">
       {items.map(([v, l, t]) => (
         <div key={v} className="w-[380px] bg-navy/85 px-8 py-6">
-          <p className={`whitespace-nowrap font-mono text-[56px] leading-none ${t}`}>{v}</p>
+          <p className={`whitespace-nowrap font-mono leading-none ${v.length > 8 ? "text-[44px] pt-[8px]" : "text-[56px]"} ${t}`}>{v}</p>
           <p className="mt-3 text-[22px] font-light text-foreground/80">{l}</p>
         </div>
       ))}
