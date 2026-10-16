@@ -29,11 +29,13 @@ export function SectionBackground({
   alt,
   overlay = "bg-navy/75",
   imgClassName = "",
+  children,
 }: {
   src: string;
   alt: string;
   overlay?: string;
   imgClassName?: string;
+  children?: React.ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.25 });
@@ -56,6 +58,18 @@ export function SectionBackground({
         />
       </motion.div>
       <div className={`absolute inset-0 ${overlay}`} />
+      {children && (
+        <motion.div style={{ y, containerType: "size" }} className="pointer-events-none absolute -inset-y-[8%] inset-x-0 overflow-hidden">
+          {/* Box matching the photo's object-cover frame, so overlays stay on photo features */}
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            style={{ width: "max(100cqw, calc(100cqh * 1920 / 1088))", height: "max(100cqh, calc(100cqw * 1088 / 1920))" }}
+          >
+            {children}
+          </div>
+        </motion.div>
+      )}
+
     </div>
   );
 }
