@@ -134,10 +134,10 @@ function IntelligencePage() {
       <Nav />
       <main>
         <section className="relative flex min-h-screen items-center px-6 py-32">
-          <SectionBackground src={vessels} alt="Vessels at sea seen from orbit" overlay="bg-gradient-to-b from-navy/70 via-navy/10 to-navy/85" imgClassName="brightness-105 saturate-105 object-[68%_50%]" position="68%">
+          <SectionBackground src={vessels} alt="Vessels at sea seen from orbit" overlay="bg-gradient-to-b from-navy/70 via-navy/10 to-navy/85" imgClassName="brightness-105 saturate-105">
             {/* Pinned to real ships in the photo: centre tanker and lower right tanker */}
-            <Reticle className="left-[52%] top-[52.5%] h-[28%] w-[9%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.matched} tone="cyan" />
-            <Reticle className="left-[85%] top-[86%] h-[22%] w-[9%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.dark} tone="alert" />
+            <Reticle className="left-[52%] top-[52.5%] h-[28%] w-[10%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.matched} tone="cyan" />
+            <Reticle className="hidden sm:block left-[71%] top-[59%] h-[22%] w-[9%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.dark} tone="alert" />
           </SectionBackground>
           <div className="relative mx-auto w-full max-w-7xl">
             <Reveal>
