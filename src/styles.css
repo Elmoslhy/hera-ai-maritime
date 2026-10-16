@@ -51,6 +51,14 @@
   animation: blinkdot 1.6s ease-in-out infinite;
 }
 
+/* The hero lead sits over the rotating Earth; a soft shadow keeps it legible on the lit side. */
+@utility hero-lead {
+  text-shadow:
+    0 1px 2px rgba(6, 12, 21, 0.95),
+    0 0 26px rgba(6, 12, 21, 0.85);
+}
+
+
 @keyframes descent-sweep {
   from {
     transform: translateY(-4rem);

@@ -30,10 +30,19 @@ export function HeroSection() {
           </h1>
         </Reveal>
         <Reveal delay={0.3}>
-          <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            The data and intelligence behind better decisions at sea. Built for defense, insurance, commodity trading, ports, shipping and finance. Every answer is checked against independent data.
-          </p>
+          <div className="relative mx-auto mt-7 max-w-2xl">
+            {/* soft navy scrim so the copy stays readable over the bright side of the Earth */}
+            <div className="pointer-events-none absolute -inset-x-12 -inset-y-9 bg-[radial-gradient(ellipse_at_center,rgba(6,12,21,0.9)_0%,rgba(6,12,21,0.6)_45%,transparent_76%)] blur-2xl" />
+            <p className="hero-lead relative text-pretty text-[15px] font-normal leading-[1.75] text-foreground/90 sm:text-lg">
+              The data and intelligence behind better decisions at sea. Built
+              for defense, insurance, commodity trading, ports, shipping and
+              finance.
+              <br className="hidden sm:block" />
+              Every answer is checked against independent data.
+            </p>
+          </div>
         </Reveal>
+
         <Reveal delay={0.45}>
           <Link
             to="/"
