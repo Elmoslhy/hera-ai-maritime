@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
+import { SecondLookSection } from "@/components/seker/DroneFilm";
 import { DashboardSection } from "@/components/seker/Dashboard";
 import { DescentSection } from "@/components/seker/Descent";
 import {
@@ -45,6 +46,7 @@ function Index() {
         <GetItSection />
         <IndustriesSection />
         <ConstellationSection />
+        <SecondLookSection />
         <ProofSection />
         <ContactSection />
       </main>

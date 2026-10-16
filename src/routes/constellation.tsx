@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
+import { DroneFilmFrame } from "@/components/seker/DroneFilm";
 import { Reveal } from "@/components/seker/primitives";
 import satellite from "@/assets/satellite-real.png";
 
@@ -185,6 +186,9 @@ function ConstellationPage() {
                 <Reveal key={t} delay={i * 0.05}><Card t={t} d={d} /></Reveal>
               ))}
             </div>
+            <Reveal delay={0.2} className="mt-12">
+              <DroneFilmFrame />
+            </Reveal>
           </div>
         </section>
 
