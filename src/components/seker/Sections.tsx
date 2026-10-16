@@ -7,7 +7,6 @@ import vessels from "@/assets/vessels.jpg";
 import { SekerLogo } from "./Logo";
 import { industries } from "@/content/industries";
 import { HeroScene, HeroShipCard } from "./HeroScene";
-import { IntelPanel } from "./IntelPanel";
 import { Reveal, SectionBackground } from "./primitives";
 
 export function HeroSection() {
