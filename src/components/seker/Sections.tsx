@@ -6,7 +6,7 @@ import ocean from "@/assets/ocean.jpg";
 import vessels from "@/assets/vessels.jpg";
 import { SekerLogo } from "./Logo";
 import { industries } from "@/content/industries";
-import { HeroHud, HeroScene } from "./HeroScene";
+import { HeroScene, HeroShipCard } from "./HeroScene";
 import { IntelPanel } from "./IntelPanel";
 import { Reveal, SectionBackground } from "./primitives";
 
@@ -16,8 +16,7 @@ export function HeroSection() {
       
       <div className="absolute inset-0 bg-navy-deep" />
       <HeroScene />
-      <HeroHud />
-      <IntelPanel />
+      <HeroShipCard />
       <div className="relative z-10 flex flex-col items-center px-6 text-center">
         <Reveal>
           <SekerLogo className="mx-auto w-[min(72vw,460px)] text-foreground" />
