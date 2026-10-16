@@ -196,13 +196,14 @@ export function HeroScene() {
   );
 }
 
-export function HeroHud() {
+export function HeroHud({ large = false }: { large?: boolean }) {
+  const s = (compact: string, big: string) => (large ? big : compact);
   return (
-    <div className="pointer-events-none absolute right-6 top-1/2 z-10 hidden w-[286px] -translate-y-1/2 space-y-3 lg:block">
+    <div className={`pointer-events-none absolute right-6 top-1/2 z-10 hidden -translate-y-1/2 space-y-3 lg:block ${large ? "w-[320px]" : "w-[286px]"}`}>
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
         <div className="flex items-center justify-between border-b border-gold/15 px-3 py-2">
-          <span className="font-mono text-xs tracking-[0.22em] text-gold">HERA AI · FUSION</span>
-          <span className="flex items-center gap-1.5 font-mono text-[8px] tracking-[0.18em] text-muted-foreground">
+          <span className={`font-mono text-gold ${s("text-xs tracking-[0.22em]", "text-[14px] tracking-[0.18em]")}`}>HERA AI · FUSION</span>
+          <span className={`flex items-center gap-1.5 font-mono tracking-[0.18em] text-muted-foreground ${s("text-[8px]", "text-[10px]")}`}>
             <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" /> FUSING
           </span>
         </div>
@@ -210,12 +211,12 @@ export function HeroHud() {
         <div className="px-3 py-3">
           <div className="flex items-end justify-between">
             <div>
-              <p className="font-mono text-[13px] leading-none text-foreground">M/V ARGEST</p>
-              <p className="mt-1.5 font-mono text-[9px] tracking-[0.14em] text-muted-foreground">
-                IMO 9412783 · 35.8104N 14.4903E
+              <p className={`font-mono leading-none text-foreground ${s("text-[13px]", "text-[17px]")}`}>M/V ARGEST</p>
+              <p className={`mt-1.5 font-mono tracking-[0.12em] text-muted-foreground ${s("text-[9px]", "text-[11px] leading-[1.6]")}`}>
+                IMO 9412783{large ? <br /> : " · "}35.8104N 14.4903E
               </p>
             </div>
-            <span className="rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono text-xs tracking-[0.16em] text-gold">
+            <span className={`rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono tracking-[0.14em] text-gold ${s("text-xs", "text-[13px]")}`}>
               VERIFIED
             </span>
           </div>
@@ -225,7 +226,7 @@ export function HeroHud() {
             {["AIS-T", "AIS-S", "RF", "SAR", "TIR"].map((c) => (
               <span
                 key={c}
-                className="rounded-[2px] border border-cyan/25 px-1.5 py-[3px] font-mono text-[7.5px] tracking-[0.16em] text-cyan/80"
+                className={`rounded-[2px] border border-cyan/25 px-1.5 py-[3px] font-mono text-cyan/80 ${s("text-[7.5px] tracking-[0.16em]", "text-[10px] tracking-[0.12em]")}`}
               >
                 {c}
               </span>
@@ -258,7 +259,7 @@ export function HeroHud() {
             />
           </svg>
 
-          <div className="mt-2 flex items-center justify-between font-mono text-[9px] tracking-[0.16em] text-muted-foreground">
+          <div className={`mt-2 flex items-center justify-between font-mono tracking-[0.14em] text-muted-foreground ${s("text-[9px]", "text-[11px]")}`}>
             <span>POSITION CONFIDENCE</span>
             <span className="text-gold">98.4%</span>
           </div>
@@ -273,8 +274,8 @@ export function HeroHud() {
               ["AGE", "38 s"],
             ].map(([k, v]) => (
               <div key={k} className="rounded-[2px] border border-white/8 px-2 py-1.5">
-                <p className="font-mono text-[7.5px] tracking-[0.18em] text-muted-foreground">{k}</p>
-                <p className="mt-0.5 font-mono text-[10px] text-foreground">{v}</p>
+                <p className={`font-mono text-muted-foreground ${s("text-[7.5px] tracking-[0.18em]", "text-[10px] tracking-[0.12em]")}`}>{k}</p>
+                <p className={`mt-0.5 font-mono text-foreground ${s("text-[10px]", "text-[13px]")}`}>{v}</p>
               </div>
             ))}
           </div>
@@ -283,7 +284,7 @@ export function HeroHud() {
 
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 backdrop-blur-md">
         <div className="flex items-center gap-3 border-b border-gold/15 px-3 py-2">
-          <span className="font-mono text-xs tracking-[0.22em] text-gold">INTELLIGENCE PROFILE</span>
+          <span className={`font-mono text-gold ${s("text-xs tracking-[0.22em]", "text-[14px] tracking-[0.18em]")}`}>INTELLIGENCE PROFILE</span>
           <span className="h-px flex-1 bg-gold/20" />
         </div>
         <ul className="divide-y divide-white/5">
@@ -295,9 +296,9 @@ export function HeroHud() {
             ["Encounters (30 days)", "2"],
             ["Risk indicators", "LOW"],
           ].map(([k, v]) => (
-            <li key={k} className="flex items-center gap-2.5 px-3 py-2">
-              <span className="flex-1 font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground">{k}</span>
-              <span className="font-mono text-[9.5px] tracking-[0.12em] text-cyan">{v}</span>
+            <li key={k} className={`flex items-center gap-2.5 px-3 py-2`}>
+              <span className={`flex-1 font-mono text-muted-foreground ${s("text-[8.5px] tracking-[0.1em]", "text-[11px] tracking-[0.06em]")}`}>{k}</span>
+              <span className={`font-mono text-cyan ${s("text-[9.5px] tracking-[0.12em]", "text-[12px] tracking-[0.08em]")}`}>{v}</span>
             </li>
           ))}
         </ul>
@@ -311,15 +312,15 @@ export function HeroShipCard() {
     <div className="pointer-events-none absolute right-6 top-1/2 z-10 hidden w-[286px] -translate-y-1/2 lg:block">
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
         <div className="flex items-center gap-3 border-b border-gold/15 px-3 py-2">
-          <span className="font-mono text-xs tracking-[0.22em] text-gold">HERA AI · SHIP RECORD</span>
+          <span className="font-mono text-[13px] tracking-[0.18em] text-gold">HERA AI · SHIP RECORD</span>
           <span className="h-px flex-1 bg-gold/20" />
         </div>
         <div className="flex items-end justify-between border-b border-white/5 px-3 py-3">
           <div>
-            <p className="font-mono text-[13px] leading-none text-foreground">M/V ARGEST</p>
-            <p className="mt-1.5 font-mono text-[9px] tracking-[0.14em] text-muted-foreground">IMO 9412783</p>
+            <p className="font-mono text-[16px] leading-none text-foreground">M/V ARGEST</p>
+            <p className="mt-1.5 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">IMO 9412783</p>
           </div>
-          <span className="rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono text-xs tracking-[0.16em] text-gold">VERIFIED</span>
+          <span className="rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono text-[13px] tracking-[0.14em] text-gold">VERIFIED</span>
         </div>
         <ul className="divide-y divide-white/5">
           {[
@@ -331,13 +332,13 @@ export function HeroShipCard() {
             ["Risk", "LOW"],
           ].map(([k, v]) => (
             <li key={k} className="flex items-center gap-2.5 px-3 py-2">
-              <span className="flex-1 font-mono text-[8.5px] tracking-[0.1em] text-muted-foreground">{k}</span>
-              <span className="font-mono text-[9.5px] tracking-[0.12em] text-cyan">{v}</span>
+              <span className="flex-1 font-mono text-[11px] tracking-[0.06em] text-muted-foreground">{k}</span>
+              <span className="font-mono text-[12px] tracking-[0.08em] text-cyan">{v}</span>
             </li>
           ))}
         </ul>
         <div className="border-t border-white/5 px-3 py-3">
-          <div className="flex items-center justify-between font-mono text-[9px] tracking-[0.16em] text-muted-foreground">
+          <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
             <span>HERA AI CONFIDENCE</span>
             <span className="text-cyan">98%</span>
           </div>
@@ -346,7 +347,7 @@ export function HeroShipCard() {
           </div>
         </div>
       </div>
-      <p className="mt-2 font-mono text-[8px] tracking-[0.2em] text-muted-foreground/70">SAMPLE SHIP</p>
+      <p className="mt-2 font-mono text-[10px] tracking-[0.18em] text-muted-foreground/70">SAMPLE SHIP</p>
     </div>
   );
 }
