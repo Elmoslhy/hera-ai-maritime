@@ -5,7 +5,7 @@ import { UseCasesSection } from "@/components/seker/UseCases";
 import { WorkspaceSection } from "@/components/seker/Workspace";
 import { TaskingScreen } from "@/components/seker/TaskingMap";
 import { AlertCards } from "@/components/seker/Insights";
-import vessels from "@/assets/vessels.jpg";
+import vessels from "@/assets/vessels-bright.jpg";
 import {
   intelligenceHero as h,
   closingCta,
