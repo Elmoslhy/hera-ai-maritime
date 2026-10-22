@@ -32,9 +32,9 @@ export function HeroSection() {
             {/* soft navy scrim so the copy stays readable over the bright side of the Earth */}
             <div className="pointer-events-none absolute -inset-x-12 -inset-y-9 bg-[radial-gradient(ellipse_at_center,rgba(6,12,21,0.9)_0%,rgba(6,12,21,0.6)_45%,transparent_76%)] blur-2xl" />
             <p className="hero-lead relative text-pretty text-[15px] font-normal leading-[1.75] text-foreground/90 sm:text-lg">
-              The data and intelligence behind better decisions at sea. Built
-              for defense, insurance, commodity trading, ports, shipping and
-              finance.{" "}
+              SEKER aggregates and analyses vessel tracking, identity and
+              sanctions data to identify potentially suspicious activity and
+              support vessel due diligence and risk monitoring.{" "}
               <br className="hidden sm:block" />
               {" "}Every answer is checked against independent data.
 
