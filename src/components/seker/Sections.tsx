@@ -251,6 +251,7 @@ const WHY: [string, string][] = [
   ["INDEPENDENT OBSERVATION", "Built on independent sources, not only on what ships choose to report."],
   ["GROUND TRUTH FROM PORTS", "Port sources worldwide confirm what ships actually did alongside."],
   ["A SECOND LOOK ON DEMAND", "When an answer is in doubt, HERA AI will send a satellite or a partner drone from the nearest port to look."],
+  ["SOVEREIGN BY DESIGN", "An EU-developed maritime intelligence platform with EU-owned intellectual property, EU-based operations, and sensitive data stored, analysed and accessed exclusively within the EU."],
 ];
 
 const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "FUSED IN HERA AI"];
@@ -271,7 +272,7 @@ export function ConstellationSection() {
             Independent sources today, our own sensors next.
           </p>
         </Reveal>
-        <div className="mt-10 grid gap-4 text-left sm:grid-cols-3">
+        <div className="mt-10 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
           {WHY.map(([t, b], i) => (
             <Reveal key={t} delay={0.18 + i * 0.06}>
               <div className="h-full rounded-sm border border-gold/25 bg-[#060d18]/70 p-5 backdrop-blur-md">

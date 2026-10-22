@@ -194,6 +194,9 @@ export function Footer() {
             NEWSROOM
           </Link>
         </div>
+        <p className="max-w-xs font-mono text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground break-words sm:max-w-none">
+          EU-DEVELOPED · EU-OWNED IP · EU-BASED OPERATIONS · EU DATA RESIDENCY
+        </p>
         <p className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
           © 2026 SEKER SPACE INTELLIGENCE S.A. · LUXEMBOURG · SEKER-SPACE.COM
         </p>
