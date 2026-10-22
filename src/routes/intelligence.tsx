@@ -139,7 +139,7 @@ function IntelligencePage() {
           <SectionBackground src={vessels} alt="Vessels at sea seen from orbit" overlay="bg-gradient-to-b from-navy/70 via-navy/10 to-navy/85" imgClassName="brightness-105 saturate-105">
             {/* Pinned to real ships in the photo: centre tanker and lower right tanker */}
             <Reticle className="hidden sm:block left-[52%] top-[52.5%] h-[28%] w-[10%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.matched} tone="cyan" />
-            <Reticle className="hidden sm:block left-[71%] lg:left-[calc(100%-600px+4.5%)] top-[59%] h-[22%] w-[9%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.dark} tone="alert" />
+            <Reticle className="hidden sm:block left-[71%] lg:left-[57%] top-[59%] h-[22%] w-[9%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.dark} tone="alert" />
           </SectionBackground>
           <HeroHud large />
           <div className="relative mx-auto w-full max-w-7xl">
