@@ -174,6 +174,74 @@ function IntelligencePage() {
           </div>
         </section>
 
+        <section className="bg-navy px-6 py-24">
+          <div className="mx-auto max-w-7xl">
+            <Reveal>
+              <p className="text-eyebrow text-gold">THE DARK FLEET</p>
+              <h2 className="text-balance mt-5 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
+                Every ship,
+                <br />
+                <span className="text-gold">including the ones that hide.</span>
+              </h2>
+              <p className="text-pretty mt-6 max-w-3xl text-base font-light text-muted-foreground">
+                The dark fleet, also called the shadow fleet, is the growing number of ships that switch off or fake their transponder, change names and flags, and meet at sea to move sanctioned oil, illegal catch and contraband out of sight. The number grows as tension at sea rises.
+              </p>
+            </Reveal>
+            <div className="mt-10 max-w-sm overflow-hidden rounded-lg border border-white/10">
+              <div className="flex flex-col bg-navy-deep px-6 py-10">
+                <Reveal>
+                  <span className="font-mono text-5xl text-alert">978</span>
+                  <p className="mt-3 font-mono text-[9px] leading-relaxed tracking-[0.18em] text-muted-foreground">
+                    SHADOW FLEET TANKERS, 18.5% OF THE WORLD'S TANKER FLEET
+                  </p>
+                  <p className="mt-4 font-mono text-[9px] tracking-[0.18em] text-muted-foreground/70">S&amp;P GLOBAL 2025</p>
+                </Reveal>
+              </div>
+            </div>
+            <div className="mt-14 grid gap-12 lg:grid-cols-2">
+              <Reveal>
+                <h3 className="text-xl font-light text-foreground">How HERA AI finds them today</h3>
+                <div className="mt-6 space-y-3">
+                  {([
+                    ["live", "Identity risk", "Flag hopping, renaming and shared identities, each shown with its evidence."],
+                    ["live", "Track plausibility", "Positions a ship could not physically reach are flagged as fake."],
+                    ["built", "Coverage gaps", "Gaps in reporting, judged against where receivers can hear, so a ship that chose to go dark stands out."],
+                    ["built", "Meetings at sea", "Ship-to-ship meetings where cargo can change hands, filtered and scored for review."],
+                  ] as [Status, string, string][]).map(([s, t, d]) => (
+                    <div key={t} className="rounded-lg border border-white/10 bg-navy-deep/70 p-5">
+                      <StatusBadge s={s} />
+                      <p className="mt-3 text-base font-light text-foreground">{t}</p>
+                      <p className="mt-1 text-sm font-light text-muted-foreground">{d}</p>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+              <Reveal delay={0.05}>
+                <h3 className="text-xl font-light text-foreground">Why our own data from space makes it more accurate</h3>
+                <div className="mt-6 space-y-3">
+                  {[
+                    ["Signals a ship does not control", "SEKER-1 and SEKER-2 will measure the heat of a ship's engines and pick up its own navigation radar, so a ship that goes dark can still be found."],
+                    ["One clock", "Every sensor on board will share one clock, so when readings disagree, the difference comes from the ship and not from us."],
+                    ["Our own data", "We will own every measurement, so no reseller sits between what we observe and your answer, and each new source raises the confidence level you see."],
+                  ].map(([t, d]) => (
+                    <div key={t} className="flex gap-4 rounded-lg border border-white/10 bg-navy-deep/70 p-5">
+                      <span className="mt-2 block h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
+                      <div>
+                        <p className="text-base font-light text-foreground">{t}</p>
+                        <p className="mt-1 text-sm font-light text-muted-foreground">{d}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-5 font-mono text-[10px] tracking-[0.18em] text-muted-foreground">IN-ORBIT DEMONSTRATION · Q4 2028</p>
+                <Link to="/constellation" className="mt-3 inline-block font-mono text-xs tracking-[0.22em] text-gold hover:text-gold/80">
+                  Our sensors →
+                </Link>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
         <section className="bg-navy-deep px-6 py-24">
           <div className="mx-auto max-w-7xl">
             <Reveal>
