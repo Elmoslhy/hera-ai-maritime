@@ -16,8 +16,8 @@ const SENSORS: [string, string][] = [
 ];
 
 const WHY: [string, string][] = [
-  ["One clock", "Every sensor on board shares one clock, so when two readings disagree, the difference comes from the ship and not from our instruments."],
-  ["Independent position", "We locate ships from the signals they give off, not only from the position they choose to broadcast."],
+  ["One clock", "Every sensor on board will share one clock, so when two readings disagree, the difference comes from the ship and not from our instruments."],
+  ["Independent position", "Our sensors will locate ships from the signals they give off, not only from the position they choose to broadcast."],
   ["A second opinion on every source", "HERA AI already learns from partner data. Our own sensors will let it check every partner source against our own measurements."],
 ];
 
