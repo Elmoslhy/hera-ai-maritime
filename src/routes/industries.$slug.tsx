@@ -107,7 +107,7 @@ function IndustryPage() {
                     <Reveal key={m.title} delay={n * 0.05}>
                       <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-6">
                         <span className="block h-1.5 w-1.5 rounded-full bg-cyan" />
-                        <h3 className="mt-4 text-lg font-light text-foreground">{m.title.charAt(0).toUpperCase() + m.title.slice(1).toLowerCase()}</h3>
+                        <h3 className="mt-4 text-lg font-light text-foreground">{m.title}</h3>
                         <p className="mt-2 text-sm font-light text-muted-foreground">{m.need}</p>
                         <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-cyan">{m.deliverable}</p>
                       </div>
@@ -123,10 +123,10 @@ function IndustryPage() {
             </section>
             <UseCasesSection
               sensorLabels={i.rebuild.sensorLabels}
-              cases={[allCases.find((c) => c.id === i.useCaseIds[0])!].filter(Boolean)}
+              cases={[allCases.find((c) => c.id === i.useCaseIds[0])!].filter(Boolean).map((c) => (i.walkthroughAudience ? { ...c, audience: i.walkthroughAudience } : c))}
               sectionId="see-it-work"
               eyebrow="Use case"
-              headline={[`How it works for ${BUYER[i.slug] ?? "you"}`, ""]}
+              headline={[i.walkthroughHeadline ?? `How it works for ${BUYER[i.slug] ?? "you"}`, ""]}
             />
           </>
         ) : (

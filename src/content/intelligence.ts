@@ -287,7 +287,7 @@ export const cargoClaimCase: UseCase = {
   question: "Did the weather really damage this cargo?",
   audience: "Claims teams, cargo underwriters, P&I clubs",
   stages: [
-    { text: "A cargo owner claims heavy-weather damage on a voyage last March. The vessel's log reports a severe storm on day six.", sensors: ["reg"] },
+    { text: "A cargo owner claims heavy-weather damage on a recent voyage. The vessel's log reports a severe storm on day six.", sensors: ["reg"] },
     { text: "HERA AI rebuilds the voyage from stored positions, draught reports and port calls, and pulls sea state for every hour of the route.", sensors: ["ais", "sea", "reg"] },
     { text: "Sea state on day six peaked at 3.1 m, well below the storm described in the log. The vessel held 13 knots throughout.", sensors: ["sea", "ais"] },
     { text: "The track shows an unreported 19-hour stop at an anchorage, and the draught fell by 0.6 m during that stop.", sensors: ["ais", "geo"] },

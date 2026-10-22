@@ -18,6 +18,10 @@ export type Industry = {
   blocks: { label: string; title: string; text: string; bullets: string[]; image: string; alt: string }[];
   useCaseIds: string[];
   roadmapNote: string;
+  /** Optional audience line shown in the walkthrough instead of the case default. */
+  walkthroughAudience?: string;
+  /** Optional walkthrough headline replacing "How it works for ...". */
+  walkthroughHeadline?: string;
   closing?: { headline: [string, string]; body?: string; button: string };
   rebuild?: {
     roles: { role: string; question: string }[];
@@ -49,7 +53,7 @@ export const industries: Industry[] = [
     description: "Find the vessels that do not want to be seen.",
     eyebrow: "Defense and coast guard",
     headline: ["Every vessel in your waters,", "including the ones that hide."],
-    body: "HERA AI gives maritime operations centres a European picture of who is in their waters, who is hiding and which vessel deserves the next patrol hour. Every indicator shows what was seen, by which source, and how sure HERA AI is.",
+    body: "HERA AI gives maritime operations centres an independent picture of who is in their waters, who is hiding and which vessel deserves the next patrol hour. Every indicator shows what was seen, by which source, and how sure HERA AI is.",
     heroImage: ocean,
     statement: {
       title: "Your watch deserves the full picture.",
@@ -111,7 +115,7 @@ export const industries: Industry[] = [
       missions: [
         { title: "Cable and pipeline protection", need: "Know when a vessel behaves as if it is dragging an anchor over a cable.", hera: "Draw your corridors once; it raises an indicator when a vessel loiters, slows or holds a dragging track inside one, then cues imaging.", deliverable: "Corridor Alert" },
         { title: "Shadow fleet vetting", need: "Decide which tankers in transit merit a document check.", hera: "Scores flag history, fraudulent or unverifiable registries, false flags, reused IMO numbers, insurance that cannot be verified, and links to listed vessels.", deliverable: "Transit Watchlist" },
-        { title: "GNSS interference", need: "Know where satellite positioning cannot be trusted today.", hera: "Maps clusters of impossible positions reported by many vessels at once, hour by hour.", deliverable: "Interference Map" },
+        { title: "GPS jamming and spoofing", need: "Know where satellite positioning cannot be trusted today.", hera: "Maps clusters of impossible positions reported by many vessels at once, hour by hour.", deliverable: "Interference Map" },
         { title: "Patrol priority", need: "Spend scarce patrol hours on the vessels that matter.", hera: "Ranks every vessel of interest in your area each morning, with the evidence behind each rank.", deliverable: "Morning Patrol Brief" },
       ],
       reach: {
@@ -167,7 +171,7 @@ export const industries: Industry[] = [
         { title: "Listed areas and warranties", need: "Know when an insured vessel enters a Joint War Committee listed area or breaks its trading limits, even with its transponder off.", hera: "Records entry and exit times against current listed areas and your warranties, each marked as broadcast, geolocated or imaged.", deliverable: "Listed Area Entry Report" },
         { title: "Sanctions across the voyage", need: "Screen the whole voyage, not only the vessel at bind.", hera: "Checks every encounter, port call and dark period against listed vessels and terminals.", deliverable: "Voyage Sanctions Check" },
         { title: "Claims reconstruction", need: "Test a claim against what the vessel actually did.", hera: "Rebuilds route, speed, sea state, port calls and draught for any period you name.", deliverable: "Voyage Reconstruction" },
-        { title: "Price cap and sanctions clauses", need: "Support attestations and sanctions clauses with evidence.", hera: "Tracks changes of owner, manager, flag and P&I entry, and flags ship-to-ship transfers and AIS gaps against the official red-flag guidance.", deliverable: "Sanctions Evidence File" },
+        { title: "Sanctions clauses and attestations", need: "Support attestations and sanctions clauses with evidence.", hera: "Tracks changes of owner, manager, flag and P&I entry, and flags ship-to-ship transfers and AIS gaps against the official red-flag guidance.", deliverable: "Sanctions Evidence File" },
         { title: "Accumulation", need: "See how many insured hulls sit in one port or one storm track.", hera: "Upload your schedule and HERA AI totals your sum insured by port, storm track or listed area, including vessels not broadcasting.", deliverable: "Exposure Board" },
       ],
       deliverables: [
@@ -287,7 +291,7 @@ export const industries: Industry[] = [
       },
       missions: [
         { title: "Pre-arrival check", need: "Verify declared last port calls before arrival.", hera: "Compares the pre-arrival declaration with the port calls it observed, including calls made while dark. It also checks EU port access bans on listed vessels and shows each required certificate as verified or not verified.", deliverable: "Pre-Arrival Sheet" },
-        { title: "Pilot boarding", need: "Board safely, first time.", hera: "Combines wind and swell at the boarding ground, freeboard from declared draught and recorded pilot transfer deficiencies. The decision to board stays with the pilot and the master.", deliverable: "Boarding Advisory" },
+        { title: "Pilot boarding", need: "Know what the pilot will face before the ship arrives.", hera: "Combines wind and swell at the boarding ground, freeboard from declared draught and recorded pilot transfer deficiencies. The decision to board stays with the pilot and the master.", deliverable: "Boarding Advisory" },
         { title: "Anchorage safety", need: "Spot a ship dragging anchor before it reaches another.", hera: "Raises a drift alert within minutes from coastal AIS when an anchored ship leaves its swing circle as the wind rises.", deliverable: "Anchorage Watch" },
         { title: "Inspection targeting", need: "Inspect the ships most likely to fail.", hera: "Adds undeclared calls, identity changes and dark periods to the ship risk profile your inspectors already use. It informs selection under your port state control regime and does not replace it.", deliverable: "Inspection Priority List" },
         { title: "Arrival planning", need: "Plan berths on arrival times you can trust.", hera: "Predicts arrival at the pilot boarding ground from the observed track and weather, flags declared ETAs the track no longer supports, and reports waiting times at anchor.", deliverable: "Arrival Forecast" },
@@ -396,6 +400,8 @@ export const industries: Industry[] = [
     blocks: [],
     useCaseIds: ["identity"],
     roadmapNote: "",
+    walkthroughAudience: "Compliance teams, trade finance, sanctions screening",
+    walkthroughHeadline: "How HERA AI checks a ship's identity",
     closing: {
       headline: ["Test it on", "your recent deals."],
       body: "Send the ships behind a set of closed transactions. We return every indicator HERA AI raises, with its sources, for your compliance team to grade.",
@@ -437,10 +443,12 @@ export const industries: Industry[] = [
     blocks: [],
     useCaseIds: ["identity"],
     roadmapNote: "",
+    walkthroughAudience: "Ship operators, company security officers",
+    walkthroughHeadline: "How HERA AI checks a ship's identity",
     closing: { headline: ["Test it on", "your next voyage."], body: "Send us a route and the ships you run. We return the high-risk areas, jamming and dark ships along it, with the sources behind each.", button: "DISCUSS YOUR USE CASE" },
     rebuild: {
       roles: [],
-      afterMissions: { title: "On the roadmap", text: "Find a ship after it goes dark, with a second look by satellite or aircraft." },
+      afterMissions: { title: "On the roadmap", text: "In development: a second look by satellite or partner drone to find a ship after it goes dark." },
       signature: { title: "Voyage watch", stages: [{"key": "BEFORE THE VOYAGE", "title": "Route risk", "items": [{"label": "High-risk areas on route", "value": "2"}, {"label": "Jamming on route", "value": "Red Sea"}, {"label": "Dark ships near route, 7 days", "value": "14"}]}, {"key": "DURING THE VOYAGE", "title": "Live alerts", "items": [{"label": "Entered high-risk area", "value": "Gulf of Aden"}, {"label": "Positions jammed nearby", "value": "38 ships"}, {"label": "Your ship gone dark", "value": "None"}]}, {"key": "IF SOMETHING HAPPENS", "title": "Incident view", "items": [{"label": "Last checked position", "value": "Kept with its sources"}, {"label": "Ships nearby", "value": "6"}, {"label": "Brief to your security team", "value": "Sent with sources"}]}] },
       missions: [{"title": "Piracy and high-risk areas", "need": "Know when a ship enters waters with a piracy risk.", "hera": "Raises an alert when a ship enters the Gulf of Aden, the Gulf of Guinea or any zone you draw.", "deliverable": "High-Risk Area Alert"}, {"title": "Hijacking and seizure", "need": "Know at once when one of your ships stops reporting or goes where it should not.", "hera": "Flags the moment a watched ship goes dark or enters waters it should not, with its last checked position.", "deliverable": "Ship Safety Alert"}, {"title": "Jamming on your route", "need": "Know where satellite positioning cannot be trusted today.", "hera": "Maps where reported positions are jammed or faked along your route.", "deliverable": "Interference Map"}],
       deliverables: [],
@@ -459,10 +467,12 @@ export const industries: Industry[] = [
     blocks: [],
     useCaseIds: ["identity"],
     roadmapNote: "",
+    walkthroughAudience: "Rescue coordination centres, coast guards",
+    walkthroughHeadline: "How HERA AI checks a ship's identity",
     closing: { headline: ["Test it on", "a past incident."], body: "Name a past rescue or incident. We rebuild the tracks and the ships around it, with the sources behind each point.", button: "DISCUSS YOUR USE CASE" },
     rebuild: {
       roles: [],
-      afterMissions: { title: "On the roadmap", text: "Find small boats that carry no transponder, with our airborne and satellite sensors." },
+      afterMissions: { title: "On the roadmap", text: "In development: finding small boats that carry no transponder, with our own satellite sensors and partner drones." },
       signature: { title: "Distress response", stages: [{"key": "THE CALL", "title": "Distress context", "items": [{"label": "Ship identity", "value": "Verified"}, {"label": "Owner and manager", "value": "Known"}, {"label": "Last checked position", "value": "4 min ago"}]}, {"key": "THE AREA", "title": "Ships that can help", "items": [{"label": "Ships within 20 nm", "value": "5"}, {"label": "Nearest merchant ship", "value": "7 nm"}, {"label": "Storm zone drawn", "value": "Yes"}]}, {"key": "AFTER THE EVENT", "title": "Investigation", "items": [{"label": "Track rebuilt", "value": "72 h"}, {"label": "Dark periods", "value": "1"}, {"label": "Meetings at sea", "value": "None"}]}] },
       missions: [{"title": "Distress context pack", "need": "Act on a distress call that gives only a rough position.", "hera": "Shows the ship's identity, owner, manager and recent track in one view.", "deliverable": "Distress Context Pack"}, {"title": "Ships that can assist", "need": "Know which ships are close enough to help.", "hera": "Lists every ship around the position, with its type, distance and who manages it.", "deliverable": "Nearby Ships List"}, {"title": "Storm and incident zones", "need": "Know every ship inside a storm or an incident area.", "hera": "Draw the area once and see every ship inside it, updated as reports arrive.", "deliverable": "Zone Ship List"}, {"title": "Investigations", "need": "Rebuild what happened after an incident.", "hera": "Rebuilds a ship's track, dark periods and meetings at sea, with the source behind each point.", "deliverable": "Incident Reconstruction"}],
       deliverables: [],
