@@ -123,7 +123,7 @@ function IndustryPage() {
             </section>
             <UseCasesSection
               sensorLabels={i.rebuild.sensorLabels}
-              cases={[allCases.find((c) => c.id === i.useCaseIds[0])!].filter(Boolean).map((c) => (i.walkthroughAudience ? { ...c, audience: i.walkthroughAudience } : c))}
+              cases={[allCases.find((c) => c.id === i.useCaseIds[0])!].filter(Boolean).map((c) => (i.walkthroughAudience ? { ...c, geo: c.geo ?? useCases.indexOf(c), audience: i.walkthroughAudience } : c))}
               sectionId="see-it-work"
               eyebrow="Use case"
               headline={[i.walkthroughHeadline ?? `How it works for ${BUYER[i.slug] ?? "you"}`, ""]}
