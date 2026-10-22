@@ -33,8 +33,8 @@ export function HeroSection() {
             <div className="pointer-events-none absolute -inset-x-12 -inset-y-9 bg-[radial-gradient(ellipse_at_center,rgba(6,12,21,0.9)_0%,rgba(6,12,21,0.6)_45%,transparent_76%)] blur-2xl" />
             <p className="hero-lead relative text-pretty text-[15px] font-normal leading-[1.75] text-foreground/90 sm:text-lg">
               SEKER aggregates and analyses vessel tracking, identity and
-              sanctions data to identify potentially suspicious activity and
-              support vessel due diligence and risk monitoring.{" "}
+              sanctions data allowing you to identify potentially suspicious
+              activity, support vessel due diligence and monitor risks.
               <br className="hidden sm:block" />
               {" "}Every answer is checked against independent data.
 
@@ -305,7 +305,7 @@ export function ProblemSection() {
       <SectionBackground src={ocean} alt="Moonlit dark sea" overlay="bg-navy-deep/92" />
       <div className="relative z-10 mx-auto max-w-5xl text-center">
         <Reveal>
-          <p className="text-eyebrow text-gold">Why accuracy matters</p>
+          <p className="text-eyebrow text-gold">WHY ACCURACY MATTERS</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
@@ -314,7 +314,8 @@ export function ProblemSection() {
         </Reveal>
         <Reveal delay={0.15}>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-            Every ship reports its own name and position. That signal is self-declared. It can be switched off or faked. More ships do it every year. Any decision built on it is only as good as the ship's honesty.
+            Every ship reports its own name and position. That signal is self-declared and can be switched off or faked. More ships do this every year.&nbsp;
+            <br />Any decision built on it is only as good as the ship's honesty.
           </p>
         </Reveal>
         <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
