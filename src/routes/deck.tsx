@@ -211,10 +211,11 @@ const SLIDES: { title: string; node: ReactNode }[] = [
       <>
         <Bg src={ocean} dim="bg-navy-deep/70" />
         <Text>
-          <Eyebrow>Strait of Hormuz, 2026</Eyebrow>
-          <Headline a="When the Strait closes," b="the signal stops telling the truth." />
+          <Eyebrow>Why now</Eyebrow>
+          <Headline a="Tension at sea keeps rising." b="Hormuz is one example, not the reason." />
         </Text>
         <div className="deck-text absolute bottom-[110px] left-[120px] z-10">
+          <p className="mb-4 font-mono text-[18px] uppercase tracking-[0.2em] text-gold">One example · Strait of Hormuz, 2026</p>
           <StatTiles items={[["138 → <10", "Cargo ships crossing a day, 2025 vs October 2026", "text-gold"], ["52%", "Of traffic moved with AIS switched off in September", "text-alert"], ["0.25% → 10%", "War-risk premium as a share of a ship's value", "text-cyan"], ["$330bn", "Extra paid by fuel importers, March to August 2026", "text-gold"]]} />
           <p className="mt-5 font-mono text-[16px] tracking-[0.2em] text-muted-foreground">JMIC OCT 2026 · WINDWARD Q3 2026 · MARSH; INSURANCE BUSINESS 2026 · CREA 2026</p>
         </div>
