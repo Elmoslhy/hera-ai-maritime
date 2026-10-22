@@ -28,7 +28,7 @@ export const Route = createFileRoute("/company")({
 const BELIEFS: [string, string][] = [
   ["Accuracy over volume", "Every ship checked field by field, so each answer can be trusted."],
   ["Independent of what ships report", "We check what every ship broadcasts against independent sources, and our own sensors will add more."],
-  ["Built in Europe, working worldwide", "Designed and operated in Luxembourg under European rules, for customers around the world."],
+  ["Built in Europe, working worldwide", "An EU-developed maritime intelligence platform with EU-owned intellectual property, EU-based operations, and sensitive data stored, analysed and accessed exclusively within the EU. Serving customers around the world."],
 ];
 
 const TEAM = [
