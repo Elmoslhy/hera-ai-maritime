@@ -32,11 +32,11 @@ export function HeroSection() {
             {/* soft navy scrim so the copy stays readable over the bright side of the Earth */}
             <div className="pointer-events-none absolute -inset-x-12 -inset-y-9 bg-[radial-gradient(ellipse_at_center,rgba(6,12,21,0.9)_0%,rgba(6,12,21,0.6)_45%,transparent_76%)] blur-2xl" />
             <p className="hero-lead relative text-pretty text-[15px] font-normal leading-[1.75] text-foreground/90 sm:text-lg">
-              SEKER aggregates and analyses vessel tracking, identity and
-              sanctions data allowing you to identify potentially suspicious
-              activity, support vessel due diligence and monitor risks.
+              SEKER's HERA AI platform aggregates and analyses vessel tracking,
+              identity and sanctions data allowing you to identify potentially
+              suspicious activity, support vessel due diligence and monitor risks.
               <br className="hidden sm:block" />
-              {" "}Every answer is checked against independent data.
+              Every answer is checked against independent data.
 
             </p>
           </div>
@@ -314,15 +314,16 @@ export function ProblemSection() {
         </Reveal>
         <Reveal delay={0.15}>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-            Every ship reports its own name and position. That signal is self-declared and can be switched off or faked. More ships do this every year.&nbsp;
-            <br />Any decision built on it is only as good as the ship's honesty.
+            Every ship reports its own name and position from a transponder. Signals are self-declared and can be switched off or faked.&nbsp;
+            <br />More ships do this every year.&nbsp;
+            <br /><br />Any decision built on self-reported is only as good as the ship's honesty.
           </p>
         </Reveal>
         <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
           {[
-            ["Insure the wrong ship", "You pay the claim."],
-            ["Trade with the wrong ship", "You pay the fine. Sanctions penalties now reach hundreds of millions."],
-            ["Miss the wrong ship", "The drugs, the illegal catch or the threat gets through."],
+            ["INSURE THE WRONG SHIP", "You pay the claim."],
+            ["TRADE WITH THE WRONG SHIP", "You pay the fine. Sanctions penalties now reach hundreds of millions."],
+            ["MISS THE WRONG SHIP", "The drugs, the illegal catches or the threats get through."],
           ].map(([t, d]) => (
             <div key={t} className="bg-navy px-6 py-8">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t}</p>
@@ -332,7 +333,8 @@ export function ProblemSection() {
         </div>
         <Reveal>
           <p className="text-pretty mx-auto mt-10 max-w-2xl text-lg leading-relaxed text-foreground">
-            That is why every HERA AI answer comes with a confidence score. You know how sure we are before you act.
+            Every HERA AI answer comes with a confidence score.&nbsp;
+            <br />You know how sure we are before you act.
           </p>
         </Reveal>
         <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
@@ -341,7 +343,7 @@ export function ProblemSection() {
           <StatBlock value={<span className="font-mono text-5xl text-alert">22</span>} label="GPS spoofing hotspots on the busiest sea lanes" />
         </div>
         <Reveal>
-          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">The cost of hidden ships and how HERA AI helps</p>
+          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">THE COST OF HIDDEN SHIPS AND HOW HERA AI HELPS</p>
         </Reveal>
         <div className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
           <StatBlock value={<span className="font-mono text-5xl text-gold">$426–652bn</span>} label="Global illegal drug trade every year. Most of it moves by sea." hera="Flags ships that go dark, meet at sea or change identity before they reach port." />
