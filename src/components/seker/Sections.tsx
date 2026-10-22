@@ -11,7 +11,7 @@ import { Reveal, SectionBackground } from "./primitives";
 
 export function HeroSection() {
   return (
-    <section className="relative flex h-screen items-center justify-center overflow-hidden">
+    <section className="relative flex h-screen items-center justify-center overflow-hidden pb-28">
       
       <div className="absolute inset-0 bg-navy-deep" />
       <HeroScene />
