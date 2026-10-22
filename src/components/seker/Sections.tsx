@@ -46,7 +46,7 @@ export function HeroSection() {
           <Link
             to="/"
             hash="contact"
-            className="mt-10 inline-block bg-gold px-8 py-4 font-mono text-[11px] tracking-[0.22em] text-navy-deep transition-opacity hover:opacity-90"
+            className="mt-10 inline-block bg-gold px-9 py-4 font-mono text-sm font-bold tracking-[0.22em] text-navy-deep transition-opacity hover:opacity-90"
           >
             BOOK A DEMO →
           </Link>
