@@ -37,23 +37,25 @@ function StatusBadge({ s, className = "" }: { s: Status; className?: string }) {
   );
 }
 
-const CAPS: [string, string, Status][] = [
-  ["Vessel digital twin", "One profile per ship, with every name, flag and transponder number it has used.", "live"],
-  ["Sanctions screening", "Five official lists from the US, UK, EU and Japan, with every version kept for audit.", "live"],
-  ["Identity risk", "Flag hopping, renaming and shared identities, each shown with its evidence.", "live"],
-  ["Track plausibility", "Reported movements checked against what a ship can physically do.", "live"],
-  ["Evidence on every answer", "Sources, method and time on every result, and gaps shown with a reason.", "live"],
-  ["Watched areas and alerts", "Draw an area or list a fleet, and get alerts as events happen.", "live"],
-  ["Ask HERA AI and briefings", "Answers in plain language, with their sources shown.", "live"],
-  ["API and data feeds", "The same intelligence as a feed, with its evidence attached.", "live"],
-  ["Meetings at sea", "Ship-to-ship meetings, filtered and scored for review.", "built"],
-  ["Network exposure", "Links to listed ships through meetings at sea.", "built"],
-  ["Coverage gaps", "Gaps in reporting, judged against where receivers can hear.", "built"],
-  ["Load line and cargo", "Draught against the permitted load line, with cargo inferred and labelled.", "built"],
-  ["Flag-state profile", "Flag standing, conventions, certificates and detention history.", "built"],
-  ["Pilot boarding risk", "What a pilot station should expect before a ship arrives.", "built"],
-  ["Port calls and voyage replay", "Every port call detected and every voyage replayed.", "dev"],
-  ["Satellite and drone tasking", "Send a satellite or a drone to take a second look.", "dev"],
+type Cap = { t: string; d: string; s: Status; meter?: boolean };
+
+const CAPS: Cap[] = [
+  { t: "Confidence on every answer", d: "Every result carries a confidence level, with the sources, method and time behind it, and gaps shown with a reason. You know how sure HERA AI is before you act.", s: "live", meter: true },
+  { t: "Vessel digital twin", d: "One profile per ship, with every name, flag and transponder number it has used.", s: "live" },
+  { t: "Sanctions screening", d: "Five official lists from the US, UK, EU and Japan, with every version kept for audit.", s: "live" },
+  { t: "Identity risk", d: "Flag hopping, renaming and shared identities, each shown with its evidence.", s: "live" },
+  { t: "Track plausibility", d: "Reported movements checked against what a ship can physically do.", s: "live" },
+  { t: "Watched areas and alerts", d: "Draw an area or list a fleet, and get alerts as events happen.", s: "live" },
+  { t: "Ask HERA AI and briefings", d: "Answers in plain language, with their sources shown.", s: "live" },
+  { t: "API and data feeds", d: "The same intelligence as a feed, with its evidence attached.", s: "live" },
+  { t: "Meetings at sea", d: "Ship-to-ship meetings, filtered and scored for review.", s: "built" },
+  { t: "Network exposure", d: "Links to listed ships through meetings at sea.", s: "built" },
+  { t: "Coverage gaps", d: "Gaps in reporting, judged against where receivers can hear.", s: "built" },
+  { t: "Load line and cargo", d: "Draught against the permitted load line, with cargo inferred and labelled.", s: "built" },
+  { t: "Flag-state profile", d: "Flag standing, conventions, certificates and detention history.", s: "built" },
+  { t: "Pilot boarding risk", d: "What a pilot station should expect before a ship arrives.", s: "built" },
+  { t: "Port calls and voyage replay", d: "Every port call detected and every voyage replayed.", s: "dev" },
+  { t: "Satellite and drone tasking", d: "Send a satellite or a drone to take a second look.", s: "dev" },
 ];
 
 const CASES = [
@@ -187,7 +189,7 @@ function IntelligencePage() {
               </div>
             </Reveal>
             <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {CAPS.map(([t, d, s], i) => (
+              {CAPS.map(({ t, d, s, meter }, i) => (
                 <Reveal key={t} delay={(i % 4) * 0.05} className={s === "live" ? "" : "hidden sm:block"}>
                   <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-6">
                     <div className="flex items-start justify-between gap-3">
@@ -196,12 +198,24 @@ function IntelligencePage() {
                     </div>
                     <h3 className="mt-4 text-lg font-light text-foreground">{t}</h3>
                     <p className="mt-2 text-sm font-light text-muted-foreground">{d}</p>
+                    {meter && (
+                      <div className="mt-4">
+                        <div className="flex justify-between font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
+                          <span>CONFIDENCE</span>
+                          <span className="text-gold">98%</span>
+                        </div>
+                        <div className="mt-1.5 h-[6px] overflow-hidden rounded-full bg-white/10">
+                          <div className="h-full rounded-full bg-gold transition-all duration-500" style={{ width: "98%" }} />
+                        </div>
+                        <p className="mt-2 font-mono text-[8px] tracking-[0.18em] text-muted-foreground/70">EXAMPLE</p>
+                      </div>
+                    )}
                   </div>
                 </Reveal>
               ))}
             </div>
             <ul className="mt-4 divide-y divide-white/10 rounded-lg border border-white/10 bg-navy/70 sm:hidden">
-              {CAPS.filter(([, , s]) => s !== "live").map(([t, , s]) => (
+              {CAPS.filter((c) => c.s !== "live").map(({ t, s }) => (
                 <li key={t} className="flex items-center justify-between gap-3 px-4 py-3">
                   <span className="min-w-0 text-sm font-light text-foreground">{t}</span>
                   <StatusBadge s={s} className="shrink-0" />
