@@ -11,7 +11,7 @@ import { Reveal, SectionBackground } from "./primitives";
 
 export function HeroSection() {
   return (
-    <section className="relative flex h-screen items-center justify-center overflow-hidden">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20 pb-24">
       
       <div className="absolute inset-0 bg-navy-deep" />
       <HeroScene />
@@ -46,13 +46,13 @@ export function HeroSection() {
           <Link
             to="/"
             hash="contact"
-            className="mt-10 inline-block bg-gold px-8 py-4 font-mono text-[11px] tracking-[0.22em] text-navy-deep transition-opacity hover:opacity-90"
+            className="mt-10 inline-block bg-gold px-9 py-4 font-mono text-sm font-bold tracking-[0.22em] text-navy-deep transition-opacity hover:opacity-90"
           >
             BOOK A DEMO →
           </Link>
         </Reveal>
       </div>
-      <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3">
+      <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2">
         <span className="font-mono text-[9px] tracking-[0.3em] text-muted-foreground/70">
           SCROLL TO EXPLORE
         </span>
