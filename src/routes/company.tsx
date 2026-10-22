@@ -69,7 +69,7 @@ function CompanyPage() {
               </h1>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="text-pretty mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">{DESC}</p>
+              <p className="text-pretty mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">{HERO}</p>
             </Reveal>
           </div>
         </section>
