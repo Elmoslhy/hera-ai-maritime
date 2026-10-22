@@ -343,7 +343,7 @@ export function ProblemSection() {
           <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">The cost of hidden ships and how HERA AI helps</p>
         </Reveal>
         <div className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
-          <StatBlock value={<span className="font-mono text-5xl text-gold">$426–652bn</span>} label="Global illegal drug trade every year. Colombia, the largest cocaine producer, ships mostly by sea." hera="Flags ships that go dark, meet at sea or change identity before they reach port." />
+          <StatBlock value={<span className="font-mono text-5xl text-gold">$426–652bn</span>} label="Global illegal drug trade every year. Most of it moves by sea." hera="Flags ships that go dark, meet at sea or change identity before they reach port." />
           <StatBlock value={<span className="font-mono text-5xl text-cyan">$26–50bn</span>} label="Lost to illegal fishing every year, worldwide" hera="Shows which fishing ships switched off or worked where they should not be." />
           <StatBlock value={<span className="font-mono text-5xl text-alert">$275M</span>} label="One US sanctions penalty for ships with spoofed AIS" hera="Screens every ship and its owners on five official lists, with a full audit trail." />
         </div>
@@ -357,13 +357,19 @@ export function ProblemSection() {
 
 const WHY_NOW: [string, string, string][] = [
   ["138 → <10", "Cargo ships crossing a day, 2025 vs October 2026", "text-alert"],
-  ["52%", "Of traffic moved with AIS switched off in September", "text-gold"],
-  ["61%", "Of logged transits in August were false, caused by jamming", "text-alert"],
   ["0.25% → 10%", "War-risk premium as a share of a ship's value", "text-cyan"],
 ];
 
+const FLASHPOINTS: [string, string][] = [
+  ["Strait of Hormuz", "Traffic collapses, ships go dark and positions are jammed."],
+  ["Red Sea", "Attacks on shipping have pushed trade around Africa."],
+  ["Black Sea", "War-risk zones, grain corridors and sanctions evasion."],
+  ["Baltic Sea", "Shadow tankers and damage to undersea cables."],
+  ["South China Sea", "Disputed waters on one of the busiest trade routes."],
+];
+
 const HORMUZ_DOES: [string, string][] = [
-  ["See what is really happening", "Which ships really cross, which wait at anchor and which positions are jammed or fake."],
+  ["See what is really happening", "Which ships really pass a chokepoint, which wait at anchor and which positions are jammed or fake."],
   ["Keep ships clear of danger", "Alerts on jamming, dark ships and seizures in the waters you sail."],
   ["Price the real risk", "Where a ship really was and who it really is, before you set the war-risk premium."],
   ["Read supply early", "Real transits, waiting tankers and dark convoys, for oil, gas and freight markets."],
@@ -380,21 +386,36 @@ export function WhyNowSection() {
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-            When the Strait of Hormuz closed, the ship's own signal stopped telling the truth.
+            Tension at sea keeps rising.
+            <span className="mt-2 block text-gold">Every flashpoint makes a ship's own signal less reliable.</span>
           </h2>
         </Reveal>
-        <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-2">
+        <Reveal delay={0.1}>
+          <p className="text-pretty mx-auto mt-8 max-w-2xl text-base leading-relaxed text-foreground/85">
+            Conflict, sanctions and signal jamming now reach every major sea lane, from the Gulf and the Red Sea to the Black Sea, the Baltic and the waters of Asia. Each flashpoint pushes more ships to go dark or fake their position, and more insurers, traders, ports and navies to look for answers that do not depend on what a ship reports.
+          </p>
+        </Reveal>
+        <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left backdrop-blur-sm sm:grid-cols-2 lg:grid-cols-5">
+          {FLASHPOINTS.map(([t, l]) => (
+            <div key={t} className="bg-navy px-5 py-6">
+              <p className="text-base text-gold">{t}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">One example · Strait of Hormuz, 2026</p>
+        <div className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-2">
           {WHY_NOW.map(([v, l, t]) => (
             <StatBlock key={l} value={<span className={`font-mono text-4xl sm:text-5xl ${t}`}>{v}</span>} label={l} />
           ))}
         </div>
         <Reveal delay={0.1}>
           <p className="text-pretty mx-auto mt-10 max-w-2xl text-base leading-relaxed text-foreground/85">
-            Every insurer, trader, port and navy in the region now needs answers that do not depend on the ship's own signal.
+            Hormuz will not be the last flashpoint. The need for independent answers grows with each one.
           </p>
         </Reveal>
         <Reveal delay={0.15}>
-          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">What HERA AI does in the Strait</p>
+          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">What HERA AI does when tension rises</p>
         </Reveal>
         <div className="mt-5 overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left backdrop-blur-sm">
           {HORMUZ_DOES.map(([t, l], i) => (
@@ -406,7 +427,7 @@ export function WhyNowSection() {
         </div>
         <p className="mt-4 text-sm text-muted-foreground">On the HERA AI platform, by API or as written briefings.</p>
         <p className="mt-5 font-mono text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground/70">
-          JMIC OCT 2026 · WINDWARD Q3 2026 · MARSH; INSURANCE BUSINESS 2026
+          JMIC OCT 2026 · MARSH; INSURANCE BUSINESS 2026
         </p>
       </div>
     </section>
