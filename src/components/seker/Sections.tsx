@@ -346,7 +346,7 @@ export function ProblemSection() {
           <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">THE COST OF HIDDEN SHIPS AND HOW HERA AI HELPS</p>
         </Reveal>
         <div className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
-          <StatBlock value={<span className="font-mono text-5xl text-gold">$426–652bn</span>} label="Global illegal drug trade every year. Most of it moves by sea." hera="Flags ships that go dark, meet at sea or change identity before they reach port." />
+          <StatBlock value={<span className="font-mono text-5xl text-gold">$426–652bn</span>} label={"Annual global illegal drug trade\nMajority moves by sea"} hera="Flags ships that go dark, meet at sea or change identity before they reach port." />
           <StatBlock value={<span className="font-mono text-5xl text-cyan">$26–50bn</span>} label="Lost to illegal fishing every year, worldwide" hera="Shows which fishing ships switched off or worked where they should not be." />
           <StatBlock value={<span className="font-mono text-5xl text-alert">$275M</span>} label="One US sanctions penalty for ships with spoofed AIS" hera="Screens every ship and its owners on five official lists, with a full audit trail." />
         </div>
@@ -461,7 +461,7 @@ function StatBlock({ value, label, hera }: { value: React.ReactNode; label: stri
     <div className="flex flex-col bg-navy px-6 py-10">
       <Reveal className={hera ? "flex flex-1 flex-col" : undefined}>
         {value}
-        <p className="mt-3 font-mono text-[9px] leading-relaxed tracking-[0.18em] text-muted-foreground">
+        <p className="mt-3 whitespace-pre-line font-mono text-[9px] leading-relaxed tracking-[0.18em] text-muted-foreground">
           {label.toUpperCase()}
         </p>
         {hera && (
