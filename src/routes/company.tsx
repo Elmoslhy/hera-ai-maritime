@@ -8,6 +8,8 @@ import akash from "@/assets/team/akash-sharma.jpg";
 const TITLE = "Company | SEKER";
 const DESC =
   "SEKER Space Intelligence is a Luxembourg company building independent maritime intelligence for the people who act on the sea.";
+const HERO =
+  "SEKER Space Intelligence is a Luxembourg company. We aggregate and analyse vessel tracking, identity and sanctions data to identify potentially suspicious activity and support vessel due diligence and risk monitoring, for customers worldwide.";
 
 export const Route = createFileRoute("/company")({
   head: () => ({
@@ -25,8 +27,8 @@ export const Route = createFileRoute("/company")({
 
 const BELIEFS: [string, string][] = [
   ["Accuracy over volume", "Every ship checked field by field, so each answer can be trusted."],
-  ["Independent of what ships report", "We measure for ourselves instead of relying on what ships broadcast."],
-  ["Built in Europe", "Designed and operated in Luxembourg, under European rules."],
+  ["Independent of what ships report", "We check what every ship broadcasts against independent sources, and our own sensors will add more."],
+  ["Built in Europe, working worldwide", "Designed and operated in Luxembourg under European rules, for customers around the world."],
 ];
 
 const TEAM = [
@@ -67,7 +69,7 @@ function CompanyPage() {
               </h1>
             </Reveal>
             <Reveal delay={0.2}>
-              <p className="text-pretty mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">{DESC}</p>
+              <p className="text-pretty mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">{HERO}</p>
             </Reveal>
           </div>
         </section>

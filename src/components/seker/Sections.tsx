@@ -248,9 +248,9 @@ export function IndustriesSection() {
 }
 
 const WHY: [string, string][] = [
-  ["INDEPENDENT OBSERVATION", "Built on what we observe, not only on what ships choose to report."],
+  ["INDEPENDENT OBSERVATION", "Built on independent sources, not only on what ships choose to report."],
   ["GROUND TRUTH FROM PORTS", "Port sources worldwide confirm what ships actually did alongside."],
-  ["A SECOND LOOK ON DEMAND", "When an answer is in doubt, HERA AI sends a satellite or a partner drone from the nearest port to look."],
+  ["A SECOND LOOK ON DEMAND", "When an answer is in doubt, HERA AI will send a satellite or a partner drone from the nearest port to look."],
 ];
 
 const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "FUSED IN HERA AI"];
@@ -268,7 +268,7 @@ export function ConstellationSection() {
             Better data, by design.
           </h2>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Our own sensing, independent of any data reseller.
+            Independent sources today, our own sensors next.
           </p>
         </Reveal>
         <div className="mt-10 grid gap-4 text-left sm:grid-cols-3">
