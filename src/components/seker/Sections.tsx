@@ -315,15 +315,15 @@ export function ProblemSection() {
         <Reveal delay={0.15}>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
             Every ship reports its own name and position from a transponder. Signals are self-declared and can be switched off or faked.&nbsp;
-            <br />More ships do this every year.&nbsp;
-            <br /><br />Any decision built on self-reported is only as good as the ship's honesty.
+            <br />Any decision built on self-reported data inherits its blind spots.&nbsp;
+            <br />Europe cannot enforce sanctions, protect seabed infrastructure, or police its waters on a ship’s own reported data.
           </p>
         </Reveal>
         <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
           {[
-            ["INSURE THE WRONG SHIP", "You pay the claim."],
-            ["TRADE WITH THE WRONG SHIP", "You pay the fine. Sanctions penalties now reach hundreds of millions."],
-            ["MISS THE WRONG SHIP", "The drugs, the illegal catches or the threats get through."],
+            ["INSURING THE WRONG SHIP", "You pay the claim."],
+            ["TRADING WITH THE WRONG SHIP", "You pay the fine. Sanctions penalties now reach hundreds of millions."],
+            ["MISSING THE WRONG SHIP", "The drugs, the illegal catches or the threats get through."],
           ].map(([t, d]) => (
             <div key={t} className="bg-navy px-6 py-8">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t}</p>
