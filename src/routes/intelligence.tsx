@@ -5,6 +5,7 @@ import { UseCasesSection } from "@/components/seker/UseCases";
 import { WorkspaceSection } from "@/components/seker/Workspace";
 import { TaskingScreen } from "@/components/seker/TaskingMap";
 import { AlertCards } from "@/components/seker/Insights";
+import { GetItSection } from "@/components/seker/Sections";
 import { HeroHud } from "@/components/seker/HeroScene";
 import vessels from "@/assets/vessels-bright.jpg";
 import {
@@ -67,8 +68,8 @@ function Chapter({ i, title, line, status, children }: { i: number; title: strin
   const flip = i % 2 === 1;
   return (
     <section className={`px-6 py-20 ${flip ? "bg-navy-deep" : "bg-navy"}`}>
-      <div className={`mx-auto grid max-w-7xl items-center gap-10 ${flip ? "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]"}`}>
-        <Reveal className={flip ? "lg:order-2" : ""}>
+      <div className={`mx-auto grid max-w-7xl items-center gap-10 lg:items-start ${flip ? "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]"}`}>
+        <Reveal className={`lg:sticky lg:top-28 ${flip ? "lg:order-2" : ""}`}>
           <div className="flex items-center gap-3">
             <span className="font-mono text-xs tracking-[0.24em] text-gold">0{i + 1}</span>
             <StatusBadge s={status} />
@@ -137,8 +138,8 @@ function IntelligencePage() {
         <section className="relative flex min-h-screen items-center px-6 py-32">
           <SectionBackground src={vessels} alt="Vessels at sea seen from orbit" overlay="bg-gradient-to-b from-navy/70 via-navy/10 to-navy/85" imgClassName="brightness-105 saturate-105">
             {/* Pinned to real ships in the photo: centre tanker and lower right tanker */}
-            <Reticle className="left-[52%] top-[52.5%] h-[28%] w-[10%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.matched} tone="cyan" />
-            <Reticle className="hidden sm:block left-[71%] top-[59%] h-[22%] w-[9%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.dark} tone="alert" />
+            <Reticle className="hidden sm:block left-[52%] top-[52.5%] h-[28%] w-[10%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.matched} tone="cyan" />
+            <Reticle className="hidden sm:block left-[71%] lg:left-[57%] top-[59%] h-[22%] w-[9%] -translate-x-1/2 -translate-y-1/2" tag={h.tags.dark} tone="alert" />
           </SectionBackground>
           <HeroHud large />
           <div className="relative mx-auto w-full max-w-7xl">
@@ -187,7 +188,7 @@ function IntelligencePage() {
             </Reveal>
             <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {CAPS.map(([t, d, s], i) => (
-                <Reveal key={t} delay={(i % 4) * 0.05}>
+                <Reveal key={t} delay={(i % 4) * 0.05} className={s === "live" ? "" : "hidden sm:block"}>
                   <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-6">
                     <div className="flex items-start justify-between gap-3">
                       <span className={`mt-1 block h-1.5 w-1.5 shrink-0 rounded-full ${STATUS[s].dot}`} />
@@ -199,6 +200,14 @@ function IntelligencePage() {
                 </Reveal>
               ))}
             </div>
+            <ul className="mt-4 divide-y divide-white/10 rounded-lg border border-white/10 bg-navy/70 sm:hidden">
+              {CAPS.filter(([, , s]) => s !== "live").map(([t, , s]) => (
+                <li key={t} className="flex items-center justify-between gap-3 px-4 py-3">
+                  <span className="min-w-0 text-sm font-light text-foreground">{t}</span>
+                  <StatusBadge s={s} className="shrink-0" />
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
@@ -217,14 +226,7 @@ function IntelligencePage() {
 
         <UseCasesSection cases={CASES} eyebrow="Use cases" headline={["See it work.", ""]} />
 
-        <section className="bg-navy-deep px-6 py-16 text-center">
-          <Reveal>
-            <p className="text-eyebrow text-gold">How you get it</p>
-            <p className="mt-6 font-mono text-lg tracking-[0.24em] text-foreground sm:text-2xl">
-              Platform <span className="text-gold">·</span> API <span className="text-gold">·</span> Briefings
-            </p>
-          </Reveal>
-        </section>
+        <GetItSection />
 
         <section className="bg-navy px-6 py-28 text-center">
           <Reveal>

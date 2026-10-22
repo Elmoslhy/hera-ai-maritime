@@ -213,7 +213,7 @@ export function HeroHud({ large = false }: { large?: boolean }) {
             <div>
               <p className={`font-mono leading-none text-foreground ${s("text-[13px]", "text-[17px]")}`}>M/V ARGEST</p>
               <p className={`mt-1.5 font-mono tracking-[0.12em] text-muted-foreground ${s("text-[9px]", "text-[11px] leading-[1.6]")}`}>
-                IMO 9412783{large ? <br /> : " · "}35.8104N 14.4903E
+                IMO 94XXXX7{large ? <br /> : " · "}35.8104N 14.4903E
               </p>
             </div>
             <span className={`rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono tracking-[0.14em] text-gold ${s("text-xs", "text-[13px]")}`}>
@@ -318,7 +318,7 @@ export function HeroShipCard() {
         <div className="flex items-end justify-between border-b border-white/5 px-3 py-3">
           <div>
             <p className="font-mono text-[16px] leading-none text-foreground">M/V ARGEST</p>
-            <p className="mt-1.5 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">IMO 9412783</p>
+            <p className="mt-1.5 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">IMO 94XXXX7</p>
           </div>
           <span className="rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono text-[13px] tracking-[0.14em] text-gold">VERIFIED</span>
         </div>
