@@ -29,6 +29,7 @@ export const Route = createFileRoute("/careers/$slug")({
       hiringOrganization: {
         "@type": "Organization",
         name: "Seker Space Intelligence",
+        legalName: "Seker Space Intelligence S.à r.l.", address: { "@type": "PostalAddress", streetAddress: "68, avenue de la Liberté", postalCode: "L-1930", addressLocality: "Luxembourg", addressCountry: "LU" },
         sameAs: "https://seker-space.com",
       },
       jobLocation: {

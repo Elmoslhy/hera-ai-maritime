@@ -198,7 +198,10 @@ export function Footer() {
           EU-DEVELOPED · EU-OWNED IP · EU-BASED OPERATIONS · EU DATA RESIDENCY
         </p>
         <p className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
-          © 2026 SEKER SPACE INTELLIGENCE S.A. · LUXEMBOURG · SEKER-SPACE.COM
+          © 2026 SEKER SPACE INTELLIGENCE S.À R.L. · LUXEMBOURG · SEKER-SPACE.COM
+        </p>
+        <p className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
+          Registered office: 68, avenue de la Liberté, L-1930 Luxembourg
         </p>
       </div>
     </footer>

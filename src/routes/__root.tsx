@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "SEKER Space Intelligence" },
       { name: "description", content: "Verified maritime intelligence from orbit." },
-      { name: "author", content: "Seker Space Intelligence S.A." },
+      { name: "author", content: "Seker Space Intelligence S.à r.l." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

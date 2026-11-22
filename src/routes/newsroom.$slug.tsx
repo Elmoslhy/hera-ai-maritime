@@ -14,7 +14,7 @@ export const Route = createFileRoute("/newsroom/$slug")({
     const n = loaderData.item;
     const title = `${n.title} | Seker Space Intelligence`;
     const img = SITE_URL + n.image;
-    const org = { "@type": "Organization", name: "Seker Space Intelligence" };
+    const org = { "@type": "Organization", name: "Seker Space Intelligence", legalName: "Seker Space Intelligence S.à r.l.", address: { "@type": "PostalAddress", streetAddress: "68, avenue de la Liberté", postalCode: "L-1930", addressLocality: "Luxembourg", addressCountry: "LU" } };
     const ld = {
       "@context": "https://schema.org",
       "@type": "NewsArticle",
