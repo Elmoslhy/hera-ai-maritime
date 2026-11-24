@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import satellite from "@/assets/satellite-real.png";
 import earthTexture from "@/assets/earth-texture.jpg";
+import { OCEAN_MASK_B64 } from "./oceanMask";
 
 type Orbit = {
   /** semi-major axis, % of stage */
@@ -23,67 +24,356 @@ const ORBITS: Orbit[] = [
   { r: 42.5, flatten: 0.14, tilt: 4, period: 27, phase: 0.78, sat: 42 },
 ];
 
-// vessel pings on the ocean, in % of the globe box
-const VESSELS = [
-  { x: 30, y: 44, delay: 0 },
-  { x: 62, y: 33, delay: 1.4 },
-  { x: 71, y: 58, delay: 2.6 },
-  { x: 24, y: 66, delay: 3.4 },
-  { x: 47, y: 74, delay: 4.2 },
-  { x: 78, y: 46, delay: 5.1 },
+// ---- Hero: today's Seker globe (ship traffic, satellites, dark-vessel finds) ----
+const SPIN_SECONDS = 140;
+
+// main shipping lanes as [lon, lat] waypoints
+const LANES: [number, number][][] = [
+  [[4, 52], [-2, 50], [-9, 44], [-9.5, 38], [-5.6, 36], [5, 37.5], [14, 35.5], [25, 34], [32.3, 31.6], [33.5, 27], [38, 20], [43.4, 12.6], [52, 12.5], [65, 10], [80.5, 5.8], [92, 6], [98, 4], [103.8, 1.3]],
+  [[103.8, 1.3], [110, 8], [114, 21], [122.5, 30.5], [129, 33], [135, 33.5], [140, 35]],
+  [[140, 35], [160, 40], [180, 42], [-160, 42], [-140, 40], [-125, 36], [-118, 33.5]],
+  [[-118, 33.5], [-105, 20], [-92, 13], [-79.5, 8]],
+  [[-79.5, 9.5], [-77, 16], [-75, 24], [-74, 33], [-73.5, 40]],
+  [[-73.5, 40], [-55, 42], [-40, 44], [-20, 46], [-9, 44]],
+  [[56.5, 26.5], [58.5, 23.5], [62, 20], [65, 15], [72, 10], [80.5, 5.8]],
+  [[103.8, 1.3], [96, -6], [80, -12], [60, -25], [40, -32], [20, -35.5], [8, -25], [0, -10], [-12, 5], [-17, 15], [-15, 28], [-9.5, 38]],
+  [[-46, -24.5], [-38, -14], [-32, -5], [-24, 5], [-17, 15]],
+  [[103.8, 1.3], [110, -6], [115, -20], [114, -32], [130, -36], [151, -34]],
+  [[122.5, 30.5], [125, 20], [128, 10], [120, 0], [115, -8]],
+  [[-5.6, 36], [-20, 32], [-45, 25], [-66, 18], [-79.5, 9.5]],
+  [[4, 52], [8, 55], [12, 57], [18, 58]],
+];
+// busiest ports: [lon, lat, ships]
+const PORTS: [number, number, number][] = [
+  [103.8, 1.3, 26], [121.8, 31, 24], [4, 51.9, 20], [56.3, 26.4, 16], [114.2, 22.3, 18], [-118.2, 33.7, 14],
+  [-74, 40.6, 12], [32.4, 31.3, 10], [129, 35.1, 12], [55.1, 25, 12], [-46.3, -24, 8], [18.4, -33.9, 6], [151.2, -33.9, 6],
 ];
 
+let MASK: Uint8Array | null = null;
+function isOcean(lon: number, lat: number) {
+  if (!MASK) {
+    const bin = atob(OCEAN_MASK_B64);
+    MASK = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) MASK[i] = bin.charCodeAt(i);
+  }
+  const x = Math.floor(((((lon + 180) % 360) + 360) % 360));
+  const y = Math.min(179, Math.max(0, Math.floor(90 - lat)));
+  const i = y * 360 + x;
+  return ((MASK[i >> 3] ?? 0) >> (i & 7)) & 1;
+}
+
+// deterministic pseudo-random
+function rng(seed: number) {
+  let s = seed;
+  return () => ((s = (s * 16807) % 2147483647) - 1) / 2147483646;
+}
+
+type Ship = { u: number; v: number; b: number; tw: number };
+function buildShips() {
+  const r = rng(7);
+  const ships: Ship[] = [];
+  const lanePts: { u: number; v: number }[][] = [];
+  const toUV = (lon: number, lat: number) => ({ u: (lon + 180) / 360, v: (90 - lat) / 180 });
+  for (const lane of LANES) {
+    const pts: { u: number; v: number }[] = [];
+    for (let i = 0; i < lane.length - 1; i++) {
+      const [a0, b0] = lane[i]!;
+      let [a1, b1] = lane[i + 1]!;
+      if (a1 - a0 > 180) a1 -= 360;
+      if (a0 - a1 > 180) a1 += 360;
+      const len = Math.hypot(a1 - a0, b1 - b0);
+      const steps = Math.max(2, Math.round(len / 1.2));
+      for (let k = 0; k < steps; k++) {
+        const f = k / steps;
+        pts.push(toUV(a0 + (a1 - a0) * f, b0 + (b1 - b0) * f));
+        if (r() < 0.42) {
+          const lon = a0 + (a1 - a0) * f + (r() - 0.5) * 1.6;
+          const lat = b0 + (b1 - b0) * f + (r() - 0.5) * 1.6;
+          if (isOcean(lon, lat)) ships.push({ ...toUV(lon, lat), b: 0.45 + r() * 0.55, tw: r() * 6.28 });
+        }
+      }
+    }
+    lanePts.push(pts);
+  }
+  for (const [lon, lat, n] of PORTS) {
+    let placed = 0;
+    for (let tries = 0; tries < n * 12 && placed < n; tries++) {
+      const a = lon + (r() - 0.5) * 3.2;
+      const b = lat + (r() - 0.5) * 2.4;
+      if (isOcean(a, b)) {
+        ships.push({ ...toUV(a, b), b: 0.6 + r() * 0.4, tw: r() * 6.28 });
+        placed++;
+      }
+    }
+  }
+  return { ships, lanePts };
+}
+
 export function HeroScene() {
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const stageRef = useRef<HTMLDivElement | null>(null);
-  const satRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const beamRefs = useRef<(SVGLineElement | null)[]>([]);
+  const globeRef = useRef<HTMLDivElement | null>(null);
+  const textureRef = useRef<HTMLDivElement | null>(null);
+  const shipCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const fxCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    let raf = 0;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const t = (now - start) / 1000;
-      const W = stageRef.current?.offsetWidth ?? 700;
-      ORBITS.forEach((o, i) => {
-        const el = satRefs.current[i];
-        const a = ((t / o.period + o.phase) % 1) * Math.PI * 2;
-        // ellipse in the orbit plane, then tilted
-        const ex = Math.cos(a) * o.r;
-        const ey = Math.sin(a) * o.r * o.flatten;
-        const rad = (o.tilt * Math.PI) / 180;
-        const x = ex * Math.cos(rad) - ey * Math.sin(rad);
-        const y = ex * Math.sin(rad) + ey * Math.cos(rad);
-        // depth: +1 in front of the globe, -1 behind it
-        const depth = Math.sin(a);
-        const scale = 0.72 + 0.4 * ((depth + 1) / 2);
-        if (el) {
-          el.style.transform = `translate(-50%,-50%) translate(${(x / 100) * W}px, ${(y / 100) * W}px) scale(${scale})`;
-          el.style.opacity = String(depth > 0 ? 1 : 0.4);
-          el.style.zIndex = depth > 0 ? "3" : "1";
-          el.style.filter = depth > 0 ? "brightness(1.12) saturate(1.05)" : "brightness(0.5) blur(0.6px)";
-        }
-        const beam = beamRefs.current[i];
-        if (beam) {
-          const v = VESSELS[i * 2];
-          // globe occupies the stage inset by 10%
-          const vx = 10 + v.x * 0.8;
-          const vy = 10 + v.y * 0.8;
-          beam.setAttribute("x1", String(50 + x));
-          beam.setAttribute("y1", String(50 + y));
-          beam.setAttribute("x2", String(vx));
-          beam.setAttribute("y2", String(vy));
-          const near = Math.max(0, 1 - Math.hypot(50 + x - vx, 50 + y - vy) / 42);
-          beam.setAttribute("opacity", String(depth > 0.15 ? near * 0.85 : 0));
-        }
-      });
-      raf = requestAnimationFrame(tick);
+    const root = rootRef.current, stage = stageRef.current, globe = globeRef.current;
+    const tex = textureRef.current, sc = shipCanvasRef.current, fx = fxCanvasRef.current, panel = panelRef.current;
+    if (!root || !stage || !globe || !tex || !sc || !fx || !panel) return;
+    const sctx = sc.getContext("2d"), fctx = fx.getContext("2d");
+    if (!sctx || !fctx) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const { ships, lanePts } = buildShips();
+    const satImg = new Image();
+    satImg.src = satellite;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    let B = 0, RW = 0, RH = 0;
+    const resize = () => {
+      B = globe.offsetWidth;
+      RW = root.offsetWidth;
+      RH = root.offsetHeight;
+      sc.width = B * dpr; sc.height = B * dpr;
+      fx.width = RW * dpr; fx.height = RH * dpr;
+      fx.style.width = RW + "px"; fx.style.height = RH + "px";
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    resize();
+    const ro = new ResizeObserver(resize);
+    ro.observe(root);
+
+    const ROT = (-9 * Math.PI) / 180, SCL = 1.06;
+    // box point -> root coords
+    const project = (x: number, y: number, gr: DOMRect, rr: DOMRect) => {
+      const dx = x - B / 2, dy = y - B / 2;
+      const rx = (dx * Math.cos(ROT) - dy * Math.sin(ROT)) * SCL;
+      const ry = (dx * Math.sin(ROT) + dy * Math.cos(ROT)) * SCL;
+      const k = gr.width / B;
+      return { x: gr.left - rr.left + gr.width / 2 + rx * k, y: gr.top - rr.top + gr.height / 2 + ry * k };
+    };
+    const shipBox = (s: Ship, off: number) => {
+      let x = (s.u * 2 * B + off) % (2 * B);
+      if (x < 0) x += 2 * B;
+      return { x, y: s.v * B };
+    };
+    const avoidRects = () => {
+      const section = root.parentElement;
+      return section ? Array.from(section.querySelectorAll("[data-hero-avoid]")).map((e) => e.getBoundingClientRect()) : [];
+    };
+
+    const trails: { x: number; y: number }[][] = ORBITS.map(() => []);
+    let event: { ship: number; sat: number; start: number } | null = null;
+    let nextEvent = 2.2;
+    let running = true, visible = true, raf = 0, last = 0, simT = 0;
+
+    const frame = (t: number) => {
+      const gr = globe.getBoundingClientRect(), rr = root.getBoundingClientRect();
+      const off = -((t / SPIN_SECONDS) % 1) * 2 * B;
+      tex.style.backgroundPosition = `${off}px 50%`;
+
+      // ---- ships + lanes, locked to the texture ----
+      sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      sctx.clearRect(0, 0, B, B);
+      sctx.strokeStyle = "rgba(215,178,74,0.22)";
+      sctx.lineWidth = Math.max(0.6, B / 900);
+      for (const pts of lanePts) {
+        for (const shift of [0, 2 * B, -2 * B]) {
+          sctx.beginPath();
+          let prev: number | null = null;
+          for (const p of pts) {
+            const x = p.u * 2 * B + ((off % (2 * B)) + shift);
+            const y = p.v * B;
+            if (prev !== null && Math.abs(x - prev) < B * 0.3) sctx.lineTo(x, y);
+            else sctx.moveTo(x, y);
+            prev = x;
+          }
+          sctx.stroke();
+        }
+      }
+      const rad = Math.max(0.9, B / 640);
+      ships.forEach((s, i) => {
+        const p = shipBox(s, off);
+        if (p.x > B + 4) return;
+        const dark = event && event.ship === i;
+        const a = s.b * (0.75 + 0.25 * Math.sin(t * 1.3 + s.tw)) * (dark ? 0.15 : 1);
+        sctx.fillStyle = `rgba(255,255,255,${a * 0.22})`;
+        sctx.beginPath(); sctx.arc(p.x, p.y, rad * 2.6, 0, 6.283); sctx.fill();
+        sctx.fillStyle = `rgba(255,255,255,${a})`;
+        sctx.beginPath(); sctx.arc(p.x, p.y, rad, 0, 6.283); sctx.fill();
+      });
+
+      // ---- satellites ----
+      fctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      fctx.clearRect(0, 0, RW, RH);
+      const sr = stage.getBoundingClientRect();
+      const W = sr.width, cx = sr.left - rr.left + W / 2, cy = sr.top - rr.top + W / 2;
+      const globeR = gr.width / 2;
+      const sats = ORBITS.map((o, i) => {
+        const a = ((t / o.period + o.phase) % 1) * Math.PI * 2;
+        const rad2 = (o.tilt * Math.PI) / 180;
+        const pos = (ang: number) => {
+          const ex = Math.cos(ang) * o.r, ey = Math.sin(ang) * o.r * o.flatten;
+          return { x: cx + ((ex * Math.cos(rad2) - ey * Math.sin(rad2)) / 100) * W, y: cy + ((ex * Math.sin(rad2) + ey * Math.cos(rad2)) / 100) * W };
+        };
+        // gold front half of the orbit
+        fctx.beginPath();
+        for (let k = 0; k <= 48; k++) {
+          const p = pos((k / 48) * Math.PI);
+          if (k) fctx.lineTo(p.x, p.y); else fctx.moveTo(p.x, p.y);
+        }
+        fctx.strokeStyle = "rgba(215,178,74,0.32)";
+        fctx.lineWidth = 1;
+        fctx.stroke();
+        const p = pos(a);
+        const depth = Math.sin(a);
+        const hidden = depth < 0 && Math.hypot(p.x - cx, p.y - cy) < globeR * 1.02;
+        const tr = trails[i]!;
+        tr.push(p);
+        if (tr.length > 26) tr.shift();
+        return { p, depth, hidden, size: o.sat * (0.8 + 0.4 * ((depth + 1) / 2)) * (W / 700), tr };
+      });
+      for (const s of sats) {
+        if (s.hidden) { s.tr.length = 0; continue; }
+        // trail
+        for (let k = 1; k < s.tr.length; k++) {
+          fctx.strokeStyle = `rgba(215,178,74,${(k / s.tr.length) * 0.55})`;
+          fctx.lineWidth = 1.6;
+          fctx.beginPath(); fctx.moveTo(s.tr[k - 1]!.x, s.tr[k - 1]!.y); fctx.lineTo(s.tr[k]!.x, s.tr[k]!.y); fctx.stroke();
+        }
+        // scan beam towards the Earth
+        if (s.depth > 0) {
+          const dx = cx - s.p.x, dy = cy - s.p.y, L = Math.hypot(dx, dy) || 1;
+          const tx = s.p.x + (dx / L) * Math.max(0, L - globeR * 0.55), ty = s.p.y + (dy / L) * Math.max(0, L - globeR * 0.55);
+          const nx = -dy / L, ny = dx / L, w = s.size * 0.6;
+          const g = fctx.createLinearGradient(s.p.x, s.p.y, tx, ty);
+          g.addColorStop(0, "rgba(215,178,74,0.22)"); g.addColorStop(1, "rgba(215,178,74,0)");
+          fctx.fillStyle = g;
+          fctx.beginPath(); fctx.moveTo(s.p.x, s.p.y); fctx.lineTo(tx + nx * w, ty + ny * w); fctx.lineTo(tx - nx * w, ty - ny * w); fctx.closePath(); fctx.fill();
+        }
+        // halo
+        const h = fctx.createRadialGradient(s.p.x, s.p.y, 0, s.p.x, s.p.y, s.size * 1.1);
+        h.addColorStop(0, "rgba(215,178,74,0.38)"); h.addColorStop(1, "rgba(215,178,74,0)");
+        fctx.fillStyle = h;
+        fctx.beginPath(); fctx.arc(s.p.x, s.p.y, s.size * 1.1, 0, 6.283); fctx.fill();
+        if (satImg.complete && satImg.naturalWidth) {
+          const sw = s.size, sh = (s.size * satImg.naturalHeight) / satImg.naturalWidth;
+          fctx.globalAlpha = s.depth > 0 ? 1 : 0.55;
+          fctx.drawImage(satImg, s.p.x - sw / 2, s.p.y - sh / 2, sw, sh);
+          fctx.globalAlpha = 1;
+        }
+      }
+
+      // ---- dark vessel found ----
+      if (!reduce) {
+        if (!event && t > nextEvent) {
+          const avoid = avoidRects();
+          const front = sats.map((s, i) => ({ s, i })).filter((o) => o.s.depth > 0.2 && !o.s.hidden);
+          const pr = panel.getBoundingClientRect();
+          const panelOn = pr.width > 0;
+          const cands: number[] = [];
+          ships.forEach((s, i) => {
+            const b = shipBox(s, off);
+            if (b.x > B) return;
+            if (Math.hypot(b.x - B / 2, b.y - B / 2) > B * 0.42) return;
+            const q = project(b.x, b.y, gr, rr);
+            const ax = q.x + rr.left, ay = q.y + rr.top;
+            if (avoid.some((r) => ax > r.left - 28 && ax < r.right + 28 && ay > r.top - 28 && ay < r.bottom + 28)) return;
+            if (panelOn && ax > rr.left + rr.width * 0.55) return;
+            cands.push(i);
+          });
+          if (front.length && cands.length) {
+            const ship = cands[Math.floor(Math.random() * cands.length)]!;
+            const q = project(shipBox(ships[ship]!, off).x, ships[ship]!.v * B, gr, rr);
+            front.sort((a, b) => Math.hypot(a.s.p.x - q.x, a.s.p.y - q.y) - Math.hypot(b.s.p.x - q.x, b.s.p.y - q.y));
+            event = { ship, sat: front[0]!.i, start: t };
+            root.dataset.finds = String(Number(root.dataset.finds ?? 0) + 1);
+          } else nextEvent = t + 0.5;
+        }
+        let panelAlpha = 0;
+        if (event) {
+          const e = t - event.start, D = 4.8;
+          if (e > D) { event = null; nextEvent = t + 1.4; }
+          else {
+            const s = ships[event.ship]!;
+            const b = shipBox(s, off);
+            const q = project(b.x, b.y, gr, rr);
+            const sat = sats[event.sat]!;
+            const fade = e > D - 0.6 ? (D - e) / 0.6 : 1;
+            fctx.globalAlpha = fade;
+            // dashed link from the satellite
+            const f = Math.min(1, e / 0.8);
+            if (!sat.hidden) {
+              fctx.setLineDash([6, 6]); fctx.lineDashOffset = -t * 30;
+              fctx.strokeStyle = "rgba(215,178,74,0.85)"; fctx.lineWidth = 1.3;
+              fctx.beginPath(); fctx.moveTo(sat.p.x, sat.p.y);
+              fctx.lineTo(sat.p.x + (q.x - sat.p.x) * f, sat.p.y + (q.y - sat.p.y) * f); fctx.stroke();
+              fctx.setLineDash([]);
+            }
+            if (e > 0.7) {
+              // ring closing, then pulsing
+              const c = Math.min(1, (e - 0.7) / 0.7);
+              const pulse = c < 1 ? 0 : Math.sin((e - 1.4) * 5) * 2;
+              const R = 34 - 24 * (1 - Math.pow(1 - c, 3)) + pulse;
+              fctx.strokeStyle = "#D7B24A"; fctx.lineWidth = 1.6;
+              fctx.beginPath(); fctx.arc(q.x, q.y, R, 0, 6.283); fctx.stroke();
+              fctx.fillStyle = "#F2CF68"; fctx.beginPath(); fctx.arc(q.x, q.y, 2.2, 0, 6.283); fctx.fill();
+            }
+            if (e > 1.2) {
+              const k = 18, l = 6;
+              fctx.strokeStyle = "#D7B24A"; fctx.lineWidth = 1.4;
+              for (const [sx, sy] of [[-1, -1], [1, -1], [1, 1], [-1, 1]] as const) {
+                fctx.beginPath();
+                fctx.moveTo(q.x + sx * k, q.y + sy * (k - l)); fctx.lineTo(q.x + sx * k, q.y + sy * k); fctx.lineTo(q.x + sx * (k - l), q.y + sy * k);
+                fctx.stroke();
+              }
+            }
+            const pr = panel.getBoundingClientRect();
+            if (e > 1.6 && pr.width > 0) {
+              const g2 = Math.min(1, (e - 1.6) / 0.5);
+              const px = pr.left - rr.left + (pr.left - rr.left + pr.width / 2 < q.x ? pr.width : 0);
+              const py = pr.top - rr.top + pr.height / 2;
+              const sx = q.x + Math.sign(px - q.x) * 18;
+              fctx.strokeStyle = "rgba(215,178,74,0.8)"; fctx.lineWidth = 1;
+              fctx.beginPath(); fctx.moveTo(sx, q.y); fctx.lineTo(sx + (px - sx) * g2, q.y + (py - q.y) * g2); fctx.stroke();
+              panelAlpha = g2 * fade;
+            }
+            fctx.globalAlpha = 1;
+          }
+        }
+        panel.style.opacity = String(panelAlpha);
+      }
+    };
+
+    const loop = (now: number) => {
+      if (!running) return;
+      const dt = last ? Math.min(0.05, (now - last) / 1000) : 0;
+      last = now;
+      simT += dt;
+      frame(simT);
+      raf = requestAnimationFrame(loop);
+    };
+    const start = () => { if (!running && visible && !reduce) { running = true; last = 0; raf = requestAnimationFrame(loop); } };
+    const stop = () => { running = false; cancelAnimationFrame(raf); };
+
+    if (reduce) {
+      running = false;
+      satImg.onload = () => frame(0);
+      frame(0);
+    } else {
+      raf = requestAnimationFrame(loop);
+    }
+    const io = new IntersectionObserver(([en]) => {
+      visible = !!en?.isIntersecting;
+      if (visible) start(); else stop();
+    });
+    io.observe(root);
+    const onVis = () => (document.hidden ? stop() : start());
+    document.addEventListener("visibilitychange", onVis);
+    return () => { stop(); io.disconnect(); ro.disconnect(); document.removeEventListener("visibilitychange", onVis); };
   }, []);
 
   return (
-    <div data-hero-scene className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div ref={rootRef} data-hero-scene className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* starfield */}
       <svg viewBox="0 0 1600 900" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden>
         {Array.from({ length: 160 }).map((_, i) => {
@@ -117,18 +407,22 @@ export function HeroScene() {
         </svg>
 
         {/* earth */}
-        <div className="absolute inset-[10%] z-[2] animate-[globe-breathe_28s_ease-in-out_infinite]">
-          {/* rotating sphere: seamless equirectangular texture scrolling inside a circular mask */}
-          <div className="absolute inset-0 overflow-hidden rounded-full" role="img" aria-label="Earth rotating, seen from orbit">
-            <div
-              className="absolute inset-0 animate-[earth-spin_140s_linear_infinite] will-change-[background-position]"
-              style={{
-                backgroundImage: `url(${earthTexture})`,
-                backgroundSize: "200% 100%",
-                backgroundRepeat: "repeat-x",
-                transform: "rotate(-9deg) scale(1.06)",
-              }}
-            />
+        <div ref={globeRef} className="absolute inset-[10%] z-[2] animate-[globe-breathe_28s_ease-in-out_infinite]">
+          <div className="absolute inset-0 overflow-hidden rounded-full" role="img" aria-label="Earth rotating, seen from orbit, with ship traffic on the main shipping lanes">
+            {/* rotating layer: texture and ship traffic share one transform and one clock */}
+            <div className="absolute inset-0" style={{ transform: "rotate(-9deg) scale(1.06)" }}>
+              <div
+                ref={textureRef}
+                className="absolute inset-0 will-change-[background-position]"
+                style={{
+                  backgroundImage: `url(${earthTexture})`,
+                  backgroundSize: "200% 100%",
+                  backgroundRepeat: "repeat-x",
+                  backgroundPosition: "0px 50%",
+                }}
+              />
+              <canvas ref={shipCanvasRef} className="absolute inset-0 h-full w-full" aria-hidden />
+            </div>
             {/* horizontal squeeze near the limbs, so the flat scroll reads as curvature */}
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,12,21,0.95)_0%,rgba(6,12,21,0.55)_9%,rgba(6,12,21,0)_26%,rgba(6,12,21,0)_74%,rgba(6,12,21,0.55)_91%,rgba(6,12,21,0.95)_100%)]" />
             {/* vertical pole shading */}
@@ -140,58 +434,26 @@ export function HeroScene() {
           <div className="absolute inset-0 rounded-full shadow-[inset_0_0_60px_rgba(9,18,31,0.75),0_0_110px_rgba(96,176,235,0.30)]" />
           <div className="absolute -inset-[0.8%] rounded-full border border-[rgba(140,200,255,0.35)] blur-[2px]" />
           <div className="absolute -inset-[2.5%] rounded-full bg-[radial-gradient(circle,transparent_69%,rgba(120,190,255,0.16)_74%,transparent_82%)]" />
-
-          {/* vessel pings */}
-          {VESSELS.map((v, i) => (
-            <div key={i} className="absolute h-1.5 w-1.5" style={{ left: `${v.x}%`, top: `${v.y}%` }}>
-              <span
-                className="absolute inset-0 rounded-full border border-cyan/70"
-                style={{ animation: `vessel-ping 4.2s ease-out ${v.delay}s infinite` }}
-              />
-              <span className="absolute inset-[2px] rounded-full bg-cyan shadow-[0_0_8px_rgba(77,217,192,0.9)]" />
-            </div>
-          ))}
-
         </div>
-
-        {/* live capture beams from each satellite down to a vessel */}
-        <svg viewBox="0 0 100 100" className="absolute inset-0 z-[4] h-full w-full" aria-hidden>
-          {ORBITS.map((_, i) => (
-            <line
-              key={i}
-              ref={(el) => {
-                beamRefs.current[i] = el;
-              }}
-              stroke="#4dd9c0"
-              strokeWidth="0.22"
-              strokeDasharray="1.4 1.8"
-              opacity="0"
-            />
-          ))}
-        </svg>
-
-        {/* satellites travelling their orbits */}
-        {ORBITS.map((o, i) => (
-          <div
-            key={i}
-            ref={(el) => {
-              satRefs.current[i] = el;
-            }}
-            className="absolute left-1/2 top-1/2 will-change-transform"
-            style={{ width: o.sat }}
-          >
-            <img
-              src={satellite}
-              alt=""
-              aria-hidden
-              className="w-full drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] drop-shadow-[0_0_14px_rgba(77,217,192,0.45)]"
-            />
-          </div>
-        ))}
       </div>
 
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(9,18,31,0.5),rgba(9,18,31,0.16)_38%,transparent_62%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,12,21,0.5)_0%,transparent_18%,transparent_76%,rgba(6,12,21,0.72)_100%)]" />
+
+      {/* satellites, beams and finds */}
+      <canvas ref={fxCanvasRef} className="absolute left-0 top-0" aria-hidden />
+
+      {/* dark vessel found panel, beside the globe and clear of the copy */}
+      <div
+        ref={panelRef}
+        className="absolute bottom-[16%] left-6 hidden w-[230px] rounded-2xl border border-gold/40 bg-[#061428]/90 px-4 py-3 opacity-0 xl:block"
+      >
+        <p className="flex items-center gap-2 text-[15px] font-semibold text-gold">
+          <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+          Dark vessel found
+        </p>
+        <p className="mt-1 text-[13px] text-[#C9D5E6]">Identity verified by HERA AI</p>
+      </div>
     </div>
   );
 }
@@ -309,7 +571,7 @@ export function HeroHud({ large = false }: { large?: boolean }) {
 
 export function HeroShipCard() {
   return (
-    <div className="pointer-events-none absolute right-6 top-1/2 z-10 hidden w-[286px] -translate-y-1/2 lg:block">
+    <div data-hero-avoid className="pointer-events-none absolute right-6 top-1/2 z-10 hidden w-[286px] -translate-y-1/2 lg:block">
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
         <div className="flex items-center gap-3 border-b border-gold/15 px-3 py-2">
           <span className="font-mono text-[13px] tracking-[0.18em] text-gold">HERA AI · SHIP RECORD</span>
