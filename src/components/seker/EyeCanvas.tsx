@@ -358,7 +358,7 @@ export function EyeCanvas({ className }: { className?: string }) {
 
       if (reveal > 0) {
         ctx.globalAlpha = seaA * reveal;
-        ctx.font = '11px "Space Mono", ui-monospace, monospace';
+        ctx.font = '11px "IBM Plex Mono", ui-monospace, monospace';
         ctx.textAlign = "left";
         const lx = tgt.x + 48;
         const ly = tgt.y - 52;

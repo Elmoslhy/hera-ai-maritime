@@ -41,7 +41,7 @@ function EyeMark() {
       {/* sea traffic drifting under the gaze */}
       <g clipPath="url(#ip-lid)" opacity="0.55">
         {[
-          [0, 20, 26, "#4dd9c0"],
+          [0, 20, 26, "#3FB68B"],
           [-3, 38, 22, "#4a9eff"],
           [-6, 30, 30, "#8fa3bb"],
         ].map(([d, y, dur, c], i) => (
@@ -62,7 +62,7 @@ function EyeMark() {
 
       {/* scanning sweep */}
       <g clipPath="url(#ip-lid)">
-        <rect x="0" y="4" width="10" height="52" fill="#4dd9c0" opacity="0.12">
+        <rect x="0" y="4" width="10" height="52" fill="#3FB68B" opacity="0.12">
           <animate attributeName="x" values="0;110;0" dur="7s" repeatCount="indefinite" />
         </rect>
       </g>
@@ -80,7 +80,7 @@ function EyeMark() {
           repeatCount="indefinite"
         />
         <circle cx="60" cy="30" r="15" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.8" />
-        <circle cx="60" cy="30" r="10" fill="none" stroke="#4dd9c0" strokeWidth="0.7" opacity="0.55">
+        <circle cx="60" cy="30" r="10" fill="none" stroke="#3FB68B" strokeWidth="0.7" opacity="0.55">
           <animate attributeName="r" values="8;13;8" dur="4s" repeatCount="indefinite" />
           <animate attributeName="opacity" values="0.6;0.1;0.6" dur="4s" repeatCount="indefinite" />
         </circle>

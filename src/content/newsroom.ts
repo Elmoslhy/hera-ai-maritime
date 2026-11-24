@@ -62,7 +62,7 @@ export const newsItems: NewsItem[] = [
     title: "Seker got pre-selected for Fit 4 Start",
     subtitle: "Seker has been pre-selected for Fit 4 Start, Luxembourg's national acceleration programme for high-potential startups.",
     summary: "Seker has been pre-selected for Fit 4 Start, Luxembourg's national acceleration programme.",
-    image: "/careers/mission.webp",
+    image: "/careers/seker-europe-night.jpg",
     alt: "A small satellite in orbit above the ocean at dawn, with faint vessel wakes on the sea below.",
     dateline: "LUXEMBOURG, 6 October 2026",
     body: [

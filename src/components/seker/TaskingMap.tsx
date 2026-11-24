@@ -129,7 +129,7 @@ function useUtc() {
 }
 
 type Tone = "cyan" | "alert" | "gold" | "muted";
-const TONE: Record<Tone, string> = { cyan: "#4dd9c0", alert: "#ff4d4d", gold: "#c9a84c", muted: "#c8d3df" };
+const TONE: Record<Tone, string> = { cyan: "#3FB68B", alert: "#ff4d4d", gold: "#c9a84c", muted: "#c8d3df" };
 /* Label pinned to a feature with a fixed pixel offset and a thin leader line. */
 function tag(text: string, tone: Tone, dx: number, dy: number, opacity: number) {
   const c = TONE[tone];
@@ -139,7 +139,7 @@ function tag(text: string, tone: Tone, dx: number, dy: number, opacity: number) 
   const lead = document.createElement("div");
   lead.style.cssText = `position:absolute;left:0;top:0;width:${len}px;height:1px;background:${c};opacity:.75;transform-origin:0 0;transform:rotate(${ang}deg)`;
   const box = document.createElement("div");
-  box.style.cssText = `position:absolute;left:${dx}px;top:${dy}px;transform:translate(${dx < 0 ? "-100%" : "0"},-50%);font:10px 'Space Mono',monospace;letter-spacing:.08em;color:${c};background:rgba(6,12,21,.88);border:1px solid ${c}66;padding:1px 5px;white-space:nowrap`;
+  box.style.cssText = `position:absolute;left:${dx}px;top:${dy}px;transform:translate(${dx < 0 ? "-100%" : "0"},-50%);font:10px 'IBM Plex Mono',monospace;letter-spacing:0;color:${c};background:rgba(6,12,21,.88);border:1px solid ${c}66;padding:1px 5px;white-space:nowrap`;
   box.textContent = text;
   root.append(lead, box);
   return root;
@@ -220,15 +220,15 @@ export function TaskingScreen() {
         m.addSource("ships", { type: "geojson", data: fc([]) });
         const is = (k: string) => ["==", ["get", "k"], k] as ["==", ["get", string], string];
         const any = (...k: string[]) => ["in", ["get", "k"], ["literal", k]] as unknown as import("maplibre-gl").FilterSpecification;
-        m.addLayer({ id: "sw", type: "fill", source: "ov", filter: any("sw-rf", "sw-sar", "sw-eo"), paint: { "fill-color": ["match", ["get", "k"], "sw-rf", "#4dd9c0", "#c9a84c"], "fill-opacity": 0.07 } });
-        m.addLayer({ id: "sw-o", type: "line", source: "ov", filter: any("sw-rf", "sw-sar", "sw-eo"), paint: { "line-color": ["match", ["get", "k"], "sw-rf", "#4dd9c0", "#c9a84c"], "line-width": 1, "line-opacity": 0.7 } });
+        m.addLayer({ id: "sw", type: "fill", source: "ov", filter: any("sw-rf", "sw-sar", "sw-eo"), paint: { "fill-color": ["match", ["get", "k"], "sw-rf", "#3FB68B", "#c9a84c"], "fill-opacity": 0.07 } });
+        m.addLayer({ id: "sw-o", type: "line", source: "ov", filter: any("sw-rf", "sw-sar", "sw-eo"), paint: { "line-color": ["match", ["get", "k"], "sw-rf", "#3FB68B", "#c9a84c"], "line-width": 1, "line-opacity": 0.7 } });
         m.addLayer({ id: "rej", type: "line", source: "ov", filter: any("sw-rej", "trk-rej"), paint: { "line-color": "#ff4d4d", "line-width": 1, "line-dasharray": [3, 3], "line-opacity": 0.8 } });
         m.addLayer({ id: "fp", type: "fill", source: "ov", filter: is("fp"), paint: { "fill-color": "#c9a84c", "fill-opacity": 0.22 } });
         m.addLayer({ id: "trk", type: "line", source: "ov", filter: is("trk"), paint: { "line-color": "#eef2f7", "line-width": 1, "line-opacity": 0.55, "line-dasharray": [6, 2] } });
         m.addLayer({ id: "anch", type: "line", source: "ov", filter: is("anch"), paint: { "line-color": "#eef2f7", "line-width": 1, "line-dasharray": [2, 2], "line-opacity": 0.6 } });
         m.addLayer({ id: "reach", type: "fill", source: "ov", filter: is("reach"), paint: { "fill-color": "#ff4d4d", "fill-opacity": 0.06 } });
         m.addLayer({ id: "reach-o", type: "line", source: "ov", filter: is("reach"), paint: { "line-color": "#ff4d4d", "line-width": 1.2, "line-dasharray": [4, 2] } });
-        m.addLayer({ id: "rfell", type: "line", source: "ov", filter: is("rfell"), paint: { "line-color": "#4dd9c0", "line-width": 1.5 } });
+        m.addLayer({ id: "rfell", type: "line", source: "ov", filter: is("rfell"), paint: { "line-color": "#3FB68B", "line-width": 1.5 } });
         m.addLayer({ id: "orbit", type: "line", source: "ov", filter: is("orbit"), paint: { "line-color": "#e0a33c", "line-width": 1.2, "line-dasharray": [1, 2] } });
         m.addLayer({ id: "past", type: "line", source: "ov", filter: is("past"), paint: { "line-color": "#e2574c", "line-width": 1.5, "line-opacity": 0.9 } });
         m.addLayer({ id: "ships", type: "symbol", source: "ships", layout: { "icon-image": "ais", "icon-size": ["case", ["==", ["get", "kn"], 0], 0.42, 0.52], "icon-rotate": ["get", "hdg"], "icon-rotation-alignment": "map", "icon-allow-overlap": true }, paint: { "icon-color": ["get", "c"], "icon-halo-color": "#060c15", "icon-halo-width": 1 } });
@@ -266,7 +266,7 @@ export function TaskingScreen() {
       const add = (el: HTMLElement, at: LL, anchor: "left" | "center" = "center") => { const k = new ml.Marker({ element: el, anchor }).setLngLat(at).addTo(m); markers.current.push(k); return k; };
       const dot = (col: string, hollow = false) => { const e = document.createElement("div"); e.style.cssText = `width:10px;height:10px;border-radius:50%;border:2px solid ${col};background:${hollow ? "transparent" : col}`; return e; };
       const narrow = (mapEl.current?.clientWidth ?? 800) < 520;
-      for (const [n, at] of PLACES) { const e = document.createElement("div"); e.textContent = n; e.style.cssText = `font:${n === n.toUpperCase() ? "10px 'Space Mono',monospace;letter-spacing:.3em" : "11px Inter,sans-serif"};color:rgba(238,242,247,.75);text-shadow:0 1px 2px #000;white-space:nowrap;pointer-events:none`; add(e, at); }
+      for (const [n, at] of PLACES) { const e = document.createElement("div"); e.textContent = n; e.style.cssText = `font:${n === n.toUpperCase() ? "10px 'IBM Plex Mono',monospace;letter-spacing:0" : "11px 'Public Sans',sans-serif"};color:rgba(238,242,247,.75);text-shadow:0 1px 2px #000;white-space:nowrap;pointer-events:none`; add(e, at); }
       // [text, tone, at, from, until, desktop offset, phone offset]
       type L = [string, Tone, LL, number, number, [number, number], [number, number]];
       const L: L[] = [

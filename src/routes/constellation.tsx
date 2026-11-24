@@ -100,15 +100,6 @@ function ConstellationPage() {
       <Nav />
       <main>
         <section className="relative overflow-hidden px-6 pb-20 pt-32 sm:pt-40">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-[0.07]"
-            style={{
-              backgroundImage:
-                "linear-gradient(var(--color-cyan) 1px, transparent 1px), linear-gradient(90deg, var(--color-cyan) 1px, transparent 1px)",
-              backgroundSize: "64px 64px",
-            }}
-          />
           <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
             <Reveal>
               <p className="text-eyebrow text-foreground">SEKER-1 · SEKER-2</p>

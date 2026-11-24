@@ -35,9 +35,9 @@ const LOGOS = [
   ["Dark (for light backgrounds)", "seker-logo-dark"],
 ] as const;
 const IMAGES = [
-  ["Team and payload integration", "/careers/hero.webp"],
-  ["Payload", "/careers/payload.webp"],
-  ["Platform", "/careers/platform.webp"],
+  ["Team and payload integration", "/careers/seker-payload-earth.jpg"],
+  ["Payload", "/careers/seker-payload-ships.jpg"],
+  ["Platform", "/careers/seker-sar-port.jpg"],
 ] as const;
 
 function Track() {
@@ -89,7 +89,7 @@ function NewsroomPage() {
   return (
     <div className="min-h-screen bg-navy">
       <Nav />
-      <section className="relative isolate overflow-hidden bg-gradient-to-b from-navy-deep to-navy px-6 pb-20 pt-40">
+      <section className="relative isolate overflow-hidden bg-navy px-6 pb-20 pt-40">
         <Track />
         <div className="mx-auto max-w-6xl">
           <p className="text-eyebrow text-foreground">SEKER SPACE INTELLIGENCE</p>

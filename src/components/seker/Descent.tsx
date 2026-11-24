@@ -95,7 +95,7 @@ export function DescentSection() {
         {/* satellite */}
         <motion.div style={{ y: satY, scale: satScale }} className="absolute left-1/2 top-[10%] w-[min(46vw,420px)] -translate-x-1/2">
           <div style={{ opacity: satBigO }}>
-            <img src={satelliteReal} alt="SEKER satellite in low Earth orbit" loading="lazy" className="w-full drop-shadow-[0_0_70px_rgba(77,217,192,0.2)]" />
+            <img src={satelliteReal} alt="SEKER satellite in low Earth orbit" loading="lazy" className="w-full" />
           </div>
         </motion.div>
 
@@ -115,8 +115,8 @@ export function DescentSection() {
           {/* bearing lines from the two satellites */}
           <div style={{ opacity: rfO }} className="pointer-events-none absolute -inset-[60vw] flex items-center justify-center">
             <svg viewBox="0 0 400 400" className="h-full w-full" aria-hidden>
-              <line x1="40" y1="30" x2="200" y2="200" stroke="#4dd9c0" strokeWidth="0.7" strokeDasharray="4 5" />
-              <line x1="360" y1="30" x2="200" y2="200" stroke="#4dd9c0" strokeWidth="0.7" strokeDasharray="4 5" />
+              <line x1="40" y1="30" x2="200" y2="200" stroke="#3FB68B" strokeWidth="0.7" strokeDasharray="4 5" />
+              <line x1="360" y1="30" x2="200" y2="200" stroke="#3FB68B" strokeWidth="0.7" strokeDasharray="4 5" />
             </svg>
           </div>
 
@@ -133,7 +133,7 @@ export function DescentSection() {
 
           {/* thermal bloom on the hull */}
           <div style={{ opacity: thermalO }} className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <span className="h-[34%] w-[34%] animate-[thermal-breathe_2.6s_ease-in-out_infinite] rounded-full bg-[radial-gradient(circle,rgba(255,196,88,0.95),rgba(255,77,77,0.5)_45%,transparent_70%)] blur-[6px]" />
+            <span className="h-[34%] w-[34%] rounded-full bg-alert/80 blur-[6px]" />
           </div>
 
           {/* the vessel */}
@@ -181,7 +181,7 @@ export function DescentSection() {
           <motion.div style={{ scale: reticle, opacity: lockO }} className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <svg viewBox="0 0 200 200" className="h-[86%] w-[86%]" aria-hidden>
               <circle cx="100" cy="100" r="78" fill="none" stroke="#c9a84c" strokeWidth="0.8" strokeDasharray="6 10" />
-              <circle cx="100" cy="100" r="54" fill="none" stroke="#4dd9c0" strokeWidth="0.8" />
+              <circle cx="100" cy="100" r="54" fill="none" stroke="#3FB68B" strokeWidth="0.8" />
               {[
                 [24, 24, 24, 48], [24, 24, 48, 24], [176, 24, 176, 48], [176, 24, 152, 24],
                 [24, 176, 24, 152], [24, 176, 48, 176], [176, 176, 176, 152], [176, 176, 152, 176],

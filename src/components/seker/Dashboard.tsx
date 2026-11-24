@@ -14,7 +14,7 @@ const TOP_STATS = [
 /* ---------------- live map ---------------- */
 
 type Ship = { x: number; y: number; c: string; r: number; lane: boolean };
-const CLASS_COLORS = ["#4a9eff", "#f59e42", "#3ddc84", "#4dd9c0", "#a855f7", "#ec4899", "#8fa3bb"];
+const CLASS_COLORS = ["#4a9eff", "#f59e42", "#3ddc84", "#3FB68B", "#a855f7", "#ec4899", "#8fa3bb"];
 
 /* --- real web-mercator basemap (Esri Dark Gray, keyless), z5 tiles x15..19 y11..13 --- */
 const Z = 5, TX0 = 15, TY0 = 11, TCOLS = 5, TROWS = 3, TS = 256;
@@ -201,7 +201,7 @@ export function LiveMap() {
         {/* legend */}
         <div className="absolute bottom-3 right-3 hidden max-w-[46%] flex-wrap justify-end gap-3 rounded-md border border-white/10 bg-navy/90 px-3 py-2 font-mono text-[9px] tracking-[0.16em] text-muted-foreground sm:flex">
           {[
-            ["#4a9eff", "CARGO"], ["#f59e42", "TANKER"], ["#3ddc84", "PASSENGER"], ["#4dd9c0", "FISHING"],
+            ["#4a9eff", "CARGO"], ["#f59e42", "TANKER"], ["#3ddc84", "PASSENGER"], ["#3FB68B", "FISHING"],
             ["#a855f7", "TUG"], ["#ec4899", "SAILING"], ["#8fa3bb", "UNKNOWN"], ["#ff4d4d", "FLAGGED"],
           ].map(([c, l]) => (
             <span key={l} className="flex items-center gap-1.5">

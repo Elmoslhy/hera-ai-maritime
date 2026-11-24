@@ -162,7 +162,7 @@ export function HeroScene() {
               ref={(el) => {
                 beamRefs.current[i] = el;
               }}
-              stroke="#4dd9c0"
+              stroke="#3FB68B"
               strokeWidth="0.22"
               strokeDasharray="1.4 1.8"
               opacity="0"
@@ -237,9 +237,9 @@ export function HeroHud({ large = false }: { large?: boolean }) {
           <svg viewBox="0 0 240 34" className="mt-3 h-[34px] w-full" aria-hidden>
             <defs>
               <linearGradient id="hud-trace" x1="0" x2="1">
-                <stop offset="0" stopColor="#4dd9c0" stopOpacity="0.05" />
-                <stop offset="0.5" stopColor="#4dd9c0" stopOpacity="0.9" />
-                <stop offset="1" stopColor="#4dd9c0" stopOpacity="0.15" />
+                <stop offset="0" stopColor="#3FB68B" stopOpacity="0.05" />
+                <stop offset="0.5" stopColor="#3FB68B" stopOpacity="0.9" />
+                <stop offset="1" stopColor="#3FB68B" stopOpacity="0.15" />
               </linearGradient>
             </defs>
             {[0, 1, 2, 3].map((i) => (
@@ -264,7 +264,7 @@ export function HeroHud({ large = false }: { large?: boolean }) {
             <span className="text-foreground">98.4%</span>
           </div>
           <div className="mt-1.5 h-[3px] w-full overflow-hidden rounded-full bg-white/10">
-            <div className="h-full w-[98.4%] rounded-full bg-gradient-to-r from-gold/50 to-gold" />
+            <div className="h-full w-[98.4%] rounded-full bg-gold" />
           </div>
 
           <div className="mt-3 grid grid-cols-3 gap-1.5">

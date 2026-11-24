@@ -297,7 +297,7 @@ const TONE = {
   },
 } as const;
 
-const HEX = { gold: "#C9A84C", cyan: "#4dd9c0", alert: "#ff4d4d" } as const;
+const HEX = { gold: "#C9A84C", cyan: "#3FB68B", alert: "#ff4d4d" } as const;
 
 function path(points: number[], w: number, h: number, pad = 6) {
   const max = Math.max(...points) * 1.12;
@@ -503,13 +503,6 @@ export function InsightsSection() {
 
   return (
     <section className="relative overflow-hidden bg-navy px-6 py-28">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 20% 0%, rgba(201,168,76,0.35), transparent 55%), radial-gradient(circle at 85% 90%, rgba(77,217,192,0.28), transparent 55%)",
-        }}
-      />
 
       <div className="relative z-10 mx-auto max-w-[1400px]">
         <Reveal className="text-center">

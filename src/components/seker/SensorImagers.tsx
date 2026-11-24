@@ -52,7 +52,7 @@ function ThermalImage() {
       <ellipse cx="62" cy="47" rx="30" ry="8" fill="#8a5a2a" opacity="0.85" />
       <ellipse cx="62" cy="47" rx="22" ry="5" fill="#c08a3a" opacity="0.9" />
       {/* engine bloom */}
-      <ellipse cx="80" cy="47" rx="16" ry="12" fill="url(#tir-hot)" className="animate-[thermal-breathe_2.6s_ease-in-out_infinite]" />
+      <ellipse cx="80" cy="47" rx="16" ry="12" fill="url(#tir-hot)" />
       <circle cx="80" cy="47" r="3" fill="#fff8e2" />
       {/* iso contour + callout */}
       <ellipse cx="80" cy="47" rx="11" ry="8" fill="none" stroke="#ffc458" strokeWidth="0.4" strokeDasharray="2 2" />
@@ -69,24 +69,24 @@ function RfImage() {
     <svg viewBox="0 0 120 90" className="h-full w-full" aria-hidden>
       <rect width="120" height="90" fill="#050d16" />
       {Array.from({ length: 7 }).map((_, i) => (
-        <line key={`h${i}`} x1="0" y1={i * 13 + 6} x2="120" y2={i * 13 + 6} stroke="#4dd9c0" strokeWidth="0.2" opacity="0.18" />
+        <line key={`h${i}`} x1="0" y1={i * 13 + 6} x2="120" y2={i * 13 + 6} stroke="#3FB68B" strokeWidth="0.2" opacity="0.18" />
       ))}
       {Array.from({ length: 9 }).map((_, i) => (
-        <line key={`v${i}`} x1={i * 14 + 6} y1="0" x2={i * 14 + 6} y2="90" stroke="#4dd9c0" strokeWidth="0.2" opacity="0.18" />
+        <line key={`v${i}`} x1={i * 14 + 6} y1="0" x2={i * 14 + 6} y2="90" stroke="#3FB68B" strokeWidth="0.2" opacity="0.18" />
       ))}
       {/* bearing lines from two passes intersecting on the emitter */}
-      <line x1="2" y1="4" x2="70" y2="50" stroke="#4dd9c0" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.8" />
-      <line x1="118" y1="8" x2="70" y2="50" stroke="#4dd9c0" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.8" />
+      <line x1="2" y1="4" x2="70" y2="50" stroke="#3FB68B" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.8" />
+      <line x1="118" y1="8" x2="70" y2="50" stroke="#3FB68B" strokeWidth="0.5" strokeDasharray="3 3" opacity="0.8" />
       {/* emitter rings */}
-      <circle cx="70" cy="50" r="7" fill="none" stroke="#4dd9c0" strokeWidth="0.6" className="animate-[rf-ring_3.3s_ease-out_infinite]" />
-      <circle cx="70" cy="50" r="14" fill="none" stroke="#4dd9c0" strokeWidth="0.4" opacity="0.5" className="animate-[rf-ring_3.3s_ease-out_infinite]" />
-      <circle cx="70" cy="50" r="2.2" fill="#4dd9c0" />
+      <circle cx="70" cy="50" r="7" fill="none" stroke="#3FB68B" strokeWidth="0.6" className="animate-[rf-ring_3.3s_ease-out_infinite]" />
+      <circle cx="70" cy="50" r="14" fill="none" stroke="#3FB68B" strokeWidth="0.4" opacity="0.5" className="animate-[rf-ring_3.3s_ease-out_infinite]" />
+      <circle cx="70" cy="50" r="2.2" fill="#3FB68B" />
       {/* spectrum strip */}
       {Array.from({ length: 26 }).map((_, i) => {
         const h = 3 + ((i * 37) % 11) + (i === 14 ? 14 : 0);
-        return <rect key={i} x={4 + i * 4.4} y={84 - h} width="2.4" height={h} fill={i === 14 ? "#c9a84c" : "#4dd9c0"} opacity={i === 14 ? 1 : 0.45} />;
+        return <rect key={i} x={4 + i * 4.4} y={84 - h} width="2.4" height={h} fill={i === 14 ? "#c9a84c" : "#3FB68B"} opacity={i === 14 ? 1 : 0.45} />;
       })}
-      <text x="6" y="12" fill="#4dd9c0" fontSize="5" fontFamily="monospace">X-BAND 9.41GHz</text>
+      <text x="6" y="12" fill="#3FB68B" fontSize="5" fontFamily="monospace">X-BAND 9.41GHz</text>
     </svg>
   );
 }
@@ -98,7 +98,7 @@ function FusedImage() {
       <rect width="120" height="90" fill="#071019" />
       <ellipse cx="60" cy="46" rx="26" ry="7" fill="#c08a3a" opacity="0.35" />
       <ellipse cx="72" cy="46" rx="12" ry="9" fill="#ff8a3a" opacity="0.35" />
-      <circle cx="66" cy="46" r="16" fill="none" stroke="#4dd9c0" strokeWidth="0.4" strokeDasharray="2 3" opacity="0.7" />
+      <circle cx="66" cy="46" r="16" fill="none" stroke="#3FB68B" strokeWidth="0.4" strokeDasharray="2 3" opacity="0.7" />
       <circle cx="60" cy="46" r="26" fill="none" stroke="#c9a84c" strokeWidth="0.6" strokeDasharray="5 6" />
       <line x1="60" y1="20" x2="60" y2="30" stroke="#c9a84c" strokeWidth="0.8" />
       <line x1="60" y1="62" x2="60" y2="72" stroke="#c9a84c" strokeWidth="0.8" />
@@ -106,7 +106,7 @@ function FusedImage() {
       <line x1="76" y1="46" x2="86" y2="46" stroke="#c9a84c" strokeWidth="0.8" />
       <circle cx="60" cy="46" r="2" fill="#c9a84c" />
       <text x="6" y="12" fill="#c9a84c" fontSize="5" fontFamily="monospace">TIR + RF FUSED</text>
-      <text x="6" y="84" fill="#4dd9c0" fontSize="5" fontFamily="monospace">34°21.4′N 023°08.9′E</text>
+      <text x="6" y="84" fill="#3FB68B" fontSize="5" fontFamily="monospace">34°21.4′N 023°08.9′E</text>
       <text x="82" y="84" fill="#c9a84c" fontSize="5" fontFamily="monospace">97%</text>
     </svg>
   );
