@@ -309,7 +309,7 @@ h1 { font-size: 44px; } h2 { font-size: 36px; }
 /* Buttons */
 a.bg-gold, button.bg-gold, a.bg-primary, button.bg-primary, a[class*="bg-gold/"], button[class*="bg-gold/"] { background-color: #d7b24a; color: #061428 !important; border: 0; border-radius: 999px; min-height: 50px; padding: 0 28px; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; transition: background-color .2s; }
 a.bg-gold:hover, button.bg-gold:hover, a.bg-primary:hover, button.bg-primary:hover, a[class*="bg-gold/"]:hover, button[class*="bg-gold/"]:hover { background-color: #f2cf68; }
-a[class*="border-white"]:not([class*="bg-"]), a[class*="border-gold"]:not([class*="bg-"]), button[class*="border-white"]:not([class*="bg-"]):not([role="tab"]) { border: 1px solid rgba(255,255,255,0.35); color: #ffffff; border-radius: 999px; min-height: 50px; padding: 0 28px; align-items: center; justify-content: center; }
+a[class*="border-white"]:not([class*="bg-"]):not(.group):not(.flex-col), a[class*="border-gold"]:not([class*="bg-"]):not(.group):not(.flex-col), button[class*="border-white"]:not([class*="bg-"]):not([role="tab"]) { border: 1px solid rgba(255,255,255,0.35); color: #ffffff; border-radius: 999px; min-height: 50px; padding: 0 28px; align-items: center; justify-content: center; }
 a:not([class*="bg-"]):hover { text-decoration-color: #d7b24a; }
 /* Navigation */
 .seker-nav { border-bottom: 1px solid transparent; background: transparent; transition: background-color .3s, border-color .3s; }
