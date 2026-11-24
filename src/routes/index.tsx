@@ -6,6 +6,9 @@ import { DescentSection } from "@/components/seker/Descent";
 import {
   ConstellationSection,
   ContactSection,
+  FindsSection,
+  HowItWorksSection,
+  LiveTodaySection,
   GetItSection,
   HeroSection,
   IndustriesSection,
@@ -39,13 +42,16 @@ function Index() {
       <Nav />
       <main>
         <HeroSection />
+        <LiveTodaySection />
+        <HowItWorksSection />
+        <IndustriesSection />
+        <ConstellationSection />
+        <FindsSection />
         <ProblemSection />
         <WhyNowSection />
         <DescentSection />
         <DashboardSection />
         <GetItSection />
-        <IndustriesSection />
-        <ConstellationSection />
         <SecondLookSection />
         <ProofSection />
         <ContactSection />

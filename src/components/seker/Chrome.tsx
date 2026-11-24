@@ -73,13 +73,19 @@ export function Nav() {
           <SekerLogo className="h-9 w-auto text-foreground" />
         </Link>
         <div className="flex items-center gap-4 font-mono text-[10px] tracking-[0.2em] sm:gap-6">
-          <span className="hidden text-muted-foreground sm:inline">
+          <span className="hidden text-muted-foreground 2xl:inline">
             UTC <span className="text-foreground/80">{utc}</span>
           </span>
           <span className="flex items-center gap-2 text-foreground">
             <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" />
             LIVE
           </span>
+          <a href="/#how-it-works" className="hidden text-foreground/80 transition-colors hover:text-foreground lg:inline">
+            HOW IT WORKS
+          </a>
+          <a href="/#solutions" className="hidden text-foreground/80 transition-colors hover:text-foreground lg:inline">
+            SOLUTIONS
+          </a>
           <Link to="/intelligence" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
             HERA AI
           </Link>
@@ -96,12 +102,15 @@ export function Nav() {
           <Link to="/newsroom" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
             NEWSROOM
           </Link>
-          <Link
-            to="/access"
-            className="hidden border border-gold/60 bg-gold/90 px-4 py-2 text-[10px] tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold sm:inline-block"
-          >
+          <Link to="/access" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
             PLATFORM LOGIN
           </Link>
+          <a
+            href="/#contact"
+            className="hidden border border-gold/60 bg-gold/90 px-4 py-2 text-[10px] tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold sm:inline-block"
+          >
+            Request a sample report
+          </a>
           <MobileMenu />
         </div>
       </div>
@@ -136,7 +145,9 @@ function MobileMenu() {
       </button>
       {open && createPortal(
         <div className="fixed inset-x-0 bottom-0 top-[68px] z-50 overflow-y-auto bg-navy px-6 pb-10 sm:hidden">
-          <Link to="/intelligence" onClick={close} className={`${item} mt-4`}>HERA AI</Link>
+          <a href="/#how-it-works" onClick={close} className={`${item} mt-4`}>HOW IT WORKS</a>
+          <a href="/#solutions" onClick={close} className={item}>SOLUTIONS</a>
+          <Link to="/intelligence" onClick={close} className={item}>HERA AI</Link>
           <Link to="/constellation" onClick={close} className={item}>SEKER-1 · SEKER-2</Link>
           <p className="pt-6 font-mono text-[10px] tracking-[0.22em] text-foreground">INDUSTRIES</p>
           <a href="/#industries" onClick={close} className={item}>ALL INDUSTRIES</a>
@@ -156,6 +167,9 @@ function MobileMenu() {
           >
             PLATFORM LOGIN
           </Link>
+          <a href="/#contact" onClick={close} className="mt-3 block border border-gold/60 px-4 py-3 text-center font-mono text-xs tracking-[0.22em] text-foreground">
+            Request a sample report
+          </a>
         </div>,
         document.body,
       )}

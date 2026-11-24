@@ -6,7 +6,7 @@ import ocean from "@/assets/seker-earth-limb.jpg";
 import vessels from "@/assets/seker-sar-port.jpg";
 import { SekerLogo } from "./Logo";
 import { industries } from "@/content/industries";
-import { HeroScene, HeroShipCard } from "./HeroScene";
+import { HeroScene, SampleRecord } from "./HeroScene";
 import { Reveal, SectionBackground } from "./primitives";
 
 export function HeroSection() {
@@ -15,16 +15,14 @@ export function HeroSection() {
       
       <div className="absolute inset-0 bg-navy-deep" />
       <HeroScene />
-      <HeroShipCard />
       <div className="relative z-10 flex flex-col items-center px-6 text-center">
         <Reveal>
           <SekerLogo className="mx-auto w-[min(72vw,460px)] text-foreground" />
         </Reveal>
         <Reveal delay={0.15}>
-          <h1 className="text-balance mt-8 text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
-            Independent
-            <br />
-            <span className="font-normal">maritime intelligence.</span>
+          <p className="text-eyebrow mt-8 text-foreground">Independent maritime intelligence</p>
+          <h1 className="text-balance mx-auto mt-4 max-w-4xl text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
+            Know what a ship really is, and what it is really doing.
           </h1>
         </Reveal>
         <Reveal delay={0.3}>
@@ -32,12 +30,10 @@ export function HeroSection() {
             {/* soft navy scrim so the copy stays readable over the bright side of the Earth */}
             <div className="pointer-events-none absolute -inset-x-12 -inset-y-9 bg-[radial-gradient(ellipse_at_center,rgba(6,12,21,0.9)_0%,rgba(6,12,21,0.6)_45%,transparent_76%)] blur-2xl" />
             <p className="hero-lead relative text-pretty text-[15px] font-normal leading-[1.75] text-foreground/90 sm:text-lg">
-              SEKER's HERA AI platform aggregates and analyses vessel tracking,
-              identity and sanctions data allowing you to identify potentially
-              suspicious activity, support vessel due diligence and monitor risks.
-              <br className="hidden sm:block" />
-              Every answer is checked against independent data.
-
+              HERA AI checks each vessel's identity, position and activity against
+              independent sources, screens it against official sanctions lists, and
+              gives you one verified record with a confidence score. Delivered through
+              our platform, our API or written briefings.
             </p>
           </div>
         </Reveal>
@@ -48,8 +44,11 @@ export function HeroSection() {
             hash="contact"
             className="mt-10 inline-block bg-gold px-9 py-4 font-mono text-sm font-bold tracking-[0.22em] text-navy-deep transition-opacity hover:opacity-90"
           >
-            BOOK A DEMO →
+            Request a sample report
           </Link>
+          <a href="#how-it-works" className="mt-5 block font-mono text-sm tracking-[0.14em] text-foreground underline-offset-4 hover:underline">
+            See how it works →
+          </a>
         </Reveal>
       </div>
       <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2">
@@ -135,14 +134,17 @@ const PROFILE: [string, string][] = [
 ];
 
 const SERVE = [
-  { slug: "defense", name: "Defense and coast guard", tone: "border-l-cyan", q: "Which vessels in my waters are not what they claim to be?", d: "Persistent tracking of vessels that go dark or change identity, with tasking to confirm them." },
-  { slug: "insurance", name: "Insurance and P&I", tone: "border-l-gold", q: "Is this vessel the risk it claims to be?", d: "Ownership, flag standing, loading behaviour and encounter history for every vessel you cover." },
-  { slug: "commodity-trading", name: "Commodity trading", tone: "border-l-gold", q: "What are the vessels really doing?", d: "Vessel-level cargo estimates, voyages and ship-to-ship transfers, delivered as the data your analysts and models run on." },
-  { slug: "ports", name: "Ports and maritime authorities", tone: "border-l-cyan", q: "Who is arriving, and what risk do they bring?", d: "Arrival intelligence, vessel particulars and boarding risk before the ship reaches port, delivered into the systems you already use." },
-  { slug: "fisheries", name: "Fisheries and environment", tone: "border-l-cyan", q: "Who was operating where they should not be?", d: "Activity patterns and identity history for vessels in protected and regulated waters." },
-  { slug: "banks", name: "Banks and compliance", tone: "border-l-gold", q: "Is any ship in this deal listed, or linked to one that is?", d: "Screening on five official lists with a full audit trail, and early warning before a listing." },
-  { slug: "shipping-security", name: "Shipping and ship security", tone: "border-l-cyan", q: "Is my ship safe where it is going?", d: "Alerts on piracy zones, jamming and dark ships. A flag the moment one of your ships goes dark." },
-  { slug: "search-and-rescue", name: "Search and rescue", tone: "border-l-gold", q: "Who is in distress and who is close enough to help?", d: "Context on every distress call: the ship, its recent track and every ship nearby that can help." },
+  { slug: "commodity-trading", name: "Commodity and energy analysts", d: "Tanker arrivals, departures and activity at loading terminals, including periods when a ship stops transmitting. Daily files or API." },
+  { slug: "banks", name: "Compliance, banks and traders", d: "Vessel due diligence in minutes: identity history, flag and name changes, and sanctions screening with an audit trail." },
+  { slug: "ports", name: "Ports, logistics and data platforms", d: "Verified vessel particulars for every arrival, delivered by API straight into your systems." },
+  { slug: "defense", name: "Government, defence and coast guard", d: "An independent picture of who is really at sea, built to European sovereignty standards." },
+];
+
+const ALSO = [
+  { slug: "insurance", name: "insurance and P&I" },
+  { slug: "fisheries", name: "fisheries and environment" },
+  { slug: "shipping-security", name: "shipping security" },
+  { slug: "search-and-rescue", name: "search and rescue" },
 ];
 
 const GET_IT: {
@@ -211,10 +213,10 @@ export function GetItSection() {
 
 export function IndustriesSection() {
   return (
-    <section id="industries" className="scroll-mt-24 bg-navy px-6 py-28">
+    <section id="solutions" className="scroll-mt-24 bg-navy px-6 py-28">
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
-          <p className="text-eyebrow text-foreground">Industries</p>
+          <p id="industries" className="text-eyebrow scroll-mt-24 text-foreground">Solutions</p>
           <h2 className="text-balance mx-auto mt-6 max-w-3xl text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             Built for the industries that run on the sea.
           </h2>
@@ -233,7 +235,8 @@ export function IndustriesSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/80 to-navy/40" />
                   <div className="relative">
                     <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-foreground">{x.name}</p>
-                    <p className="text-balance mt-4 text-xl font-light leading-snug text-foreground">{x.q}</p>
+                    <p className="mt-4 font-mono text-[10px] tracking-[0.18em] text-muted-foreground">What you get</p>
+                    <p className="text-pretty mt-2 text-base font-light leading-snug text-foreground">{x.d}</p>
                     <span className="mt-6 inline-block font-mono text-[11px] tracking-[0.2em] text-foreground group-hover:text-foreground">Learn more →</span>
                   </div>
                 </Link>
@@ -241,6 +244,17 @@ export function IndustriesSection() {
             );
           })}
         </div>
+        <Reveal>
+          <p className="mt-8 text-center text-sm text-muted-foreground">
+            Also used for:{" "}
+            {ALSO.map((x, i) => (
+              <span key={x.slug}>
+                <Link to="/industries/$slug" params={{ slug: x.slug }} className="text-foreground underline-offset-4 hover:underline">{x.name}</Link>
+                {i < ALSO.length - 2 ? ", " : i === ALSO.length - 2 ? " and " : "."}
+              </span>
+            ))}
+          </p>
+        </Reveal>
       </div>
     </section>
   );
@@ -265,10 +279,10 @@ export function ConstellationSection() {
         </Reveal>
         <Reveal delay={0.12}>
           <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-6xl">
-            Better data, by design.
+            Our own sensors are next
           </h2>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Independent sources today, our own sensors next.
+            HERA AI works today with independent sources. From 2028, our own sensors add a further, sovereign layer.
           </p>
         </Reveal>
         <div className="mt-10 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
@@ -438,8 +452,6 @@ export function WhyNowSection() {
 }
 
 const PROOF: [string, string][] = [
-  ["7", "HERA AI capabilities live today"],
-  ["5", "Official sanctions lists screened"],
   ["Q4 2028", "In-orbit demonstration of our own payload"],
   ["Independent", "Not owned by any data reseller or platform"],
 ];
@@ -447,7 +459,7 @@ const PROOF: [string, string][] = [
 export function ProofSection() {
   return (
     <section className="bg-navy-deep px-6 py-20">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 text-center sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 text-center sm:grid-cols-2">
         {PROOF.map(([v, l], i) => (
           <StatBlock key={l} value={<span className={`font-mono text-4xl ${i % 2 ? "text-foreground" : "text-foreground"}`}>{v}</span>} label={l} />
         ))}
@@ -483,12 +495,12 @@ export function ContactSection() {
       <div className="mx-auto max-w-2xl">
         <Reveal>
           <h2 className="text-balance text-center text-3xl font-light tracking-tight text-foreground sm:text-5xl">
-            Tell us the decision you need to make.
+            Start with your own vessels.
           </h2>
         </Reveal>
         <Reveal delay={0.05}>
           <p className="text-pretty mt-5 text-center text-base text-muted-foreground">
-            We will show you the intelligence behind it.
+            Send us up to 50 IMO numbers or a list of the areas you watch. Within two working days we return a sample report showing what HERA AI finds, under NDA.
           </p>
         </Reveal>
         <Reveal delay={0.1}>
@@ -592,7 +604,7 @@ function ContactForm() {
           disabled={status === "sending"}
           className="inline-flex items-center gap-3 rounded-full bg-gold px-7 py-3.5 font-mono text-[11px] tracking-[0.2em] text-navy transition-opacity hover:opacity-90 disabled:opacity-60"
         >
-          {status === "sending" ? "SENDING…" : "DISCUSS YOUR USE CASE →"}
+          {status === "sending" ? "SENDING…" : "Request a sample report"}
         </button>
         {status === "sent" && (
           <p className="font-mono text-[10px] tracking-[0.18em] text-foreground">
@@ -606,5 +618,92 @@ function ContactForm() {
         )}
       </div>
     </form>
+  );
+}
+const LIVE = [
+  "Vessel identity by IMO, MMSI, name or call sign.",
+  "Cross-checks on flag, call sign, name and dimensions, with conflicts flagged.",
+  "Sanctions screening against official lists, with an audit trail.",
+  "A live vessel picture at the world's key chokepoints.",
+  "API access and written briefings.",
+];
+
+export function LiveTodaySection() {
+  return (
+    <section className="border-y border-white/10 bg-navy-deep px-6 py-12">
+      <div className="mx-auto max-w-[1500px]">
+        <p className="text-eyebrow text-foreground">Live today</p>
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {LIVE.map((t) => (
+            <li key={t} className="flex gap-3 rounded-lg border border-white/10 bg-card p-4 text-sm text-foreground">
+              <span className="mt-2 block h-1.5 w-1.5 shrink-0 rounded-full bg-cyan" />
+              {t}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+const STEPS: [string, string][] = [
+  ["Collect", "We gather vessel signals, registry records, sanctions lists and imagery from several independent sources."],
+  ["Cross-check", "Every field is compared across sources. Where they disagree, HERA AI flags it and shows why."],
+  ["Deliver", "You receive one record per ship with a confidence score, through the platform, the API or a briefing."],
+];
+
+export function HowItWorksSection() {
+  return (
+    <section id="how-it-works" className="scroll-mt-24 bg-navy px-6 py-28">
+      <div className="mx-auto grid max-w-6xl items-start gap-12 lg:grid-cols-[1fr_380px]">
+        <div>
+          <Reveal>
+            <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">How it works</h2>
+          </Reveal>
+          <ol className="mt-10 grid gap-4">
+            {STEPS.map(([t, d], i) => (
+              <Reveal key={t} delay={i * 0.06}>
+                <li className="rounded-lg border border-white/10 bg-card p-6">
+                  <p className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground">0{i + 1}</p>
+                  <h3 className="mt-2 text-lg font-light text-foreground">{t}</h3>
+                  <p className="text-pretty mt-2 text-sm text-muted-foreground">{d}</p>
+                </li>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+        <Reveal delay={0.1}>
+          <SampleRecord />
+          <p className="text-pretty mt-3 text-sm text-muted-foreground">
+            Every field shows where it came from and whether independent sources agree. Sample data, not a real ship.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+export function FindsSection() {
+  return (
+    <section className="bg-navy-deep px-6 py-28">
+      <div className="mx-auto max-w-4xl">
+        <Reveal className="text-center">
+          <p className="text-eyebrow text-foreground">Example finding</p>
+          <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">What HERA AI finds</h2>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <div className="mt-12 rounded-lg border border-white/10 bg-card p-8">
+            <span className="block h-1.5 w-1.5 rounded-full bg-alert" />
+            <h3 className="mt-4 text-xl font-light text-foreground">A renamed tanker on a sanctions list</h3>
+            <p className="text-pretty mt-3 text-base text-muted-foreground">
+              A tanker broadcasting a new name carried an IMO number that appears on the UK sanctions list under its former name. HERA AI matched the permanent IMO number, flagged the identity inconsistency and attached the official list entry.
+            </p>
+          </div>
+          <p className="mt-3 text-sm text-muted-foreground/80">
+            Illustrative example based on public sanctions data. HERA AI reports indicators, not accusations.
+          </p>
+        </Reveal>
+      </div>
+    </section>
   );
 }

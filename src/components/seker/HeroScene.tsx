@@ -351,3 +351,53 @@ export function HeroShipCard() {
     </div>
   );
 }
+
+/** In-flow sample ship record with a source marker beside each field. */
+export function SampleRecord() {
+  const rows: [string, string, string][] = [
+    ["Who owns it", "VERIFIED", "2 sources agree"],
+    ["Flag", "MALTA · CONSISTENT", "3 sources agree"],
+    ["Cargo", "ABOUT 62,000 T", "2 sources agree"],
+    ["Last port", "PIRAEUS · 2 DAYS AGO", "2 sources agree"],
+    ["Meetings at sea, 30 days", "2", "Sources disagree"],
+    ["Risk", "LOW", "3 sources agree"],
+  ];
+  return (
+    <div>
+      <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70">
+        <div className="flex items-center gap-3 border-b border-gold/15 px-3 py-2">
+          <span className="font-mono text-[13px] tracking-[0.18em] text-gold">HERA AI · SHIP RECORD</span>
+          <span className="h-px flex-1 bg-gold/20" />
+        </div>
+        <div className="flex items-end justify-between border-b border-white/5 px-3 py-3">
+          <div>
+            <p className="font-mono text-[16px] leading-none text-foreground">M/V ARGEST</p>
+            <p className="mt-1.5 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">IMO 94XXXX7</p>
+          </div>
+          <span className="rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono text-[13px] tracking-[0.14em] text-gold">VERIFIED</span>
+        </div>
+        <ul className="divide-y divide-white/5">
+          {rows.map(([k, v, src]) => (
+            <li key={k} className="px-3 py-2">
+              <div className="flex items-center gap-2.5">
+                <span className="flex-1 font-mono text-[11px] tracking-[0.06em] text-muted-foreground">{k}</span>
+                <span className="font-mono text-[12px] tracking-[0.08em] text-cyan">{v}</span>
+              </div>
+              <p className={`mt-0.5 text-right font-mono text-[10px] ${src === "Sources disagree" ? "text-alert" : "text-muted-foreground/80"}`}>{src}</p>
+            </li>
+          ))}
+        </ul>
+        <div className="border-t border-white/5 px-3 py-3">
+          <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
+            <span>HERA AI CONFIDENCE</span>
+            <span className="text-cyan">98%</span>
+          </div>
+          <div className="mt-1.5 h-[3px] w-full overflow-hidden rounded-full bg-white/10">
+            <div className="h-full w-[98%] rounded-full bg-cyan" />
+          </div>
+        </div>
+      </div>
+      <p className="mt-2 font-mono text-[10px] tracking-[0.18em] text-muted-foreground/70">SAMPLE SHIP</p>
+    </div>
+  );
+}

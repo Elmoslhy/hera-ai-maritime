@@ -8,7 +8,6 @@ import heraApp from "@/assets/hera-app-hormuz.jpg";
 const TOP_STATS = [
   { label: "HERA AI capabilities live today", to: 7, suffix: "", tone: "text-foreground" },
   { label: "Official sanctions lists screened: US, UK, EU and Japan", to: 5, suffix: "", tone: "text-foreground" },
-  { label: "Capabilities on one record per ship", to: 12, suffix: "", tone: "text-foreground" },
 ];
 
 /* ---------------- live map ---------------- */
@@ -489,7 +488,7 @@ export function DashboardSection() {
 
         <Reveal className="mt-14">
           <WindowChrome>
-            <div className="grid grid-cols-1 gap-px border-b sm:grid-cols-3 border-white/8 bg-white/5 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-px border-b sm:grid-cols-2 border-white/8 bg-white/5 lg:grid-cols-2">
               {TOP_STATS.map((s) => (
                 <div key={s.label} className="flex items-center justify-between gap-4 bg-[#070d16] px-5 py-4">
                   <p className="font-mono text-[9px] leading-relaxed tracking-[0.2em] text-muted-foreground">
