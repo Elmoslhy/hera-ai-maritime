@@ -6,7 +6,7 @@ import ocean from "@/assets/seker-earth-limb.jpg";
 import vessels from "@/assets/seker-sar-port.jpg";
 import { SekerLogo } from "./Logo";
 import { industries } from "@/content/industries";
-import { HeroScene, SampleRecord } from "./HeroScene";
+import { HeroScene, HeroShipCard, SampleRecord } from "./HeroScene";
 import { Reveal, SectionBackground } from "./primitives";
 
 export function HeroSection() {
@@ -15,6 +15,7 @@ export function HeroSection() {
       
       <div className="absolute inset-0 bg-navy-deep" />
       <HeroScene />
+      <HeroShipCard />
       <div className="relative z-10 flex flex-col items-center px-6 text-center">
         <Reveal>
           <SekerLogo className="mx-auto w-[min(72vw,460px)] text-foreground" />
@@ -46,7 +47,7 @@ export function HeroSection() {
           >
             Request a sample report
           </Link>
-          <a href="#how-it-works" className="mt-5 block font-mono text-sm tracking-[0.14em] text-foreground underline-offset-4 hover:underline">
+          <a href="#hera-ai" className="mt-5 block font-mono text-sm tracking-[0.14em] text-foreground underline-offset-4 hover:underline">
             See how it works →
           </a>
         </Reveal>

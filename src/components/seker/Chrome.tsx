@@ -80,7 +80,7 @@ export function Nav() {
             <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" />
             LIVE
           </span>
-          <a href="/#how-it-works" className="hidden text-foreground/80 transition-colors hover:text-foreground lg:inline">
+          <a href="/#hera-ai" className="hidden text-foreground/80 transition-colors hover:text-foreground lg:inline">
             HOW IT WORKS
           </a>
           <a href="/#solutions" className="hidden text-foreground/80 transition-colors hover:text-foreground lg:inline">
@@ -145,7 +145,7 @@ function MobileMenu() {
       </button>
       {open && createPortal(
         <div className="fixed inset-x-0 bottom-0 top-[68px] z-50 overflow-y-auto bg-navy px-6 pb-10 sm:hidden">
-          <a href="/#how-it-works" onClick={close} className={`${item} mt-4`}>HOW IT WORKS</a>
+          <a href="/#hera-ai" onClick={close} className={`${item} mt-4`}>HOW IT WORKS</a>
           <a href="/#solutions" onClick={close} className={item}>SOLUTIONS</a>
           <Link to="/intelligence" onClick={close} className={item}>HERA AI</Link>
           <Link to="/constellation" onClick={close} className={item}>SEKER-1 · SEKER-2</Link>

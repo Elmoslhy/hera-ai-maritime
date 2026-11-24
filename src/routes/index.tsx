@@ -7,7 +7,6 @@ import {
   ConstellationSection,
   ContactSection,
   FindsSection,
-  HowItWorksSection,
   LiveTodaySection,
   GetItSection,
   HeroSection,
@@ -43,7 +42,6 @@ function Index() {
       <main>
         <HeroSection />
         <LiveTodaySection />
-        <HowItWorksSection />
         <IndustriesSection />
         <ConstellationSection />
         <FindsSection />
