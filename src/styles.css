@@ -300,8 +300,4 @@ a.bg-gold, button.bg-gold, a.bg-primary, button.bg-primary { border-radius: 4px;
 a:not([class*="bg-"]):hover { text-decoration-color: #c0972b; }
 .rounded-xl, .rounded-2xl, .rounded-lg { border-radius: 6px; }
 [class*="border-cyan"], [class*="border-gold"]:not([class*="border-b"]):not([class*="border-t"]):not([class*="border-l"]) { border-color: #1a3866; }
-@media (min-width: 1024px) {
-  section:not(:has([data-hero-scene])) .text-center:not(button):not(a) { text-align: left; }
-  section:not(:has([data-hero-scene])) .mx-auto.text-center { margin-left: 0; }
-  section > div > p, section header p { max-width: 680px; }
-}
+

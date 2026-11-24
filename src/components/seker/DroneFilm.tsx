@@ -66,8 +66,8 @@ export function SecondLookSection() {
     <section className="relative overflow-hidden px-6 py-28">
       <div className="relative z-10 mx-auto w-full max-w-5xl">
         <Reveal className="text-center">
-          <p className="text-eyebrow text-foreground">A second look on demand</p>
-          <h2 className="text-balance mt-6 text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-5xl">
+          <p className="text-eyebrow text-gold">A second look on demand</p>
+          <h2 className="text-balance mt-6 text-4xl font-light leading-[1.1] tracking-tight text-gold sm:text-6xl">
             When HERA AI is not sure, it sends a closer look.
           </h2>
         </Reveal>
