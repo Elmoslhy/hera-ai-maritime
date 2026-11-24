@@ -353,16 +353,16 @@ export function ProblemSection() {
           </p>
         </Reveal>
         <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
-          <StatBlock value={<span className="font-mono text-5xl text-foreground">978</span>} label="Shadow fleet tankers, 18.5% of the world's tanker fleet" />
-          <StatBlock value={<span className="font-mono text-5xl text-foreground">80%+</span>} label="Of world trade by volume moves by sea" />
+          <StatBlock value={<span className="font-mono text-5xl text-gold">978</span>} label="Shadow fleet tankers, 18.5% of the world's tanker fleet" />
+          <StatBlock value={<span className="font-mono text-5xl text-gold">80%+</span>} label="Of world trade by volume moves by sea" />
           <StatBlock value={<span className="font-mono text-5xl text-alert">22</span>} label="GPS spoofing hotspots on the busiest sea lanes" />
         </div>
         <Reveal>
           <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-foreground">THE COST OF HIDDEN SHIPS AND HOW HERA AI HELPS</p>
         </Reveal>
         <div className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
-          <StatBlock value={<span className="font-mono text-5xl text-foreground">$426–652bn</span>} label={"Annual global illegal drug trade\nMajority moves by sea"} hera="Flags ships that go dark, meet at sea or change identity before they reach port." />
-          <StatBlock value={<span className="font-mono text-5xl text-foreground">$26–50bn</span>} label="Lost to illegal fishing every year, worldwide" hera="Shows which fishing ships switched off or worked where they should not be." />
+          <StatBlock value={<span className="font-mono text-5xl text-gold">$426–652bn</span>} label={"Annual global illegal drug trade\nMajority moves by sea"} hera="Flags ships that go dark, meet at sea or change identity before they reach port." />
+          <StatBlock value={<span className="font-mono text-5xl text-gold">$26–50bn</span>} label="Lost to illegal fishing every year, worldwide" hera="Shows which fishing ships switched off or worked where they should not be." />
           <StatBlock value={<span className="font-mono text-5xl text-alert">$275M</span>} label="One US sanctions penalty for ships with spoofed AIS" hera="Screens every ship and its owners on five official lists, with a full audit trail." />
         </div>
         <p className="mt-5 font-mono text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground/70">
@@ -375,7 +375,7 @@ export function ProblemSection() {
 
 const WHY_NOW: [string, string, string][] = [
   ["138 → <10", "Cargo ships crossing a day, 2025 vs October 2026", "text-alert"],
-  ["0.25% → 10%", "War-risk premium as a share of a ship's value", "text-foreground"],
+  ["0.25% → 10%", "War-risk premium as a share of a ship's value", "text-gold"],
 ];
 
 const FLASHPOINTS: [string, string][] = [
@@ -461,8 +461,8 @@ export function ProofSection() {
   return (
     <section className="bg-navy-deep px-6 py-20">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 text-center sm:grid-cols-2">
-        {PROOF.map(([v, l], i) => (
-          <StatBlock key={l} value={<span className={`font-mono text-4xl ${i % 2 ? "text-foreground" : "text-foreground"}`}>{v}</span>} label={l} />
+        {PROOF.map(([v, l]) => (
+          <StatBlock key={l} value={<span className="font-mono text-4xl text-gold">{v}</span>} label={l} />
         ))}
       </div>
     </section>

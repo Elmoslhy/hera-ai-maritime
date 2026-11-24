@@ -288,7 +288,8 @@ button, nav a { font-weight: 600; }
 .uppercase { text-transform: none; }
 [class*="tracking-"] { letter-spacing: 0; }
 h1[class*="tracking-"], h2[class*="tracking-"], h3[class*="tracking-"], h4[class*="tracking-"] { letter-spacing: -0.01em; }
-.tabular-nums, [class*="text-4xl"], [class*="text-5xl"], [class*="text-6xl"] { font-family: var(--font-display); font-weight: 700; color: #ffffff; }
+.tabular-nums, [class*="text-4xl"], [class*="text-5xl"], [class*="text-6xl"] { font-family: var(--font-display); font-weight: 700; }
+.tabular-nums:not([class*="text-gold"]):not([class*="text-alert"]):not([class*="text-cyan"]):not([class*="text-ok"]):not([class*="text-amber"]), [class*="text-4xl"]:not([class*="text-gold"]):not([class*="text-alert"]):not([class*="text-cyan"]):not([class*="text-ok"]):not([class*="text-amber"]), [class*="text-5xl"]:not([class*="text-gold"]):not([class*="text-alert"]):not([class*="text-cyan"]):not([class*="text-ok"]):not([class*="text-amber"]), [class*="text-6xl"]:not([class*="text-gold"]):not([class*="text-alert"]):not([class*="text-cyan"]):not([class*="text-ok"]):not([class*="text-amber"]) { color: #ffffff; }
 [class*="backdrop-blur"] { -webkit-backdrop-filter: none; backdrop-filter: none; }
 [class*="shadow-"]:not([data-hero-scene] *), [class*="drop-shadow"]:not([data-hero-scene] *) { box-shadow: none; filter: none; }
 .hero-lead { text-shadow: none; }
