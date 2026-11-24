@@ -107,7 +107,7 @@ export function OpsMap({ idx, stage }: { idx: number; stage: number }) {
       {/* stage 6: delivered */}
       <motion.g {...show(5)}>
         <rect x="24" y="404" width="180" height="26" rx="4" className="fill-navy/80 stroke-cyan/40" />
-        <text x="36" y="421" className="fill-cyan font-mono" fontSize="10" letterSpacing="2">RECORD DELIVERED</text>
+        <text x="36" y="421" className="fill-cyan font-mono" fontSize="10">RECORD DELIVERED</text>
       </motion.g>
     </svg>
   );

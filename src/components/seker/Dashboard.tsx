@@ -151,13 +151,13 @@ export function LiveMap() {
             ))}
 
             {/* geo-fence with flagged cluster */}
-            <circle cx={r1(px(FENCE.lon))} cy={r1(py(FENCE.lat))} r="70" fill="#ff4d4d" opacity="0.12" />
+            <circle cx={r1(px(FENCE.lon))} cy={r1(py(FENCE.lat))} r="70" fill="#FFFFFF" opacity="0.12" />
             <circle cx={r1(px(FENCE.lon))} cy={r1(py(FENCE.lat))} r="70" fill="none" stroke="#c9a84c" strokeWidth="1.4" strokeDasharray="7 7" />
             {Array.from({ length: 9 }).map((_, i) => (
               <polygon
                 key={`f${i}`}
                 points="0,-6 4.3,4.8 -4.3,4.8"
-                fill="#ff4d4d"
+                fill="#FFFFFF"
                 transform={`translate(${r1(px(FENCE.lon) + (rnd(i, 4.4) - 0.5) * 96)} ${r1(py(FENCE.lat) + (rnd(i, 7.9) - 0.5) * 96)}) rotate(${i * 41})`}
               />
             ))}
@@ -201,7 +201,7 @@ export function LiveMap() {
         <div className="absolute bottom-3 right-3 hidden max-w-[46%] flex-wrap justify-end gap-3 rounded-md border border-white/10 bg-navy/90 px-3 py-2 font-mono text-[9px] tracking-[0.16em] text-muted-foreground sm:flex">
           {[
             ["#4a9eff", "CARGO"], ["#f59e42", "TANKER"], ["#3ddc84", "PASSENGER"], ["#3FB68B", "FISHING"],
-            ["#a855f7", "TUG"], ["#ec4899", "SAILING"], ["#8fa3bb", "UNKNOWN"], ["#ff4d4d", "FLAGGED"],
+            ["#a855f7", "TUG"], ["#ec4899", "SAILING"], ["#8fa3bb", "UNKNOWN"], ["#FFFFFF", "FLAGGED"],
           ].map(([c, l]) => (
             <span key={l} className="flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full" style={{ background: c }} />
@@ -239,7 +239,7 @@ function TirThumb() {
   return (
     <svg viewBox="0 0 100 56" className="h-full w-full" aria-hidden>
       <rect width="100" height="56" fill="#1a0f22" />
-      <ellipse cx="52" cy="30" rx="30" ry="9" fill="#ff4d4d" opacity="0.55" />
+      <ellipse cx="52" cy="30" rx="30" ry="9" fill="#FFFFFF" opacity="0.55" />
       <ellipse cx="60" cy="30" rx="14" ry="8" fill="#ffc458" />
       <circle cx="62" cy="30" r="4" fill="#fff6d8" />
     </svg>

@@ -93,7 +93,7 @@ export function DescentSection() {
         {/* satellite */}
         <motion.div style={{ y: satY, scale: satScale }} className="absolute left-1/2 top-[10%] w-[min(46vw,420px)] -translate-x-1/2">
           <div style={{ opacity: satBigO }}>
-            <img src={satelliteReal} alt="SEKER satellite in low Earth orbit" loading="lazy" className="w-full drop-shadow-[0_0_70px_rgba(77,217,192,0.2)]" />
+            <img src={satelliteReal} alt="SEKER satellite in low Earth orbit" loading="lazy" className="w-full drop-shadow-[0_0_70px_rgba(215,178,74,0.2)]" />
           </div>
         </motion.div>
 

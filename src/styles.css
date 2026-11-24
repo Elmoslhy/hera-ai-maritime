@@ -326,7 +326,7 @@ section [class*="max-w-6xl"], section [class*="max-w-7xl"], section [class*="max
 section:not([data-keep-center]) .text-center:not([data-hero-scene] *) { text-align: left; }
 section:not([data-keep-center]) .text-center > p.text-eyebrow { justify-content: flex-start; }
 a.inline-block.bg-gold, a.inline-flex.bg-gold, a.inline-block[class*="border-white"], a.inline-flex[class*="border-white"], a.inline-block[class*="border-gold"], a.inline-flex[class*="border-gold"], button.inline-flex { display: inline-flex; }
-.seker-nav a, .seker-nav button { white-space: nowrap; }
+.seker-nav > div > div > a, .seker-nav > div > div > div > button { white-space: nowrap; }
 .seker-nav a[class*="bg-gold/"] { line-height: 40px; }
 @media (min-width: 1240px) { .seker-nav > div > div { gap: 20px; } }
 section:not([data-keep-center]) .text-center .mx-auto:not(.grid):not([class*="max-w-6xl"]):not([class*="max-w-7xl"]) { margin-left: 0; }
