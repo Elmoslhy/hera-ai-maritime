@@ -11,7 +11,7 @@ import { Reveal, SectionBackground } from "./primitives";
 
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20 pb-24">
+    <section data-keep-center className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20 pb-24">
       
       <div className="absolute inset-0 bg-navy-deep" />
       <HeroScene />
@@ -272,7 +272,7 @@ const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "FUSED IN HERA AI"];
 
 export function ConstellationSection() {
   return (
-    <section className="relative overflow-hidden px-6 py-28">
+    <section data-keep-center className="relative overflow-hidden px-6 py-28">
       <SectionBackground src={satelliteNetwork} alt="Satellite constellation" overlay="bg-card" />
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
         <Reveal>

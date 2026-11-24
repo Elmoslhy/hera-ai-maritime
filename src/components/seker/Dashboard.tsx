@@ -474,7 +474,7 @@ const FEATURES = [
 
 export function DashboardSection() {
   return (
-    <section id="hera-ai" className="bg-navy px-6 py-28">
+    <section id="hera-ai" data-keep-center className="bg-navy px-6 py-28">
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
           <p className="text-eyebrow text-gold">HERA AI</p>

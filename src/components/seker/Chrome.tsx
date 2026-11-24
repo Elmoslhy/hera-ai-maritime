@@ -9,9 +9,9 @@ import { industries } from "@/content/industries";
 function IndustriesMenu() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="relative hidden sm:block" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+    <div className="relative hidden min-[1240px]:block" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
       <button type="button" aria-expanded={open} onClick={() => setOpen((o) => !o)} className="flex items-center gap-1 tracking-[0.2em] text-foreground/80 transition-colors hover:text-foreground">
-        INDUSTRIES <ChevronDown className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`} />
+        Industries <ChevronDown className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
         <div className="absolute left-1/2 top-full w-80 -translate-x-1/2 pt-3">
@@ -65,49 +65,49 @@ export function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-colors duration-500 ${
-        "border-b border-[rgba(169,184,204,0.15)] bg-navy"
+        scrolled ? "seker-nav is-scrolled" : "seker-nav"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link to="/" aria-label="SEKER — home" className="inline-flex">
           <SekerLogo className="h-9 w-auto text-foreground" />
         </Link>
-        <div className="flex items-center gap-4 font-mono text-[10px] tracking-[0.2em] sm:gap-6">
+        <div className="flex items-center gap-4 text-[14px] sm:gap-6">
           <span className="hidden text-muted-foreground 2xl:inline">
             UTC <span className="text-foreground/80">{utc}</span>
           </span>
           <span className="flex items-center gap-2 text-foreground">
-            <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" />
-            LIVE
+            <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+            Live
           </span>
-          <a href="/#hera-ai" className="hidden text-foreground/80 transition-colors hover:text-foreground lg:inline">
-            HOW IT WORKS
+          <a href="/#hera-ai" className="hidden text-foreground/80 transition-colors hover:text-foreground min-[1240px]:inline">
+            How it works
           </a>
-          <a href="/#solutions" className="hidden text-foreground/80 transition-colors hover:text-foreground lg:inline">
-            SOLUTIONS
+          <a href="/#solutions" className="hidden text-foreground/80 transition-colors hover:text-foreground min-[1240px]:inline">
+            Solutions
           </a>
-          <Link to="/intelligence" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
+          <Link to="/intelligence" className="hidden text-foreground/80 transition-colors hover:text-foreground min-[1240px]:inline">
             HERA AI
           </Link>
-          <Link to="/constellation" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
+          <Link to="/constellation" className="hidden text-foreground/80 transition-colors hover:text-foreground min-[1240px]:inline">
             SEKER-1 · SEKER-2
           </Link>
           <IndustriesMenu />
-          <Link to="/company" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
-            COMPANY
+          <Link to="/company" className="hidden text-foreground/80 transition-colors hover:text-foreground min-[1240px]:inline">
+            Company
           </Link>
-          <Link to="/careers" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
-            CAREERS
+          <Link to="/careers" className="hidden text-foreground/80 transition-colors hover:text-foreground min-[1240px]:inline">
+            Careers
           </Link>
-          <Link to="/newsroom" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
-            NEWSROOM
+          <Link to="/newsroom" className="hidden text-foreground/80 transition-colors hover:text-foreground min-[1240px]:inline">
+            Newsroom
           </Link>
-          <Link to="/access" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
-            PLATFORM LOGIN
+          <Link to="/access" className="hidden text-foreground/80 transition-colors hover:text-foreground min-[1240px]:inline">
+            Platform login
           </Link>
           <a
             href="/#contact"
-            className="hidden border border-gold/60 bg-gold/90 px-4 py-2 text-[10px] tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold sm:inline-block"
+            className="hidden border border-gold/60 bg-gold/90 px-4 py-2 text-[10px] tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold min-[1240px]:inline-block"
           >
             Request a sample report
           </a>
@@ -133,7 +133,7 @@ function MobileMenu() {
   const close = () => setOpen(false);
   const item = "block border-b border-white/5 py-4 font-mono text-xs tracking-[0.2em] text-foreground/90 hover:text-foreground";
   return (
-    <div className="sm:hidden">
+    <div className="min-[1240px]:hidden">
       <button
         type="button"
         aria-label={open ? "Close menu" : "Open menu"}
@@ -144,28 +144,28 @@ function MobileMenu() {
         {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
       </button>
       {open && createPortal(
-        <div className="fixed inset-x-0 bottom-0 top-[68px] z-50 overflow-y-auto bg-navy px-6 pb-10 sm:hidden">
-          <a href="/#hera-ai" onClick={close} className={`${item} mt-4`}>HOW IT WORKS</a>
-          <a href="/#solutions" onClick={close} className={item}>SOLUTIONS</a>
+        <div className="fixed inset-x-0 bottom-0 top-[68px] z-50 overflow-y-auto bg-navy px-6 pb-10 min-[1240px]:hidden">
+          <a href="/#hera-ai" onClick={close} className={`${item} mt-4`}>How it works</a>
+          <a href="/#solutions" onClick={close} className={item}>Solutions</a>
           <Link to="/intelligence" onClick={close} className={item}>HERA AI</Link>
           <Link to="/constellation" onClick={close} className={item}>SEKER-1 · SEKER-2</Link>
-          <p className="pt-6 font-mono text-[10px] tracking-[0.22em] text-foreground">INDUSTRIES</p>
-          <a href="/#industries" onClick={close} className={item}>ALL INDUSTRIES</a>
+          <p className="pt-6 font-mono text-[10px] tracking-[0.22em] text-foreground">Industries</p>
+          <a href="/#industries" onClick={close} className={item}>All industries</a>
           {industries.map((i) => (
             <Link key={i.slug} to="/industries/$slug" params={{ slug: i.slug }} onClick={close} className={item}>
               {i.navName.toUpperCase()}
             </Link>
           ))}
-          <p className="pt-8 font-mono text-[10px] tracking-[0.22em] text-foreground">SEKER</p>
-          <Link to="/company" onClick={close} className={item}>COMPANY</Link>
-          <Link to="/careers" onClick={close} className={item}>CAREERS</Link>
-          <Link to="/newsroom" onClick={close} className={item}>NEWSROOM</Link>
+          <p className="pt-8 font-mono text-[10px] tracking-[0.22em] text-foreground">Seker</p>
+          <Link to="/company" onClick={close} className={item}>Company</Link>
+          <Link to="/careers" onClick={close} className={item}>Careers</Link>
+          <Link to="/newsroom" onClick={close} className={item}>Newsroom</Link>
           <Link
             to="/access"
             onClick={close}
             className="mt-8 block border border-gold/60 bg-gold/90 px-4 py-3 text-center font-mono text-xs tracking-[0.22em] text-navy-deep"
           >
-            PLATFORM LOGIN
+            Platform login
           </Link>
           <a href="/#contact" onClick={close} className="mt-3 block border border-gold/60 px-4 py-3 text-center font-mono text-xs tracking-[0.22em] text-foreground">
             Request a sample report
