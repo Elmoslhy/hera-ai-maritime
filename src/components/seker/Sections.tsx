@@ -283,7 +283,7 @@ export function ConstellationSection() {
             Our own sensors are next
           </h2>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            HERA AI works today with independent sources. From 2028, our own sensors add a further, sovereign layer.
+            HERA AI works today with independent sources. From 2030, our own sensors add a further, sovereign layer.
           </p>
         </Reveal>
         <div className="mt-10 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
@@ -453,7 +453,7 @@ export function WhyNowSection() {
 }
 
 const PROOF: [string, string][] = [
-  ["Q4 2028", "In-orbit demonstration of our own payload"],
+  ["2030", "In-orbit demonstration of our own payload"],
   ["Independent", "Not owned by any data reseller or platform"],
 ];
 
