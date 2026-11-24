@@ -38,7 +38,7 @@ export function SectionBackground({
   children?: React.ReactNode;
   position?: string;
 }) {
-  const alpha = src.includes("seker-sar-port") ? 0.5 : src.includes("seker-europe-night") ? 0.4 : 0.45;
+  const alpha = src.includes("seker-europe-night") ? 0.82 : src.includes("seker-sar-port") ? 0.6 : 0.55;
   return (
     <div className="absolute inset-0 overflow-hidden">
       <img src={src} alt={alt} loading="lazy" decoding="async" width={1376} height={768} className={`h-full w-full object-cover ${imgClassName}`} style={{ objectPosition: `${position} 50%` }} />

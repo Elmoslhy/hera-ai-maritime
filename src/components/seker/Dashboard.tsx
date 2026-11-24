@@ -478,7 +478,7 @@ export function DashboardSection() {
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
           <p className="text-eyebrow text-gold">HERA AI</p>
-          <h2 className="text-balance mt-6 text-4xl font-light tracking-tight text-gold sm:text-6xl">
+          <h2 className="text-balance mt-6 text-4xl font-semibold tracking-tight text-gold sm:text-6xl lg:text-7xl">
             Meet HERA AI.
           </h2>
           <p className="text-pretty mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">

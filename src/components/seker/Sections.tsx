@@ -115,7 +115,7 @@ export function LaunchSection() {
                   <span className="font-mono text-xs tracking-[0.22em] text-foreground">0{i + 1}</span>
                   <span className="font-mono text-xs uppercase tracking-[0.18em] text-foreground">{t}</span>
                 </div>
-                <p className="text-pretty px-4 py-4 text-sm leading-relaxed text-muted-foreground">{b}</p>
+                <p className="text-pretty px-4 py-4 text-sm leading-relaxed text-muted-foreground sm:text-base">{b}</p>
               </div>
             </Reveal>
           ))}
@@ -183,7 +183,7 @@ export function GetItSection() {
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
           <p className="text-eyebrow text-gold">How you get it</p>
-          <h2 className="text-balance mx-auto mt-6 max-w-3xl text-4xl font-light tracking-tight text-gold sm:text-6xl">
+          <h2 className="text-balance mx-auto mt-6 max-w-3xl text-4xl font-semibold tracking-tight text-gold sm:text-6xl lg:text-7xl">
             Three ways to use HERA AI.
           </h2>
         </Reveal>
@@ -218,7 +218,7 @@ export function IndustriesSection() {
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
           <p id="industries" className="text-eyebrow scroll-mt-24 text-gold">Solutions</p>
-          <h2 className="text-balance mx-auto mt-6 max-w-3xl text-4xl font-light tracking-tight text-gold sm:text-6xl">
+          <h2 className="text-balance mx-auto mt-6 max-w-3xl text-4xl font-semibold tracking-tight text-gold sm:text-6xl lg:text-7xl">
             Built for the maritime industry.
           </h2>
         </Reveal>
@@ -279,7 +279,7 @@ export function ConstellationSection() {
           <p className="text-eyebrow text-gold">Why SEKER</p>
         </Reveal>
         <Reveal delay={0.12}>
-          <h2 className="mt-6 text-balance text-4xl font-light leading-[1.1] tracking-tight text-gold sm:text-6xl">
+          <h2 className="mt-6 text-balance text-4xl font-semibold leading-[1.1] tracking-tight text-gold sm:text-6xl lg:text-7xl">
             Our own sensors are next
           </h2>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
@@ -289,9 +289,9 @@ export function ConstellationSection() {
         <div className="mt-10 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
           {WHY.map(([t, b], i) => (
             <Reveal key={t} delay={0.18 + i * 0.06}>
-              <div className="h-full rounded-sm border border-gold/25 bg-[#060d18]/70 p-5 backdrop-blur-md">
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-foreground">{t}</p>
-                <p className="text-pretty mt-3 text-sm leading-relaxed text-muted-foreground">{b}</p>
+              <div className="h-full rounded-sm border border-gold/25 bg-card p-6">
+                <p className="font-mono text-sm font-semibold uppercase tracking-[0.12em] text-gold">{t}</p>
+                <p className="text-pretty mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">{b}</p>
               </div>
             </Reveal>
           ))}
@@ -323,7 +323,7 @@ export function ProblemSection() {
           <p className="text-eyebrow text-gold">WHY ACCURACY MATTERS</p>
         </Reveal>
         <Reveal delay={0.1}>
-          <h2 className="text-balance mt-6 text-4xl font-light tracking-tight text-gold sm:text-6xl">
+          <h2 className="text-balance mt-6 text-4xl font-semibold tracking-tight text-gold sm:text-6xl lg:text-7xl">
             A wrong answer at sea is expensive.
           </h2>
         </Reveal>
@@ -341,7 +341,7 @@ export function ProblemSection() {
             ["MISSING THE WRONG SHIP", "The drugs, the illegal catches or the threats get through."],
           ].map(([t, d]) => (
             <div key={t} className="bg-navy px-6 py-8">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-foreground">{t}</p>
+              <p className="font-mono text-sm font-semibold uppercase tracking-[0.12em] text-gold">{t}</p>
               <p className="text-pretty mt-3 text-sm leading-relaxed text-muted-foreground">{d}</p>
             </div>
           ))}
@@ -403,7 +403,7 @@ export function WhyNowSection() {
           <p className="text-eyebrow text-gold">Why now</p>
         </Reveal>
         <Reveal delay={0.1}>
-          <h2 className="text-balance mt-6 text-4xl font-light tracking-tight text-gold sm:text-6xl">
+          <h2 className="text-balance mt-6 text-4xl font-semibold tracking-tight text-gold sm:text-6xl lg:text-7xl">
             Tension at sea keeps rising.
             <span className="mt-2 block text-foreground">Every flashpoint makes a ship's own signal less reliable.</span>
           </h2>
@@ -495,7 +495,7 @@ export function ContactSection() {
     <section id="contact" className="scroll-mt-24 bg-navy px-6 py-32">
       <div className="mx-auto max-w-2xl">
         <Reveal>
-          <h2 className="text-balance text-center text-4xl font-light tracking-tight text-gold sm:text-6xl">
+          <h2 className="text-balance text-center text-4xl font-semibold tracking-tight text-gold sm:text-6xl lg:text-7xl">
             Start with your own vessels.
           </h2>
         </Reveal>
@@ -690,7 +690,7 @@ export function FindsSection() {
       <div className="mx-auto max-w-4xl">
         <Reveal className="text-center">
           <p className="text-eyebrow text-gold">Example finding</p>
-          <h2 className="text-balance mt-6 text-4xl font-light tracking-tight text-gold sm:text-6xl">What HERA AI finds</h2>
+          <h2 className="text-balance mt-6 text-4xl font-semibold tracking-tight text-gold sm:text-6xl lg:text-7xl">What HERA AI finds</h2>
         </Reveal>
         <Reveal delay={0.1}>
           <div className="mt-12 rounded-lg border border-white/10 bg-card p-8">
