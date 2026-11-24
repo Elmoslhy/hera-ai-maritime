@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import satelliteImg from "@/assets/seker-payload-earth.jpg";
+import satelliteImg from "@/assets/satellite-real.png";
 import vesselImg from "@/assets/vessel-top.png";
 
 const BG = "#09121F";
@@ -62,7 +62,7 @@ export function EyeCanvas({ className }: { className?: string }) {
     let start: number | null = null;
     let visible = false;
     let paused = 0;
-    const reduced = true;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const io = new IntersectionObserver(
       (entries) => {
@@ -358,7 +358,7 @@ export function EyeCanvas({ className }: { className?: string }) {
 
       if (reveal > 0) {
         ctx.globalAlpha = seaA * reveal;
-        ctx.font = '11px "IBM Plex Mono", ui-monospace, monospace';
+        ctx.font = '11px "Space Mono", ui-monospace, monospace';
         ctx.textAlign = "left";
         const lx = tgt.x + 48;
         const ly = tgt.y - 52;

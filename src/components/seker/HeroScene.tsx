@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import satellite from "@/assets/seker-payload-earth.jpg";
+import satellite from "@/assets/satellite-real.png";
 import earthTexture from "@/assets/earth-texture.jpg";
 
 type Orbit = {
@@ -76,14 +76,14 @@ export function HeroScene() {
           beam.setAttribute("opacity", String(depth > 0.15 ? near * 0.85 : 0));
         }
       });
-      // Static scene: one frame only (no looping motion).
+      raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, []);
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div data-hero-scene className="pointer-events-none absolute inset-0 overflow-hidden">
       {/* starfield */}
       <svg viewBox="0 0 1600 900" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden>
         {Array.from({ length: 160 }).map((_, i) => {
@@ -162,7 +162,7 @@ export function HeroScene() {
               ref={(el) => {
                 beamRefs.current[i] = el;
               }}
-              stroke="#3FB68B"
+              stroke="#4dd9c0"
               strokeWidth="0.22"
               strokeDasharray="1.4 1.8"
               opacity="0"
@@ -202,7 +202,7 @@ export function HeroHud({ large = false }: { large?: boolean }) {
     <div className={`pointer-events-none absolute right-6 top-1/2 z-10 hidden -translate-y-1/2 space-y-3 lg:block ${large ? "w-[320px]" : "w-[286px]"}`}>
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
         <div className="flex items-center justify-between border-b border-gold/15 px-3 py-2">
-          <span className={`font-mono text-foreground ${s("text-xs tracking-[0.22em]", "text-[14px] tracking-[0.18em]")}`}>HERA AI · FUSION</span>
+          <span className={`font-mono text-gold ${s("text-xs tracking-[0.22em]", "text-[14px] tracking-[0.18em]")}`}>HERA AI · FUSION</span>
           <span className={`flex items-center gap-1.5 font-mono tracking-[0.18em] text-muted-foreground ${s("text-[8px]", "text-[10px]")}`}>
             <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" /> FUSING
           </span>
@@ -216,7 +216,7 @@ export function HeroHud({ large = false }: { large?: boolean }) {
                 IMO 94XXXX7{large ? <br /> : " · "}35.8104N 14.4903E
               </p>
             </div>
-            <span className={`rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono tracking-[0.14em] text-foreground ${s("text-xs", "text-[13px]")}`}>
+            <span className={`rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono tracking-[0.14em] text-gold ${s("text-xs", "text-[13px]")}`}>
               VERIFIED
             </span>
           </div>
@@ -226,7 +226,7 @@ export function HeroHud({ large = false }: { large?: boolean }) {
             {["AIS-T", "AIS-S", "RF", "SAR", "TIR"].map((c) => (
               <span
                 key={c}
-                className={`rounded-[2px] border border-cyan/25 px-1.5 py-[3px] font-mono text-foreground ${s("text-[7.5px] tracking-[0.16em]", "text-[10px] tracking-[0.12em]")}`}
+                className={`rounded-[2px] border border-cyan/25 px-1.5 py-[3px] font-mono text-cyan/80 ${s("text-[7.5px] tracking-[0.16em]", "text-[10px] tracking-[0.12em]")}`}
               >
                 {c}
               </span>
@@ -237,9 +237,9 @@ export function HeroHud({ large = false }: { large?: boolean }) {
           <svg viewBox="0 0 240 34" className="mt-3 h-[34px] w-full" aria-hidden>
             <defs>
               <linearGradient id="hud-trace" x1="0" x2="1">
-                <stop offset="0" stopColor="#3FB68B" stopOpacity="0.05" />
-                <stop offset="0.5" stopColor="#3FB68B" stopOpacity="0.9" />
-                <stop offset="1" stopColor="#3FB68B" stopOpacity="0.15" />
+                <stop offset="0" stopColor="#4dd9c0" stopOpacity="0.05" />
+                <stop offset="0.5" stopColor="#4dd9c0" stopOpacity="0.9" />
+                <stop offset="1" stopColor="#4dd9c0" stopOpacity="0.15" />
               </linearGradient>
             </defs>
             {[0, 1, 2, 3].map((i) => (
@@ -261,10 +261,10 @@ export function HeroHud({ large = false }: { large?: boolean }) {
 
           <div className={`mt-2 flex items-center justify-between font-mono tracking-[0.14em] text-muted-foreground ${s("text-[9px]", "text-[11px]")}`}>
             <span>POSITION CONFIDENCE</span>
-            <span className="text-foreground">98.4%</span>
+            <span className="text-gold">98.4%</span>
           </div>
           <div className="mt-1.5 h-[3px] w-full overflow-hidden rounded-full bg-white/10">
-            <div className="h-full w-[98.4%] rounded-full bg-gold" />
+            <div className="h-full w-[98.4%] rounded-full bg-gradient-to-r from-gold/50 to-gold" />
           </div>
 
           <div className="mt-3 grid grid-cols-3 gap-1.5">
@@ -284,7 +284,7 @@ export function HeroHud({ large = false }: { large?: boolean }) {
 
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 backdrop-blur-md">
         <div className="flex items-center gap-3 border-b border-gold/15 px-3 py-2">
-          <span className={`font-mono text-foreground ${s("text-xs tracking-[0.22em]", "text-[14px] tracking-[0.18em]")}`}>INTELLIGENCE PROFILE</span>
+          <span className={`font-mono text-gold ${s("text-xs tracking-[0.22em]", "text-[14px] tracking-[0.18em]")}`}>INTELLIGENCE PROFILE</span>
           <span className="h-px flex-1 bg-gold/20" />
         </div>
         <ul className="divide-y divide-white/5">
@@ -298,7 +298,7 @@ export function HeroHud({ large = false }: { large?: boolean }) {
           ].map(([k, v]) => (
             <li key={k} className={`flex items-center gap-2.5 px-3 py-2`}>
               <span className={`flex-1 font-mono text-muted-foreground ${s("text-[8.5px] tracking-[0.1em]", "text-[11px] tracking-[0.06em]")}`}>{k}</span>
-              <span className={`font-mono text-foreground ${s("text-[9.5px] tracking-[0.12em]", "text-[12px] tracking-[0.08em]")}`}>{v}</span>
+              <span className={`font-mono text-cyan ${s("text-[9.5px] tracking-[0.12em]", "text-[12px] tracking-[0.08em]")}`}>{v}</span>
             </li>
           ))}
         </ul>
@@ -312,7 +312,7 @@ export function HeroShipCard() {
     <div className="pointer-events-none absolute right-6 top-1/2 z-10 hidden w-[286px] -translate-y-1/2 lg:block">
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
         <div className="flex items-center gap-3 border-b border-gold/15 px-3 py-2">
-          <span className="font-mono text-[13px] tracking-[0.18em] text-foreground">HERA AI · SHIP RECORD</span>
+          <span className="font-mono text-[13px] tracking-[0.18em] text-gold">HERA AI · SHIP RECORD</span>
           <span className="h-px flex-1 bg-gold/20" />
         </div>
         <div className="flex items-end justify-between border-b border-white/5 px-3 py-3">
@@ -320,7 +320,7 @@ export function HeroShipCard() {
             <p className="font-mono text-[16px] leading-none text-foreground">M/V ARGEST</p>
             <p className="mt-1.5 font-mono text-[11px] tracking-[0.12em] text-muted-foreground">IMO 94XXXX7</p>
           </div>
-          <span className="rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono text-[13px] tracking-[0.14em] text-foreground">VERIFIED</span>
+          <span className="rounded-[2px] border border-gold/40 bg-gold/10 px-1.5 py-1 font-mono text-[13px] tracking-[0.14em] text-gold">VERIFIED</span>
         </div>
         <ul className="divide-y divide-white/5">
           {[
@@ -333,14 +333,14 @@ export function HeroShipCard() {
           ].map(([k, v]) => (
             <li key={k} className="flex items-center gap-2.5 px-3 py-2">
               <span className="flex-1 font-mono text-[11px] tracking-[0.06em] text-muted-foreground">{k}</span>
-              <span className="font-mono text-[12px] tracking-[0.08em] text-foreground">{v}</span>
+              <span className="font-mono text-[12px] tracking-[0.08em] text-cyan">{v}</span>
             </li>
           ))}
         </ul>
         <div className="border-t border-white/5 px-3 py-3">
           <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.12em] text-muted-foreground">
             <span>HERA AI CONFIDENCE</span>
-            <span className="text-foreground">98%</span>
+            <span className="text-cyan">98%</span>
           </div>
           <div className="mt-1.5 h-[3px] w-full overflow-hidden rounded-full bg-white/10">
             <div className="h-full w-[98%] rounded-full bg-cyan" />
