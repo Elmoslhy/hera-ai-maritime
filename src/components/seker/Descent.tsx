@@ -1,9 +1,9 @@
 import { motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import { SensorImagers } from "./SensorImagers";
 import { useRef, useState } from "react";
-import satelliteReal from "@/assets/seker-payload-earth.jpg";
+import satelliteReal from "@/assets/satellite-real.png";
 import vesselTop from "@/assets/vessel-top.png";
-import ocean from "@/assets/seker-earth-limb.jpg";
+import ocean from "@/assets/ocean.jpg";
 
 type Act = {
   at: number;
@@ -50,6 +50,7 @@ export function DescentSection() {
   const darkShipO = ramp(0.4, 0.48) * (1 - ramp(0.5, 0.56)); // ship fades into the dark before TIR
 
   // camera
+  const seaScale = useTransform(scrollYProgress, [0, 0.32, 0.6, 1], [1, 1.7, 2.4, 3.1]);
   const satY = useTransform(scrollYProgress, [0, 0.26, 0.4], ["-2%", "-16%", "-120%"]);
   const satScale = useTransform(scrollYProgress, [0, 0.26, 0.4], [1, 1.35, 2.4]);
   const shipScale = useTransform(scrollYProgress, [0.22, 0.6, 1], [0.35, 0.8, 1.15]);
@@ -76,10 +77,10 @@ export function DescentSection() {
         </div>
 
         {/* ocean */}
-        <motion.div className="absolute inset-0">
+        <motion.div style={{ scale: seaScale }} className="absolute inset-0 origin-[50%_68%]">
           <div style={{ opacity: seaO }} className="absolute inset-0">
-            <img src={ocean} alt="Open ocean seen from orbit" loading="lazy" width={1376} height={768} className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-[rgba(6,20,40,0.45)]" />
+            <img src={ocean} alt="Open ocean seen from orbit" loading="lazy" className="h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-navy/70" />
           </div>
 
           {/* thermal palette pass over the water */}
@@ -95,7 +96,7 @@ export function DescentSection() {
         {/* satellite */}
         <motion.div style={{ y: satY, scale: satScale }} className="absolute left-1/2 top-[10%] w-[min(46vw,420px)] -translate-x-1/2">
           <div style={{ opacity: satBigO }}>
-            <img src={satelliteReal} alt="SEKER satellite in low Earth orbit" loading="lazy" className="w-full" />
+            <img src={satelliteReal} alt="SEKER satellite in low Earth orbit" loading="lazy" className="w-full drop-shadow-[0_0_70px_rgba(77,217,192,0.2)]" />
           </div>
         </motion.div>
 
@@ -106,7 +107,7 @@ export function DescentSection() {
         ].map((s, i) => (
           <div key={i} style={{ opacity: s.o }} className={`absolute top-[26%] ${s.side} w-[min(16vw,120px)]`}>
             <img src={satelliteReal} alt="" aria-hidden className="w-full opacity-80" />
-            <p className="mt-1 text-center font-mono text-[9px] tracking-[0.2em] text-foreground">SEKER-{i + 1}</p>
+            <p className="mt-1 text-center font-mono text-[9px] tracking-[0.2em] text-cyan">SEKER-{i + 1}</p>
           </div>
         ))}
 
@@ -115,8 +116,8 @@ export function DescentSection() {
           {/* bearing lines from the two satellites */}
           <div style={{ opacity: rfO }} className="pointer-events-none absolute -inset-[60vw] flex items-center justify-center">
             <svg viewBox="0 0 400 400" className="h-full w-full" aria-hidden>
-              <line x1="40" y1="30" x2="200" y2="200" stroke="#3FB68B" strokeWidth="0.7" strokeDasharray="4 5" />
-              <line x1="360" y1="30" x2="200" y2="200" stroke="#3FB68B" strokeWidth="0.7" strokeDasharray="4 5" />
+              <line x1="40" y1="30" x2="200" y2="200" stroke="#4dd9c0" strokeWidth="0.7" strokeDasharray="4 5" />
+              <line x1="360" y1="30" x2="200" y2="200" stroke="#4dd9c0" strokeWidth="0.7" strokeDasharray="4 5" />
             </svg>
           </div>
 
@@ -133,7 +134,7 @@ export function DescentSection() {
 
           {/* thermal bloom on the hull */}
           <div style={{ opacity: thermalO }} className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <span className="h-[34%] w-[34%] rounded-full bg-alert/80 blur-[6px]" />
+            <span className="h-[34%] w-[34%] animate-[thermal-breathe_2.6s_ease-in-out_infinite] rounded-full bg-[radial-gradient(circle,rgba(255,196,88,0.95),rgba(255,77,77,0.5)_45%,transparent_70%)] blur-[6px]" />
           </div>
 
           {/* the vessel */}
@@ -152,8 +153,8 @@ export function DescentSection() {
 
           {/* AIS broadcast label */}
           <div style={{ opacity: aisO }} className="pointer-events-none absolute -right-6 top-[6%] translate-x-full">
-            <div className="rounded-md border border-cyan/40 bg-card px-3 py-2 backdrop-blur-sm">
-              <p className="font-mono text-[9px] tracking-[0.2em] text-foreground">AIS · BROADCASTING</p>
+            <div className="rounded-md border border-cyan/40 bg-navy/80 px-3 py-2 backdrop-blur-sm">
+              <p className="font-mono text-[9px] tracking-[0.2em] text-cyan">AIS · BROADCASTING</p>
               <p className="mt-1 font-mono text-[11px] text-foreground">34°21.4′N 023°08.9′E</p>
             </div>
           </div>
@@ -181,7 +182,7 @@ export function DescentSection() {
           <motion.div style={{ scale: reticle, opacity: lockO }} className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <svg viewBox="0 0 200 200" className="h-[86%] w-[86%]" aria-hidden>
               <circle cx="100" cy="100" r="78" fill="none" stroke="#c9a84c" strokeWidth="0.8" strokeDasharray="6 10" />
-              <circle cx="100" cy="100" r="54" fill="none" stroke="#3FB68B" strokeWidth="0.8" />
+              <circle cx="100" cy="100" r="54" fill="none" stroke="#4dd9c0" strokeWidth="0.8" />
               {[
                 [24, 24, 24, 48], [24, 24, 48, 24], [176, 24, 176, 48], [176, 24, 152, 24],
                 [24, 176, 24, 152], [24, 176, 48, 176], [176, 176, 176, 152], [176, 176, 152, 176],
@@ -196,25 +197,25 @@ export function DescentSection() {
         <div className="pointer-events-none relative z-10 flex h-full flex-col justify-between p-6 pt-24 sm:p-10 sm:pt-28">
           <div className="relative flex items-start justify-end gap-6">
             <div className="absolute left-1/2 top-0 w-full max-w-lg -translate-x-1/2 space-y-2 text-center">
-              <p className="font-mono text-sm tracking-[0.28em] text-foreground sm:text-base">{act.title.toUpperCase()}</p>
+              <p className="font-mono text-sm tracking-[0.28em] text-gold sm:text-base">{act.title.toUpperCase()}</p>
               {act.title === "In orbit" && (
-                <p className="inline-block rounded-sm border border-gold/40 bg-card px-2.5 py-1 font-mono text-[9px] tracking-[0.2em] text-foreground backdrop-blur-sm sm:text-[10px]">
+                <p className="inline-block rounded-sm border border-gold/40 bg-navy/70 px-2.5 py-1 font-mono text-[9px] tracking-[0.2em] text-gold backdrop-blur-sm sm:text-[10px]">
                   IN-ORBIT DEMONSTRATION · Q4 2028
                 </p>
               )}
             </div>
             <div className="relative shrink-0 space-y-2 text-right">
-              <div className="rounded-lg border border-white/10 bg-card px-4 py-3 backdrop-blur-sm">
+              <div className="rounded-lg border border-white/10 bg-navy/70 px-4 py-3 backdrop-blur-sm">
                 <p className="font-mono text-[9px] tracking-[0.22em] text-muted-foreground">DISTANCE</p>
-                <p className="font-mono text-xl text-foreground sm:text-2xl">
+                <p className="font-mono text-xl text-cyan sm:text-2xl">
                   {distance.toFixed(0)}
                   <span className="ml-1 text-xs text-muted-foreground">km</span>
                 </p>
               </div>
-              <div className="space-y-1 rounded-lg border border-white/10 bg-card px-4 py-3 backdrop-blur-sm">
+              <div className="space-y-1 rounded-lg border border-white/10 bg-navy/70 px-4 py-3 backdrop-blur-sm">
                 {sensors.map((s) => (
                   <p key={s.key} className="flex items-center justify-end gap-2 font-mono text-[10px] tracking-[0.18em]">
-                    <span className={s.lost ? "text-alert" : s.on ? "text-foreground" : "text-muted-foreground/50"}>{s.key}</span>
+                    <span className={s.lost ? "text-alert" : s.on ? "text-cyan" : "text-muted-foreground/50"}>{s.key}</span>
                     <span
                       className={`inline-block h-1.5 w-1.5 rounded-full ${
                         s.lost ? "animate-[alert-blink_0.9s_ease-in-out_infinite] bg-alert" : s.on ? "bg-cyan" : "bg-muted-foreground/30"
@@ -234,11 +235,11 @@ export function DescentSection() {
             <div />
             <div
               className={`rounded-lg border px-4 py-3 backdrop-blur-sm transition-colors duration-500 ${
-                p > 0.86 ? "border-gold/50 bg-gold/10" : p > 0.32 ? "border-alert/40 bg-alert/10" : "border-white/10 bg-card"
+                p > 0.86 ? "border-gold/50 bg-gold/10" : p > 0.32 ? "border-alert/40 bg-alert/10" : "border-white/10 bg-navy/70"
               }`}
             >
               <p className="text-xs text-muted-foreground">Vessel</p>
-              <p className={`mt-1 text-sm ${p > 0.86 ? "text-foreground" : p > 0.32 ? "text-alert" : "text-foreground"}`}>
+              <p className={`mt-1 text-sm ${p > 0.86 ? "text-gold" : p > 0.32 ? "text-alert" : "text-cyan"}`}>
                 {p > 0.86 ? "✓ Located and identified" : p > 0.32 ? "Dark, not transmitting" : "Transmitting normally"}
               </p>
             </div>
