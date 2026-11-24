@@ -24,8 +24,8 @@ const DESCRIPTION =
 
 type Status = "live" | "built" | "dev";
 const STATUS: Record<Status, { label: string; badge: string; dot: string; meaning: string }> = {
-  live: { label: "LIVE", badge: "border-cyan/60 bg-cyan/10 text-cyan", dot: "bg-cyan", meaning: "Running today" },
-  built: { label: "BUILT, GOING LIVE", badge: "border-gold/60 bg-gold/10 text-gold", dot: "bg-gold", meaning: "Tested, switching on as its data loads" },
+  live: { label: "LIVE", badge: "border-cyan/60 bg-cyan/10 text-foreground", dot: "bg-cyan", meaning: "Running today" },
+  built: { label: "BUILT, GOING LIVE", badge: "border-gold/60 bg-gold/10 text-foreground", dot: "bg-gold", meaning: "Tested, switching on as its data loads" },
   dev: { label: "IN DEVELOPMENT", badge: "border-muted-foreground/50 bg-muted-foreground/10 text-muted-foreground", dot: "bg-muted-foreground", meaning: "On our roadmap" },
 };
 
@@ -73,7 +73,7 @@ function Chapter({ i, title, line, status, children }: { i: number; title: strin
       <div className={`mx-auto grid max-w-7xl items-center gap-10 lg:items-start ${flip ? "lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]"}`}>
         <Reveal className={`lg:sticky lg:top-28 ${flip ? "lg:order-2" : ""}`}>
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs tracking-[0.24em] text-gold">0{i + 1}</span>
+            <span className="font-mono text-xs tracking-[0.24em] text-foreground">0{i + 1}</span>
             <StatusBadge s={status} />
           </div>
           <h2 className="text-balance mt-4 text-3xl font-light tracking-tight text-foreground sm:text-4xl">{title}</h2>
@@ -117,8 +117,8 @@ function Reticle({
         <span className={`${c} bottom-0 left-0 border-b-2 border-l-2`} />
         <span className={`${c} bottom-0 right-0 border-b-2 border-r-2`} />
         <div
-          className={`absolute left-0 top-full mt-2 flex items-center gap-2 whitespace-nowrap rounded-lg border border-white/10 bg-navy/70 px-2 py-1 font-mono text-[10px] tracking-[0.16em] backdrop-blur ${
-            tone === "cyan" ? "text-cyan" : "text-alert"
+          className={`absolute left-0 top-full mt-2 flex items-center gap-2 whitespace-nowrap rounded-lg border border-white/10 bg-card px-2 py-1 font-mono text-[10px] tracking-[0.16em] backdrop-blur ${
+            tone === "cyan" ? "text-foreground" : "text-alert"
           }`}
         >
           <span
@@ -146,11 +146,11 @@ function IntelligencePage() {
           <HeroHud large />
           <div className="relative mx-auto w-full max-w-7xl">
             <Reveal className="lg:max-w-[60%]">
-              <p className="text-eyebrow text-gold">HERA AI</p>
+              <p className="text-eyebrow text-foreground">HERA AI</p>
               <h1 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">
                 One platform.
                 <br />
-                <span className="text-gold">Every ship.</span>
+                <span className="text-foreground">Every ship.</span>
               </h1>
               <p className="mt-8 max-w-2xl text-balance text-lg font-light text-foreground/80">
                 HERA AI brings every source on a ship into one profile, flags what does not add up and tells you what to do next.
@@ -165,7 +165,7 @@ function IntelligencePage() {
                 <Link
                   to="/"
                   hash="contact"
-                  className="border border-gold/60 px-6 py-3 font-mono text-xs tracking-[0.22em] text-gold transition-colors hover:bg-gold/10"
+                  className="border border-gold/60 px-6 py-3 font-mono text-xs tracking-[0.22em] text-foreground transition-colors hover:bg-gold/10"
                 >
                   DISCUSS YOUR USE CASE
                 </Link>
@@ -177,11 +177,11 @@ function IntelligencePage() {
         <section className="bg-navy px-6 py-24">
           <div className="mx-auto max-w-7xl">
             <Reveal>
-              <p className="text-eyebrow text-gold">THE DARK FLEET</p>
+              <p className="text-eyebrow text-foreground">THE DARK FLEET</p>
               <h2 className="text-balance mt-5 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
                 Every ship,
                 <br />
-                <span className="text-gold">including the ones that hide.</span>
+                <span className="text-foreground">including the ones that hide.</span>
               </h2>
               <p className="text-pretty mt-6 max-w-3xl text-base font-light text-muted-foreground">
                 The dark fleet, also called the shadow fleet, is the growing number of ships that switch off or fake their transponder, change names and flags, and meet at sea to move sanctioned oil, illegal catch and contraband out of sight. The number grows as tension at sea rises.
@@ -234,7 +234,7 @@ function IntelligencePage() {
                   ))}
                 </div>
                 <p className="mt-5 font-mono text-[10px] tracking-[0.18em] text-muted-foreground">IN-ORBIT DEMONSTRATION · Q4 2028</p>
-                <Link to="/constellation" className="mt-3 inline-block font-mono text-xs tracking-[0.22em] text-gold hover:text-gold/80">
+                <Link to="/constellation" className="mt-3 inline-block font-mono text-xs tracking-[0.22em] text-foreground hover:text-foreground">
                   Our sensors →
                 </Link>
               </Reveal>
@@ -259,7 +259,7 @@ function IntelligencePage() {
             <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {CAPS.map(({ t, d, s, meter }, i) => (
                 <Reveal key={t} delay={(i % 4) * 0.05} className={s === "live" ? "" : "hidden sm:block"}>
-                  <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-6">
+                  <div className="h-full rounded-lg border border-white/10 bg-card p-6">
                     <div className="flex items-start justify-between gap-3">
                       <span className={`mt-1 block h-1.5 w-1.5 shrink-0 rounded-full ${STATUS[s].dot}`} />
                       <StatusBadge s={s} />
@@ -270,7 +270,7 @@ function IntelligencePage() {
                       <div className="mt-4">
                         <div className="flex justify-between font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
                           <span>CONFIDENCE</span>
-                          <span className="text-gold">98%</span>
+                          <span className="text-foreground">98%</span>
                         </div>
                         <div className="mt-1.5 h-[6px] overflow-hidden rounded-full bg-white/10">
                           <div className="h-full rounded-full bg-gold transition-all duration-500" style={{ width: "98%" }} />
@@ -282,7 +282,7 @@ function IntelligencePage() {
                 </Reveal>
               ))}
             </div>
-            <ul className="mt-4 divide-y divide-white/10 rounded-lg border border-white/10 bg-navy/70 sm:hidden">
+            <ul className="mt-4 divide-y divide-white/10 rounded-lg border border-white/10 bg-card sm:hidden">
               {CAPS.filter((c) => c.s !== "live").map(({ t, s }) => (
                 <li key={t} className="flex items-center justify-between gap-3 px-4 py-3">
                   <span className="min-w-0 text-sm font-light text-foreground">{t}</span>
@@ -315,7 +315,7 @@ function IntelligencePage() {
             <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
               {closingCta.headline[0]}
               <br />
-              <span className="text-gold">{closingCta.headline[1]}</span>
+              <span className="text-foreground">{closingCta.headline[1]}</span>
             </h2>
             <Link
               to="/"

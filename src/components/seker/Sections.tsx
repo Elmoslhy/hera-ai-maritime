@@ -90,13 +90,13 @@ export function LaunchSection() {
         >
           <source src="/hero-video.webm" type='video/webm; codecs="vp9"' />
         </video>
-        <div className="absolute inset-0 bg-navy/60" />
+        <div className="absolute inset-0 bg-card" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,transparent_0%,rgba(9,18,31,0.85)_80%)]" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-6xl py-24 text-center">
         <Reveal>
-          <p className="text-eyebrow text-gold">Vessel Intelligence</p>
+          <p className="text-eyebrow text-foreground">Vessel Intelligence</p>
         </Reveal>
         <Reveal delay={0.12}>
           <h2 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">
@@ -113,7 +113,7 @@ export function LaunchSection() {
             <Reveal key={t} delay={0.3 + i * 0.06}>
               <div className="h-full rounded-sm border border-gold/25 bg-[#060d18]/70 backdrop-blur-md">
                 <div className="flex items-center gap-3 border-b border-gold/15 px-4 py-3">
-                  <span className="font-mono text-xs tracking-[0.22em] text-gold">0{i + 1}</span>
+                  <span className="font-mono text-xs tracking-[0.22em] text-foreground">0{i + 1}</span>
                   <span className="font-mono text-xs uppercase tracking-[0.18em] text-foreground">{t}</span>
                 </div>
                 <p className="text-pretty px-4 py-4 text-sm leading-relaxed text-muted-foreground">{b}</p>
@@ -173,14 +173,14 @@ const GET_IT: {
 ];
 
 const getItLink =
-  "mt-auto inline-block self-start pt-6 font-mono text-[11px] tracking-[0.2em] text-cyan transition-colors hover:text-gold";
+  "mt-auto inline-block self-start pt-6 font-mono text-[11px] tracking-[0.2em] text-foreground transition-colors hover:text-foreground";
 
 export function GetItSection() {
   return (
     <section id="get-it" className="scroll-mt-24 bg-navy-deep px-6 py-28">
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
-          <p className="text-eyebrow text-gold">How you get it</p>
+          <p className="text-eyebrow text-foreground">How you get it</p>
           <h2 className="text-balance mx-auto mt-6 max-w-3xl text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             Three ways to use HERA AI.
           </h2>
@@ -188,7 +188,7 @@ export function GetItSection() {
         <div className="mt-14 grid gap-4 md:grid-cols-3">
           {GET_IT.map((x, i) => (
             <Reveal key={x.title} delay={i * 0.06}>
-              <div className="flex h-full flex-col rounded-lg border border-white/10 bg-navy/70 p-6">
+              <div className="flex h-full flex-col rounded-lg border border-white/10 bg-card p-6">
                 <span className="block h-1.5 w-1.5 rounded-full bg-cyan" />
                 <h3 className="mt-4 text-lg font-light text-foreground">{x.title}</h3>
                 <p className="text-pretty mt-2 text-sm font-light text-muted-foreground">{x.line}</p>
@@ -215,7 +215,7 @@ export function IndustriesSection() {
     <section id="industries" className="scroll-mt-24 bg-navy px-6 py-28">
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
-          <p className="text-eyebrow text-gold">Industries</p>
+          <p className="text-eyebrow text-foreground">Industries</p>
           <h2 className="text-balance mx-auto mt-6 max-w-3xl text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             Built for the industries that run on the sea.
           </h2>
@@ -233,9 +233,9 @@ export function IndustriesSection() {
                   {img && <img src={img} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/80 to-navy/40" />
                   <div className="relative">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-gold">{x.name}</p>
+                    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-foreground">{x.name}</p>
                     <p className="text-balance mt-4 text-xl font-light leading-snug text-foreground">{x.q}</p>
-                    <span className="mt-6 inline-block font-mono text-[11px] tracking-[0.2em] text-cyan group-hover:text-gold">Learn more →</span>
+                    <span className="mt-6 inline-block font-mono text-[11px] tracking-[0.2em] text-foreground group-hover:text-foreground">Learn more →</span>
                   </div>
                 </Link>
               </Reveal>
@@ -259,10 +259,10 @@ const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "FUSED IN HERA AI"];
 export function ConstellationSection() {
   return (
     <section className="relative overflow-hidden px-6 py-28">
-      <SectionBackground src={satelliteNetwork} alt="Satellite constellation" overlay="bg-navy/70" />
+      <SectionBackground src={satelliteNetwork} alt="Satellite constellation" overlay="bg-card" />
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
         <Reveal>
-          <p className="text-eyebrow text-gold">Why SEKER</p>
+          <p className="text-eyebrow text-foreground">Why SEKER</p>
         </Reveal>
         <Reveal delay={0.12}>
           <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-6xl">
@@ -276,7 +276,7 @@ export function ConstellationSection() {
           {WHY.map(([t, b], i) => (
             <Reveal key={t} delay={0.18 + i * 0.06}>
               <div className="h-full rounded-sm border border-gold/25 bg-[#060d18]/70 p-5 backdrop-blur-md">
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t}</p>
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-foreground">{t}</p>
                 <p className="text-pretty mt-3 text-sm leading-relaxed text-muted-foreground">{b}</p>
               </div>
             </Reveal>
@@ -287,13 +287,13 @@ export function ConstellationSection() {
             {CHIPS.map((c) => (
               <span
                 key={c}
-                className="rounded-full border border-cyan/25 bg-cyan/5 px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] text-cyan"
+                className="rounded-full border border-cyan/25 bg-cyan/5 px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] text-foreground"
               >
                 {c}
               </span>
             ))}
           </div>
-          <Link to="/constellation" className="mt-8 inline-block font-mono text-[11px] tracking-[0.2em] text-cyan hover:text-gold">Our sensors →</Link>
+          <Link to="/constellation" className="mt-8 inline-block font-mono text-[11px] tracking-[0.2em] text-foreground hover:text-foreground">Our sensors →</Link>
         </Reveal>
       </div>
     </section>
@@ -306,7 +306,7 @@ export function ProblemSection() {
       <SectionBackground src={ocean} alt="Moonlit dark sea" overlay="bg-navy-deep/92" />
       <div className="relative z-10 mx-auto max-w-5xl text-center">
         <Reveal>
-          <p className="text-eyebrow text-gold">WHY ACCURACY MATTERS</p>
+          <p className="text-eyebrow text-foreground">WHY ACCURACY MATTERS</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
@@ -327,7 +327,7 @@ export function ProblemSection() {
             ["MISSING THE WRONG SHIP", "The drugs, the illegal catches or the threats get through."],
           ].map(([t, d]) => (
             <div key={t} className="bg-navy px-6 py-8">
-              <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{t}</p>
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-foreground">{t}</p>
               <p className="text-pretty mt-3 text-sm leading-relaxed text-muted-foreground">{d}</p>
             </div>
           ))}
@@ -339,16 +339,16 @@ export function ProblemSection() {
           </p>
         </Reveal>
         <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
-          <StatBlock value={<span className="font-mono text-5xl text-cyan">978</span>} label="Shadow fleet tankers, 18.5% of the world's tanker fleet" />
-          <StatBlock value={<span className="font-mono text-5xl text-gold">80%+</span>} label="Of world trade by volume moves by sea" />
+          <StatBlock value={<span className="font-mono text-5xl text-foreground">978</span>} label="Shadow fleet tankers, 18.5% of the world's tanker fleet" />
+          <StatBlock value={<span className="font-mono text-5xl text-foreground">80%+</span>} label="Of world trade by volume moves by sea" />
           <StatBlock value={<span className="font-mono text-5xl text-alert">22</span>} label="GPS spoofing hotspots on the busiest sea lanes" />
         </div>
         <Reveal>
-          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">THE COST OF HIDDEN SHIPS AND HOW HERA AI HELPS</p>
+          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-foreground">THE COST OF HIDDEN SHIPS AND HOW HERA AI HELPS</p>
         </Reveal>
         <div className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-3">
-          <StatBlock value={<span className="font-mono text-5xl text-gold">$426–652bn</span>} label={"Annual global illegal drug trade\nMajority moves by sea"} hera="Flags ships that go dark, meet at sea or change identity before they reach port." />
-          <StatBlock value={<span className="font-mono text-5xl text-cyan">$26–50bn</span>} label="Lost to illegal fishing every year, worldwide" hera="Shows which fishing ships switched off or worked where they should not be." />
+          <StatBlock value={<span className="font-mono text-5xl text-foreground">$426–652bn</span>} label={"Annual global illegal drug trade\nMajority moves by sea"} hera="Flags ships that go dark, meet at sea or change identity before they reach port." />
+          <StatBlock value={<span className="font-mono text-5xl text-foreground">$26–50bn</span>} label="Lost to illegal fishing every year, worldwide" hera="Shows which fishing ships switched off or worked where they should not be." />
           <StatBlock value={<span className="font-mono text-5xl text-alert">$275M</span>} label="One US sanctions penalty for ships with spoofed AIS" hera="Screens every ship and its owners on five official lists, with a full audit trail." />
         </div>
         <p className="mt-5 font-mono text-[10px] leading-relaxed tracking-[0.18em] text-muted-foreground/70">
@@ -361,7 +361,7 @@ export function ProblemSection() {
 
 const WHY_NOW: [string, string, string][] = [
   ["138 → <10", "Cargo ships crossing a day, 2025 vs October 2026", "text-alert"],
-  ["0.25% → 10%", "War-risk premium as a share of a ship's value", "text-cyan"],
+  ["0.25% → 10%", "War-risk premium as a share of a ship's value", "text-foreground"],
 ];
 
 const FLASHPOINTS: [string, string][] = [
@@ -386,12 +386,12 @@ export function WhyNowSection() {
       <SectionBackground src={ocean} alt="Moonlit dark sea" overlay="bg-navy-deep/92" />
       <div className="relative z-10 mx-auto max-w-5xl text-center">
         <Reveal>
-          <p className="text-eyebrow text-gold">Why now</p>
+          <p className="text-eyebrow text-foreground">Why now</p>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             Tension at sea keeps rising.
-            <span className="mt-2 block text-gold">Every flashpoint makes a ship's own signal less reliable.</span>
+            <span className="mt-2 block text-foreground">Every flashpoint makes a ship's own signal less reliable.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
@@ -402,12 +402,12 @@ export function WhyNowSection() {
         <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left backdrop-blur-sm sm:grid-cols-2 lg:grid-cols-5">
           {FLASHPOINTS.map(([t, l]) => (
             <div key={t} className="bg-navy px-5 py-6">
-              <p className="text-base text-gold">{t}</p>
+              <p className="text-base text-foreground">{t}</p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{l}</p>
             </div>
           ))}
         </div>
-        <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">One example · Strait of Hormuz, 2026</p>
+        <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-foreground">One example · Strait of Hormuz, 2026</p>
         <div className="mt-5 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm sm:grid-cols-2">
           {WHY_NOW.map(([v, l, t]) => (
             <StatBlock key={l} value={<span className={`font-mono text-4xl sm:text-5xl ${t}`}>{v}</span>} label={l} />
@@ -419,12 +419,12 @@ export function WhyNowSection() {
           </p>
         </Reveal>
         <Reveal delay={0.15}>
-          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-gold">What HERA AI does when tension rises</p>
+          <p className="mt-12 font-mono text-xs uppercase tracking-[0.2em] text-foreground">What HERA AI does when tension rises</p>
         </Reveal>
         <div className="mt-5 overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left backdrop-blur-sm">
           {HORMUZ_DOES.map(([t, l], i) => (
             <div key={t} className={`grid grid-cols-1 gap-2 bg-navy px-6 py-5 sm:grid-cols-[minmax(0,16rem)_1fr] sm:gap-8 ${i ? "border-t border-white/10" : ""}`}>
-              <p className="text-base text-gold">{t}</p>
+              <p className="text-base text-foreground">{t}</p>
               <p className="text-base leading-relaxed text-foreground">{l}</p>
             </div>
           ))}
@@ -450,7 +450,7 @@ export function ProofSection() {
     <section className="bg-navy-deep px-6 py-20">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/5 text-center sm:grid-cols-2 lg:grid-cols-4">
         {PROOF.map(([v, l], i) => (
-          <StatBlock key={l} value={<span className={`font-mono text-4xl ${i % 2 ? "text-cyan" : "text-gold"}`}>{v}</span>} label={l} />
+          <StatBlock key={l} value={<span className={`font-mono text-4xl ${i % 2 ? "text-foreground" : "text-foreground"}`}>{v}</span>} label={l} />
         ))}
       </div>
     </section>
@@ -468,7 +468,7 @@ function StatBlock({ value, label, hera }: { value: React.ReactNode; label: stri
         {hera && (
           <div className="mt-auto pt-6">
             <div className="border-t border-white/10 pt-4">
-              <p className="font-mono text-[10px] tracking-[0.2em] text-gold">HERA AI</p>
+              <p className="font-mono text-[10px] tracking-[0.2em] text-foreground">HERA AI</p>
               <p className="mt-2 text-sm leading-relaxed text-foreground">{hera}</p>
             </div>
           </div>
@@ -493,7 +493,7 @@ export function ContactSection() {
           </p>
         </Reveal>
         <Reveal delay={0.1}>
-          <p className="mt-6 text-center font-mono text-sm tracking-[0.14em] text-cyan">
+          <p className="mt-6 text-center font-mono text-sm tracking-[0.14em] text-foreground">
             <span className="select-all">info@seker-space.com</span>
           </p>
         </Reveal>
@@ -596,7 +596,7 @@ function ContactForm() {
           {status === "sending" ? "SENDING…" : "DISCUSS YOUR USE CASE →"}
         </button>
         {status === "sent" && (
-          <p className="font-mono text-[10px] tracking-[0.18em] text-cyan">
+          <p className="font-mono text-[10px] tracking-[0.18em] text-foreground">
             Thank you. We will be in touch.
           </p>
         )}

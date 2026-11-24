@@ -11,7 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { CraftCursor } from "@/components/seker/CraftCursor";
-import { PointerTrail } from "@/components/seker/PointerTrail";
+import { MotionConfig } from "motion/react";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -90,7 +90,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Space+Mono:wght@400;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Schibsted+Grotesk:wght@600;700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400&display=swap",
       },
       {
         rel: "stylesheet",
@@ -127,8 +127,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
-      <PointerTrail />
+      <MotionConfig reducedMotion="always">
+        <Outlet />
+      </MotionConfig>
       <CraftCursor />
     </QueryClientProvider>
   );

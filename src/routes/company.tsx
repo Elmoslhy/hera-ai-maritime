@@ -51,7 +51,7 @@ const TEAM = [
 const gold =
   "inline-block bg-gold px-7 py-3.5 font-mono text-xs tracking-[0.2em] text-navy-deep transition-opacity hover:opacity-90";
 const outline =
-  "inline-block border border-gold/60 px-7 py-3.5 font-mono text-xs tracking-[0.2em] text-gold transition-colors hover:bg-gold/10";
+  "inline-block border border-gold/60 px-7 py-3.5 font-mono text-xs tracking-[0.2em] text-foreground transition-colors hover:bg-gold/10";
 
 function CompanyPage() {
   return (
@@ -60,9 +60,9 @@ function CompanyPage() {
       <Nav />
       <main>
         <section className="relative flex min-h-[80vh] items-center overflow-hidden px-6 pt-28 pb-20">
-          <SectionBackground src={network} alt="Satellite network over Earth" overlay="bg-navy/70" />
+          <SectionBackground src={network} alt="Satellite network over Earth" overlay="bg-card" />
           <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
-            <Reveal><p className="text-eyebrow text-gold">Company</p></Reveal>
+            <Reveal><p className="text-eyebrow text-foreground">Company</p></Reveal>
             <Reveal delay={0.1}>
               <h1 className="text-balance mt-6 text-4xl font-light leading-[1.08] tracking-tight text-foreground sm:text-6xl">
                 We deliver intelligence on every ship at sea.
@@ -77,7 +77,7 @@ function CompanyPage() {
         <section className="px-6 py-24">
           <div className="mx-auto max-w-3xl">
             <Reveal className="text-center">
-              <p className="text-eyebrow text-gold">Leadership</p>
+              <p className="text-eyebrow text-foreground">Leadership</p>
               <h2 className="mt-6 text-3xl font-light tracking-tight text-foreground sm:text-4xl">
                 Leadership team.
               </h2>
@@ -97,7 +97,7 @@ function CompanyPage() {
                       />
                     </div>
                     <h3 className="mt-5 text-xl font-light text-foreground">{m.name}</h3>
-                    <p className="mt-2 font-mono text-xs uppercase tracking-[0.22em] text-gold">
+                    <p className="mt-2 font-mono text-xs uppercase tracking-[0.22em] text-foreground">
                       {m.title}
                     </p>
                     <p className="text-pretty mt-4 text-sm leading-relaxed text-muted-foreground">
@@ -113,13 +113,13 @@ function CompanyPage() {
         <section className="px-6 py-24">
           <div className="mx-auto max-w-6xl">
             <Reveal className="text-center">
-              <p className="text-eyebrow text-gold">What we believe</p>
+              <p className="text-eyebrow text-foreground">What we believe</p>
             </Reveal>
             <div className="mt-12 grid gap-4 sm:grid-cols-3">
               {BELIEFS.map(([t, b], i) => (
                 <Reveal key={t} delay={i * 0.08}>
                   <div className="h-full rounded-sm border border-gold/25 bg-[#060d18]/70 p-6">
-                    <span className="font-mono text-xs tracking-[0.22em] text-gold">0{i + 1}</span>
+                    <span className="font-mono text-xs tracking-[0.22em] text-foreground">0{i + 1}</span>
                     <h2 className="text-balance mt-3 text-xl font-light text-foreground">{t}</h2>
                     <p className="text-pretty mt-3 text-sm leading-relaxed text-muted-foreground">{b}</p>
                   </div>
@@ -130,7 +130,7 @@ function CompanyPage() {
         </section>
 
         <section className="bg-navy-deep px-6 py-24 text-center">
-          <Reveal><p className="text-eyebrow text-gold">Join us</p></Reveal>
+          <Reveal><p className="text-eyebrow text-foreground">Join us</p></Reveal>
           <Reveal delay={0.1}>
             <p className="text-balance mx-auto mt-6 max-w-2xl text-2xl font-light text-foreground sm:text-3xl">
               We are hiring engineers and analysts who want to see what others miss.
@@ -142,7 +142,7 @@ function CompanyPage() {
         </section>
 
         <section className="px-6 py-24 text-center">
-          <Reveal><p className="text-eyebrow text-gold">News and contact</p></Reveal>
+          <Reveal><p className="text-eyebrow text-foreground">News and contact</p></Reveal>
           <Reveal delay={0.1}>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
               <Link to="/newsroom" className={outline}>NEWSROOM →</Link>

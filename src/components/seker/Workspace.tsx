@@ -15,7 +15,7 @@ import {
 
 type Layer = (typeof wsLayers)[number];
 const label = "font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground";
-const panel = "rounded-lg border border-white/10 bg-navy/70 p-4 backdrop-blur";
+const panel = "rounded-lg border border-white/10 bg-card p-4 backdrop-blur";
 
 function Brackets() {
   const c = "absolute h-3 w-3 border-gold";
@@ -53,7 +53,7 @@ function Tile({ grey, title, conf }: { grey?: boolean; title: string; conf: stri
       <Brackets />
       <div className="absolute inset-x-0 top-0 flex justify-between bg-navy-deep/70 px-2 py-1 font-mono text-[8px] tracking-[0.14em] text-foreground/80">
         <span>{title}</span>
-        <span className="text-gold">{conf}</span>
+        <span className="text-foreground">{conf}</span>
       </div>
     </div>
   );
@@ -148,11 +148,11 @@ export function WorkspaceSection({ part }: { part?: "fusion" | "briefing" } = {}
     <section className={part ? "" : "bg-navy-deep px-6 py-24"}>
       <div className={part ? "" : "mx-auto max-w-7xl"}>
         {!part && <Reveal>
-          <p className="text-eyebrow text-gold">{s.eyebrow}</p>
+          <p className="text-eyebrow text-foreground">{s.eyebrow}</p>
           <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             {s.headline[0]}
             <br />
-            <span className="text-gold">{s.headline[1]}</span>
+            <span className="text-foreground">{s.headline[1]}</span>
           </h2>
           <p className="mt-6 max-w-3xl text-base font-light text-foreground/80">{s.body}</p>
         </Reveal>}
@@ -178,7 +178,7 @@ export function WorkspaceSection({ part }: { part?: "fusion" | "briefing" } = {}
                     type="button"
                     onClick={() => setSel(x.id)}
                     className={`rounded-full border px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.12em] transition-colors ${
-                      x.id === sel ? "border-gold/60 bg-gold/12 text-gold" : "border-white/12 text-muted-foreground hover:text-foreground"
+                      x.id === sel ? "border-gold/60 bg-gold/12 text-foreground" : "border-white/12 text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {x.chip}
@@ -201,14 +201,14 @@ export function WorkspaceSection({ part }: { part?: "fusion" | "briefing" } = {}
                     <div key={f.label}>
                       <dt className={label}>{f.label}</dt>
                       <dd className="text-sm text-foreground">{f.value}</dd>
-                      <dd className="font-mono text-[9px] tracking-[0.12em] text-cyan">{f.source.toUpperCase()}</dd>
+                      <dd className="font-mono text-[9px] tracking-[0.12em] text-foreground">{f.source.toUpperCase()}</dd>
                     </div>
                   ))}
                 </dl>
                 <div className="mt-4">
                   <div className="flex justify-between font-mono text-[10px] tracking-[0.16em] text-muted-foreground">
                     <span>CONFIDENCE</span>
-                    <span className="text-gold">{v.confidence.toFixed(2)}</span>
+                    <span className="text-foreground">{v.confidence.toFixed(2)}</span>
                   </div>
                   <div className="mt-1.5 h-[6px] overflow-hidden rounded-full bg-white/10">
                     <div className="h-full rounded-full bg-gold transition-all duration-500" style={{ width: `${v.confidence * 100}%` }} />
@@ -242,7 +242,7 @@ export function WorkspaceSection({ part }: { part?: "fusion" | "briefing" } = {}
                     key={t}
                     type="button"
                     onClick={() => setTab(t)}
-                    className={`rounded-full py-1.5 font-mono text-[10px] tracking-[0.14em] ${tab === t ? "bg-gold/15 text-gold" : "text-muted-foreground"}`}
+                    className={`rounded-full py-1.5 font-mono text-[10px] tracking-[0.14em] ${tab === t ? "bg-gold/15 text-foreground" : "text-muted-foreground"}`}
                   >
                     {t === "seker" ? "SEKER BRIEFS" : "PUBLIC NEWS"}
                   </button>
@@ -252,7 +252,7 @@ export function WorkspaceSection({ part }: { part?: "fusion" | "briefing" } = {}
                 {tab === "seker"
                   ? sekerBriefs.map((b) => (
                       <li key={b.text} className={panel}>
-                        <p className="flex items-center gap-1.5 font-mono text-[9px] tracking-[0.16em] text-gold">
+                        <p className="flex items-center gap-1.5 font-mono text-[9px] tracking-[0.16em] text-foreground">
                           <Lock className="h-3 w-3" /> CLIENTS ONLY
                         </p>
                         <p className="mt-2 text-sm font-light text-foreground/90">{b.text}</p>
@@ -265,21 +265,21 @@ export function WorkspaceSection({ part }: { part?: "fusion" | "briefing" } = {}
                           <Globe2 className="h-3 w-3" /> PUBLIC SOURCE
                         </p>
                         <p className="mt-2 text-sm text-foreground">{n.text}</p>
-                        <p className="mt-1 text-sm font-light text-cyan/90">{n.did}</p>
+                        <p className="mt-1 text-sm font-light text-foreground">{n.did}</p>
                         <Meta meta={n.meta} linked={n.linked} />
                       </li>
                     ))}
               </ul>
 
               <div className={panel}>
-                <p className="font-mono text-[10px] tracking-[0.2em] text-gold">ASK HERA AI</p>
+                <p className="font-mono text-[10px] tracking-[0.2em] text-foreground">ASK HERA AI</p>
                 <div className="mt-3 space-y-1.5">
                   {askExamples.map((e, i) => (
                     <button
                       key={e.q}
                       type="button"
                       onClick={() => ask(i)}
-                      className={`block w-full rounded border px-3 py-2 text-left text-xs transition-colors ${q === i && !fallback ? "border-gold/50 text-gold" : "border-white/10 text-foreground/80 hover:border-white/25"}`}
+                      className={`block w-full rounded border px-3 py-2 text-left text-xs transition-colors ${q === i && !fallback ? "border-gold/50 text-foreground" : "border-white/10 text-foreground/80 hover:border-white/25"}`}
                     >
                       {e.q}
                     </button>
@@ -301,7 +301,7 @@ export function WorkspaceSection({ part }: { part?: "fusion" | "briefing" } = {}
                     aria-label="Ask your own question"
                     className="min-w-0 flex-1 rounded border border-white/12 bg-navy-deep px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:border-gold/50 focus:outline-none"
                   />
-                  <button type="submit" aria-label="Send question" className="rounded border border-gold/60 px-3 text-gold hover:bg-gold/10">
+                  <button type="submit" aria-label="Send question" className="rounded border border-gold/60 px-3 text-foreground hover:bg-gold/10">
                     <Send className="h-3.5 w-3.5" />
                   </button>
                 </form>
@@ -309,13 +309,13 @@ export function WorkspaceSection({ part }: { part?: "fusion" | "briefing" } = {}
                   {fallback && (
                     <p className="text-sm font-light text-foreground/85">
                       {askFallback}{" "}
-                      <Link to="/" hash="contact" className="text-gold underline underline-offset-4">
+                      <Link to="/" hash="contact" className="text-foreground underline underline-offset-4">
                         Book a session
                       </Link>
                     </p>
                   )}
                   {q !== null && checking && (
-                    <p className="flex items-center gap-2 font-mono text-[10px] tracking-[0.16em] text-cyan">
+                    <p className="flex items-center gap-2 font-mono text-[10px] tracking-[0.16em] text-foreground">
                       <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" />
                       Checking {askExamples[q].sources.length} sources…
                     </p>
@@ -325,7 +325,7 @@ export function WorkspaceSection({ part }: { part?: "fusion" | "briefing" } = {}
                       <p className="text-sm font-light text-foreground/90">{askExamples[q].a}</p>
                       <div className="mt-2 flex flex-wrap gap-1.5">
                         {askExamples[q].sources.map((src) => (
-                          <span key={src} className="rounded-full border border-cyan/30 bg-cyan/10 px-2 py-0.5 font-mono text-[9px] tracking-[0.1em] text-cyan">
+                          <span key={src} className="rounded-full border border-cyan/30 bg-cyan/10 px-2 py-0.5 font-mono text-[9px] tracking-[0.1em] text-foreground">
                             {src}
                           </span>
                         ))}
@@ -348,7 +348,7 @@ function Meta({ meta, linked }: { meta: string; linked: number }) {
     <p className="mt-2 font-mono text-[9px] tracking-[0.12em] text-muted-foreground">
       {meta.toUpperCase()}
       {linked > 0 && (
-        <span className="text-cyan"> · LINKED TO {linked} WATCHED VESSEL{linked > 1 ? "S" : ""}</span>
+        <span className="text-foreground"> · LINKED TO {linked} WATCHED VESSEL{linked > 1 ? "S" : ""}</span>
       )}
     </p>
   );

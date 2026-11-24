@@ -44,7 +44,7 @@ function AccessPage() {
       <main className="mx-auto flex max-w-5xl flex-col items-center px-6 pb-24 pt-36">
         {status === "granted" ? (
           <section className="w-full max-w-md rounded-xl border border-gold/30 bg-gold/[0.04] p-10 text-center">
-            <p className="font-mono text-xs tracking-[0.2em] text-cyan">SESSION ACTIVE</p>
+            <p className="font-mono text-xs tracking-[0.2em] text-foreground">SESSION ACTIVE</p>
             <h1 className="mt-4 text-3xl font-light text-foreground">
               Welcome, {username.trim()}
             </h1>
@@ -57,7 +57,7 @@ function AccessPage() {
                 setStatus("idle");
                 setPassword("");
               }}
-              className="mt-8 border border-gold/60 px-7 py-3 font-mono text-[11px] tracking-[0.2em] text-gold transition-colors hover:bg-gold hover:text-navy-deep"
+              className="mt-8 border border-gold/60 px-7 py-3 font-mono text-[11px] tracking-[0.2em] text-foreground transition-colors hover:bg-gold hover:text-navy-deep"
             >
               SIGN OUT
             </button>
@@ -65,7 +65,7 @@ function AccessPage() {
         ) : (
           <section className="w-full max-w-md">
             <div className="text-center">
-              <p className="font-mono text-sm tracking-[0.2em] text-gold">HERA AI PLATFORM</p>
+              <p className="font-mono text-sm tracking-[0.2em] text-foreground">HERA AI PLATFORM</p>
               <h1 className="mt-4 text-3xl font-light tracking-tight text-foreground sm:text-4xl">
                 Platform access
               </h1>
@@ -112,13 +112,13 @@ function AccessPage() {
               </button>
               <p className="mt-6 text-center font-mono text-[11px] leading-relaxed tracking-[0.08em] text-muted-foreground">
                 No credentials yet? Request access at{" "}
-                <a href="mailto:info@seker-space.com" className="text-gold hover:underline select-all">
+                <a href="mailto:info@seker-space.com" className="text-foreground hover:underline select-all">
                   info@seker-space.com
                 </a>
               </p>
             </form>
             <p className="mt-6 text-center">
-              <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-gold hover:underline">
+              <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-foreground hover:underline">
                 ← BACK TO SEKER-SPACE.COM
               </Link>
             </p>

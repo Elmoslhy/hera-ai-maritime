@@ -27,7 +27,7 @@ export function WalkthroughViewToggle({ mode, onChange, available, deck = false 
   return <div className={`walkthrough-toggle ml-auto flex shrink-0 items-center font-mono ${deck ? "text-[16px]" : "text-[10px]"}`} role="group" aria-label="Walkthrough view">
     {(["film", "map"] as const).map((value, i) => <span key={value} className="flex items-center">
       {i > 0 && <span className="text-muted-foreground" aria-hidden>|</span>}
-      <Button variant="ghost" size="sm" disabled={value === "film" && !available} aria-pressed={mode === value} onClick={(event) => { event.stopPropagation(); onChange(value); }} className={`h-auto rounded-none px-2 py-1 font-mono text-inherit hover:bg-gold/10 hover:text-gold ${mode === value ? "text-gold" : "text-muted-foreground"}`}>{value.toUpperCase()}</Button>
+      <Button variant="ghost" size="sm" disabled={value === "film" && !available} aria-pressed={mode === value} onClick={(event) => { event.stopPropagation(); onChange(value); }} className={`h-auto rounded-none px-2 py-1 font-mono text-inherit hover:bg-gold/10 hover:text-foreground ${mode === value ? "text-foreground" : "text-muted-foreground"}`}>{value.toUpperCase()}</Button>
     </span>)}
   </div>;
 }
@@ -68,6 +68,6 @@ export function WalkthroughFilm({ uc, stage, active = true, frozen = false, deck
 }
 
 function FilmChip({ text, tone }: { text: string; tone: "gold" | "cyan" | "alert" }) {
-  const color = { gold: "border-gold/60 text-gold", cyan: "border-cyan/60 text-cyan", alert: "border-alert/60 text-alert" };
+  const color = { gold: "border-gold/60 text-foreground", cyan: "border-cyan/60 text-foreground", alert: "border-alert/60 text-alert" };
   return <span className={`wf-chip flex items-start gap-2 rounded border bg-navy-deep/90 px-2 py-1 font-mono ${color[tone]}`}><span className="mt-[0.4em] h-1.5 w-1.5 shrink-0 rounded-full bg-current" /><span>{text}</span></span>;
 }

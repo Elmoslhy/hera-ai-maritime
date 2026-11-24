@@ -10,13 +10,13 @@ function IndustriesMenu() {
   const [open, setOpen] = useState(false);
   return (
     <div className="relative hidden sm:block" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <button type="button" aria-expanded={open} onClick={() => setOpen((o) => !o)} className="flex items-center gap-1 tracking-[0.2em] text-foreground/80 transition-colors hover:text-gold">
+      <button type="button" aria-expanded={open} onClick={() => setOpen((o) => !o)} className="flex items-center gap-1 tracking-[0.2em] text-foreground/80 transition-colors hover:text-foreground">
         INDUSTRIES <ChevronDown className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
         <div className="absolute left-1/2 top-full w-80 -translate-x-1/2 pt-3">
           <div className="rounded-lg border border-white/10 bg-navy/90 p-2 backdrop-blur">
-            <a href="/#industries" onClick={() => setOpen(false)} className="block rounded-md px-3 py-3 text-[10px] uppercase tracking-[0.18em] text-gold transition-colors hover:bg-white/5">All industries</a>
+            <a href="/#industries" onClick={() => setOpen(false)} className="block rounded-md px-3 py-3 text-[10px] uppercase tracking-[0.18em] text-foreground transition-colors hover:bg-white/5">All industries</a>
             {industries.map((i) => (
               <Link key={i.slug} to="/industries/$slug" params={{ slug: i.slug }} onClick={() => setOpen(false)} className="block rounded-md px-3 py-3 transition-colors hover:bg-white/5">
                 <span className="block text-[10px] uppercase tracking-[0.18em] text-foreground">{i.navName}</span>
@@ -65,7 +65,7 @@ export function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-colors duration-500 ${
-        scrolled ? "border-b border-white/5 bg-navy/85 backdrop-blur-md" : "bg-transparent"
+        "border-b border-[rgba(169,184,204,0.15)] bg-navy"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
@@ -76,24 +76,24 @@ export function Nav() {
           <span className="hidden text-muted-foreground sm:inline">
             UTC <span className="text-foreground/80">{utc}</span>
           </span>
-          <span className="flex items-center gap-2 text-cyan">
+          <span className="flex items-center gap-2 text-foreground">
             <span className="blink-dot h-1.5 w-1.5 rounded-full bg-cyan" />
             LIVE
           </span>
-          <Link to="/intelligence" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
+          <Link to="/intelligence" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
             HERA AI
           </Link>
-          <Link to="/constellation" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
+          <Link to="/constellation" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
             SEKER-1 · SEKER-2
           </Link>
           <IndustriesMenu />
-          <Link to="/company" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
+          <Link to="/company" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
             COMPANY
           </Link>
-          <Link to="/careers" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
+          <Link to="/careers" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
             CAREERS
           </Link>
-          <Link to="/newsroom" className="hidden text-foreground/80 transition-colors hover:text-gold sm:inline">
+          <Link to="/newsroom" className="hidden text-foreground/80 transition-colors hover:text-foreground sm:inline">
             NEWSROOM
           </Link>
           <Link
@@ -122,7 +122,7 @@ function MobileMenu() {
     };
   }, [open]);
   const close = () => setOpen(false);
-  const item = "block border-b border-white/5 py-4 font-mono text-xs tracking-[0.2em] text-foreground/90 hover:text-gold";
+  const item = "block border-b border-white/5 py-4 font-mono text-xs tracking-[0.2em] text-foreground/90 hover:text-foreground";
   return (
     <div className="sm:hidden">
       <button
@@ -130,22 +130,22 @@ function MobileMenu() {
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className="flex h-9 w-9 items-center justify-center border border-gold/60 text-gold"
+        className="flex h-9 w-9 items-center justify-center border border-gold/60 text-foreground"
       >
         {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
       </button>
       {open && createPortal(
-        <div className="fixed inset-x-0 bottom-0 top-[68px] z-50 overflow-y-auto bg-navy-deep/95 px-6 pb-10 backdrop-blur-md sm:hidden">
+        <div className="fixed inset-x-0 bottom-0 top-[68px] z-50 overflow-y-auto bg-navy px-6 pb-10 sm:hidden">
           <Link to="/intelligence" onClick={close} className={`${item} mt-4`}>HERA AI</Link>
           <Link to="/constellation" onClick={close} className={item}>SEKER-1 · SEKER-2</Link>
-          <p className="pt-6 font-mono text-[10px] tracking-[0.22em] text-gold">INDUSTRIES</p>
+          <p className="pt-6 font-mono text-[10px] tracking-[0.22em] text-foreground">INDUSTRIES</p>
           <a href="/#industries" onClick={close} className={item}>ALL INDUSTRIES</a>
           {industries.map((i) => (
             <Link key={i.slug} to="/industries/$slug" params={{ slug: i.slug }} onClick={close} className={item}>
               {i.navName.toUpperCase()}
             </Link>
           ))}
-          <p className="pt-8 font-mono text-[10px] tracking-[0.22em] text-gold">SEKER</p>
+          <p className="pt-8 font-mono text-[10px] tracking-[0.22em] text-foreground">SEKER</p>
           <Link to="/company" onClick={close} className={item}>COMPANY</Link>
           <Link to="/careers" onClick={close} className={item}>CAREERS</Link>
           <Link to="/newsroom" onClick={close} className={item}>NEWSROOM</Link>
@@ -168,29 +168,29 @@ export function Footer() {
     <footer className="border-t border-white/5 bg-navy-deep px-6 py-14">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 text-center">
         <Link to="/" aria-label="SEKER — home" className="inline-flex">
-          <SekerLogo className="h-6 w-auto text-gold opacity-60" />
+          <SekerLogo className="h-6 w-auto text-foreground opacity-60" />
         </Link>
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
           {industries.map((i) => (
-            <Link key={i.slug} to="/industries/$slug" params={{ slug: i.slug }} className="font-mono text-xs tracking-[0.2em] text-foreground/60 hover:text-gold">
+            <Link key={i.slug} to="/industries/$slug" params={{ slug: i.slug }} className="font-mono text-xs tracking-[0.2em] text-foreground/60 hover:text-foreground">
               {i.navName.toUpperCase()}
             </Link>
           ))}
         </div>
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
-          <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
+          <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-foreground">
             HERA AI
           </Link>
-          <Link to="/constellation" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
+          <Link to="/constellation" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-foreground">
             SEKER-1 · SEKER-2
           </Link>
-          <Link to="/company" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
+          <Link to="/company" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-foreground">
             COMPANY
           </Link>
-          <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
+          <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-foreground">
             CAREERS
           </Link>
-          <Link to="/newsroom" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-gold">
+          <Link to="/newsroom" className="font-mono text-xs tracking-[0.2em] text-foreground/80 hover:text-foreground">
             NEWSROOM
           </Link>
         </div>

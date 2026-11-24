@@ -46,7 +46,7 @@ export const Route = createFileRoute("/constellation")({
 
 function Card({ t, d }: { t: string; d: string }) {
   return (
-    <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-6">
+    <div className="h-full rounded-lg border border-white/10 bg-card p-6">
       <span className="block h-1.5 w-1.5 rounded-full bg-cyan" />
       <h3 className="mt-4 text-lg font-light text-foreground">{t}</h3>
       <p className="mt-2 text-sm font-light text-muted-foreground">{d}</p>
@@ -57,7 +57,7 @@ function Card({ t, d }: { t: string; d: string }) {
 function Head({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
     <Reveal>
-      <p className="text-eyebrow text-gold">{eyebrow}</p>
+      <p className="text-eyebrow text-foreground">{eyebrow}</p>
       <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">{title}</h2>
     </Reveal>
   );
@@ -86,8 +86,8 @@ function SensorSchematic() {
       />
       {CALLOUTS.map((c) => (
         <div key={c.n} className={`absolute ${c.pos} font-mono text-[10px] tracking-[0.2em] sm:text-xs`}>
-          <span className="text-gold">{c.n}</span>{" "}
-          <span className="inline-flex items-center gap-1.5 border border-cyan/40 bg-navy/80 px-2 py-1 text-cyan">
+          <span className="text-foreground">{c.n}</span>{" "}
+          <span className="inline-flex items-center gap-1.5 border border-cyan/40 bg-card px-2 py-1 text-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
             {c.label}
           </span>
@@ -115,13 +115,13 @@ function ConstellationPage() {
           />
           <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
             <Reveal>
-              <p className="text-eyebrow text-gold">SEKER-1 · SEKER-2</p>
+              <p className="text-eyebrow text-foreground">SEKER-1 · SEKER-2</p>
               <h1 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-6xl">
                 Our own sensors.
                 <br />
-                <span className="text-gold">Better data, better intelligence.</span>
+                <span className="text-foreground">Better data, better intelligence.</span>
               </h1>
-              <p className="mt-5 font-mono text-xs tracking-[0.22em] text-gold">In-orbit demonstration: Q4 2028</p>
+              <p className="mt-5 font-mono text-xs tracking-[0.22em] text-foreground">In-orbit demonstration: Q4 2028</p>
               <p className="mt-8 max-w-xl text-balance text-lg font-light text-foreground/80">
                 SEKER-1 and SEKER-2 will carry sensors built for one job: checking what every ship really does, not only what it says.
               </p>
@@ -129,7 +129,7 @@ function ConstellationPage() {
                 <Link
                   to="/"
                   hash="contact"
-                  className="border border-gold/60 px-6 py-3 font-mono text-xs tracking-[0.22em] text-gold transition-colors hover:bg-gold/10"
+                  className="border border-gold/60 px-6 py-3 font-mono text-xs tracking-[0.22em] text-foreground transition-colors hover:bg-gold/10"
                 >
                   DISCUSS YOUR USE CASE →
                 </Link>
@@ -148,7 +148,7 @@ function ConstellationPage() {
               {SENSORS.map(([t, d], i) => (
                 <Reveal key={t} delay={i * 0.05}>
                   <div className="h-full bg-navy-deep p-6 sm:p-8">
-                    <span className="font-mono text-xs tracking-[0.22em] text-gold">0{i + 1}</span>
+                    <span className="font-mono text-xs tracking-[0.22em] text-foreground">0{i + 1}</span>
                     <h3 className="mt-3 text-xl font-light text-foreground">{t}</h3>
                     <p className="mt-2 text-sm font-light text-muted-foreground">{d}</p>
                   </div>
@@ -197,7 +197,7 @@ function ConstellationPage() {
             <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
               Better data in.
               <br />
-              <span className="text-gold">Better intelligence out.</span>
+              <span className="text-foreground">Better intelligence out.</span>
             </h2>
             <Link
               to="/"

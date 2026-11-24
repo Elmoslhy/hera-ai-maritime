@@ -1,4 +1,4 @@
-import { animate, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
+import { animate, motion, useMotionValue, useReducedMotionConfig, useTransform } from "motion/react";
 import { useEffect } from "react";
 import satellite from "@/assets/careers-satellite.png";
 
@@ -46,7 +46,7 @@ const COMPACT_NODES: Orbiter[] = [
 ];
 
 function OrbitalMesh({ compact = false }: { compact?: boolean }) {
-  const reduced = Boolean(useReducedMotion());
+  const reduced = Boolean(useReducedMotionConfig());
   const eyeX = compact ? 310 : 920;
   const eyeY = compact ? 285 : 440;
   return (

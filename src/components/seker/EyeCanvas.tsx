@@ -62,7 +62,7 @@ export function EyeCanvas({ className }: { className?: string }) {
     let start: number | null = null;
     let visible = false;
     let paused = 0;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = true;
 
     const io = new IntersectionObserver(
       (entries) => {

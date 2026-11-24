@@ -6,8 +6,8 @@ import { EyeCanvas } from "./EyeCanvas";
 import heraApp from "@/assets/hera-app-hormuz.jpg";
 
 const TOP_STATS = [
-  { label: "HERA AI capabilities live today", to: 7, suffix: "", tone: "text-cyan" },
-  { label: "Official sanctions lists screened: US, UK, EU and Japan", to: 5, suffix: "", tone: "text-gold" },
+  { label: "HERA AI capabilities live today", to: 7, suffix: "", tone: "text-foreground" },
+  { label: "Official sanctions lists screened: US, UK, EU and Japan", to: 5, suffix: "", tone: "text-foreground" },
   { label: "Capabilities on one record per ship", to: 12, suffix: "", tone: "text-foreground" },
 ];
 
@@ -182,7 +182,7 @@ export function LiveMap() {
           ATLANTIC PEARL · MMSI 215789012
           <br />
           <span className="text-muted-foreground">14.1 kn · </span>
-          <span className="text-gold">UNVERIFIED</span>
+          <span className="text-foreground">UNVERIFIED</span>
         </div>
 
         {/* geo-fencing tool */}
@@ -193,7 +193,7 @@ export function LiveMap() {
           </div>
           <div className="mt-2 grid grid-cols-2 gap-2 font-mono text-[9px] tracking-[0.14em]">
             <span className="rounded border border-white/10 px-2 py-1 text-muted-foreground">● CIRCLE</span>
-            <span className="rounded border border-gold/40 bg-gold/10 px-2 py-1 text-gold">▰ POLYGON</span>
+            <span className="rounded border border-gold/40 bg-gold/10 px-2 py-1 text-foreground">▰ POLYGON</span>
           </div>
           <p className="mt-2 font-mono text-[10px] text-alert">37 in zones</p>
         </div>
@@ -224,7 +224,7 @@ function TabRow({ tabs, active, onSelect }: { tabs: string[]; active: string; on
           key={t}
           onClick={() => onSelect(t)}
           className={`rounded px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] transition-colors ${
-            active === t ? "bg-white/8 text-cyan" : "text-muted-foreground hover:text-foreground"
+            active === t ? "bg-white/8 text-foreground" : "text-muted-foreground hover:text-foreground"
           }`}
         >
           {t}
@@ -312,7 +312,7 @@ export function DigitalTwin() {
             </p>
           </div>
           <div className="text-right">
-            <p className="font-mono text-4xl leading-none text-gold">
+            <p className="font-mono text-4xl leading-none text-foreground">
               88.7<span className="text-base">%</span>
             </p>
             <p className="mt-2 max-w-[170px] font-mono text-[8px] leading-relaxed tracking-[0.14em] text-muted-foreground">
@@ -321,7 +321,7 @@ export function DigitalTwin() {
           </div>
         </div>
 
-        <div className="rounded border border-gold/40 bg-gold/10 px-3 py-2 font-mono text-xs tracking-[0.2em] text-gold">
+        <div className="rounded border border-gold/40 bg-gold/10 px-3 py-2 font-mono text-xs tracking-[0.2em] text-foreground">
           ○ UNVERIFIED · IMO REQUIRED
         </div>
 
@@ -350,7 +350,7 @@ export function DigitalTwin() {
           <div className="mt-3 grid grid-cols-3 gap-2">
             {LAYERS.map((l) => (
               <div key={l.key} className="overflow-hidden rounded border border-white/10 bg-black/40">
-                <div className="flex items-center justify-between px-1.5 py-1 font-mono text-[7px] tracking-[0.1em] text-cyan">
+                <div className="flex items-center justify-between px-1.5 py-1 font-mono text-[7px] tracking-[0.1em] text-foreground">
                   <span>{l.key}</span>
                   <span className="text-muted-foreground">{l.spec}</span>
                 </div>
@@ -390,7 +390,7 @@ export function DigitalTwin() {
               <span
                 key={s.id}
                 className={`rounded border px-2 py-1 font-mono text-[9px] tracking-[0.16em] ${
-                  s.on ? "border-cyan/40 bg-cyan/10 text-cyan" : "border-white/10 text-muted-foreground/60"
+                  s.on ? "border-cyan/40 bg-cyan/10 text-foreground" : "border-white/10 text-muted-foreground/60"
                 }`}
               >
                 {s.id}
@@ -442,7 +442,7 @@ export function WindowChrome({ children }: { children: React.ReactNode }) {
         </div>
         <SekerLogo className="h-5 w-auto text-foreground" />
         <div className="mr-auto">
-          <p className="text-lg font-light tracking-wide text-cyan">HERA AI</p>
+          <p className="text-lg font-light tracking-wide text-foreground">HERA AI</p>
           <p className="font-mono text-[8px] tracking-[0.24em] text-muted-foreground">
             MARITIME INTELLIGENCE PLATFORM
           </p>
@@ -451,13 +451,13 @@ export function WindowChrome({ children }: { children: React.ReactNode }) {
           <span className="flex items-center gap-2 text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan" /> API
           </span>
-          <span className="text-cyan">OPERATIONAL</span>
+          <span className="text-foreground">OPERATIONAL</span>
           <span className="text-muted-foreground">· 14 732 SIGNALS ·</span>
           <span className="text-muted-foreground">P50</span>
           <span className="text-foreground">45MS</span>
         </div>
         <p className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground">
-          UTC <span className="text-gold">{utc}</span>
+          UTC <span className="text-foreground">{utc}</span>
         </p>
       </div>
       {children}
@@ -478,7 +478,7 @@ export function DashboardSection() {
     <section id="hera-ai" className="bg-navy px-6 py-28">
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
-          <p className="text-eyebrow text-gold">HERA AI</p>
+          <p className="text-eyebrow text-foreground">HERA AI</p>
           <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             Meet HERA AI.
           </h2>
@@ -517,7 +517,7 @@ export function DashboardSection() {
         </Reveal>
 
         <div className="mt-10 text-center">
-          <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-cyan hover:text-gold">
+          <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-foreground hover:text-foreground">
             Learn more →
           </Link>
         </div>

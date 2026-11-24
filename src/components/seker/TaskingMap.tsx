@@ -296,7 +296,7 @@ export function TaskingScreen() {
 
   const jump = (i: number) => { setStep(i); setPlaying(false); };
   const lit = (id: string) => PASSES.find((p) => p.id === id)!.step <= step;
-  const stCls = { selected: "text-gold", standby: "text-cyan", rejected: "text-alert" } as const;
+  const stCls = { selected: "text-foreground", standby: "text-foreground", rejected: "text-alert" } as const;
 
   return (
     <div ref={box} className="min-w-0">
@@ -312,7 +312,7 @@ export function TaskingScreen() {
             {(["map", "plan"] as const).map((v, i) => (
               <span key={v} className="flex items-center">
                 {i > 0 && <span className="text-muted-foreground" aria-hidden>|</span>}
-                <Button variant="ghost" size="sm" aria-pressed={mode === v} onClick={() => setMode(v)} className={`h-auto rounded-none px-2 py-1 font-mono text-inherit hover:bg-gold/10 hover:text-gold ${mode === v ? "text-gold" : "text-muted-foreground"}`}>{v.toUpperCase()}</Button>
+                <Button variant="ghost" size="sm" aria-pressed={mode === v} onClick={() => setMode(v)} className={`h-auto rounded-none px-2 py-1 font-mono text-inherit hover:bg-gold/10 hover:text-foreground ${mode === v ? "text-foreground" : "text-muted-foreground"}`}>{v.toUpperCase()}</Button>
               </span>
             ))}
           </div>
@@ -327,7 +327,7 @@ export function TaskingScreen() {
                 <div className="pointer-events-none absolute left-2 top-2 rounded border border-white/10 bg-navy-deep/85 px-2 py-1 font-mono text-[10px] tabular-nums text-foreground/80">
                   {fmtDM(cursor[1], "N", "S", 2)} {fmtDM(cursor[0], "E", "W", 3)}
                 </div>
-                <div className="pointer-events-none absolute left-2 top-9 rounded border border-white/10 bg-navy-deep/85 px-2 py-1 font-mono text-[10px] tabular-nums text-gold">
+                <div className="pointer-events-none absolute left-2 top-9 rounded border border-white/10 bg-navy-deep/85 px-2 py-1 font-mono text-[10px] tabular-nums text-foreground">
                   SCENARIO {hhmm(STEPS[step].t)} · T+{String(Math.floor(STEPS[step].t / 60)).padStart(2, "0")}:{String(STEPS[step].t % 60).padStart(2, "0")}
                 </div>
                 <div className="pointer-events-none absolute bottom-8 right-2 hidden flex-col gap-0.5 rounded border border-white/10 bg-navy-deep/85 px-2 py-1.5 font-mono text-[9px] text-foreground/75 sm:flex">
@@ -335,11 +335,11 @@ export function TaskingScreen() {
                 </div>
               </div>
               <div className="@container border-t border-white/10 px-3 py-2"><div className="flex flex-nowrap items-center gap-1.5">
-                <Button variant="ghost" size="sm" onClick={() => { if (step === 5 && !playing) setStep(0); setPlaying(!playing); }} aria-label={playing ? "Pause scenario" : "Play scenario"} className="h-7 w-7 p-0 text-gold hover:bg-gold/10 hover:text-gold">
+                <Button variant="ghost" size="sm" onClick={() => { if (step === 5 && !playing) setStep(0); setPlaying(!playing); }} aria-label={playing ? "Pause scenario" : "Play scenario"} className="h-7 w-7 p-0 text-foreground hover:bg-gold/10 hover:text-foreground">
                   {playing ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
                 </Button>
                 {STEPS.map((s, i) => (
-                  <button key={s.label} type="button" onClick={() => jump(i)} aria-current={i === step} className={`shrink-0 border px-2 py-1 font-mono text-[10px] tracking-[0.1em] @[520px]:px-1.5 transition-colors ${i === step ? "border-gold text-gold" : i < step ? "border-white/15 text-foreground/70" : "border-white/10 text-muted-foreground"} hover:border-gold/60`}>
+                  <button key={s.label} type="button" onClick={() => jump(i)} aria-current={i === step} className={`shrink-0 border px-2 py-1 font-mono text-[10px] tracking-[0.1em] @[520px]:px-1.5 transition-colors ${i === step ? "border-gold text-foreground" : i < step ? "border-white/15 text-foreground/70" : "border-white/10 text-muted-foreground"} hover:border-gold/60`}>
                     {i + 1}<span className="hidden @[520px]:inline"> {s.label.toUpperCase()}</span>
                   </button>
                 ))}

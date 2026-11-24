@@ -80,7 +80,7 @@ export function DescentSection() {
         <motion.div style={{ scale: seaScale }} className="absolute inset-0 origin-[50%_68%]">
           <div style={{ opacity: seaO }} className="absolute inset-0">
             <img src={ocean} alt="Open ocean seen from orbit" loading="lazy" className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-navy/70" />
+            <div className="absolute inset-0 bg-card" />
           </div>
 
           {/* thermal palette pass over the water */}
@@ -107,7 +107,7 @@ export function DescentSection() {
         ].map((s, i) => (
           <div key={i} style={{ opacity: s.o }} className={`absolute top-[26%] ${s.side} w-[min(16vw,120px)]`}>
             <img src={satelliteReal} alt="" aria-hidden className="w-full opacity-80" />
-            <p className="mt-1 text-center font-mono text-[9px] tracking-[0.2em] text-cyan">SEKER-{i + 1}</p>
+            <p className="mt-1 text-center font-mono text-[9px] tracking-[0.2em] text-foreground">SEKER-{i + 1}</p>
           </div>
         ))}
 
@@ -153,8 +153,8 @@ export function DescentSection() {
 
           {/* AIS broadcast label */}
           <div style={{ opacity: aisO }} className="pointer-events-none absolute -right-6 top-[6%] translate-x-full">
-            <div className="rounded-md border border-cyan/40 bg-navy/80 px-3 py-2 backdrop-blur-sm">
-              <p className="font-mono text-[9px] tracking-[0.2em] text-cyan">AIS · BROADCASTING</p>
+            <div className="rounded-md border border-cyan/40 bg-card px-3 py-2 backdrop-blur-sm">
+              <p className="font-mono text-[9px] tracking-[0.2em] text-foreground">AIS · BROADCASTING</p>
               <p className="mt-1 font-mono text-[11px] text-foreground">34°21.4′N 023°08.9′E</p>
             </div>
           </div>
@@ -197,25 +197,25 @@ export function DescentSection() {
         <div className="pointer-events-none relative z-10 flex h-full flex-col justify-between p-6 pt-24 sm:p-10 sm:pt-28">
           <div className="relative flex items-start justify-end gap-6">
             <div className="absolute left-1/2 top-0 w-full max-w-lg -translate-x-1/2 space-y-2 text-center">
-              <p className="font-mono text-sm tracking-[0.28em] text-gold sm:text-base">{act.title.toUpperCase()}</p>
+              <p className="font-mono text-sm tracking-[0.28em] text-foreground sm:text-base">{act.title.toUpperCase()}</p>
               {act.title === "In orbit" && (
-                <p className="inline-block rounded-sm border border-gold/40 bg-navy/70 px-2.5 py-1 font-mono text-[9px] tracking-[0.2em] text-gold backdrop-blur-sm sm:text-[10px]">
+                <p className="inline-block rounded-sm border border-gold/40 bg-card px-2.5 py-1 font-mono text-[9px] tracking-[0.2em] text-foreground backdrop-blur-sm sm:text-[10px]">
                   IN-ORBIT DEMONSTRATION · Q4 2028
                 </p>
               )}
             </div>
             <div className="relative shrink-0 space-y-2 text-right">
-              <div className="rounded-lg border border-white/10 bg-navy/70 px-4 py-3 backdrop-blur-sm">
+              <div className="rounded-lg border border-white/10 bg-card px-4 py-3 backdrop-blur-sm">
                 <p className="font-mono text-[9px] tracking-[0.22em] text-muted-foreground">DISTANCE</p>
-                <p className="font-mono text-xl text-cyan sm:text-2xl">
+                <p className="font-mono text-xl text-foreground sm:text-2xl">
                   {distance.toFixed(0)}
                   <span className="ml-1 text-xs text-muted-foreground">km</span>
                 </p>
               </div>
-              <div className="space-y-1 rounded-lg border border-white/10 bg-navy/70 px-4 py-3 backdrop-blur-sm">
+              <div className="space-y-1 rounded-lg border border-white/10 bg-card px-4 py-3 backdrop-blur-sm">
                 {sensors.map((s) => (
                   <p key={s.key} className="flex items-center justify-end gap-2 font-mono text-[10px] tracking-[0.18em]">
-                    <span className={s.lost ? "text-alert" : s.on ? "text-cyan" : "text-muted-foreground/50"}>{s.key}</span>
+                    <span className={s.lost ? "text-alert" : s.on ? "text-foreground" : "text-muted-foreground/50"}>{s.key}</span>
                     <span
                       className={`inline-block h-1.5 w-1.5 rounded-full ${
                         s.lost ? "animate-[alert-blink_0.9s_ease-in-out_infinite] bg-alert" : s.on ? "bg-cyan" : "bg-muted-foreground/30"
@@ -235,11 +235,11 @@ export function DescentSection() {
             <div />
             <div
               className={`rounded-lg border px-4 py-3 backdrop-blur-sm transition-colors duration-500 ${
-                p > 0.86 ? "border-gold/50 bg-gold/10" : p > 0.32 ? "border-alert/40 bg-alert/10" : "border-white/10 bg-navy/70"
+                p > 0.86 ? "border-gold/50 bg-gold/10" : p > 0.32 ? "border-alert/40 bg-alert/10" : "border-white/10 bg-card"
               }`}
             >
               <p className="text-xs text-muted-foreground">Vessel</p>
-              <p className={`mt-1 text-sm ${p > 0.86 ? "text-gold" : p > 0.32 ? "text-alert" : "text-cyan"}`}>
+              <p className={`mt-1 text-sm ${p > 0.86 ? "text-foreground" : p > 0.32 ? "text-alert" : "text-foreground"}`}>
                 {p > 0.86 ? "✓ Located and identified" : p > 0.32 ? "Dark, not transmitting" : "Transmitting normally"}
               </p>
             </div>

@@ -10,7 +10,7 @@ import { DeliverablesSection, MissionsSection, RolesSection, SignatureSection } 
 const allCases = [...useCases, cargoClaimCase, originCase, preArrivalCase, transshipmentCase, cableCorridorCase, darkTransferDefenseCase];
 
 const gold = "border border-gold/60 bg-gold/90 px-6 py-3 font-mono text-xs tracking-[0.22em] text-navy-deep transition-colors hover:bg-gold";
-const outline = "border border-gold/60 px-6 py-3 font-mono text-xs tracking-[0.22em] text-gold transition-colors hover:bg-gold/10";
+const outline = "border border-gold/60 px-6 py-3 font-mono text-xs tracking-[0.22em] text-foreground transition-colors hover:bg-gold/10";
 
 export const Route = createFileRoute("/industries/$slug")({
   loader: ({ params }) => {
@@ -42,7 +42,7 @@ export const Route = createFileRoute("/industries/$slug")({
   },
   notFoundComponent: () => (
     <div className="flex min-h-screen flex-col items-center justify-center gap-6 bg-navy px-6 text-center">
-      <p className="text-eyebrow text-gold">Industries</p>
+      <p className="text-eyebrow text-foreground">Industries</p>
       <h1 className="text-3xl font-light text-foreground">This industry page is not available.</h1>
       <Link to="/" className={outline}>BACK TO HOME</Link>
     </div>
@@ -76,14 +76,14 @@ function IndustryPage() {
       <Nav />
       <main>
         <section className="relative flex min-h-screen items-center px-6 py-32">
-          <SectionBackground src={i.heroImage} alt={i.eyebrow} overlay="bg-navy/70" />
+          <SectionBackground src={i.heroImage} alt={i.eyebrow} overlay="bg-card" />
           <div className="relative mx-auto w-full max-w-7xl">
             <Reveal>
-              <p className="text-eyebrow text-gold">{i.eyebrow}</p>
+              <p className="text-eyebrow text-foreground">{i.eyebrow}</p>
               <h1 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-7xl">
                 {i.headline[0]}
                 <br />
-                <span className="text-gold">{i.headline[1]}</span>
+                <span className="text-foreground">{i.headline[1]}</span>
               </h1>
               <p className="mt-8 max-w-2xl text-balance text-lg font-light text-foreground/80">{i.body}</p>
               <div className="mt-10 flex flex-wrap gap-4">
@@ -105,11 +105,11 @@ function IndustryPage() {
                 <div className="mt-12 grid gap-4 sm:grid-cols-2">
                   {i.rebuild.missions.slice(0, 4).map((m, n) => (
                     <Reveal key={m.title} delay={n * 0.05}>
-                      <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-6">
+                      <div className="h-full rounded-lg border border-white/10 bg-card p-6">
                         <span className="block h-1.5 w-1.5 rounded-full bg-cyan" />
                         <h3 className="mt-4 text-lg font-light text-foreground">{m.title}</h3>
                         <p className="mt-2 text-sm font-light text-muted-foreground">{m.need}</p>
-                        <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-cyan">{m.deliverable}</p>
+                        <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">{m.deliverable}</p>
                       </div>
                     </Reveal>
                   ))}
@@ -143,11 +143,11 @@ function IndustryPage() {
 
         <section className="bg-navy px-6 py-24">
           <div className="mx-auto max-w-7xl">
-            <Reveal><p className="text-eyebrow text-gold">Core capabilities</p></Reveal>
+            <Reveal><p className="text-eyebrow text-foreground">Core capabilities</p></Reveal>
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {i.capabilities.map((c, n) => (
                 <Reveal key={c.title} delay={n * 0.05}>
-                  <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-6 backdrop-blur">
+                  <div className="h-full rounded-lg border border-white/10 bg-card p-6 backdrop-blur">
                     <div className="flex items-center justify-between gap-3">
                       <span className="h-2 w-2 rounded-full bg-cyan shadow-[0_0_8px_var(--color-cyan)]" />
                     </div>
@@ -173,10 +173,10 @@ function IndustryPage() {
                   />
                   <div className="min-w-0">
                     <div className="flex items-center gap-4">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold/60 font-mono text-sm text-gold">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold/60 font-mono text-sm text-foreground">
                         0{n + 1}
                       </span>
-                      <span className="font-mono text-xs tracking-[0.2em] text-gold">{b.label}</span>
+                      <span className="font-mono text-xs tracking-[0.2em] text-foreground">{b.label}</span>
                     </div>
                     <h3 className="text-balance mt-6 text-2xl font-light text-foreground sm:text-3xl">{b.title}</h3>
                     <p className="mt-4 font-light text-foreground/75">{b.text}</p>
@@ -204,7 +204,7 @@ function IndustryPage() {
             <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
               {(i.closing ?? closingCta).headline[0]}
               <br />
-              <span className="text-gold">{(i.closing ?? closingCta).headline[1]}</span>
+              <span className="text-foreground">{(i.closing ?? closingCta).headline[1]}</span>
             </h2>
             {i.closing?.body && <p className="mx-auto mt-6 max-w-2xl text-balance text-lg font-light text-foreground/75">{i.closing.body}</p>}
             <Link to="/" hash="contact" className={`mt-10 inline-block ${gold}`}>{(i.closing ?? closingCta).button} →</Link>

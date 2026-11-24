@@ -51,7 +51,7 @@ function ArticleNotFound() {
       <Nav />
       <main className="mx-auto max-w-3xl px-6 pb-32 pt-48 text-center">
         <h1 className="text-3xl font-light text-foreground">This article is not available</h1>
-        <Link to="/newsroom" className={`mt-8 inline-block font-mono text-xs tracking-[0.2em] text-gold hover:underline ${focus}`}>← BACK TO NEWSROOM</Link>
+        <Link to="/newsroom" className={`mt-8 inline-block font-mono text-xs tracking-[0.2em] text-foreground hover:underline ${focus}`}>← BACK TO NEWSROOM</Link>
       </main>
       <Footer />
     </div>
@@ -80,7 +80,7 @@ function ArticlePage() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-navy via-navy/80 to-navy/50" />
         <div className="mx-auto w-full max-w-3xl px-6 pb-10 pt-40">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] tracking-[0.15em] text-gold">{n.type.toUpperCase()}</span>
+            <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] tracking-[0.15em] text-foreground">{n.type.toUpperCase()}</span>
             <time dateTime={n.date} className="font-mono text-xs text-foreground/80">{formatNewsDate(n.date)}</time>
           </div>
         </div>
@@ -101,7 +101,7 @@ function ArticlePage() {
                 <blockquote className="my-10 border-l-2 border-gold pl-6">
                   <p className="text-2xl font-light italic leading-relaxed text-foreground">“{n.quote.text}”</p>
                   <footer className="mt-4 text-sm text-foreground/70">
-                    <span className="text-gold">{n.quote.author}</span>, {n.quote.role}
+                    <span className="text-foreground">{n.quote.author}</span>, {n.quote.role}
                   </footer>
                 </blockquote>
               )}
@@ -118,21 +118,21 @@ function ArticlePage() {
         )}
 
         <aside className="mt-16 rounded-xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-          <h2 className="text-lg font-normal text-gold">About Seker Space Intelligence</h2>
+          <h2 className="text-lg font-normal text-foreground">About Seker Space Intelligence</h2>
           <p className="mt-3 leading-relaxed text-foreground/85">{newsroom.boilerplate}</p>
           <p className="mt-5 text-sm text-foreground/80">
-            Media contact: <a href={`mailto:${mc.email}?subject=${encodeURIComponent(mc.subject)}`} className={`text-gold hover:underline ${focus}`}>{mc.email}</a>
+            Media contact: <a href={`mailto:${mc.email}?subject=${encodeURIComponent(mc.subject)}`} className={`text-foreground hover:underline ${focus}`}>{mc.email}</a>
           </p>
         </aside>
 
         <div className="mt-10 flex flex-wrap items-center gap-3">
           <span className="font-mono text-xs tracking-[0.15em] text-muted-foreground">SHARE</span>
           {shares.map(([label, href]) => (
-            <a key={label} href={href} target={label === "Email" ? undefined : "_blank"} rel="noopener noreferrer" className={`rounded-full border border-white/20 px-4 py-1.5 font-mono text-xs text-foreground/85 hover:border-gold hover:text-gold ${focus}`}>{label}</a>
+            <a key={label} href={href} target={label === "Email" ? undefined : "_blank"} rel="noopener noreferrer" className={`rounded-full border border-white/20 px-4 py-1.5 font-mono text-xs text-foreground/85 hover:border-gold hover:text-foreground ${focus}`}>{label}</a>
           ))}
           <button
             onClick={async () => { await navigator.clipboard.writeText(url); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
-            className={`rounded-full border border-white/20 px-4 py-1.5 font-mono text-xs text-foreground/85 hover:border-gold hover:text-gold ${focus}`}
+            className={`rounded-full border border-white/20 px-4 py-1.5 font-mono text-xs text-foreground/85 hover:border-gold hover:text-foreground ${focus}`}
           >
             {copied ? "Copied" : "Copy link"}
           </button>
@@ -144,7 +144,7 @@ function ArticlePage() {
             <ul className="mt-6 space-y-4">
               {more.map((m) => (
                 <li key={m.slug}>
-                  <Link to="/newsroom/$slug" params={{ slug: m.slug }} className={`text-gold hover:underline ${focus}`}>{m.title}</Link>
+                  <Link to="/newsroom/$slug" params={{ slug: m.slug }} className={`text-foreground hover:underline ${focus}`}>{m.title}</Link>
                   <p className="font-mono text-xs text-muted-foreground">{formatNewsDate(m.date)}</p>
                 </li>
               ))}
@@ -152,7 +152,7 @@ function ArticlePage() {
           </section>
         )}
 
-        <Link to="/newsroom" className={`mt-14 inline-block font-mono text-xs tracking-[0.2em] text-gold hover:underline ${focus}`}>← BACK TO NEWSROOM</Link>
+        <Link to="/newsroom" className={`mt-14 inline-block font-mono text-xs tracking-[0.2em] text-foreground hover:underline ${focus}`}>← BACK TO NEWSROOM</Link>
       </main>
       <Footer />
     </div>

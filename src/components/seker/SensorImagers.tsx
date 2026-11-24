@@ -13,11 +13,11 @@ function Frame({
   opacity: number;
   children: React.ReactNode;
 }) {
-  const toneCls = tone === "gold" ? "text-gold border-gold/40" : tone === "alert" ? "text-alert border-alert/40" : "text-cyan border-cyan/40";
+  const toneCls = tone === "gold" ? "text-foreground border-gold/40" : tone === "alert" ? "text-alert border-alert/40" : "text-foreground border-cyan/40";
   return (
     <div
       style={{ opacity, transform: `translateY(${(1 - opacity) * 12}px)` }}
-      className="w-[150px] rounded-md border border-white/10 bg-navy/80 p-2 backdrop-blur-sm transition-[opacity,transform] duration-300 sm:w-[178px]"
+      className="w-[150px] rounded-md border border-white/10 bg-card p-2 backdrop-blur-sm transition-[opacity,transform] duration-300 sm:w-[178px]"
     >
       <div className={`mb-1.5 flex items-center justify-between border-b pb-1 font-mono text-[8px] tracking-[0.2em] ${toneCls}`}>
         <span>{label}</span>
