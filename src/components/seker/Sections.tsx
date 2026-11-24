@@ -1,37 +1,35 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { z } from "zod";
-import satelliteNetwork from "@/assets/satellite-network.jpg";
-import ocean from "@/assets/ocean.jpg";
-import vessels from "@/assets/vessels.jpg";
+import satelliteNetwork from "@/assets/seker-europe-night.jpg";
+import ocean from "@/assets/seker-earth-limb.jpg";
+import vessels from "@/assets/seker-sar-port.jpg";
 import { SekerLogo } from "./Logo";
 import { industries } from "@/content/industries";
-import { HeroScene, HeroShipCard } from "./HeroScene";
+import { HeroShipCard } from "./HeroScene";
+import northSea from "@/assets/seker-north-sea.jpg";
 import { Reveal, SectionBackground } from "./primitives";
 
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20 pb-24">
-      
-      <div className="absolute inset-0 bg-navy-deep" />
-      <HeroScene />
+    <section className="relative flex min-h-screen items-center overflow-hidden pt-20 pb-24">
+      <img src={northSea} alt="North Sea seen from orbit with a satellite pass" width={1376} height={768} fetchPriority="high" className="absolute inset-0 h-full w-full object-cover object-[right_center]" />
+      <div className="absolute inset-0 bg-[rgba(6,20,40,0.6)] lg:hidden" />
       <HeroShipCard />
-      <div className="relative z-10 flex flex-col items-center px-6 text-center">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-start px-6 text-left">
         <Reveal>
-          <SekerLogo className="mx-auto w-[min(72vw,460px)] text-foreground" />
+          <SekerLogo className="w-[min(72vw,380px)] text-foreground" />
         </Reveal>
         <Reveal delay={0.15}>
-          <h1 className="text-balance mt-8 text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
+          <h1 className="text-balance mt-8 max-w-[680px] text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
             Independent
             <br />
             <span className="font-normal">maritime intelligence.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.3}>
-          <div className="relative mx-auto mt-7 max-w-2xl lg:max-w-[560px]">
-            {/* soft navy scrim so the copy stays readable over the bright side of the Earth */}
-            <div className="pointer-events-none absolute -inset-x-12 -inset-y-9 bg-[radial-gradient(ellipse_at_center,rgba(6,12,21,0.9)_0%,rgba(6,12,21,0.6)_45%,transparent_76%)] blur-2xl" />
-            <p className="hero-lead relative text-pretty text-[15px] font-normal leading-[1.75] text-foreground/90 sm:text-lg">
+          <div className="relative mt-7 max-w-[560px]">
+            <p className="relative text-pretty text-[15px] font-normal leading-[1.75] text-foreground/90 sm:text-lg">
               SEKER's HERA AI platform aggregates and analyses vessel tracking,
               identity and sanctions data allowing you to identify potentially
               suspicious activity, support vessel due diligence and monitor risks.
@@ -90,8 +88,7 @@ export function LaunchSection() {
         >
           <source src="/hero-video.webm" type='video/webm; codecs="vp9"' />
         </video>
-        <div className="absolute inset-0 bg-card" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,transparent_0%,rgba(9,18,31,0.85)_80%)]" />
+        <div className="absolute inset-0 bg-[rgba(6,20,40,0.45)]" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-6xl py-24 text-center">

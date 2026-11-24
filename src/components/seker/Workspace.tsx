@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Lock, Globe2, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Reveal } from "./primitives";
-import vessels from "@/assets/vessels.jpg";
+import vessels from "@/assets/seker-sar-port.jpg";
 import {
   askExamples,
   askFallback,

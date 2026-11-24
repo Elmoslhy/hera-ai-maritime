@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { DroneFilmFrame } from "@/components/seker/DroneFilm";
 import { Reveal } from "@/components/seker/primitives";
-import satellite from "@/assets/satellite-real.png";
+import satellite from "@/assets/seker-payload-ships.jpg";
 
 const TITLE = "SEKER-1 and SEKER-2 | Seker Space Intelligence";
 const DESCRIPTION =
@@ -71,18 +71,14 @@ const CALLOUTS = [
 ];
 
 function SensorSchematic() {
-  const corner = "absolute h-6 w-6 border-gold";
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[520px]">
-      <div className={`${corner} left-[14%] top-[14%] border-l border-t`} />
-      <div className={`${corner} right-[14%] top-[14%] border-r border-t`} />
-      <div className={`${corner} bottom-[14%] left-[14%] border-b border-l`} />
-      <div className={`${corner} bottom-[14%] right-[14%] border-b border-r`} />
-      <div aria-hidden className="absolute inset-[22%] rounded-full border border-dashed border-cyan/30" />
       <img
         src={satellite}
         alt="SEKER satellite"
-        className="absolute inset-[20%] h-[60%] w-[60%] object-contain drop-shadow-[0_0_30px_rgba(77,217,192,0.25)]"
+        width={1376}
+        height={768}
+        className="absolute inset-0 h-full w-full object-cover"
       />
       {CALLOUTS.map((c) => (
         <div key={c.n} className={`absolute ${c.pos} font-mono text-[10px] tracking-[0.2em] sm:text-xs`}>

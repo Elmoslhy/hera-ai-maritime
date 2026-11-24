@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import satellite from "@/assets/satellite-real.png";
+import satellite from "@/assets/seker-payload-earth.jpg";
 import earthTexture from "@/assets/earth-texture.jpg";
 
 type Orbit = {

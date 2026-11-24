@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
-import network from "@/assets/satellite-network.jpg";
+import network from "@/assets/seker-europe-night.jpg";
 import moustafa from "@/assets/team/moustafa-elmoslhy.jpg";
 import akash from "@/assets/team/akash-sharma.jpg";
 

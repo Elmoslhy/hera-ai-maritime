@@ -3,7 +3,7 @@ import type { GeoJSONSource, Map as MlMap, Marker } from "maplibre-gl";
 import { Pause, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TaskingSection } from "./Tasking";
-import vessels from "@/assets/vessels.jpg";
+import vessels from "@/assets/seker-sar-port.jpg";
 
 /* Synthetic scenario. Alert at 21:40Z, all pass times derive from it. */
 type LL = [number, number];

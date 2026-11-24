@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import satelliteImg from "@/assets/satellite-real.png";
+import satelliteImg from "@/assets/seker-payload-earth.jpg";
 import vesselImg from "@/assets/vessel-top.png";
 
 const BG = "#09121F";

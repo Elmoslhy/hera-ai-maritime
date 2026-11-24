@@ -7,7 +7,7 @@ import { TaskingScreen } from "@/components/seker/TaskingMap";
 import { AlertCards } from "@/components/seker/Insights";
 import { GetItSection } from "@/components/seker/Sections";
 import { HeroHud } from "@/components/seker/HeroScene";
-import vessels from "@/assets/vessels-bright.jpg";
+import vessels from "@/assets/seker-sar-port.jpg";
 import {
   intelligenceHero as h,
   closingCta,

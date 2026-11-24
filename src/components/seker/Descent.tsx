@@ -1,9 +1,9 @@
 import { motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import { SensorImagers } from "./SensorImagers";
 import { useRef, useState } from "react";
-import satelliteReal from "@/assets/satellite-real.png";
+import satelliteReal from "@/assets/seker-payload-earth.jpg";
 import vesselTop from "@/assets/vessel-top.png";
-import ocean from "@/assets/ocean.jpg";
+import ocean from "@/assets/seker-earth-limb.jpg";
 
 type Act = {
   at: number;
@@ -50,7 +50,6 @@ export function DescentSection() {
   const darkShipO = ramp(0.4, 0.48) * (1 - ramp(0.5, 0.56)); // ship fades into the dark before TIR
 
   // camera
-  const seaScale = useTransform(scrollYProgress, [0, 0.32, 0.6, 1], [1, 1.7, 2.4, 3.1]);
   const satY = useTransform(scrollYProgress, [0, 0.26, 0.4], ["-2%", "-16%", "-120%"]);
   const satScale = useTransform(scrollYProgress, [0, 0.26, 0.4], [1, 1.35, 2.4]);
   const shipScale = useTransform(scrollYProgress, [0.22, 0.6, 1], [0.35, 0.8, 1.15]);
@@ -77,10 +76,10 @@ export function DescentSection() {
         </div>
 
         {/* ocean */}
-        <motion.div style={{ scale: seaScale }} className="absolute inset-0 origin-[50%_68%]">
+        <motion.div className="absolute inset-0">
           <div style={{ opacity: seaO }} className="absolute inset-0">
-            <img src={ocean} alt="Open ocean seen from orbit" loading="lazy" className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-card" />
+            <img src={ocean} alt="Open ocean seen from orbit" loading="lazy" width={1376} height={768} className="h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-[rgba(6,20,40,0.45)]" />
           </div>
 
           {/* thermal palette pass over the water */}
