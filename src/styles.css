@@ -330,3 +330,7 @@ a.inline-block.bg-gold, a.inline-flex.bg-gold, a.inline-block[class*="border-whi
 .seker-nav a[class*="bg-gold/"] { line-height: 40px; }
 @media (min-width: 1240px) { .seker-nav > div > div { gap: 20px; } }
 section:not([data-keep-center]) .text-center .mx-auto:not(.grid):not([class*="max-w-6xl"]):not([class*="max-w-7xl"]) { margin-left: 0; }
+@keyframes pass-ping { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.4); opacity: 0; } }
+[data-pass-scene] .pass-ping { animation: pass-ping 2.4s ease-out infinite !important; }
+[data-pass-scene] .pass-ring { animation: rf-ring 3.3s ease-out infinite !important; }
+@media (prefers-reduced-motion: reduce) { [data-pass-scene] .pass-ping, [data-pass-scene] .pass-ring { animation: none !important; } }
