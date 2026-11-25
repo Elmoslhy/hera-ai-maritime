@@ -5,9 +5,9 @@ import satelliteNetwork from "@/assets/satellite-network.jpg";
 import ocean from "@/assets/ocean.jpg";
 import vessels from "@/assets/vessels.jpg";
 import { SekerLogo } from "./Logo";
-import { industries } from "@/content/industries";
 import { HeroScene, HeroShipCard } from "./HeroScene";
 import { Reveal, SectionBackground } from "./primitives";
+import { IndustryExplorer } from "./IndustryExplorer";
 
 export function HeroSection() {
   return (
@@ -135,16 +135,6 @@ const PROFILE: [string, string][] = [
   ["Risk indicators", "Sanctions exposure, identity changes and behaviour that does not add up."],
 ];
 
-const SERVE = [
-  { slug: "defense", name: "Defense and coast guard", tone: "border-l-cyan", q: "Which vessels in my waters are not what they claim to be?", d: "Persistent tracking of vessels that go dark or change identity, with tasking to confirm them." },
-  { slug: "insurance", name: "Insurance and P&I", tone: "border-l-gold", q: "Is this vessel the risk it claims to be?", d: "Ownership, flag standing, loading behaviour and encounter history for every vessel you cover." },
-  { slug: "commodity-trading", name: "Commodity trading", tone: "border-l-gold", q: "What are the vessels really doing?", d: "Vessel-level cargo estimates, voyages and ship-to-ship transfers, delivered as the data your analysts and models run on." },
-  { slug: "ports", name: "Ports and maritime authorities", tone: "border-l-cyan", q: "Who is arriving, and what risk do they bring?", d: "Arrival intelligence, vessel particulars and boarding risk before the ship reaches port, delivered into the systems you already use." },
-  { slug: "fisheries", name: "Fisheries and environment", tone: "border-l-cyan", q: "Who was operating where they should not be?", d: "Activity patterns and identity history for vessels in protected and regulated waters." },
-  { slug: "banks", name: "Banks and compliance", tone: "border-l-gold", q: "Is any ship in this deal listed, or linked to one that is?", d: "Screening on five official lists with a full audit trail, and early warning before a listing." },
-  { slug: "shipping-security", name: "Shipping and ship security", tone: "border-l-cyan", q: "Is my ship safe where it is going?", d: "Alerts on piracy zones, jamming and dark ships. A flag the moment one of your ships goes dark." },
-  { slug: "search-and-rescue", name: "Search and rescue", tone: "border-l-gold", q: "Who is in distress and who is close enough to help?", d: "Context on every distress call: the ship, its recent track and every ship nearby that can help." },
-];
 
 const GET_IT: {
   title: string;
@@ -220,28 +210,7 @@ export function IndustriesSection() {
             Built for the industries that run on the sea.
           </h2>
         </Reveal>
-        <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {SERVE.map((x, i) => {
-            const img = industries.find((n) => n.slug === x.slug)?.heroImage;
-            return (
-              <Reveal key={x.slug} delay={i * 0.06}>
-                <Link
-                  to="/industries/$slug"
-                  params={{ slug: x.slug }}
-                  className="group relative flex h-full min-h-[340px] flex-col justify-end overflow-hidden rounded-lg border border-white/10 p-6"
-                >
-                  {img && <img src={img} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />}
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/80 to-navy/40" />
-                  <div className="relative">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-gold">{x.name}</p>
-                    <p className="text-balance mt-4 text-xl font-light leading-snug text-foreground">{x.q}</p>
-                    <span className="mt-6 inline-block font-mono text-[11px] tracking-[0.2em] text-cyan group-hover:text-gold">Learn more →</span>
-                  </div>
-                </Link>
-              </Reveal>
-            );
-          })}
-        </div>
+        <IndustryExplorer />
       </div>
     </section>
   );
