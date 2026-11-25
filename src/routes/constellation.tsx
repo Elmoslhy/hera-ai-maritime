@@ -99,7 +99,7 @@ function ConstellationPage() {
       <ScrollProgress />
       <Nav />
       <main>
-        <section className="relative overflow-hidden px-6 pb-20 pt-32 sm:pt-40">
+        <section id="whats-next" className="relative overflow-hidden px-6 pb-20 pt-32 sm:pt-40">
           <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
             <Reveal>
               <p className="text-eyebrow text-foreground">SEKER-1 · SEKER-2</p>
