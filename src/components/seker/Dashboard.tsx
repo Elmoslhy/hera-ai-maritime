@@ -1,15 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { CountUp, Reveal } from "./primitives";
+import { Reveal } from "./primitives";
 import { SekerLogo } from "./Logo";
 import { EyeCanvas } from "./EyeCanvas";
-import heraApp from "@/assets/hera-app-hormuz.jpg";
-
-const TOP_STATS = [
-  { label: "HERA AI capabilities live today", to: 7, suffix: "", tone: "text-cyan" },
-  { label: "Official sanctions lists screened: US, UK, EU and Japan", to: 5, suffix: "", tone: "text-gold" },
-  { label: "Capabilities on one record per ship", to: 12, suffix: "", tone: "text-foreground" },
-];
+import { heraAppImage } from "@/content/hera-images";
 
 /* ---------------- live map ---------------- */
 
@@ -430,7 +424,7 @@ function useUtc() {
   return t;
 }
 
-export function WindowChrome({ children }: { children: React.ReactNode }) {
+export function WindowChrome({ children, hideSignalCount = false }: { children: React.ReactNode; hideSignalCount?: boolean }) {
   const utc = useUtc();
   return (
     <div className="overflow-hidden rounded-xl border border-white/10 bg-[#050a12] shadow-[0_40px_120px_-40px_rgba(0,0,0,0.9)]">
@@ -452,7 +446,7 @@ export function WindowChrome({ children }: { children: React.ReactNode }) {
             <span className="h-1.5 w-1.5 rounded-full bg-cyan" /> API
           </span>
           <span className="text-cyan">OPERATIONAL</span>
-          <span className="text-muted-foreground">· 14 732 SIGNALS ·</span>
+          {!hideSignalCount && <span className="text-muted-foreground">· 14 732 SIGNALS ·</span>}
           <span className="text-muted-foreground">P50</span>
           <span className="text-foreground">45MS</span>
         </div>
@@ -488,26 +482,15 @@ export function DashboardSection() {
         </Reveal>
 
         <Reveal className="mt-14">
-          <WindowChrome>
-            <div className="grid grid-cols-1 gap-px border-b sm:grid-cols-3 border-white/8 bg-white/5 lg:grid-cols-3">
-              {TOP_STATS.map((s) => (
-                <div key={s.label} className="flex items-center justify-between gap-4 bg-[#070d16] px-5 py-4">
-                  <p className="font-mono text-[9px] leading-relaxed tracking-[0.2em] text-muted-foreground">
-                    {s.label.toUpperCase()}
-                  </p>
-                  <CountUp to={s.to} suffix={s.suffix} className={`font-mono text-2xl ${s.tone}`} />
-                </div>
-              ))}
-            </div>
-
-            <div className="bg-[#050a12] p-3">
+          <WindowChrome hideSignalCount>
+            <div className="bg-navy-deep p-3">
               <img
-                src={heraApp}
-                alt="The HERA AI app showing vessels around the Strait of Hormuz"
-                width={1920}
-                height={1080}
+                src={heraAppImage.src}
+                alt={heraAppImage.alt}
+                width={3200}
+                height={1800}
                 loading="lazy"
-                className="block h-auto w-full rounded-lg border border-white/10"
+                className="block h-auto w-full"
               />
             </div>
           </WindowChrome>

@@ -15,3 +15,4 @@
 - Share walkthrough film presentation and view selection across site walkthroughs and deck scenarios, with media pointers and extracted posters, to keep playback, accessibility and printed evidence consistent without changing scenario logic.
 - Serve walkthrough films and posters as plain files in public/walkthroughs, because the externally hosted site does not provide the Lovable asset gateway.
 - The /intelligence tasking screen (TaskingMap.tsx) lazy-loads MapLibre on scroll with EOX Sentinel-2 cloudless 2016 tiles only (later years are non-commercial), and falls back to public/tasking-final.jpg without WebGL.
+- Keep supplied HERA AI image pointers and industry-to-image mapping in src/content/hera-images.ts so placements share the original full-resolution media and descriptive alt text.

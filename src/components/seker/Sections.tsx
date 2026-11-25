@@ -8,6 +8,7 @@ import { SekerLogo } from "./Logo";
 import { HeroScene, HeroShipCard } from "./HeroScene";
 import { Reveal, SectionBackground } from "./primitives";
 import { IndustryExplorer } from "./IndustryExplorer";
+import { sekerSourceImage } from "@/content/hera-images";
 
 export function HeroSection() {
   return (
@@ -240,6 +241,9 @@ export function ConstellationSection() {
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             HERA AI fuses ship registry and ownership data, terrestrial and satellite AIS, radar and optical satellite imagery, port sources and official sanctions lists into one record per vessel. Every source is tested against the others, so each answer carries a confidence score and the evidence behind it. That is the intelligence every maritime industry is looking for, delivered end to end.
           </p>
+        </Reveal>
+        <Reveal className="mt-10">
+          <img src={sekerSourceImage.src} alt={sekerSourceImage.alt} width={3200} height={1800} loading="lazy" className="block h-auto w-full" />
         </Reveal>
         <div className="mt-10 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
           {WHY.map(([t, b], i) => (

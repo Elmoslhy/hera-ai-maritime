@@ -8,6 +8,7 @@ import { AlertCards } from "@/components/seker/Insights";
 import { GetItSection } from "@/components/seker/Sections";
 import { HeroHud } from "@/components/seker/HeroScene";
 import vessels from "@/assets/vessels-bright.jpg";
+import { heraAppImage, heraTwinImage } from "@/content/hera-images";
 import {
   intelligenceHero as h,
   closingCta,
@@ -294,12 +295,14 @@ function IntelligencePage() {
         </section>
 
         <Chapter i={0} status="live" title="Sensor fusion" line="Every source on a ship, checked against the others, field by field.">
+          <img src={heraTwinImage.src} alt={heraTwinImage.alt} width={3200} height={1800} loading="lazy" className="mb-6 block h-auto w-full" />
           <WorkspaceSection part="fusion" />
         </Chapter>
         <Chapter i={1} status="dev" title="Satellite and drone tasking" line="Put a ship under watch, and HERA AI will send the right satellite or drone to take a look.">
           <TaskingScreen />
         </Chapter>
         <Chapter i={2} status="live" title="Briefings and Ask HERA AI" line="Seker briefs and public news linked to your ships, and answers that show their sources.">
+          <img src={heraAppImage.src} alt={heraAppImage.alt} width={3200} height={1800} loading="lazy" className="mb-6 block h-auto w-full" />
           <WorkspaceSection part="briefing" />
         </Chapter>
         <Chapter i={3} status="live" title="Alerts with a next step" line="Each warning arrives with what was seen and what to do about it.">

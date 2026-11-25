@@ -6,6 +6,7 @@ import { getIndustry } from "@/content/industries";
 import { SITE_URL } from "@/content/newsroom";
 import { cargoClaimCase, closingCta, originCase, preArrivalCase, transshipmentCase, cableCorridorCase, darkTransferDefenseCase, useCases } from "@/content/intelligence";
 import { DeliverablesSection, MissionsSection, RolesSection, SignatureSection } from "@/components/seker/IndustrySections";
+import { industryImages } from "@/content/hera-images";
 
 const allCases = [...useCases, cargoClaimCase, originCase, preArrivalCase, transshipmentCase, cableCorridorCase, darkTransferDefenseCase];
 
@@ -70,6 +71,7 @@ function proof(r: Rebuild) {
 function IndustryPage() {
   const { slug } = Route.useLoaderData();
   const i = getIndustry(slug)!;
+  const image = industryImages[slug];
   return (
     <div className="overflow-x-hidden bg-navy">
       <ScrollProgress />
@@ -117,6 +119,14 @@ function IndustryPage() {
                 {proof(i.rebuild) && (
                   <Reveal>
                     <p className="text-pretty mt-10 max-w-3xl text-lg font-light text-foreground/85">{proof(i.rebuild)}</p>
+                  </Reveal>
+                )}
+                {image && (
+                  <Reveal className="mt-10">
+                    <figure>
+                      <img src={image.src} alt={image.alt} width={3200} height={1800} loading="lazy" className="block h-auto w-full" />
+                      <figcaption className="mt-4 text-center font-mono text-[10px] tracking-[0.18em] text-muted-foreground">Inside HERA AI. Sample data for illustration.</figcaption>
+                    </figure>
                   </Reveal>
                 )}
               </div>
