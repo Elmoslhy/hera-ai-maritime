@@ -266,7 +266,7 @@ function SarThumb() {
 const LAYERS = [
   { key: "TIR · THERMAL", spec: "LWIR 8-14µM", note: "SEKER-1 PAYLOAD · SHARED CLOCK", el: <TirThumb /> },
   { key: "EO · OPTICAL", spec: "0.5 M", note: "TASKED · SIMULATED", el: <EoThumb /> },
-  { key: "SAR · X-BAND", spec: "3 M", note: "TASKED · SIMULATED", el: <SarThumb /> },
+  { key: "SAR", spec: "3 M", note: "TASKED · SIMULATED", el: <SarThumb /> },
 ];
 
 /* ---------------- digital twin panel ---------------- */
