@@ -15,5 +15,3 @@
 - Share walkthrough film presentation and view selection across site walkthroughs and deck scenarios, with media pointers and extracted posters, to keep playback, accessibility and printed evidence consistent without changing scenario logic.
 - Serve walkthrough films and posters as plain files in public/walkthroughs, because the externally hosted site does not provide the Lovable asset gateway.
 - The /intelligence tasking screen (TaskingMap.tsx) lazy-loads MapLibre on scroll with EOX Sentinel-2 cloudless 2016 tiles only (later years are non-commercial), and falls back to public/tasking-final.jpg without WebGL.
-
-- The homepage renders the user-supplied static HTML (src/components/seker/home/*.txt, assets in public/home) as-is; edit those files rather than rebuilding it from React sections, because the user wants that exact design.

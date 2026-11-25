@@ -1,8 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef } from "react";
-import homeCss from "@/components/seker/home/home.css.txt?raw";
-import homeHtml from "@/components/seker/home/home.html.txt?raw";
-import homeJs from "@/components/seker/home/home.js.txt?raw";
+import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
+import { SecondLookSection } from "@/components/seker/DroneFilm";
+import { DashboardSection } from "@/components/seker/Dashboard";
+import { DescentSection } from "@/components/seker/Descent";
+import {
+  ConstellationSection,
+  ContactSection,
+  FindsSection,
+  LiveTodaySection,
+  GetItSection,
+  HeroSection,
+  HideLinesSection,
+  IndustriesSection,
+  ProblemSection,
+  ProofSection,
+  WhyNowSection,
+} from "@/components/seker/Sections";
 
 const TITLE = "SEKER | Independent maritime intelligence";
 const DESCRIPTION =
@@ -23,20 +36,27 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const ran = useRef(false);
-  useEffect(() => {
-    if (ran.current) return;
-    ran.current = true;
-    try {
-      new Function(homeJs)();
-    } catch (e) {
-      console.error("Homepage script failed", e);
-    }
-  }, []);
   return (
-    <div className="seker-home">
-      <style dangerouslySetInnerHTML={{ __html: homeCss }} />
-      <div dangerouslySetInnerHTML={{ __html: homeHtml }} />
+    <div className="bg-navy">
+      <ScrollProgress />
+      <Nav />
+      <main>
+        <HeroSection />
+        <HideLinesSection />
+        <LiveTodaySection />
+        <IndustriesSection />
+        <ConstellationSection />
+        <FindsSection />
+        <ProblemSection />
+        <WhyNowSection />
+        <DescentSection />
+        <DashboardSection />
+        <GetItSection />
+        <SecondLookSection />
+        <ProofSection />
+        <ContactSection />
+      </main>
+      <Footer />
     </div>
   );
 }
