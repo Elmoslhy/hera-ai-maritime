@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Replace only the homepage Solutions cards with the eight-tab industry explorer using existing industry content and visuals; verify keyboard navigation and phone layout
+
 - [x] Diagnose why seker-space.com stopped updating from Lovable (GitHub sync and its deploy pipeline)
 - [x] Restore the update path to seker-space.com (reconnect the GitHub sync or connect the domain to this project's publishing)
 - [x] Verify seker-space.com serves the current build after the fix

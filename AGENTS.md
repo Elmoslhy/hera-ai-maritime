@@ -15,3 +15,4 @@
 - Share walkthrough film presentation and view selection across site walkthroughs and deck scenarios, with media pointers and extracted posters, to keep playback, accessibility and printed evidence consistent without changing scenario logic.
 - Serve walkthrough films and posters as plain files in public/walkthroughs, because the externally hosted site does not provide the Lovable asset gateway.
 - The /intelligence tasking screen (TaskingMap.tsx) lazy-loads MapLibre on scroll with EOX Sentinel-2 cloudless 2016 tiles only (later years are non-commercial), and falls back to public/tasking-final.jpg without WebGL.
+- Keep the homepage industry explorer in a dedicated presentation component reading existing industry and use-case data and reusing SignatureSection; scope its embedded layout overrides to the explorer and retain inactive panels in one grid track to prevent tab-switch layout jumps.

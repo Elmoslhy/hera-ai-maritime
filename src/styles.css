@@ -334,3 +334,10 @@ section:not([data-keep-center]) .text-center .mx-auto:not(.grid):not([class*="ma
 [data-pass-scene] .pass-ping { animation: pass-ping 2.4s ease-out infinite !important; }
 [data-pass-scene] .pass-ring { animation: rf-ring 3.3s ease-out infinite !important; }
 @media (prefers-reduced-motion: reduce) { [data-pass-scene] .pass-ping, [data-pass-scene] .pass-ring { animation: none !important; } }
+
+/* Reuse industry visuals at the width of the homepage explorer, without changing their pages. */
+.industry-explorer-visual section { padding: 0; background: transparent; }
+.industry-explorer-visual section > div { max-width: 100%; }
+.industry-explorer-visual section > div > .grid { grid-template-columns: minmax(0, 1fr); }
+.industry-explorer-visual .text-eyebrow { max-width: 100%; }
+.industry-explorer [role="tab"] { border-radius: 0; box-shadow: none; }
