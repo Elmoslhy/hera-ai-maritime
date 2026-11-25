@@ -55,23 +55,23 @@ export const newsroom = {
 
 export const newsItems: NewsItem[] = [
   {
-    slug: "seker-preselected-fit-4-start",
+    slug: "seker-growing-fast-q4-2026",
     type: "News",
     status: "published",
-    date: "2026-10-06",
-    title: "Seker got pre-selected for Fit 4 Start",
-    subtitle: "Seker has been pre-selected for Fit 4 Start, Luxembourg's national acceleration programme for high-potential startups.",
-    summary: "Seker has been pre-selected for Fit 4 Start, Luxembourg's national acceleration programme.",
+    date: "2026-11-25",
+    title: "Seker is growing fast, with new clients in Q4 2026",
+    subtitle: "Seker is growing fast and has signed new clients in the fourth quarter of 2026, across trading, insurance, banking and the public sector.",
+    summary: "Seker is growing fast and has signed new clients in Q4 2026.",
     image: "/careers/mission.webp",
     alt: "A small satellite in orbit above the ocean at dawn, with faint vessel wakes on the sea below.",
-    dateline: "LUXEMBOURG, 6 October 2026",
+    dateline: "LUXEMBOURG, 25 November 2026",
     body: [
-      "Seker Space Intelligence has been pre-selected for Fit 4 Start, Luxembourg's national acceleration programme for high-potential startups.",
-      "Being pre-selected for Fit 4 Start supports Seker's next phase as it builds European sovereign maritime intelligence, combining its own multi-sensor space payload with HERA AI, its AI-driven data-fusion platform.",
+      "Seker Space Intelligence is growing fast, with new clients signed in the fourth quarter of 2026 across trading, insurance, banking and the public sector.",
+      "The new clients use HERA AI, Seker's AI-driven data-fusion platform, for verified vessel intelligence, from identity checks and cargo verification to sanctions and risk monitoring.",
     ],
     cta: {
       label: "Contact us",
-      href: "mailto:info@seker-space.com?subject=Fit%204%20Start",
+      href: "mailto:info@seker-space.com?subject=New%20clients%20Q4%202026",
     },
   },
 ];
