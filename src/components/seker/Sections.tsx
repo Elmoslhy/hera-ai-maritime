@@ -22,10 +22,10 @@ export function HeroSection() {
           <SekerLogo className="mx-auto w-[min(72vw,460px)] text-foreground" />
         </Reveal>
         <Reveal delay={0.15}>
-          <h1 className="text-balance mt-8 text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
-            Independent
+          <h1 className="text-balance mt-8 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl">
+            Trusted
             <br />
-            <span className="font-normal">maritime intelligence.</span>
+            <span className="font-bold">maritime intelligence.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.3}>
