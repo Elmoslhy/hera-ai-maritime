@@ -16,7 +16,7 @@ export const Route = createFileRoute("/newsroom/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "alternate", type: "application/rss+xml", title: "Seker Newsroom", href: "/newsroom/rss.xml" }],
+    links: [{ rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500&family=Schibsted+Grotesk:wght@700&display=swap" }, { rel: "alternate", type: "application/rss+xml", title: "Seker Newsroom", href: "/newsroom/rss.xml" }],
   }),
   component: NewsroomPage,
 });
@@ -30,10 +30,12 @@ const CHIPS: { label: string; type: NewsType | "All" }[] = [
   { label: "Events", type: "Event" },
 ];
 const LOGOS = [
-  ["White (for dark backgrounds)", "seker-logo-white"],
-  ["Gold", "seker-logo-gold"],
-  ["Dark (for light backgrounds)", "seker-logo-dark"],
+  ["White (for dark backgrounds)", "seker-logo-white", "#061428"],
+  ["Gold", "seker-logo-gold", "#061428"],
+  ["Dark (for light backgrounds)", "seker-logo-dark", "#FFFFFF"],
 ] as const;
+const HEAD_FONT = "'Schibsted Grotesk', sans-serif";
+const BODY_FONT = "'Public Sans', sans-serif";
 const IMAGES = [
   ["Team and payload integration", "/careers/hero.webp"],
   ["Payload", "/careers/payload.webp"],
@@ -140,50 +142,58 @@ function NewsroomPage() {
           </section>
         )}
 
-        <section className="mx-auto max-w-6xl px-6 py-16" aria-labelledby="kit">
-          <h2 id="kit" className="text-3xl font-light text-foreground">Media kit</h2>
+        <section className="bg-[#061428]" aria-labelledby="kit" style={{ fontFamily: BODY_FONT }}>
+          <div className="mx-auto max-w-6xl px-6 py-16">
+          <h2 id="kit" className="text-3xl font-bold tracking-[-0.03em] text-[#FFFFFF]" style={{ fontFamily: HEAD_FONT }}>Media kit</h2>
           <div className="mt-10 grid gap-10 md:grid-cols-2">
             <div>
-              <h3 className="text-xl font-normal text-gold">About Seker</h3>
-              <p className="mt-4 leading-relaxed text-foreground/85">{newsroom.boilerplate}</p>
+              <h3 className="text-xl font-bold tracking-[-0.03em] text-[#FFFFFF]" style={{ fontFamily: HEAD_FONT }}>About Seker</h3>
+              <p className="mt-4 leading-relaxed text-[#FFFFFF]">{newsroom.boilerplate}</p>
               <div className="mt-5 flex items-center gap-4">
-                <button onClick={copy} className={`border border-gold/60 px-5 py-2.5 font-mono text-xs tracking-[0.2em] text-gold hover:bg-gold hover:text-navy-deep ${focus}`}>
-                  COPY TEXT
+                <button onClick={copy} className={`rounded-full border border-[#C0972B] px-5 py-2.5 text-sm text-[#FFFFFF] hover:bg-[#C0972B]/15 ${focus}`}>
+                  Copy text
                 </button>
-                <span role="status" className="font-mono text-xs text-cyan">{copied ? "Copied" : ""}</span>
+                <span role="status" className="text-sm text-[#A9B8CC]">{copied ? "Copied" : ""}</span>
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-normal text-gold">Fact sheet</h3>
-              <dl className="mt-4 divide-y divide-white/10 border-y border-white/10">
+              <h3 className="text-xl font-bold tracking-[-0.03em] text-[#FFFFFF]" style={{ fontFamily: HEAD_FONT }}>Fact sheet</h3>
+              <dl className="mt-4 divide-y divide-[#C0972B]/40 border-y border-[#C0972B]/40">
                 {newsroom.factSheet.map((f) => (
-                  <div key={f.label} className="grid grid-cols-[9rem_1fr] gap-4 py-3">
-                    <dt className="font-mono text-xs tracking-[0.12em] text-muted-foreground">{f.label.toUpperCase()}</dt>
-                    <dd className="text-sm text-foreground">{f.value}</dd>
+                  <div key={f.label} className="grid grid-cols-[8rem_1fr] gap-4 py-3">
+                    <dt className="text-sm text-[#A9B8CC]">{f.label}</dt>
+                    <dd className="text-sm text-[#FFFFFF]">
+                      {"href" in f && f.href ? <a href={f.href} className={`hover:underline ${focus}`}>{f.value}</a> : f.value}
+                    </dd>
                   </div>
                 ))}
               </dl>
             </div>
           </div>
           <div className="mt-12">
-            <h3 className="text-xl font-normal text-gold">Logos and images</h3>
+            <h3 className="text-xl font-bold tracking-[-0.03em] text-[#FFFFFF]" style={{ fontFamily: HEAD_FONT }}>Logos and images</h3>
             <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {LOGOS.map(([label, file]) => (
-                <li key={file} className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-                  <p className="text-sm text-foreground">Logo · {label}</p>
-                  <p className="mt-2 flex gap-4 font-mono text-xs">
-                    <a href={`/press/${file}.svg`} download className={`text-gold hover:underline ${focus}`}>SVG</a>
-                    <a href={`/press/${file}.png`} download className={`text-gold hover:underline ${focus}`}>PNG</a>
+              {LOGOS.map(([label, file, bg]) => (
+                <li key={file} className="rounded-lg bg-[#132B4F] p-4">
+                  <div className="mb-3 flex aspect-[16/9] items-center justify-center rounded-md p-6" style={{ background: bg }}>
+                    <img src={`/press/${file}.svg`} alt={`Seker logo, ${label.toLowerCase()}`} className="max-h-full max-w-[70%] object-contain" loading="lazy" />
+                  </div>
+                  <p className="text-sm text-[#FFFFFF]">Logo · {label}</p>
+                  <p className="mt-2 flex gap-4 text-xs">
+                    <a href={`/press/${file}.svg`} download className={`text-[#C0972B] hover:underline ${focus}`}>SVG</a>
+                    <a href={`/press/${file}.png`} download className={`text-[#C0972B] hover:underline ${focus}`}>PNG</a>
                   </p>
                 </li>
               ))}
               {IMAGES.map(([label, src]) => (
-                <li key={src} className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-                  <p className="text-sm text-foreground">Image · {label}</p>
-                  <a href={src} download className={`mt-2 inline-block font-mono text-xs text-gold hover:underline ${focus}`}>WEBP</a>
+                <li key={src} className="rounded-lg bg-[#132B4F] p-4">
+                  <img src={src} alt={label} className="mb-3 aspect-[16/9] w-full rounded-md object-cover" loading="lazy" />
+                  <p className="text-sm text-[#FFFFFF]">Image · {label}</p>
+                  <a href={src} download className={`mt-2 inline-block text-xs text-[#C0972B] hover:underline ${focus}`}>WEBP</a>
                 </li>
               ))}
             </ul>
+          </div>
           </div>
         </section>
 

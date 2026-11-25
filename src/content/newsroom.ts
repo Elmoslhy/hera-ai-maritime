@@ -22,7 +22,7 @@ export const newsroom = {
     heading: "Newsroom",
     subheading: "Announcements, milestones and resources for journalists, partners and investors.",
   },
-  boilerplate: "Seker Space Intelligence is a Luxembourg maritime space company building European sovereign capability in maritime intelligence. Seker combines its own multi-sensor space payload with HERA AI, its AI-driven data-fusion platform, to deliver verified vessel intelligence to commercial and public institutions.",
+  boilerplate: "Seker Space Intelligence is a Luxembourg maritime space company building European sovereign capability in maritime intelligence. Seker combines its own multi-sensor space payload with HERA AI, its AI-driven data-fusion platform, to deliver verified vessel intelligence to commercial customers and public institutions.",
   mediaContact: {
     label: "Media enquiries",
     email: "info@seker-space.com",
@@ -40,7 +40,7 @@ export const newsroom = {
     },
     {
       label: "Platform",
-      value: "HERA AI, AI-driven maritime data fusion",
+      value: "HERA AI, maritime data fusion platform",
     },
     {
       label: "Space segment",
@@ -48,7 +48,16 @@ export const newsroom = {
     },
     {
       label: "Leadership",
-      value: "Moustafa Elmoslhey, Founder and CEO",
+      value: "Mustafa Elmoslhey, Founder and CEO",
+    },
+    {
+      label: "Legal entity",
+      value: "Seker Space Intelligence S.à r.l.",
+    },
+    {
+      label: "Press contact",
+      value: "info@seker-space.com",
+      href: "mailto:info@seker-space.com",
     },
   ],
 };
