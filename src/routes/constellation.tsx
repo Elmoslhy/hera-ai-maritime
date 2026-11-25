@@ -103,7 +103,7 @@ function ConstellationPage() {
       <ScrollProgress />
       <Nav />
       <main>
-        <section id="whats-next" className="relative overflow-hidden px-6 pb-20 pt-32 sm:pt-40">
+        <section className="relative overflow-hidden px-6 pb-20 pt-32 sm:pt-40">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 opacity-[0.07]"
@@ -141,6 +141,32 @@ function ConstellationPage() {
           </div>
         </section>
 
+        <section id="whats-next" className="scroll-mt-24 border-t border-white/5 bg-navy px-6 py-24">
+          <div className="mx-auto max-w-7xl">
+            <Head eyebrow="What's next" title="Four sensors. One clock. Confidence no single source can give." />
+            <Reveal>
+              <p className="mt-6 max-w-3xl text-lg font-light text-foreground/80">
+                Every Seker payload sees the same ship at the same instant through AIS, radio frequency, thermal infrared and GNSS reflectometry. When four independent readings agree, confidence rises. When they disagree, that disagreement is the finding.
+              </p>
+              <p className="mt-4 max-w-3xl text-lg font-light text-foreground/80">
+                Added to everything HERA AI already fuses today, it raises the confidence of every record.
+              </p>
+            </Reveal>
+            <div className="mt-12 grid gap-10 md:grid-cols-3">
+              {WHY.map(([t, d], i) => (
+                <Reveal key={t} delay={i * 0.05}>
+                  <span className="block h-1.5 w-1.5 rounded-full bg-cyan" />
+                  <h3 className="mt-4 text-lg font-light text-foreground">{t}</h3>
+                  <p className="mt-2 text-sm font-light text-muted-foreground">{d}</p>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal>
+              <p className="mt-12 font-mono text-xs tracking-[0.22em] text-gold">Owned by Seker, operated in the EU.</p>
+            </Reveal>
+          </div>
+        </section>
+
         <section className="bg-navy-deep px-6 py-24">
           <div className="mx-auto max-w-7xl">
             <Head eyebrow="On board" title="What each sensor adds." />
@@ -163,20 +189,6 @@ function ConstellationPage() {
           </div>
         </section>
 
-        <section className="bg-navy px-6 py-24">
-          <div className="mx-auto max-w-7xl">
-            <Head eyebrow="Why it is more accurate" title="Measured, not reported." />
-            <div className="mt-12 grid gap-10 md:grid-cols-3">
-              {WHY.map(([t, d], i) => (
-                <Reveal key={t} delay={i * 0.05}>
-                  <span className="block h-1.5 w-1.5 rounded-full bg-cyan" />
-                  <h3 className="mt-4 text-lg font-light text-foreground">{t}</h3>
-                  <p className="mt-2 text-sm font-light text-muted-foreground">{d}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
 
         <section className="bg-navy-deep px-6 py-24">
           <div className="mx-auto max-w-7xl">
