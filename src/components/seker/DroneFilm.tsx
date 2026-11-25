@@ -54,9 +54,6 @@ export function DroneFilmFrame() {
           )}
         </div>
       </div>
-      <figcaption className="mt-4 text-center text-xs font-light text-muted-foreground">
-        Illustrative. Partner drones from bases near major ports are on our roadmap.
-      </figcaption>
     </figure>
   );
 }

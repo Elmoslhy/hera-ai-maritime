@@ -414,7 +414,7 @@ export function WhyNowSection() {
 }
 
 const PROOF: [string, string][] = [
-  ["7", "HERA AI capabilities live today"],
+  ["16", "HERA AI capabilities live today"],
   ["5", "Official sanctions lists screened"],
   ["Q4 2028", "In-orbit demonstration of our own payload"],
   ["Independent", "Not owned by any data reseller or platform"],

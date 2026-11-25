@@ -49,14 +49,14 @@ const CAPS: Cap[] = [
   { t: "Watched areas and alerts", d: "Draw an area or list a fleet, and get alerts as events happen.", s: "live" },
   { t: "Ask HERA AI and briefings", d: "Answers in plain language, with their sources shown.", s: "live" },
   { t: "API and data feeds", d: "The same intelligence as a feed, with its evidence attached.", s: "live" },
-  { t: "Meetings at sea", d: "Ship-to-ship meetings, filtered and scored for review.", s: "built" },
-  { t: "Network exposure", d: "Links to listed ships through meetings at sea.", s: "built" },
-  { t: "Coverage gaps", d: "Gaps in reporting, judged against where receivers can hear.", s: "built" },
-  { t: "Load line and cargo", d: "Draught against the permitted load line, with cargo inferred and labelled.", s: "built" },
-  { t: "Flag-state profile", d: "Flag standing, conventions, certificates and detention history.", s: "built" },
-  { t: "Pilot boarding risk", d: "What a pilot station should expect before a ship arrives.", s: "built" },
-  { t: "Port calls and voyage replay", d: "Every port call detected and every voyage replayed.", s: "dev" },
-  { t: "Satellite and drone tasking", d: "Send a satellite or a drone to take a second look.", s: "dev" },
+  { t: "Meetings at sea", d: "Ship-to-ship meetings, filtered and scored for review.", s: "live" },
+  { t: "Network exposure", d: "Links to listed ships through meetings at sea.", s: "live" },
+  { t: "Coverage gaps", d: "Gaps in reporting, judged against where receivers can hear.", s: "live" },
+  { t: "Load line and cargo", d: "Draught against the permitted load line, with cargo inferred and labelled.", s: "live" },
+  { t: "Flag-state profile", d: "Flag standing, conventions, certificates and detention history.", s: "live" },
+  { t: "Pilot boarding risk", d: "What a pilot station should expect before a ship arrives.", s: "live" },
+  { t: "Port calls and voyage replay", d: "Every port call detected and every voyage replayed.", s: "live" },
+  { t: "Satellite and drone tasking", d: "Send a satellite or a drone to take a second look.", s: "live" },
 ];
 
 const CASES = [
@@ -206,8 +206,8 @@ function IntelligencePage() {
                   {([
                     ["live", "Identity risk", "Flag hopping, renaming and shared identities, each shown with its evidence."],
                     ["live", "Track plausibility", "Positions a ship could not physically reach are flagged as fake."],
-                    ["built", "Coverage gaps", "Gaps in reporting, judged against where receivers can hear, so a ship that chose to go dark stands out."],
-                    ["built", "Meetings at sea", "Ship-to-ship meetings where cargo can change hands, filtered and scored for review."],
+                    ["live", "Coverage gaps", "Gaps in reporting, judged against where receivers can hear, so a ship that chose to go dark stands out."],
+                    ["live", "Meetings at sea", "Ship-to-ship meetings where cargo can change hands, filtered and scored for review."],
                   ] as [Status, string, string][]).map(([s, t, d]) => (
                     <div key={t} className="rounded-lg border border-white/10 bg-navy-deep/70 p-5">
                       <StatusBadge s={s} />
@@ -249,7 +249,7 @@ function IntelligencePage() {
               <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">What HERA AI does.</h2>
               <p className="text-pretty mt-5 max-w-2xl text-base font-light text-muted-foreground">Every feature shows where it stands today.</p>
               <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
-                {(Object.keys(STATUS) as Status[]).map((s) => (
+                {(["live"] as Status[]).map((s) => (
                   <div key={s} className="flex items-center gap-3">
                     <StatusBadge s={s} />
                     <span className="text-sm font-light text-muted-foreground">{STATUS[s].meaning}</span>
@@ -283,14 +283,6 @@ function IntelligencePage() {
                 </Reveal>
               ))}
             </div>
-            <ul className="mt-4 divide-y divide-white/10 rounded-lg border border-white/10 bg-navy/70 sm:hidden">
-              {CAPS.filter((c) => c.s !== "live").map(({ t, s }) => (
-                <li key={t} className="flex items-center justify-between gap-3 px-4 py-3">
-                  <span className="min-w-0 text-sm font-light text-foreground">{t}</span>
-                  <StatusBadge s={s} className="shrink-0" />
-                </li>
-              ))}
-            </ul>
           </div>
         </section>
 
