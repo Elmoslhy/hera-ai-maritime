@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { z } from "zod";
-import heroSar from "@/assets/company/company-hero-sar-port.png.asset.json";
+const heroSar = { url: "/media/company-hero-sar-port.jpg" };
 import ocean from "@/assets/ocean.jpg";
 import vessels from "@/assets/vessels.jpg";
 import { SekerLogo } from "./Logo";

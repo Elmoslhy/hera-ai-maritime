@@ -1,14 +1,14 @@
-import banks from "@/assets/hera/hera-banks.png.asset.json";
-import commodities from "@/assets/hera/hera-commodities.png.asset.json";
-import defense from "@/assets/hera/hera-defense.png.asset.json";
-import digitalTwin from "@/assets/hera/hera-digital-twin.png.asset.json";
-import fisheries from "@/assets/hera/hera-fisheries.png.asset.json";
-import hormuz from "@/assets/hera/hera-hormuz.png.asset.json";
-import insurance from "@/assets/hera/hera-insurance.png.asset.json";
-import ports from "@/assets/hera/hera-ports.png.asset.json";
-import sar from "@/assets/hera/hera-sar.png.asset.json";
-import shipping from "@/assets/hera/hera-shipping.png.asset.json";
-import everySource from "@/assets/hera/seker-every-source.png.asset.json";
+const banks = { url: "/media/hera-banks.png" };
+const commodities = { url: "/media/hera-commodities.png" };
+const defense = { url: "/media/hera-defense.png" };
+const digitalTwin = { url: "/media/hera-digital-twin.png" };
+const fisheries = { url: "/media/hera-fisheries.png" };
+const hormuz = { url: "/media/hera-hormuz.png" };
+const insurance = { url: "/media/hera-insurance.png" };
+const ports = { url: "/media/hera-ports.png" };
+const sar = { url: "/media/hera-sar.png" };
+const shipping = { url: "/media/hera-shipping.png" };
+const everySource = { url: "/media/seker-every-source.png" };
 
 export const heraAppImage = { src: hormuz.url, alt: "HERA AI app showing a Strait of Hormuz vessel map, activity totals and a vessel intelligence profile" };
 export const heraTwinImage = { src: digitalTwin.url, alt: "HERA AI digital twin dashboard showing global chokepoints, Strait of Hormuz activity and vessel intelligence" };

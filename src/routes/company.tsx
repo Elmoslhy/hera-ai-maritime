@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
-import heroSar from "@/assets/company/company-hero-sar-port.png.asset.json";
+const heroSar = { url: "/media/company-hero-sar-port.jpg" };
 import moustafa from "@/assets/team/moustafa-elmoslhy.jpg";
 import akash from "@/assets/team/akash-sharma.jpg";
 
