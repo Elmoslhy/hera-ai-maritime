@@ -54,7 +54,7 @@ export const Route = createFileRoute("/careers/$slug")({
       <Nav />
       <main className="mx-auto max-w-3xl px-6 pb-24 pt-40 text-center">
         <h1 className="text-3xl font-light text-foreground">This role is no longer open</h1>
-        <Link to="/careers" className="mt-8 inline-block font-mono text-xs tracking-[0.2em] text-foreground hover:underline">
+        <Link to="/careers" className="mt-8 inline-block font-mono text-xs tracking-[0.2em] text-gold hover:underline">
           ← BACK TO ALL ROLES
         </Link>
       </main>
@@ -83,11 +83,11 @@ function JobPage() {
         <img src={img} alt="" width={1600} height={1200} className="absolute inset-0 -z-20 h-full w-full object-cover" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy via-navy/90 to-navy/60" />
         <div className="mx-auto flex min-h-[280px] max-w-6xl flex-col justify-end px-6 py-10">
-          <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-foreground hover:underline">
+          <Link to="/careers" className="font-mono text-xs tracking-[0.2em] text-gold hover:underline">
             ← BACK TO ALL ROLES
           </Link>
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] tracking-[0.15em] text-foreground">{job.id}</span>
+            <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] tracking-[0.15em] text-gold">{job.id}</span>
             {fam && <span className="font-mono text-[11px] tracking-[0.15em] text-foreground/70">{fam.toUpperCase()}</span>}
           </div>
           <h1 className="mt-4 max-w-4xl text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">{job.title}</h1>
@@ -109,7 +109,7 @@ function JobPage() {
 
         {job.sections.map((s) => (
           <section key={s.heading} className="mt-12">
-            <h2 className="text-xl font-normal text-foreground sm:text-2xl">{s.heading}</h2>
+            <h2 className="text-xl font-normal text-gold sm:text-2xl">{s.heading}</h2>
             {s.paragraphs?.map((p) => (
               <p key={p} className="mt-4 text-pretty leading-relaxed text-muted-foreground">{p}</p>
             ))}
@@ -134,18 +134,18 @@ function JobPage() {
           >
             APPLY FOR THIS ROLE →
           </a>
-          <p className="mt-4 font-mono text-sm text-foreground">
+          <p className="mt-4 font-mono text-sm text-cyan">
             <span className="select-all">info@seker-space.com</span>
           </p>
         </section>
         <p className="mt-6 text-xs leading-relaxed text-muted-foreground">{applicantPrivacy}</p>
-        <Link to="/careers" className="mt-10 inline-block font-mono text-xs tracking-[0.2em] text-foreground hover:underline">
+        <Link to="/careers" className="mt-10 inline-block font-mono text-xs tracking-[0.2em] text-gold hover:underline">
           ← BACK TO ALL ROLES
         </Link>
       </main>
       <aside className="hidden w-64 shrink-0 pt-10 lg:block">
         <div className="sticky top-28 rounded-xl border border-gold/30 bg-navy-deep p-6">
-          <p className="font-mono text-[11px] tracking-[0.15em] text-foreground">{job.id}</p>
+          <p className="font-mono text-[11px] tracking-[0.15em] text-gold">{job.id}</p>
           <p className="mt-2 text-sm text-foreground">{job.title}</p>
           <a href={href} className="mt-5 block bg-gold px-5 py-3 text-center font-mono text-[11px] tracking-[0.2em] text-navy-deep hover:opacity-90">APPLY →</a>
         </div>

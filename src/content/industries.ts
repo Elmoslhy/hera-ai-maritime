@@ -1,6 +1,6 @@
-import ocean from "@/assets/seker-earth-limb.jpg";
-import vessels from "@/assets/seker-sar-port.jpg";
-import network from "@/assets/seker-europe-night.jpg";
+import ocean from "@/assets/ocean.jpg";
+import vessels from "@/assets/vessels.jpg";
+import network from "@/assets/satellite-network.jpg";
 import heraUi from "@/assets/hera-ui.jpg";
 import ports from "@/assets/ports.jpg";
 import fisheries from "@/assets/fisheries.jpg";
@@ -137,7 +137,7 @@ export const industries: Industry[] = [
     eyebrow: "Insurance and P&I",
     headline: ["Know the vessel", "behind the policy."],
     body: "HERA AI screens your insured fleet at bind, watches it during cover and rebuilds the voyage at claim. It adds independent observation to the vessel data you already buy.",
-    heroImage: ocean,
+    heroImage: network,
     statement: { title: "Underwrite on evidence.", body: "Declarations tell you what a vessel says it did. HERA AI tells you what it was observed doing, with the source behind every finding." },
     capabilities: [{ title: "Load line and draught checks", text: "Draught against the permitted mark for zone and season." }, { title: "Sanctions exposure", text: "Encounters with listed vessels, direct or one hop away." }, { title: "Identity and flag history", text: "Name, flag and owner changes over time." }, { title: "Inspection record", text: "Port state control findings linked to each vessel." }, { title: "Fleet screening", text: "Every insured vessel screened daily." }, { title: "Claims evidence packs", text: "The full chain behind a finding, ready for a dispute." }],
     blocks: [{ label: "THE QUESTION", title: "Is this risk what the proposal says it is?", text: "Sanctions exposure, unsafe loading and identity games can sit behind declarations that look clean.", bullets: ["Encounters with listed vessels.", "Loading beyond the mark for the route.", "Repeated changes of flag and name."], image: vessels, alt: "Vessels at sea seen from orbit" }, { label: "HOW HERA AI ANSWERS", title: "Behaviour, scored and sourced", text: "HERA AI screens the fleet you insure and scores indicators with their evidence, so underwriting and claims teams see why, not only what.", bullets: ["Load line status per zone and season.", "Draught integrity checked before any warning.", "Missing data shown as not verified, never as compliant."], image: network, alt: "Satellite network above the Earth" }, { label: "HOW IT REACHES YOU", title: "Inside the underwriting workflow", text: "Results arrive where your teams already work.", bullets: ["Fleet screening by API.", "Alerts on watched vessels.", "Evidence packs for claims."], image: heraUi, alt: "HERA AI platform interface" }],
@@ -190,7 +190,7 @@ export const industries: Industry[] = [
     eyebrow: "Commodity trading",
     headline: ["See the barrels", "before the statistics do."],
     body: "Daily crude and product loadings, floating storage and ship-to-ship transfers, delivered point in time by API and CSV, with a confidence value on every record.",
-    heroImage: ocean,
+    heroImage: vessels,
     statement: { title: "Trade on what is really at sea.", body: "Flow models built on broadcasts undercount the vessels that go silent. HERA AI adds them back, with stated confidence." },
     capabilities: [{ title: "Anchorage census", text: "Every hull counted, broadcasting or not." }, { title: "Cargo estimates", text: "Estimated from draught, with a stated range." }, { title: "Dark transfer indicators", text: "Cargo moved at sea, out of sight." }, { title: "Port call reconstruction", text: "Loading and discharge inferred from behaviour." }, { title: "Seker briefs", text: "Client-only weekly and daily intelligence." }, { title: "Data feeds", text: "Records that drop straight into your models." }],
     blocks: [{ label: "THE QUESTION", title: "How much is really moving, and where?", text: "Silent arrivals and transfers at sea distort the picture your positions are priced on.", bullets: ["Silent arrivals at key anchorages.", "Transfers that relocate cargo.", "Draught changes that reveal loading."], image: vessels, alt: "Vessels at sea seen from orbit" }, { label: "HOW HERA AI ANSWERS", title: "Counts and estimates you can audit", text: "Every vessel in a census carries its attribution confidence, and every cargo estimate carries its method and range.", bullets: ["Hull detections matched to identities.", "Cargo estimated from draught.", "Unattributed vessels reported, never guessed."], image: network, alt: "Satellite network above the Earth" }, { label: "HOW IT REACHES YOU", title: "Straight into your flow models", text: "Daily feeds and briefs, built for analysts.", bullets: ["Daily census and encounter feeds.", "Client-only Seker briefs.", "API records with full provenance."], image: heraUi, alt: "HERA AI platform interface" }],
@@ -257,7 +257,7 @@ export const industries: Industry[] = [
     eyebrow: "Ports and maritime authorities",
     headline: ["Know every ship", "before it asks for a berth."],
     body: "HERA AI screens each arrival against its pre-arrival notification, flags indicators at the pilot boarding ground and watches the anchorage. Findings reach your port management system and VTS through our API.",
-    heroImage: ocean,
+    heroImage: ports,
     statement: { title: "Safer arrivals start offshore.", body: "The best time to question an arrival is hours before it reaches the boarding ground." },
     capabilities: [{ title: "Arrival screening", text: "Identity and flag checked before berth allocation." }, { title: "Pilot boarding risk", text: "Each arrival scored before the pilot leaves the station." }, { title: "Sea state at the boarding ground", text: "Wave height, period and direction for the arrival window." }, { title: "Anchorage congestion", text: "Every vessel waiting, broadcasting or not." }, { title: "Inspection record", text: "Pilot transfer deficiencies linked to each vessel." }, { title: "Watched areas", text: "Alerts on approaches and anchorages." }],
     blocks: [{ label: "THE QUESTION", title: "What is coming, and is it safe to board?", text: "Pilot boarding is one of the most dangerous moments at sea, and most of the risk is knowable in advance.", bullets: ["Identity before berth allocation.", "Boarding history and transfer deficiencies.", "Sea state for the arrival window."], image: vessels, alt: "Vessels at sea seen from orbit" }, { label: "HOW HERA AI ANSWERS", title: "A risk score for each arrival", text: "HERA AI compares each boarding with the station's normal and checks the planned approach against the swell.", bullets: ["Boarding duration against the station baseline.", "Lee and boarding side against the swell.", "Inspection record for each vessel."], image: network, alt: "Satellite network above the Earth" }, { label: "HOW IT REACHES YOU", title: "Hours before arrival", text: "Advisories reach the station in time to brief the pilot and the boat crew.", bullets: ["Advisories before arrival.", "Alerts on watched vessels.", "API into port systems."], image: heraUi, alt: "HERA AI platform interface" }],
@@ -312,7 +312,7 @@ export const industries: Industry[] = [
     eyebrow: "Fisheries and environment",
     headline: ["From the fishing ground", "to the landing port."],
     body: "HERA AI compares where a vessel fished, who it met at sea and where it landed with what was declared, so inspectors can prioritise and buyers can document their due diligence.",
-    heroImage: ocean,
+    heroImage: fisheries,
     statement: { title: "Enforcement needs evidence.", body: "A fishing vessel that switches off inside a protected area leaves no broadcast trail. HERA AI looks for what remains." },
     capabilities: [{ title: "Protected area watch", text: "Alerts inside closed and protected areas." }, { title: "Dark fishing indicators", text: "Broadcast gaps where fishing patterns stop and start." }, { title: "Transshipment encounters", text: "Meetings with carrier vessels at sea." }, { title: "Fleet identity checks", text: "Flag, name and MMSI history for fishing fleets." }, { title: "Patrol prioritisation", text: "Ranked lists of vessels worth a look." }, { title: "Evidence packs", text: "The chain behind each case." }],
     blocks: [{ label: "THE QUESTION", title: "Who is fishing where they should not?", text: "Closed areas only work if someone can see who enters them.", bullets: ["Broadcast gaps inside protected areas.", "Loitering typical of fishing.", "Meetings with carrier vessels."], image: vessels, alt: "Vessels at sea seen from orbit" }, { label: "HOW HERA AI ANSWERS", title: "Patterns, positions and identities", text: "HERA AI scores encounters and silent periods, and measures position independently of what the vessel reports.", bullets: ["Encounters scored by duration, distance and location.", "Independent position for silent vessels.", "Identity history across flags and names."], image: network, alt: "Satellite network above the Earth" }, { label: "HOW IT REACHES YOU", title: "Built for patrol planning", text: "Results arrive ranked, so scarce patrols go where they matter.", bullets: ["Prioritised lists for patrols.", "Alerts on watched areas.", "Evidence packs for enforcement."], image: heraUi, alt: "HERA AI platform interface" }],
@@ -394,7 +394,7 @@ export const industries: Industry[] = [
     eyebrow: "Banks and compliance",
     headline: ["Know every ship", "behind the deal."],
     body: "HERA AI screens the ships behind a transaction on five official lists, checks who they met at sea and keeps an audit trail for every check, with early warning when identity risk rises.",
-    heroImage: ocean,
+    heroImage: network,
     statement: { title: "Screen on evidence.", body: "A name check tells you whether a ship is listed today. HERA AI also shows who it met at sea and whether its identity holds up." },
     capabilities: [],
     blocks: [],
@@ -437,7 +437,7 @@ export const industries: Industry[] = [
     eyebrow: "Shipping and ship security",
     headline: ["Know the waters", "before your ship enters them."],
     body: "HERA AI watches the waters your fleet sails. It raises an alert when a ship enters a high-risk area, when positions around it are jammed or faked and the moment one of your ships goes dark.",
-    heroImage: ocean,
+    heroImage: vessels,
     statement: { title: "Sail on evidence.", body: "A ship's own signal tells you where it says it is. HERA AI tells you what is really around it and raises the alarm when something changes." },
     capabilities: [],
     blocks: [],

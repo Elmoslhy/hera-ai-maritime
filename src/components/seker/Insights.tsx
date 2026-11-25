@@ -286,18 +286,18 @@ const TONE = {
     edge: "before:bg-alert",
   },
   cyan: {
-    chip: "border-cyan/40 bg-cyan/10 text-foreground",
+    chip: "border-cyan/40 bg-cyan/10 text-cyan",
     bar: "bg-cyan",
     edge: "before:bg-cyan",
   },
   gold: {
-    chip: "border-gold/40 bg-gold/10 text-foreground",
+    chip: "border-gold/40 bg-gold/10 text-gold",
     bar: "bg-gold",
     edge: "before:bg-gold",
   },
 } as const;
 
-const HEX = { gold: "#C9A84C", cyan: "#3FB68B", alert: "#FFFFFF" } as const;
+const HEX = { gold: "#C9A84C", cyan: "#4dd9c0", alert: "#ff4d4d" } as const;
 
 function path(points: number[], w: number, h: number, pad = 6) {
   const max = Math.max(...points) * 1.12;
@@ -341,7 +341,7 @@ function TrendChart({
             {unit} · 8-week window
           </p>
         </div>
-        <span className="rounded border border-cyan/40 bg-cyan/10 px-2 py-0.5 font-mono text-[9px] tracking-[0.14em] text-foreground">
+        <span className="rounded border border-cyan/40 bg-cyan/10 px-2 py-0.5 font-mono text-[9px] tracking-[0.14em] text-cyan">
           +{growth}% AI-DETECTED
         </span>
       </div>
@@ -503,12 +503,19 @@ export function InsightsSection() {
 
   return (
     <section className="relative overflow-hidden bg-navy px-6 py-28">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 20% 0%, rgba(201,168,76,0.35), transparent 55%), radial-gradient(circle at 85% 90%, rgba(77,217,192,0.28), transparent 55%)",
+        }}
+      />
 
       <div className="relative z-10 mx-auto max-w-[1400px]">
         <Reveal className="text-center">
-          <p className="text-eyebrow text-foreground">Intelligence in Action</p>
+          <p className="text-eyebrow text-gold">Intelligence in Action</p>
           <h2 className="text-balance mx-auto mt-6 max-w-3xl text-3xl font-light leading-[1.08] tracking-tight text-foreground sm:text-5xl">
-            <span className="text-foreground">We hand you the next move.</span>
+            <span className="text-cyan">We hand you the next move.</span>
           </h2>
           <p className="text-pretty mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
             AI fused and trained, with a human touch.
@@ -530,7 +537,7 @@ export function InsightsSection() {
                   onClick={() => setActive(i.id)}
                   className={`relative rounded-full border px-5 py-2.5 font-mono text-[10px] tracking-[0.16em] uppercase transition-colors ${
                     on
-                      ? "border-gold/60 bg-gold/12 text-foreground"
+                      ? "border-gold/60 bg-gold/12 text-gold"
                       : "border-white/12 bg-white/[0.02] text-muted-foreground hover:border-white/25 hover:text-foreground"
                   }`}
                 >
@@ -562,7 +569,7 @@ export function InsightsSection() {
                     to={m.to}
                     suffix={m.suffix ?? ""}
                     decimals={m.decimals ?? 0}
-                    className="font-mono text-3xl font-light text-foreground sm:text-4xl"
+                    className="font-mono text-3xl font-light text-gold sm:text-4xl"
                   />
                   <p className="mt-2 font-mono text-[9px] tracking-[0.18em] uppercase text-muted-foreground">
                     {m.label}
@@ -643,7 +650,7 @@ export function InsightsSection() {
               <Link
                 to="/industries/$slug"
                 params={{ slug: SLUGS[industry.id] ?? "defense" }}
-                className="font-mono text-xs tracking-[0.2em] text-foreground transition-colors hover:text-foreground"
+                className="font-mono text-xs tracking-[0.2em] text-gold transition-colors hover:text-foreground"
               >
                 Explore {industry.name} →
               </Link>

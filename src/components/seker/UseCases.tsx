@@ -21,7 +21,7 @@ const GEO = [
 const toneClass = {
   alert: "border-alert/40 bg-alert/10 text-alert",
   amber: "border-amber/40 bg-amber/10 text-amber",
-  cyan: "border-cyan/40 bg-cyan/10 text-foreground",
+  cyan: "border-cyan/40 bg-cyan/10 text-cyan",
 };
 
 function Ship({ x, y, r = 0, cls }: { x: number; y: number; r?: number; cls: string }) {
@@ -88,7 +88,7 @@ export function OpsMap({ idx, stage }: { idx: number; stage: number }) {
           <line key={i} x1={sx} y1={sy} x2={ex} y2={ey} className="stroke-gold/60" strokeDasharray="3 6" strokeWidth="1" />
         ))}
         <circle cx={ex} cy={ey} r={4} className="fill-gold" />
-        <motion.circle cx={ex} cy={ey} r={10} className="fill-none stroke-gold" strokeWidth="1" />
+        <motion.circle cx={ex} cy={ey} r={10} className="fill-none stroke-gold" strokeWidth="1" animate={stage >= 2 ? { r: [6, 22], opacity: [1, 0] } : {}} transition={{ duration: 1.8, repeat: Infinity }} />
         <Ship x={ax} y={ay} r={65} cls="fill-foreground/80" />
       </motion.g>
 
@@ -107,7 +107,7 @@ export function OpsMap({ idx, stage }: { idx: number; stage: number }) {
       {/* stage 6: delivered */}
       <motion.g {...show(5)}>
         <rect x="24" y="404" width="180" height="26" rx="4" className="fill-navy/80 stroke-cyan/40" />
-        <text x="36" y="421" className="fill-cyan font-mono" fontSize="10">RECORD DELIVERED</text>
+        <text x="36" y="421" className="fill-cyan font-mono" fontSize="10" letterSpacing="2">RECORD DELIVERED</text>
       </motion.g>
     </svg>
   );
@@ -120,7 +120,7 @@ export function FindingCard({ uc }: { uc: UseCase }) {
         <span className={`rounded-full border px-3 py-1 font-mono text-[10px] tracking-[0.16em] ${toneClass[uc.finding.tone]}`}>
           {uc.finding.label}
         </span>
-        <span className="font-mono text-3xl text-foreground">
+        <span className="font-mono text-3xl text-gold">
           {uc.finding.score}
           <span className="text-sm text-muted-foreground">/100</span>
         </span>
@@ -133,7 +133,7 @@ export function FindingCard({ uc }: { uc: UseCase }) {
           </li>
         ))}
       </ul>
-      <p className="mt-4 border-t border-white/10 pt-4 font-mono text-xs tracking-[0.12em] text-foreground">
+      <p className="mt-4 border-t border-white/10 pt-4 font-mono text-xs tracking-[0.12em] text-cyan">
         SUGGESTED NEXT STEP · <span className="font-sans tracking-normal text-foreground">{uc.action}</span>
       </p>
     </div>
@@ -196,11 +196,11 @@ export function UseCasesSection({
     <section id={sectionId} className="scroll-mt-24 bg-navy px-6 py-24">
       <div className="mx-auto max-w-7xl">
         <Reveal>
-          <p className="text-eyebrow text-foreground">{eyebrow}</p>
+          <p className="text-eyebrow text-gold">{eyebrow}</p>
           <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             {headline[0]}
             <br />
-            <span className="text-foreground">{headline[1]}</span>
+            <span className="text-gold">{headline[1]}</span>
           </h2>
         </Reveal>
 
@@ -215,7 +215,7 @@ export function UseCasesSection({
               }}
               className={`rounded-full border px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.16em] transition-colors ${
                 i === idx
-                  ? "border-gold/60 bg-gold/12 text-foreground"
+                  ? "border-gold/60 bg-gold/12 text-gold"
                   : "border-white/12 bg-white/[0.02] text-muted-foreground hover:border-white/25 hover:text-foreground"
               }`}
             >
@@ -241,7 +241,7 @@ export function UseCasesSection({
                   type="button"
                   onClick={() => setPlaying((p) => !p)}
                   aria-label={playing ? "Pause walkthrough" : "Play walkthrough"}
-                  className="rounded border border-white/15 p-1.5 text-foreground hover:border-gold/60"
+                  className="rounded border border-white/15 p-1.5 text-gold hover:border-gold/60"
                 >
                   {playing && !reduce ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
                 </button>
@@ -265,7 +265,7 @@ export function UseCasesSection({
                     type="button"
                     onClick={() => setStage(i)}
                     className={`text-left font-mono text-[10px] tracking-[0.14em] transition-colors ${
-                      i === stage ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                      i === stage ? "text-gold" : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     0{i + 1}
@@ -276,9 +276,9 @@ export function UseCasesSection({
             </div>
 
             {stage === 5 && (
-              <div className="mt-6 rounded-lg border border-white/10 bg-card p-4 backdrop-blur">
-                <p className="font-mono text-xs uppercase tracking-[0.2em] text-foreground">{s.receivesTitle}</p>
-                <pre className="mt-3 overflow-x-auto whitespace-pre-wrap break-all font-mono text-[11px] leading-relaxed text-foreground">
+              <div className="mt-6 rounded-lg border border-white/10 bg-navy/70 p-4 backdrop-blur">
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{s.receivesTitle}</p>
+                <pre className="mt-3 overflow-x-auto whitespace-pre-wrap break-all font-mono text-[11px] leading-relaxed text-cyan/90">
                   {recordJson(uc)}
                 </pre>
               </div>
@@ -298,14 +298,14 @@ export function UseCasesSection({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35 }}
               >
-                <p className="font-mono text-xs tracking-[0.2em] text-foreground">
+                <p className="font-mono text-xs tracking-[0.2em] text-gold">
                   0{stage + 1} · {STAGES[stage].toUpperCase()}
                 </p>
                 <p className="mt-2 text-base font-light text-foreground/85">{uc.stages[stage].text}</p>
               </motion.div>
             </AnimatePresence>
 
-            <div className="rounded-lg border border-white/10 bg-card p-4 backdrop-blur">
+            <div className="rounded-lg border border-white/10 bg-navy/70 p-4 backdrop-blur">
               <p className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground">{s.sensorsTitle}</p>
               <ul className="mt-3 space-y-2">
                 {sensors.map((x) => {

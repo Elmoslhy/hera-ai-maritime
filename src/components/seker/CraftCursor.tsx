@@ -123,7 +123,7 @@ export function CraftCursor() {
         }}
       />
       {/* Satellite, nose pointing up (heading direction) */}
-      <svg ref={satRef} width="44" height="44" viewBox="-22 -22 44 44" className="absolute -left-[22px] -top-[22px] text-foreground drop-shadow-[0_0_6px_var(--color-gold)] transition-opacity duration-300">
+      <svg ref={satRef} width="44" height="44" viewBox="-22 -22 44 44" className="absolute -left-[22px] -top-[22px] text-gold drop-shadow-[0_0_6px_var(--color-gold)] transition-opacity duration-300">
         <g fill="none" stroke="currentColor" strokeWidth="1">
           <rect x="-20" y="-4" width="12" height="8" fill="currentColor" fillOpacity="0.25" />
           <rect x="8" y="-4" width="12" height="8" fill="currentColor" fillOpacity="0.25" />
@@ -135,7 +135,7 @@ export function CraftCursor() {
         </g>
       </svg>
       {/* Vessel, top-down, bow pointing up */}
-      <svg ref={shipRef} width="44" height="44" viewBox="-22 -22 44 44" className="absolute -left-[22px] -top-[22px] text-foreground opacity-0 drop-shadow-[0_0_6px_var(--color-cyan)] transition-opacity duration-300">
+      <svg ref={shipRef} width="44" height="44" viewBox="-22 -22 44 44" className="absolute -left-[22px] -top-[22px] text-cyan opacity-0 drop-shadow-[0_0_6px_var(--color-cyan)] transition-opacity duration-300">
         <path d="M0 -19C5 -12 6 -6 6 2V15C6 17 5 18 3 18H-3C-5 18 -6 17 -6 15V2C-6 -6 -5 -12 0 -19Z" fill="currentColor" fillOpacity="0.3" stroke="currentColor" strokeWidth="1.1" />
         <rect x="-3.5" y="7" width="7" height="6" rx="1" fill="currentColor" />
         <path d="M-3 -6h6M-3 -1h6M-3 4h6" stroke="currentColor" strokeWidth="0.7" />

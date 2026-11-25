@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useReducedMotionConfig } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Reveal } from "@/components/seker/primitives";
 import type { Industry } from "@/content/industries";
 
@@ -9,14 +9,14 @@ export function RolesSection({ roles }: { roles: R["roles"] }) {
   return (
     <section className="bg-navy-deep px-6 py-24">
       <div className="mx-auto max-w-7xl">
-        <Reveal><p className="text-eyebrow text-foreground">Who it serves</p></Reveal>
+        <Reveal><p className="text-eyebrow text-gold">Who it serves</p></Reveal>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {roles.map((r, n) => (
             <Reveal key={r.role} delay={n * 0.05}>
-              <div className="h-full rounded-lg border border-white/10 bg-card p-6 backdrop-blur">
+              <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-6 backdrop-blur">
                 <div className="flex items-center gap-2">
                   <span className="h-2 w-2 rounded-full bg-cyan shadow-[0_0_8px_var(--color-cyan)]" />
-                  <span className="font-mono text-xs uppercase tracking-[0.2em] text-foreground">{r.role}</span>
+                  <span className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{r.role}</span>
                 </div>
                 <p className="mt-5 text-lg font-light text-foreground">{r.question}</p>
               </div>
@@ -38,20 +38,20 @@ export function SignatureSection({ sig, axis }: { sig: R["signature"]; axis?: st
 
 type Origin = Extract<R["signature"], { kind: "origin" }>;
 
-const chip = { cyan: "border-cyan/50 text-foreground", amber: "border-amber/60 text-amber", alert: "border-alert/60 text-alert" };
+const chip = { cyan: "border-cyan/50 text-cyan", amber: "border-amber/60 text-amber", alert: "border-alert/60 text-alert" };
 
 function OriginCheck({ sig }: { sig: Origin }) {
   const [sel, setSel] = useState(1);
-  const reduce = useReducedMotionConfig();
+  const reduce = useReducedMotion();
   const t = sig.trips[sel];
   return (
     <section className="bg-navy px-6 py-24">
       <div className="mx-auto max-w-7xl">
-        <Reveal><p className="text-eyebrow text-foreground">{sig.title}</p></Reveal>
+        <Reveal><p className="text-eyebrow text-gold">{sig.title}</p></Reveal>
         <div className="mt-8 flex flex-wrap gap-2">
           {sig.trips.map((tr, n) => (
             <button key={tr.name} type="button" onClick={() => setSel(n)} aria-pressed={sel === n}
-              className={`rounded-full border px-4 py-2 font-mono text-[11px] tracking-[0.2em] ${sel === n ? "border-gold bg-gold/10 text-foreground" : "border-white/20 text-foreground/60"}`}>
+              className={`rounded-full border px-4 py-2 font-mono text-[11px] tracking-[0.2em] ${sel === n ? "border-gold bg-gold/10 text-gold" : "border-white/20 text-foreground/60"}`}>
               {tr.name}
             </button>
           ))}
@@ -62,18 +62,18 @@ function OriginCheck({ sig }: { sig: Origin }) {
               {Array.from({ length: 9 }, (_, n) => <line key={`v${n}`} x1={n * 45} x2={n * 45} y1={0} y2={240} stroke="currentColor" className="text-white/5" />)}
               {Array.from({ length: 6 }, (_, n) => <line key={`h${n}`} y1={n * 48} y2={n * 48} x1={0} x2={360} stroke="currentColor" className="text-white/5" />)}
               <path d="M0,200 L40,215 L70,240 L0,240 Z" fill="currentColor" className="text-white/10" />
-              <path d="M100,90 L250,80 L280,170 L130,195 Z" fill="currentColor" stroke="currentColor" strokeDasharray="6 5" strokeWidth={1.5} className="fill-gold/5 text-foreground" />
+              <path d="M100,90 L250,80 L280,170 L130,195 Z" fill="currentColor" stroke="currentColor" strokeDasharray="6 5" strokeWidth={1.5} className="fill-gold/5 text-gold" />
               <text x={110} y={84} className="fill-gold font-mono text-[10px]">DECLARED AREA</text>
               <rect x={250} y={30} width={70} height={45} fill="currentColor" className="text-alert/10" stroke="currentColor" strokeDasharray="3 3" />
               <text x={254} y={26} className="fill-alert font-mono text-[9px]">CLOSED AREA</text>
-              <motion.path key={t.name} d={t.track} fill="none" stroke="currentColor" strokeWidth={2} className="text-foreground"
+              <motion.path key={t.name} d={t.track} fill="none" stroke="currentColor" strokeWidth={2} className="text-cyan"
                 initial={reduce ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.2 }} />
               <circle cx={60} cy={190} r={4} className="fill-cyan" />
               <text x={30} y={182} className="fill-foreground/60 font-mono text-[9px]">PORT</text>
             </svg>
             <p className="mt-2 font-mono text-[11px] tracking-[0.2em] text-foreground/50">ILLUSTRATIVE</p>
           </div>
-          <div className="rounded-lg border border-white/10 bg-card p-5 backdrop-blur">
+          <div className="rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
             <ul className="divide-y divide-white/10">
               {t.checks.map((c) => (
                 <li key={c.label} className="flex flex-wrap items-center justify-between gap-2 py-3">
@@ -83,7 +83,7 @@ function OriginCheck({ sig }: { sig: Origin }) {
               ))}
             </ul>
             <div className="mt-4 border-t border-white/10 pt-4">
-              <p className={`font-mono text-sm tracking-[0.2em] ${t.flagged ? "text-amber" : "text-foreground"}`}>ORIGIN INDICATOR: {t.verdict}</p>
+              <p className={`font-mono text-sm tracking-[0.2em] ${t.flagged ? "text-amber" : "text-cyan"}`}>ORIGIN INDICATOR: {t.verdict}</p>
               {t.summary && <p className="mt-2 text-sm font-light text-foreground/75">{t.summary}</p>}
             </div>
           </div>
@@ -96,7 +96,7 @@ function OriginCheck({ sig }: { sig: Origin }) {
 type Board = Extract<R["signature"], { kind: "board" }>;
 
 const tone = (v: string) =>
-  ["VERIFIED", "MATCH", "LOW"].includes(v) ? "text-foreground" : ["MEDIUM"].includes(v) ? "text-amber" : "text-alert";
+  ["VERIFIED", "MATCH", "LOW"].includes(v) ? "text-cyan" : ["MEDIUM"].includes(v) ? "text-amber" : "text-alert";
 
 function ArrivalsBoard({ sig }: { sig: Board }) {
   const [sel, setSel] = useState(0);
@@ -105,12 +105,12 @@ function ArrivalsBoard({ sig }: { sig: Board }) {
   return (
     <section className="bg-navy px-6 py-24">
       <div className="mx-auto max-w-7xl">
-        <Reveal><p className="text-eyebrow text-foreground">{sig.title}</p></Reveal>
+        <Reveal><p className="text-eyebrow text-gold">{sig.title}</p></Reveal>
         <div className="mt-10 grid gap-4 lg:grid-cols-[1fr_320px]">
           <div className="min-w-0 overflow-x-auto rounded-lg border border-white/10 bg-navy-deep/80 p-4 backdrop-blur">
             <table className="w-full min-w-[640px] font-mono text-xs">
               <thead>
-                <tr className="text-left tracking-[0.18em] text-foreground">
+                <tr className="text-left tracking-[0.18em] text-gold">
                   {cols.map((c) => <th key={c} className="px-3 py-2 font-normal">{c}</th>)}
                 </tr>
               </thead>
@@ -125,16 +125,16 @@ function ArrivalsBoard({ sig }: { sig: Board }) {
                     <td className={`px-3 py-3 ${tone(row.identity)}`}>{row.identity}</td>
                     <td className={`px-3 py-3 ${tone(row.lastPorts)}`}>{row.lastPorts}</td>
                     <td className={`px-3 py-3 ${tone(row.risk)}`}>{row.risk}</td>
-                    <td className={`px-3 py-3 ${row.inspection === "RECOMMEND" ? "text-foreground" : "text-foreground/60"}`}>{row.inspection}</td>
+                    <td className={`px-3 py-3 ${row.inspection === "RECOMMEND" ? "text-gold" : "text-foreground/60"}`}>{row.inspection}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
             <p className="mt-3 px-3 font-mono text-[11px] tracking-[0.2em] text-foreground/50">ILLUSTRATIVE · SELECT A ROW</p>
           </div>
-          <div className="rounded-lg border border-white/10 bg-card p-5 backdrop-blur">
+          <div className="rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
             <div className="flex items-center justify-between gap-2">
-              <span className="font-mono text-xs tracking-[0.2em] text-foreground">{r.vessel} · ETA {r.eta}</span>
+              <span className="font-mono text-xs tracking-[0.2em] text-gold">{r.vessel} · ETA {r.eta}</span>
               <span className="font-mono text-[11px] tracking-[0.2em] text-foreground/50">INSPECTION: {r.inspection}</span>
             </div>
             <dl className="mt-4 divide-y divide-white/10">
@@ -156,7 +156,7 @@ type Flow = Extract<R["signature"], { kind: "flow" }>;
 
 function FlowMonitor({ sig, axis }: { sig: Flow; axis?: string }) {
   const [floating, setFloating] = useState(false);
-  const reduce = useReducedMotionConfig();
+  const reduce = useReducedMotion();
   const W = 640, H = 260, pad = axis ? 44 : 28;
   const max = Math.max(...sig.weeks.map((w) => w.corrected)) * 1.15;
   const step = (W - pad * 2) / sig.weeks.length;
@@ -165,11 +165,11 @@ function FlowMonitor({ sig, axis }: { sig: Flow; axis?: string }) {
   return (
     <section className="bg-navy px-6 py-24">
       <div className="mx-auto max-w-7xl">
-        <Reveal><p className="text-eyebrow text-foreground">{sig.title}</p></Reveal>
+        <Reveal><p className="text-eyebrow text-gold">{sig.title}</p></Reveal>
         <div className="mt-10 grid gap-4 lg:grid-cols-[1fr_300px]">
-          <div className="min-w-0 rounded-lg border border-white/10 bg-card p-5 backdrop-blur">
+          <div className="min-w-0 rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-foreground">Export terminal · 8 weeks</span>
+              <span className="font-mono text-xs uppercase tracking-[0.2em] text-gold">Export terminal · 8 weeks</span>
               <button type="button" onClick={() => setFloating((f) => !f)} aria-pressed={floating}
                 className={`rounded-full border px-3 py-1 font-mono text-[11px] tracking-[0.2em] ${floating ? "border-amber text-amber" : "border-white/20 text-foreground/60"}`}>
                 FLOATING STORAGE
@@ -189,7 +189,7 @@ function FlowMonitor({ sig, axis }: { sig: Flow; axis?: string }) {
                   <g key={n}>
                     <motion.rect x={x} width={bw} fill="currentColor" className="text-white/30"
                       initial={reduce ? false : { height: 0, y: H - pad }} whileInView={{ height: H - pad - y(w.broadcast), y: y(w.broadcast) }} viewport={{ once: true }} transition={{ duration: 0.6, delay: n * 0.05 }} />
-                    <motion.rect x={x + bw + 2} width={bw} fill="currentColor" className="text-foreground"
+                    <motion.rect x={x + bw + 2} width={bw} fill="currentColor" className="text-cyan"
                       initial={reduce ? false : { height: 0, y: H - pad }} whileInView={{ height: H - pad - y(w.corrected), y: y(w.corrected) }} viewport={{ once: true }} transition={{ duration: 0.6, delay: n * 0.05 + 0.1 }} />
                     <text x={pad + step * (n + 0.5)} y={H - 8} textAnchor="middle" className="fill-foreground/50 font-mono text-[11px]">W{n + 1}</text>
                   </g>
@@ -206,16 +206,16 @@ function FlowMonitor({ sig, axis }: { sig: Flow; axis?: string }) {
               {floating && <span className="flex items-center gap-2"><span className="h-0.5 w-3 bg-amber" />FLOATING STORAGE</span>}
             </div>
           </div>
-          <div className="rounded-lg border border-white/10 bg-card p-5 backdrop-blur">
+          <div className="rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
             <div className="flex items-center justify-between gap-2">
-              <span className="font-mono text-xs tracking-[0.2em] text-foreground">THIS WEEK</span>
+              <span className="font-mono text-xs tracking-[0.2em] text-gold">THIS WEEK</span>
               <span className="font-mono text-[11px] tracking-[0.2em] text-foreground/50">ILLUSTRATIVE</span>
             </div>
             <dl className="mt-4 divide-y divide-white/10">
               {sig.summary.map((it) => (
                 <div key={it.label} className="py-3">
                   <dt className="text-sm font-light text-foreground/70">{it.label}</dt>
-                  <dd className="mt-1 font-mono text-lg text-foreground">{it.value}</dd>
+                  <dd className="mt-1 font-mono text-lg text-cyan">{it.value}</dd>
                 </div>
               ))}
             </dl>
@@ -228,12 +228,12 @@ function FlowMonitor({ sig, axis }: { sig: Flow; axis?: string }) {
 
 function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" } | { kind: "board" } | { kind: "origin" } | { kind: "cable" }> }) {
   const [sel, setSel] = useState(0);
-  const reduce = useReducedMotionConfig();
+  const reduce = useReducedMotion();
   const st = sig.stages[sel];
   return (
     <section className="bg-navy px-6 py-24">
       <div className="mx-auto max-w-5xl">
-        <Reveal><p className="text-eyebrow text-foreground">{sig.title}</p></Reveal>
+        <Reveal><p className="text-eyebrow text-gold">{sig.title}</p></Reveal>
         <div className="relative mt-12">
           <div className="absolute left-[16.66%] right-[16.66%] top-[11px] h-px bg-white/15" />
           <motion.div
@@ -245,7 +245,7 @@ function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" } | { 
             {sig.stages.map((s, n) => (
               <button key={s.key} type="button" onClick={() => setSel(n)} className="flex flex-col items-center gap-3" aria-pressed={sel === n}>
                 <span className={`h-[22px] w-[22px] rounded-full border-2 ${n <= sel ? "border-gold bg-gold/30" : "border-white/30 bg-navy"}`} />
-                <span className={`text-center font-mono text-xs tracking-[0.2em] ${sel === n ? "text-foreground" : "text-foreground/60"}`}>{s.key}</span>
+                <span className={`text-center font-mono text-xs tracking-[0.2em] ${sel === n ? "text-gold" : "text-foreground/60"}`}>{s.key}</span>
               </button>
             ))}
           </div>
@@ -257,17 +257,17 @@ function Lifecycle({ sig }: { sig: Exclude<R["signature"], { kind: "flow" } | { 
             animate={{ opacity: 1, y: 0 }}
             exit={reduce ? undefined : { opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="mt-10 rounded-lg border border-white/10 bg-card p-6 backdrop-blur"
+            className="mt-10 rounded-lg border border-white/10 bg-navy/70 p-6 backdrop-blur"
           >
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-foreground">{st.key} · {st.title}</span>
+              <span className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{st.key} · {st.title}</span>
               <span className="font-mono text-xs tracking-[0.2em] text-foreground/50">ILLUSTRATIVE</span>
             </div>
             <dl className="mt-6 divide-y divide-white/10">
               {st.items.map((it) => (
                 <div key={it.label} className="flex flex-wrap justify-between gap-2 py-3">
                   <dt className="text-sm font-light text-foreground/70">{it.label}</dt>
-                  <dd className="font-mono text-sm text-foreground">{it.value}</dd>
+                  <dd className="font-mono text-sm text-cyan">{it.value}</dd>
                 </div>
               ))}
             </dl>
@@ -282,14 +282,14 @@ export function MissionsSection({ missions, heading = "Missions" }: { missions: 
   return (
     <section className="bg-navy-deep px-6 py-24">
       <div className="mx-auto max-w-7xl">
-        <Reveal><p className="text-eyebrow text-foreground">{heading}</p></Reveal>
+        <Reveal><p className="text-eyebrow text-gold">{heading}</p></Reveal>
         <div className="mt-10 grid gap-4 md:grid-cols-2">
           {missions.map((m, n) => (
             <Reveal key={m.title} delay={n * 0.05}>
-              <div className="flex h-full flex-col rounded-lg border border-white/10 bg-card p-6 backdrop-blur">
+              <div className="flex h-full flex-col rounded-lg border border-white/10 bg-navy/70 p-6 backdrop-blur">
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-sm text-foreground">0{n + 1}</span>
-                  <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-foreground">{m.title}</h3>
+                  <span className="font-mono text-sm text-gold">0{n + 1}</span>
+                  <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-gold">{m.title}</h3>
                 </div>
                 <p className="mt-5 font-mono text-[11px] tracking-[0.2em] text-foreground/50">NEED</p>
                 <p className="mt-1 font-light text-foreground/85">{m.need}</p>
@@ -298,7 +298,7 @@ export function MissionsSection({ missions, heading = "Missions" }: { missions: 
                 {m.note && <p className="mt-4 text-sm font-light text-foreground/60">{m.note}</p>}
                 <div className="mt-auto flex items-center gap-2 pt-6">
                   <span className="h-2 w-2 rounded-full bg-cyan shadow-[0_0_8px_var(--color-cyan)]" />
-                  <span className="font-mono text-xs tracking-[0.2em] text-foreground">DELIVERABLE · {m.deliverable.toUpperCase()}</span>
+                  <span className="font-mono text-xs tracking-[0.2em] text-cyan">DELIVERABLE · {m.deliverable.toUpperCase()}</span>
                 </div>
               </div>
             </Reveal>
@@ -313,15 +313,15 @@ export function DeliverablesSection({ items, note }: { items: R["deliverables"];
   return (
     <section className="bg-navy px-6 py-24">
       <div className="mx-auto max-w-4xl">
-        <Reveal><p className="text-eyebrow text-foreground">Deliverables</p></Reveal>
-        <div className="mt-10 rounded-lg border border-white/10 bg-card backdrop-blur">
+        <Reveal><p className="text-eyebrow text-gold">Deliverables</p></Reveal>
+        <div className="mt-10 rounded-lg border border-white/10 bg-navy/70 backdrop-blur">
           {items.map((d, n) => (
             <div key={d.name} className={`flex flex-wrap items-center justify-between gap-2 px-6 py-4 ${n ? "border-t border-white/10" : ""}`}>
               <div className="min-w-0">
                 <span className="font-light text-foreground">{d.name}</span>
                 {d.fields && <p className="mt-1 text-sm font-light text-foreground/60">{d.fields}</p>}
               </div>
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-foreground">{d.cadence}</span>
+              <span className="font-mono text-xs uppercase tracking-[0.2em] text-cyan">{d.cadence}</span>
             </div>
           ))}
         </div>
@@ -337,7 +337,7 @@ const CABLE_TRACK: [number, number][] = [
 const SPEEDS = [11, 10.8, 9.5, 6, 3.2, 2, 1.6, 1.4, 1.5, 1.4, 1.4, 1.4];
 
 function CableWatch({ title }: { title: string }) {
-  const reduce = useReducedMotionConfig();
+  const reduce = useReducedMotion();
   const [p, setP] = useState(reduce ? 1 : 0);
   const [run, setRun] = useState(0);
   useEffect(() => {
@@ -365,28 +365,28 @@ function CableWatch({ title }: { title: string }) {
   return (
     <section className="bg-navy px-6 py-24">
       <div className="mx-auto max-w-7xl">
-        <Reveal><p className="text-eyebrow text-foreground">{title}</p></Reveal>
+        <Reveal><p className="text-eyebrow text-gold">{title}</p></Reveal>
         <div className="mt-10 rounded-lg border border-white/10 bg-navy-deep/80 p-4 backdrop-blur sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap gap-2 font-mono text-[11px] tracking-[0.15em]">
-              <span className="rounded border border-white/15 px-2 py-1 text-foreground">SPEED {speed.toFixed(1)} KN</span>
-              <span className="rounded border border-white/15 px-2 py-1 text-foreground">ON CORRIDOR {Math.floor(onCorridor / 60)} H {onCorridor % 60} MIN</span>
+              <span className="rounded border border-white/15 px-2 py-1 text-cyan">SPEED {speed.toFixed(1)} KN</span>
+              <span className="rounded border border-white/15 px-2 py-1 text-cyan">ON CORRIDOR {Math.floor(onCorridor / 60)} H {onCorridor % 60} MIN</span>
               <span className="rounded border border-white/15 px-2 py-1 text-amber">AIS GAP {gap} MIN</span>
-              <span className={`rounded-full border px-3 py-1 ${alert ? "border-alert/60 text-alert" : "border-cyan/50 text-foreground"}`}>{alert ? "INDICATOR" : "WATCH"}</span>
+              <span className={`rounded-full border px-3 py-1 ${alert ? "border-alert/60 text-alert" : "border-cyan/50 text-cyan"}`}>{alert ? "INDICATOR" : "WATCH"}</span>
             </div>
             <div className="flex items-center gap-3">
               <span className="font-mono text-[11px] tracking-[0.2em] text-foreground/50">ILLUSTRATIVE</span>
-              <button type="button" onClick={() => setRun((r) => r + 1)} className="rounded-full border border-gold/60 px-3 py-1 font-mono text-[11px] tracking-[0.2em] text-foreground hover:bg-gold/10">REPLAY</button>
+              <button type="button" onClick={() => setRun((r) => r + 1)} className="rounded-full border border-gold/60 px-3 py-1 font-mono text-[11px] tracking-[0.2em] text-gold hover:bg-gold/10">REPLAY</button>
             </div>
           </div>
           <svg viewBox="0 0 360 200" className="mt-4 w-full" role="img" aria-label="Vessel track crossing a seabed cable and pipeline corridor">
             {Array.from({ length: 9 }, (_, k) => <line key={`v${k}`} x1={k * 45} x2={k * 45} y1={0} y2={200} stroke="currentColor" className="text-white/5" />)}
-            <path d="M0,180 C80,170 140,150 200,135 S300,150 360,160" fill="none" stroke="currentColor" strokeWidth={10} className="text-foreground" />
-            <path d="M0,180 C80,170 140,150 200,135 S300,150 360,160" fill="none" stroke="currentColor" strokeWidth={1.2} className="text-foreground" />
-            <path d="M0,195 C90,185 160,170 220,160 S310,175 360,185" fill="none" stroke="currentColor" strokeWidth={1} strokeDasharray="4 3" className="text-foreground" />
+            <path d="M0,180 C80,170 140,150 200,135 S300,150 360,160" fill="none" stroke="currentColor" strokeWidth={10} className="text-gold/10" />
+            <path d="M0,180 C80,170 140,150 200,135 S300,150 360,160" fill="none" stroke="currentColor" strokeWidth={1.2} className="text-gold" />
+            <path d="M0,195 C90,185 160,170 220,160 S310,175 360,185" fill="none" stroke="currentColor" strokeWidth={1} strokeDasharray="4 3" className="text-gold/70" />
             <text x={6} y={172} className="fill-gold font-mono text-[8px]">CABLE</text>
             <text x={6} y={192} className="fill-gold/70 font-mono text-[8px]">PIPELINE</text>
-            <polyline points={pts.map((q) => q.join(",")).join(" ")} fill="none" stroke="currentColor" strokeWidth={1.6} className={alert ? "text-alert" : "text-foreground"} />
+            <polyline points={pts.map((q) => q.join(",")).join(" ")} fill="none" stroke="currentColor" strokeWidth={1.6} className={alert ? "text-alert" : "text-cyan"} />
             <polygon points={`${vx},${vy - 5} ${vx + 4},${vy + 4} ${vx - 4},${vy + 4}`} className={alert ? "fill-alert" : "fill-cyan"} />
           </svg>
           <div className="mt-4 border-t border-white/10 pt-3">
@@ -395,7 +395,7 @@ function CableWatch({ title }: { title: string }) {
               <line x1={20} x2={340} y1={sy(0)} y2={sy(0)} stroke="currentColor" className="text-white/15" />
               <text x={0} y={sy(11) + 3} className="fill-foreground/50 font-mono text-[8px]">11</text>
               <text x={0} y={sy(1.4) + 3} className="fill-foreground/50 font-mono text-[8px]">1.4</text>
-              <polyline points={SPEEDS.slice(0, n + 1).map((v, k) => `${sx(k)},${sy(v)}`).join(" ")} fill="none" stroke="currentColor" strokeWidth={1.6} className="text-foreground" />
+              <polyline points={SPEEDS.slice(0, n + 1).map((v, k) => `${sx(k)},${sy(v)}`).join(" ")} fill="none" stroke="currentColor" strokeWidth={1.6} className="text-cyan" />
             </svg>
           </div>
         </div>

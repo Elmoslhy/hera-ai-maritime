@@ -54,7 +54,7 @@ function CareersPage() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy/90 via-navy/50 to-transparent" />
         <div className="relative mx-auto w-full max-w-6xl px-6 pb-20 pt-40">
           <CareersSatellites />
-          <p className="text-eyebrow text-foreground">Careers</p>
+          <p className="text-eyebrow text-gold">Careers</p>
           <h1 className="mt-5 max-w-3xl text-balance text-4xl font-light tracking-tight text-foreground sm:text-6xl">
             {hero.heading}
           </h1>
@@ -63,7 +63,7 @@ function CareersPage() {
             <a href="#open-roles" className={`${btn} bg-gold text-navy-deep hover:opacity-90`}>
               {hero.primaryCta.toUpperCase()} →
             </a>
-            <a href="#speculative" className={`${btn} border border-foreground/30 text-foreground hover:border-gold hover:text-foreground`}>
+            <a href="#speculative" className={`${btn} border border-foreground/30 text-foreground hover:border-gold hover:text-gold`}>
               {hero.secondaryCta.toUpperCase()}
             </a>
           </div>
@@ -91,7 +91,7 @@ function CareersPage() {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-normal text-foreground">{it.title}</h3>
+                  <h3 className="text-xl font-normal text-gold">{it.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{it.text}</p>
                 </div>
               </article>
@@ -108,7 +108,7 @@ function CareersPage() {
                 const Icon = ICONS[v.icon] ?? ShieldCheck;
                 return (
                   <div key={v.title}>
-                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 text-foreground">
+                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/40 text-gold">
                       <Icon className="h-5 w-5" aria-hidden />
                     </span>
                     <h3 className="mt-5 text-lg font-normal text-foreground">{v.title}</h3>
@@ -141,7 +141,7 @@ function CareersPage() {
                     key={j.id}
                     className="flex flex-col rounded-xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-gold/40"
                   >
-                    <span className="self-start rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] tracking-[0.15em] text-foreground">
+                    <span className="self-start rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] tracking-[0.15em] text-gold">
                       {j.id}
                     </span>
                     <h4 className="mt-4 text-xl font-normal text-foreground">{j.title}</h4>
@@ -152,7 +152,7 @@ function CareersPage() {
                     <Link
                       to="/careers/$slug"
                       params={{ slug: j.slug }}
-                      className="mt-6 self-start font-mono text-xs tracking-[0.2em] text-foreground hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
+                      className="mt-6 self-start font-mono text-xs tracking-[0.2em] text-gold hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
                     >
                       VIEW ROLE →
                     </Link>
@@ -172,7 +172,7 @@ function CareersPage() {
                 {i < process.steps.length - 1 && (
                   <span aria-hidden className="absolute left-5 top-11 h-[calc(100%-1rem)] w-px bg-gold/25 md:left-12 md:top-5 md:h-px md:w-[calc(100%-1.5rem)]" />
                 )}
-                <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold bg-navy font-mono text-sm text-foreground">
+                <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-gold bg-navy font-mono text-sm text-gold">
                   {i + 1}
                 </span>
                 <div className="md:mt-5">
@@ -187,7 +187,7 @@ function CareersPage() {
         {/* Speculative */}
         <section id="speculative" className="scroll-mt-24 border-t border-gold/20 bg-navy-deep" aria-labelledby="spec">
           <div className="mx-auto max-w-6xl px-6 py-20">
-            <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] tracking-[0.15em] text-foreground">
+            <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] tracking-[0.15em] text-gold">
               {speculative.id}
             </span>
             <h2 id="spec" className="mt-5 text-3xl font-light text-foreground">{speculative.title}</h2>

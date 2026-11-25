@@ -6,14 +6,15 @@ import { EyeCanvas } from "./EyeCanvas";
 import heraApp from "@/assets/hera-app-hormuz.jpg";
 
 const TOP_STATS = [
-  { label: "HERA AI capabilities live today", to: 7, suffix: "", tone: "text-foreground" },
-  { label: "Official sanctions lists screened: US, UK, EU and Japan", to: 5, suffix: "", tone: "text-foreground" },
+  { label: "HERA AI capabilities live today", to: 7, suffix: "", tone: "text-cyan" },
+  { label: "Official sanctions lists screened: US, UK, EU and Japan", to: 5, suffix: "", tone: "text-gold" },
+  { label: "Capabilities on one record per ship", to: 12, suffix: "", tone: "text-foreground" },
 ];
 
 /* ---------------- live map ---------------- */
 
 type Ship = { x: number; y: number; c: string; r: number; lane: boolean };
-const CLASS_COLORS = ["#4a9eff", "#f59e42", "#3ddc84", "#3FB68B", "#a855f7", "#ec4899", "#8fa3bb"];
+const CLASS_COLORS = ["#4a9eff", "#f59e42", "#3ddc84", "#4dd9c0", "#a855f7", "#ec4899", "#8fa3bb"];
 
 /* --- real web-mercator basemap (Esri Dark Gray, keyless), z5 tiles x15..19 y11..13 --- */
 const Z = 5, TX0 = 15, TY0 = 11, TCOLS = 5, TROWS = 3, TS = 256;
@@ -151,13 +152,13 @@ export function LiveMap() {
             ))}
 
             {/* geo-fence with flagged cluster */}
-            <circle cx={r1(px(FENCE.lon))} cy={r1(py(FENCE.lat))} r="70" fill="#FFFFFF" opacity="0.12" />
+            <circle cx={r1(px(FENCE.lon))} cy={r1(py(FENCE.lat))} r="70" fill="#ff4d4d" opacity="0.12" />
             <circle cx={r1(px(FENCE.lon))} cy={r1(py(FENCE.lat))} r="70" fill="none" stroke="#c9a84c" strokeWidth="1.4" strokeDasharray="7 7" />
             {Array.from({ length: 9 }).map((_, i) => (
               <polygon
                 key={`f${i}`}
                 points="0,-6 4.3,4.8 -4.3,4.8"
-                fill="#FFFFFF"
+                fill="#ff4d4d"
                 transform={`translate(${r1(px(FENCE.lon) + (rnd(i, 4.4) - 0.5) * 96)} ${r1(py(FENCE.lat) + (rnd(i, 7.9) - 0.5) * 96)}) rotate(${i * 41})`}
               />
             ))}
@@ -181,7 +182,7 @@ export function LiveMap() {
           ATLANTIC PEARL · MMSI 215789012
           <br />
           <span className="text-muted-foreground">14.1 kn · </span>
-          <span className="text-foreground">UNVERIFIED</span>
+          <span className="text-gold">UNVERIFIED</span>
         </div>
 
         {/* geo-fencing tool */}
@@ -192,7 +193,7 @@ export function LiveMap() {
           </div>
           <div className="mt-2 grid grid-cols-2 gap-2 font-mono text-[9px] tracking-[0.14em]">
             <span className="rounded border border-white/10 px-2 py-1 text-muted-foreground">● CIRCLE</span>
-            <span className="rounded border border-gold/40 bg-gold/10 px-2 py-1 text-foreground">▰ POLYGON</span>
+            <span className="rounded border border-gold/40 bg-gold/10 px-2 py-1 text-gold">▰ POLYGON</span>
           </div>
           <p className="mt-2 font-mono text-[10px] text-alert">37 in zones</p>
         </div>
@@ -200,8 +201,8 @@ export function LiveMap() {
         {/* legend */}
         <div className="absolute bottom-3 right-3 hidden max-w-[46%] flex-wrap justify-end gap-3 rounded-md border border-white/10 bg-navy/90 px-3 py-2 font-mono text-[9px] tracking-[0.16em] text-muted-foreground sm:flex">
           {[
-            ["#4a9eff", "CARGO"], ["#f59e42", "TANKER"], ["#3ddc84", "PASSENGER"], ["#3FB68B", "FISHING"],
-            ["#a855f7", "TUG"], ["#ec4899", "SAILING"], ["#8fa3bb", "UNKNOWN"], ["#FFFFFF", "FLAGGED"],
+            ["#4a9eff", "CARGO"], ["#f59e42", "TANKER"], ["#3ddc84", "PASSENGER"], ["#4dd9c0", "FISHING"],
+            ["#a855f7", "TUG"], ["#ec4899", "SAILING"], ["#8fa3bb", "UNKNOWN"], ["#ff4d4d", "FLAGGED"],
           ].map(([c, l]) => (
             <span key={l} className="flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full" style={{ background: c }} />
@@ -223,7 +224,7 @@ function TabRow({ tabs, active, onSelect }: { tabs: string[]; active: string; on
           key={t}
           onClick={() => onSelect(t)}
           className={`rounded px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] transition-colors ${
-            active === t ? "bg-white/8 text-foreground" : "text-muted-foreground hover:text-foreground"
+            active === t ? "bg-white/8 text-cyan" : "text-muted-foreground hover:text-foreground"
           }`}
         >
           {t}
@@ -239,7 +240,7 @@ function TirThumb() {
   return (
     <svg viewBox="0 0 100 56" className="h-full w-full" aria-hidden>
       <rect width="100" height="56" fill="#1a0f22" />
-      <ellipse cx="52" cy="30" rx="30" ry="9" fill="#FFFFFF" opacity="0.55" />
+      <ellipse cx="52" cy="30" rx="30" ry="9" fill="#ff4d4d" opacity="0.55" />
       <ellipse cx="60" cy="30" rx="14" ry="8" fill="#ffc458" />
       <circle cx="62" cy="30" r="4" fill="#fff6d8" />
     </svg>
@@ -311,7 +312,7 @@ export function DigitalTwin() {
             </p>
           </div>
           <div className="text-right">
-            <p className="font-mono text-4xl leading-none text-foreground">
+            <p className="font-mono text-4xl leading-none text-gold">
               88.7<span className="text-base">%</span>
             </p>
             <p className="mt-2 max-w-[170px] font-mono text-[8px] leading-relaxed tracking-[0.14em] text-muted-foreground">
@@ -320,7 +321,7 @@ export function DigitalTwin() {
           </div>
         </div>
 
-        <div className="rounded border border-gold/40 bg-gold/10 px-3 py-2 font-mono text-xs tracking-[0.2em] text-foreground">
+        <div className="rounded border border-gold/40 bg-gold/10 px-3 py-2 font-mono text-xs tracking-[0.2em] text-gold">
           ○ UNVERIFIED · IMO REQUIRED
         </div>
 
@@ -349,7 +350,7 @@ export function DigitalTwin() {
           <div className="mt-3 grid grid-cols-3 gap-2">
             {LAYERS.map((l) => (
               <div key={l.key} className="overflow-hidden rounded border border-white/10 bg-black/40">
-                <div className="flex items-center justify-between px-1.5 py-1 font-mono text-[7px] tracking-[0.1em] text-foreground">
+                <div className="flex items-center justify-between px-1.5 py-1 font-mono text-[7px] tracking-[0.1em] text-cyan">
                   <span>{l.key}</span>
                   <span className="text-muted-foreground">{l.spec}</span>
                 </div>
@@ -389,7 +390,7 @@ export function DigitalTwin() {
               <span
                 key={s.id}
                 className={`rounded border px-2 py-1 font-mono text-[9px] tracking-[0.16em] ${
-                  s.on ? "border-cyan/40 bg-cyan/10 text-foreground" : "border-white/10 text-muted-foreground/60"
+                  s.on ? "border-cyan/40 bg-cyan/10 text-cyan" : "border-white/10 text-muted-foreground/60"
                 }`}
               >
                 {s.id}
@@ -441,7 +442,7 @@ export function WindowChrome({ children }: { children: React.ReactNode }) {
         </div>
         <SekerLogo className="h-5 w-auto text-foreground" />
         <div className="mr-auto">
-          <p className="text-lg font-light tracking-wide text-foreground">HERA AI</p>
+          <p className="text-lg font-light tracking-wide text-cyan">HERA AI</p>
           <p className="font-mono text-[8px] tracking-[0.24em] text-muted-foreground">
             MARITIME INTELLIGENCE PLATFORM
           </p>
@@ -450,13 +451,13 @@ export function WindowChrome({ children }: { children: React.ReactNode }) {
           <span className="flex items-center gap-2 text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan" /> API
           </span>
-          <span className="text-foreground">OPERATIONAL</span>
+          <span className="text-cyan">OPERATIONAL</span>
           <span className="text-muted-foreground">· 14 732 SIGNALS ·</span>
           <span className="text-muted-foreground">P50</span>
           <span className="text-foreground">45MS</span>
         </div>
         <p className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground">
-          UTC <span className="text-foreground">{utc}</span>
+          UTC <span className="text-gold">{utc}</span>
         </p>
       </div>
       {children}
@@ -474,11 +475,11 @@ const FEATURES = [
 
 export function DashboardSection() {
   return (
-    <section id="hera-ai" data-keep-center className="bg-navy px-6 py-28">
+    <section id="hera-ai" className="bg-navy px-6 py-28">
       <div className="mx-auto max-w-[1500px]">
         <Reveal className="text-center">
           <p className="text-eyebrow text-gold">HERA AI</p>
-          <h2 className="text-balance mt-6 text-4xl font-semibold tracking-tight text-gold sm:text-6xl lg:text-7xl">
+          <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             Meet HERA AI.
           </h2>
           <p className="text-pretty mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">
@@ -488,7 +489,7 @@ export function DashboardSection() {
 
         <Reveal className="mt-14">
           <WindowChrome>
-            <div className="grid grid-cols-1 gap-px border-b sm:grid-cols-2 border-white/8 bg-white/5 lg:grid-cols-2">
+            <div className="grid grid-cols-1 gap-px border-b sm:grid-cols-3 border-white/8 bg-white/5 lg:grid-cols-3">
               {TOP_STATS.map((s) => (
                 <div key={s.label} className="flex items-center justify-between gap-4 bg-[#070d16] px-5 py-4">
                   <p className="font-mono text-[9px] leading-relaxed tracking-[0.2em] text-muted-foreground">
@@ -516,7 +517,7 @@ export function DashboardSection() {
         </Reveal>
 
         <div className="mt-10 text-center">
-          <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-foreground hover:text-foreground">
+          <Link to="/intelligence" className="font-mono text-xs tracking-[0.2em] text-cyan hover:text-gold">
             Learn more →
           </Link>
         </div>

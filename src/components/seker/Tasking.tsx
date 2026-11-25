@@ -118,7 +118,7 @@ export function TaskingSection({ consoleOnly, planBody }: { consoleOnly?: boolea
                         </svg>
                       </div>
                     </div>
-                    <p className="mt-2 font-mono text-[9px] tracking-[0.16em] text-foreground"><span className="mr-1.5 inline-block h-px w-3 bg-gold align-middle" />CUSTODY</p>
+                    <p className="mt-2 font-mono text-[9px] tracking-[0.16em] text-gold"><span className="mr-1.5 inline-block h-px w-3 bg-gold align-middle" />CUSTODY</p>
                   </div>
                 </div>
 
@@ -128,10 +128,10 @@ export function TaskingSection({ consoleOnly, planBody }: { consoleOnly?: boolea
                   <span className="flex items-center gap-1.5"><span className="h-2.5 w-4 rounded-sm border border-dashed border-alert" />REJECTED</span>
                 </div>
 
-                <div aria-live="polite" className="mt-4 rounded-lg border border-white/10 bg-card p-4 backdrop-blur">
+                <div aria-live="polite" className="mt-4 rounded-lg border border-white/10 bg-navy/70 p-4 backdrop-blur">
                   <p className="font-mono text-[10px] tracking-[0.18em]">
                     <span className="text-muted-foreground">{pass.lane.toUpperCase()} · HOUR {pass.start}{pass.end ? ` TO ${pass.end}` : ""} · </span>
-                    <span className={pass.status === "selected" ? "text-foreground" : pass.status === "standby" ? "text-foreground" : "text-alert"}>
+                    <span className={pass.status === "selected" ? "text-gold" : pass.status === "standby" ? "text-cyan" : "text-alert"}>
                       {pass.status.toUpperCase()}
                     </span>
                   </p>
@@ -139,7 +139,7 @@ export function TaskingSection({ consoleOnly, planBody }: { consoleOnly?: boolea
                 </div>
               </div>
 
-              <div className="min-w-0 rounded-lg border border-white/10 bg-card p-4 backdrop-blur">
+              <div className="min-w-0 rounded-lg border border-white/10 bg-navy/70 p-4 backdrop-blur">
                 <p className="font-mono text-[10px] tracking-[0.2em] text-muted-foreground">{s.nextTitle}</p>
                 <ul className="mt-3 space-y-3">
                   {next.map((p) => {
@@ -147,7 +147,7 @@ export function TaskingSection({ consoleOnly, planBody }: { consoleOnly?: boolea
                     return (
                       <li key={p.id} className="flex items-center justify-between gap-3 border-b border-white/5 pb-2">
                         <span className="min-w-0 text-xs text-foreground/80">{p.lane}</span>
-                        <span className="shrink-0 font-mono text-xs text-foreground">{fmt(sec)}</span>
+                        <span className="shrink-0 font-mono text-xs text-cyan">{fmt(sec)}</span>
                       </li>
                     );
                   })}
@@ -179,11 +179,11 @@ export function TaskingSection({ consoleOnly, planBody }: { consoleOnly?: boolea
       <section id="tasking" className="scroll-mt-24 bg-navy px-6 py-24">
         <div className="mx-auto max-w-7xl">
           <Reveal>
-            <p className="text-eyebrow text-foreground">{s.eyebrow}</p>
+            <p className="text-eyebrow text-gold">{s.eyebrow}</p>
             <h2 className="text-balance mt-6 text-3xl font-light tracking-tight text-foreground sm:text-5xl">
               {s.headline[0]}
               <br />
-              <span className="text-foreground">{s.headline[1]}</span>
+              <span className="text-gold">{s.headline[1]}</span>
             </h2>
             <p className="mt-6 max-w-3xl text-base font-light text-foreground/80">{s.body}</p>
           </Reveal>
@@ -193,9 +193,9 @@ export function TaskingSection({ consoleOnly, planBody }: { consoleOnly?: boolea
               const Icon = ICONS[i];
               return (
                 <Reveal key={c.title} delay={i * 0.08}>
-                  <div className="h-full rounded-lg border border-white/10 bg-card p-5 backdrop-blur">
+                  <div className="h-full rounded-lg border border-white/10 bg-navy/70 p-5 backdrop-blur">
                     <div className="flex items-center justify-between">
-                      <Icon className="h-5 w-5 text-foreground" />
+                      <Icon className="h-5 w-5 text-gold" />
                       <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
                     </div>
                     <h3 className="mt-4 font-mono text-sm uppercase tracking-[0.18em] text-foreground">{c.title}</h3>
@@ -215,7 +215,7 @@ export function TaskingSection({ consoleOnly, planBody }: { consoleOnly?: boolea
           {deliveryCards.map((f, i) => (
             <Reveal key={f.title} delay={i * 0.1}>
               <div className="h-full rounded-xl border border-white/10 bg-white/[0.02] p-6">
-                <span className="font-mono text-xs tracking-[0.24em] text-foreground">0{i + 1}</span>
+                <span className="font-mono text-xs tracking-[0.24em] text-gold">0{i + 1}</span>
                 <h3 className="text-balance mt-3 text-lg font-medium text-foreground">{f.title}</h3>
                 <p className="text-pretty mt-2 text-sm leading-relaxed text-muted-foreground">{f.text}</p>
               </div>
@@ -229,7 +229,7 @@ export function TaskingSection({ consoleOnly, planBody }: { consoleOnly?: boolea
           <h2 className="text-balance text-3xl font-light tracking-tight text-foreground sm:text-5xl">
             {closingCta.headline[0]}
             <br />
-            <span className="text-foreground">{closingCta.headline[1]}</span>
+            <span className="text-gold">{closingCta.headline[1]}</span>
           </h2>
           <Link
             to="/"

@@ -41,7 +41,7 @@ function EyeMark() {
       {/* sea traffic drifting under the gaze */}
       <g clipPath="url(#ip-lid)" opacity="0.55">
         {[
-          [0, 20, 26, "#3FB68B"],
+          [0, 20, 26, "#4dd9c0"],
           [-3, 38, 22, "#4a9eff"],
           [-6, 30, 30, "#8fa3bb"],
         ].map(([d, y, dur, c], i) => (
@@ -62,7 +62,7 @@ function EyeMark() {
 
       {/* scanning sweep */}
       <g clipPath="url(#ip-lid)">
-        <rect x="0" y="4" width="10" height="52" fill="#3FB68B" opacity="0.12">
+        <rect x="0" y="4" width="10" height="52" fill="#4dd9c0" opacity="0.12">
           <animate attributeName="x" values="0;110;0" dur="7s" repeatCount="indefinite" />
         </rect>
       </g>
@@ -80,7 +80,7 @@ function EyeMark() {
           repeatCount="indefinite"
         />
         <circle cx="60" cy="30" r="15" fill="none" stroke="#c9a84c" strokeWidth="1" opacity="0.8" />
-        <circle cx="60" cy="30" r="10" fill="none" stroke="#3FB68B" strokeWidth="0.7" opacity="0.55">
+        <circle cx="60" cy="30" r="10" fill="none" stroke="#4dd9c0" strokeWidth="0.7" opacity="0.55">
           <animate attributeName="r" values="8;13;8" dur="4s" repeatCount="indefinite" />
           <animate attributeName="opacity" values="0.6;0.1;0.6" dur="4s" repeatCount="indefinite" />
         </circle>
@@ -89,7 +89,7 @@ function EyeMark() {
         </circle>
         <path d="M56 26.6a5.4 5.4 0 0 1 3.2-2.2" stroke="#e9f2ff" strokeWidth="1" fill="none" opacity="0.8" />
         {/* lock reticle on acquisition */}
-        <g stroke="#FFFFFF" strokeWidth="0.8" fill="none" opacity="0">
+        <g stroke="#ff4d4d" strokeWidth="0.8" fill="none" opacity="0">
           <animate attributeName="opacity" values="0;0;0.9;0;0;0.9;0;0" keyTimes="0;0.22;0.3;0.4;0.58;0.66;0.76;1" dur="9s" repeatCount="indefinite" />
           <rect x="52" y="22" width="16" height="16" />
           <line x1="60" y1="18" x2="60" y2="22" />
@@ -173,8 +173,8 @@ export function IntelPanel() {
     <div className="pointer-events-none absolute left-6 top-1/2 z-10 hidden w-[268px] -translate-y-1/2 lg:block">
       <div className="overflow-hidden rounded-sm border border-gold/25 bg-[#060d18]/70 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md">
         <div className="flex items-center justify-between border-b border-gold/15 px-3 py-2">
-          <span className="font-mono text-xs tracking-[0.22em] text-foreground">HERA AI · INSIGHTS</span>
-          <span className="flex items-center gap-1.5 font-mono text-[8px] tracking-[0.2em] text-foreground">
+          <span className="font-mono text-xs tracking-[0.22em] text-gold">HERA AI · INSIGHTS</span>
+          <span className="flex items-center gap-1.5 font-mono text-[8px] tracking-[0.2em] text-cyan">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan" />
             LIVE
           </span>
@@ -190,7 +190,7 @@ export function IntelPanel() {
               key={x.key}
               className={`rounded-sm border px-1.5 py-0.5 font-mono text-[7.5px] tracking-[0.14em] transition-colors ${
                 xi === i
-                  ? "border-gold/50 bg-gold/10 text-foreground"
+                  ? "border-gold/50 bg-gold/10 text-gold"
                   : "border-white/10 text-muted-foreground/60"
               }`}
             >

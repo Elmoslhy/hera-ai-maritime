@@ -22,7 +22,7 @@ export const Route = createFileRoute("/newsroom/")({
 });
 
 const focus = "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold";
-const badge = "rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] tracking-[0.15em] text-foreground";
+const badge = "rounded-full border border-gold/40 bg-gold/10 px-3 py-1 font-mono text-[11px] tracking-[0.15em] text-gold";
 const CHIPS: { label: string; type: NewsType | "All" }[] = [
   { label: "All", type: "All" },
   { label: "Press releases", type: "Press release" },
@@ -35,9 +35,9 @@ const LOGOS = [
   ["Dark (for light backgrounds)", "seker-logo-dark"],
 ] as const;
 const IMAGES = [
-  ["Team and payload integration", "/careers/seker-payload-earth.jpg"],
-  ["Payload", "/careers/seker-payload-ships.jpg"],
-  ["Platform", "/careers/seker-sar-port.jpg"],
+  ["Team and payload integration", "/careers/hero.webp"],
+  ["Payload", "/careers/payload.webp"],
+  ["Platform", "/careers/platform.webp"],
 ] as const;
 
 function Track() {
@@ -89,10 +89,10 @@ function NewsroomPage() {
   return (
     <div className="min-h-screen bg-navy">
       <Nav />
-      <section className="relative isolate overflow-hidden bg-navy px-6 pb-20 pt-40">
+      <section className="relative isolate overflow-hidden bg-gradient-to-b from-navy-deep to-navy px-6 pb-20 pt-40">
         <Track />
         <div className="mx-auto max-w-6xl">
-          <p className="text-eyebrow text-foreground">SEKER SPACE INTELLIGENCE</p>
+          <p className="text-eyebrow text-gold">SEKER SPACE INTELLIGENCE</p>
           <h1 className="mt-4 text-5xl font-light text-foreground sm:text-6xl">{newsroom.hero.heading}</h1>
           <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-foreground/85">{newsroom.hero.subheading}</p>
         </div>
@@ -111,7 +111,7 @@ function NewsroomPage() {
                 </div>
                 <h3 className="mt-5 text-2xl font-light text-foreground sm:text-3xl">{featured.title}</h3>
                 <p className="mt-4 leading-relaxed text-foreground/80">{featured.subtitle}</p>
-                <Link to="/newsroom/$slug" params={{ slug: featured.slug }} className={`mt-8 font-mono text-xs tracking-[0.2em] text-foreground hover:underline ${focus}`}>
+                <Link to="/newsroom/$slug" params={{ slug: featured.slug }} className={`mt-8 font-mono text-xs tracking-[0.2em] text-gold hover:underline ${focus}`}>
                   READ MORE →
                 </Link>
               </div>
@@ -128,7 +128,7 @@ function NewsroomPage() {
                   key={c.type}
                   onClick={() => setFilter(c.type)}
                   aria-pressed={filter === c.type}
-                  className={`rounded-full border px-4 py-2 font-mono text-xs tracking-[0.12em] transition ${focus} ${filter === c.type ? "border-gold bg-gold text-navy-deep" : "border-white/20 text-foreground/80 hover:border-gold hover:text-foreground"}`}
+                  className={`rounded-full border px-4 py-2 font-mono text-xs tracking-[0.12em] transition ${focus} ${filter === c.type ? "border-gold bg-gold text-navy-deep" : "border-white/20 text-foreground/80 hover:border-gold hover:text-gold"}`}
                 >
                   {c.label.toUpperCase()}
                 </button>
@@ -144,17 +144,17 @@ function NewsroomPage() {
           <h2 id="kit" className="text-3xl font-light text-foreground">Media kit</h2>
           <div className="mt-10 grid gap-10 md:grid-cols-2">
             <div>
-              <h3 className="text-xl font-normal text-foreground">About Seker</h3>
+              <h3 className="text-xl font-normal text-gold">About Seker</h3>
               <p className="mt-4 leading-relaxed text-foreground/85">{newsroom.boilerplate}</p>
               <div className="mt-5 flex items-center gap-4">
-                <button onClick={copy} className={`border border-gold/60 px-5 py-2.5 font-mono text-xs tracking-[0.2em] text-foreground hover:bg-gold hover:text-navy-deep ${focus}`}>
+                <button onClick={copy} className={`border border-gold/60 px-5 py-2.5 font-mono text-xs tracking-[0.2em] text-gold hover:bg-gold hover:text-navy-deep ${focus}`}>
                   COPY TEXT
                 </button>
-                <span role="status" className="font-mono text-xs text-foreground">{copied ? "Copied" : ""}</span>
+                <span role="status" className="font-mono text-xs text-cyan">{copied ? "Copied" : ""}</span>
               </div>
             </div>
             <div>
-              <h3 className="text-xl font-normal text-foreground">Fact sheet</h3>
+              <h3 className="text-xl font-normal text-gold">Fact sheet</h3>
               <dl className="mt-4 divide-y divide-white/10 border-y border-white/10">
                 {newsroom.factSheet.map((f) => (
                   <div key={f.label} className="grid grid-cols-[9rem_1fr] gap-4 py-3">
@@ -166,21 +166,21 @@ function NewsroomPage() {
             </div>
           </div>
           <div className="mt-12">
-            <h3 className="text-xl font-normal text-foreground">Logos and images</h3>
+            <h3 className="text-xl font-normal text-gold">Logos and images</h3>
             <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {LOGOS.map(([label, file]) => (
                 <li key={file} className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
                   <p className="text-sm text-foreground">Logo · {label}</p>
                   <p className="mt-2 flex gap-4 font-mono text-xs">
-                    <a href={`/press/${file}.svg`} download className={`text-foreground hover:underline ${focus}`}>SVG</a>
-                    <a href={`/press/${file}.png`} download className={`text-foreground hover:underline ${focus}`}>PNG</a>
+                    <a href={`/press/${file}.svg`} download className={`text-gold hover:underline ${focus}`}>SVG</a>
+                    <a href={`/press/${file}.png`} download className={`text-gold hover:underline ${focus}`}>PNG</a>
                   </p>
                 </li>
               ))}
               {IMAGES.map(([label, src]) => (
                 <li key={src} className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
                   <p className="text-sm text-foreground">Image · {label}</p>
-                  <a href={src} download className={`mt-2 inline-block font-mono text-xs text-foreground hover:underline ${focus}`}>WEBP</a>
+                  <a href={src} download className={`mt-2 inline-block font-mono text-xs text-gold hover:underline ${focus}`}>WEBP</a>
                 </li>
               ))}
             </ul>

@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 export const MAP_W = 1060;
 export const MAP_H = 560;
 
-const GOLD = "#c9a84c", CYAN = "#3FB68B", RED = "#ff4d4d", WHITE = "#eef2f7", GREY = "#8fa2b8";
+const GOLD = "#c9a84c", CYAN = "#4dd9c0", RED = "#ff4d4d", WHITE = "#eef2f7", GREY = "#8fa2b8";
 
 function At({ s, n, children }: { s: number; n: number; children: ReactNode }) {
   if (s < n) return null;
@@ -17,7 +17,7 @@ function Tag({ x, y, t, tone = GOLD, anchor = "start" }: { x: number; y: number;
     <g>
       <rect x={x0} y={y - 20} width={w} height={36} rx={4} fill="#060c15" fillOpacity={0.9} stroke={tone} strokeOpacity={0.6} />
       <circle cx={x0 + 16} cy={y - 2} r={5} fill={tone} />
-      <text x={x0 + 30} y={y + 5} fill={tone} fontSize={20} fontFamily="IBM Plex Mono, monospace">{t}</text>
+      <text x={x0 + 30} y={y + 5} fill={tone} fontSize={20} fontFamily="Space Mono, monospace">{t}</text>
     </g>
   );
 }
@@ -49,7 +49,7 @@ function Port({ x, y, label, c = WHITE }: { x: number; y: number; label?: string
   return (
     <g>
       <rect x={x - 8} y={y - 8} width={16} height={16} fill="none" stroke={c} strokeWidth={2} />
-      {label && <text x={x} y={y + 34} fill={c} fontSize={20} textAnchor="middle" fontFamily="IBM Plex Mono, monospace">{label}</text>}
+      {label && <text x={x} y={y + 34} fill={c} fontSize={20} textAnchor="middle" fontFamily="Space Mono, monospace">{label}</text>}
     </g>
   );
 }
@@ -78,9 +78,9 @@ function Defense({ s }: { s: number }) {
       <Base left={false} />
       <At s={s} n={0}>
         <path d="M0 330 C250 300 500 360 940 300" stroke={GOLD} strokeWidth={2} fill="none" />
-        <text x={40} y={312} fill={GOLD} fontSize={20} fontFamily="IBM Plex Mono, monospace">CABLE</text>
+        <text x={40} y={312} fill={GOLD} fontSize={20} fontFamily="Space Mono, monospace">CABLE</text>
         <path d="M0 470 C300 440 600 470 940 420" stroke={GREY} strokeWidth={3} fill="none" />
-        <text x={40} y={452} fill={GREY} fontSize={20} fontFamily="IBM Plex Mono, monospace">PIPELINE</text>
+        <text x={40} y={452} fill={GREY} fontSize={20} fontFamily="Space Mono, monospace">PIPELINE</text>
         <path d="M120 80 L360 260" stroke={CYAN} strokeWidth={2.5} fill="none" />
         <path d={s >= 2 ? "M360 260 L420 318" : "M360 260 L420 318 L470 338 L520 318 L570 340 L620 322"} stroke={CYAN} strokeWidth={2.5} fill="none" />
         <Ship x={620} y={322} r={100} />
@@ -100,7 +100,7 @@ function Defense({ s }: { s: number }) {
       </At>
       <At s={s} n={3}>
         <path d="M380 342 C500 350 600 340 760 318" stroke={RED} strokeWidth={4} strokeDasharray="12 8" fill="none" />
-        <text x={560} y={372} fill={RED} fontSize={20} fontFamily="IBM Plex Mono, monospace">9 KM</text>
+        <text x={560} y={372} fill={RED} fontSize={20} fontFamily="Space Mono, monospace">9 KM</text>
         <Tag x={560} y={150} t="OWNER CHANGED TWO MONTHS AGO" tone={RED} />
       </At>
       <At s={s} n={4}>
@@ -109,7 +109,7 @@ function Defense({ s }: { s: number }) {
       </At>
       <At s={s} n={5}>
         <path d="M820 0 C780 200 860 380 800 560" stroke={WHITE} strokeOpacity={0.6} strokeDasharray="10 8" strokeWidth={2} fill="none" />
-        <text x={830} y={540} fill={WHITE} fontSize={20} fontFamily="IBM Plex Mono, monospace" opacity={0.7}>TERRITORIAL</text>
+        <text x={830} y={540} fill={WHITE} fontSize={20} fontFamily="Space Mono, monospace" opacity={0.7}>TERRITORIAL</text>
         <Tag x={40} y={40} t="RECORD SENT TO THE OPERATIONS CENTRE" tone={CYAN} />
       </At>
     </>
@@ -129,7 +129,7 @@ function Insurance({ s }: { s: number }) {
         {DAYS.map(([x, y], k) => (
           <g key={k}>
             <circle cx={x} cy={y} r={5} fill={CYAN} />
-            <text x={x} y={y + 34} fill={WHITE} fontSize={20} textAnchor="middle" fontFamily="IBM Plex Mono, monospace">{k + 1}</text>
+            <text x={x} y={y + 34} fill={WHITE} fontSize={20} textAnchor="middle" fontFamily="Space Mono, monospace">{k + 1}</text>
           </g>
         ))}
         <g transform="translate(600 210)" stroke={GOLD} strokeWidth={2.5} fill="none">
@@ -145,11 +145,11 @@ function Insurance({ s }: { s: number }) {
       </At>
       <At s={s} n={2}>
         <Tag x={640} y={340} t="SEA STATE 3.1 M MAX" tone={CYAN} />
-        <text x={340} y={330} fill={CYAN} fontSize={20} fontFamily="IBM Plex Mono, monospace" transform="rotate(-20 340 330)">13 KN</text>
+        <text x={340} y={330} fill={CYAN} fontSize={20} fontFamily="Space Mono, monospace" transform="rotate(-20 340 330)">13 KN</text>
       </At>
       <At s={s} n={3}>
         <circle cx={420} cy={330} r={11} fill="none" stroke={GOLD} strokeWidth={3} />
-        <text x={414} y={337} fill={GOLD} fontSize={20} fontFamily="IBM Plex Mono, monospace">⚓</text>
+        <text x={414} y={337} fill={GOLD} fontSize={20} fontFamily="Space Mono, monospace">⚓</text>
         <Tag x={460} y={470} t="UNREPORTED 19 H STOP, DRAUGHT DOWN 0.6 M" tone={GOLD} />
       </At>
       <At s={s} n={4}>
@@ -171,7 +171,7 @@ function Commodity({ s }: { s: number }) {
         <g transform="translate(960 300)" fill="none" stroke={WHITE} strokeWidth={2}>
           <rect x={-14} y={-24} width={10} height={40} /><rect x={2} y={-34} width={10} height={50} /><path d="M-24 16H24" />
         </g>
-        <text x={960} y={350} fill={WHITE} fontSize={20} textAnchor="middle" fontFamily="IBM Plex Mono, monospace">REFINERY</text>
+        <text x={960} y={350} fill={WHITE} fontSize={20} textAnchor="middle" fontFamily="Space Mono, monospace">REFINERY</text>
         <path d="M640 330 L900 300" stroke={CYAN} strokeWidth={2.5} fill="none" />
         <Ship x={900} y={300} r={80} />
         <Tag x={580} y={420} t="DECLARED: LOADED AT SEA" />

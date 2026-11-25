@@ -33,7 +33,7 @@ export function DroneFilmFrame() {
             >
               <img src={POSTER} alt="" className="h-full w-full object-cover" />
               <span aria-hidden className="absolute inset-0 flex items-center justify-center">
-                <span className="flex h-14 w-14 items-center justify-center rounded-full border border-gold/60 bg-card text-foreground transition-colors group-hover:bg-gold/10">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full border border-gold/60 bg-navy/70 text-gold transition-colors group-hover:bg-gold/10">
                   <Play className="h-5 w-5" />
                 </span>
               </span>
@@ -67,7 +67,7 @@ export function SecondLookSection() {
       <div className="relative z-10 mx-auto w-full max-w-5xl">
         <Reveal className="text-center">
           <p className="text-eyebrow text-gold">A second look on demand</p>
-          <h2 className="text-balance mt-6 text-4xl font-semibold leading-[1.1] tracking-tight text-gold sm:text-6xl lg:text-7xl">
+          <h2 className="text-balance mt-6 text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-5xl">
             When HERA AI is not sure, it sends a closer look.
           </h2>
         </Reveal>
