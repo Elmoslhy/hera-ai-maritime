@@ -103,7 +103,7 @@ function ConstellationPage() {
       <ScrollProgress />
       <Nav />
       <main>
-        <section className="relative overflow-hidden px-6 pb-20 pt-32 sm:pt-40">
+        <section id="whats-next" className="relative overflow-hidden px-6 pb-20 pt-32 sm:pt-40">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 opacity-[0.07]"

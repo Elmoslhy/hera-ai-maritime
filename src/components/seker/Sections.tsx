@@ -250,11 +250,11 @@ export function IndustriesSection() {
 const WHY: [string, string][] = [
   ["INDEPENDENT OBSERVATION", "Built on independent sources, not only on what ships choose to report."],
   ["GROUND TRUTH FROM PORTS", "Port sources worldwide confirm what ships actually did alongside."],
-  ["A SECOND LOOK ON DEMAND", "When an answer is in doubt, HERA AI will send a satellite or a partner drone from the nearest port to look."],
+  ["EVERY INDUSTRY, ONE RECORD", "The same fused record answers the trader, the insurer, the bank, the port and the navy, each in the format they already work with."],
   ["SOVEREIGN BY DESIGN", "An EU-developed maritime intelligence platform with EU-owned intellectual property, EU-based operations, and sensitive data stored, analysed and accessed exclusively within the EU."],
 ];
 
-const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "FUSED IN HERA AI"];
+const CHIPS = ["SHIP REGISTRY", "AIS-T", "AIS-S", "SAR", "OPTICAL", "PORT SOURCES", "SANCTIONS LISTS", "FUSED IN HERA AI"];
 
 export function ConstellationSection() {
   return (
@@ -266,10 +266,10 @@ export function ConstellationSection() {
         </Reveal>
         <Reveal delay={0.12}>
           <h2 className="mt-6 text-balance text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-6xl">
-            Better data, by design.
+            Every source fused. One confidence score.
           </h2>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            Independent sources today, our own sensors next.
+            HERA AI fuses ship registry and ownership data, terrestrial and satellite AIS, radar and optical satellite imagery, port sources and official sanctions lists into one record per vessel. Every source is tested against the others, so each answer carries a confidence score and the evidence behind it. That is the intelligence every maritime industry is looking for, delivered end to end.
           </p>
         </Reveal>
         <div className="mt-10 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
@@ -287,13 +287,15 @@ export function ConstellationSection() {
             {CHIPS.map((c) => (
               <span
                 key={c}
-                className="rounded-full border border-cyan/25 bg-cyan/5 px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] text-cyan"
+                className={`rounded-full border px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] ${
+                  c === "FUSED IN HERA AI" ? "border-gold/40 bg-gold/10 text-gold" : "border-cyan/25 bg-cyan/5 text-cyan"
+                }`}
               >
                 {c}
               </span>
             ))}
           </div>
-          <Link to="/constellation" className="mt-8 inline-block font-mono text-[11px] tracking-[0.2em] text-cyan hover:text-gold">Our sensors →</Link>
+          <Link to="/constellation" hash="whats-next" className="mt-8 inline-block font-mono text-[11px] tracking-[0.2em] text-cyan hover:text-gold">What's next: SEKER-1 · SEKER-2 →</Link>
         </Reveal>
       </div>
     </section>
