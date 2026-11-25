@@ -10,6 +10,25 @@ import { Reveal, SectionBackground } from "./primitives";
 import { IndustryExplorer } from "./IndustryExplorer";
 import { sekerSourceImage } from "@/content/hera-images";
 
+// A lowercase "i" drawn with a gold point. The real glyph stays in place so the
+// word keeps its exact spacing, but its ink is hidden and the stem and point are
+// redrawn from the measured geometry of the headline font.
+function GoldPointI() {
+  return (
+    <span className="relative inline-block leading-[1.21] text-transparent">
+      i
+      <span
+        aria-hidden
+        className="absolute bottom-[0.245em] left-[0.0635em] h-[0.55em] w-[0.13em] bg-foreground"
+      />
+      <span
+        aria-hidden
+        className="absolute left-[0.056em] top-[0.2em] h-[0.145em] w-[0.145em] rounded-full bg-gold"
+      />
+    </span>
+  );
+}
+
 export function HeroSection() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20 pb-24">
@@ -22,10 +41,13 @@ export function HeroSection() {
           <SekerLogo className="mx-auto w-[min(72vw,460px)] text-foreground" />
         </Reveal>
         <Reveal delay={0.15}>
-          <h1 className="text-balance mt-8 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl">
+          <h1
+            aria-label="Trusted Maritime Intelligence."
+            className="text-balance mt-8 text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl"
+          >
             Trusted
             <br />
-            <span className="font-bold">Maritime Intelligence.</span>
+            <span className="font-bold">Mar<GoldPointI />t<GoldPointI />me Intell<GoldPointI />gence.</span>
           </h1>
         </Reveal>
         <Reveal delay={0.3}>

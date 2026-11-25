@@ -40,8 +40,9 @@ export function SekerLogo({
             keySplines="0.42 0 0.58 1;0.42 0 0.58 1"
           />
         )}
-        <circle cx={px} cy={py} r="7" fill={tone} opacity="0.22" style={{ filter: "blur(3px)" }} />
-        <circle cx={px} cy={py} r="3" fill={tone} />
+        {/* the satellite is the brand's gold mark; the arc keeps the logo tone */}
+        <circle cx={px} cy={py} r="7" fill="var(--color-gold)" opacity="0.22" style={{ filter: "blur(3px)" }} />
+        <circle cx={px} cy={py} r="3" fill="var(--color-gold)" />
       </g>
       <text
         x="120"
