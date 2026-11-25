@@ -10,7 +10,6 @@ import {
   LiveTodaySection,
   GetItSection,
   HeroSection,
-  HideLinesSection,
   IndustriesSection,
   ProblemSection,
   ProofSection,
@@ -42,7 +41,6 @@ function Index() {
       <Nav />
       <main>
         <HeroSection />
-        <HideLinesSection />
         <LiveTodaySection />
         <IndustriesSection />
         <ConstellationSection />

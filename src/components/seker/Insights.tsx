@@ -297,7 +297,7 @@ const TONE = {
   },
 } as const;
 
-const HEX = { gold: "#C9A84C", cyan: "#3FB68B", alert: "#FFFFFF" } as const;
+const HEX = { gold: "#C9A84C", cyan: "#3FB68B", alert: "#ff4d4d" } as const;
 
 function path(points: number[], w: number, h: number, pad = 6) {
   const max = Math.max(...points) * 1.12;

@@ -52,7 +52,7 @@ const PASTTRACK: LL[] = [[56.92, 24.58], [56.83, 24.72], [56.72, 24.86], [56.62,
 const ANCHORAGE: LL[] = [[56.42, 25.09], [56.52, 25.09], [56.54, 25.24], [56.42, 25.25], [56.42, 25.09]];
 
 type VType = "tanker" | "cargo" | "service" | "passenger" | "fishing";
-const VCOL: Record<VType, string> = { tanker: "#D7B24A", cargo: "#C9D5E6", service: "#93A7C3", passenger: "#FFFFFF", fishing: "#7D8EA8" };
+const VCOL: Record<VType, string> = { tanker: "#e2574c", cargo: "#6cc070", service: "#e0a33c", passenger: "#5aa9e6", fishing: "#d7d7d7" };
 type V = { id: string; type: VType; p: LL; hdg: number; kn: number };
 const seedV: V[] = [
   ["tanker", 56.44, 25.09, 40, 0], ["tanker", 56.47, 25.15, 210, 0], ["tanker", 56.49, 25.19, 15, 0], ["cargo", 56.43, 25.17, 330, 0],
@@ -129,7 +129,7 @@ function useUtc() {
 }
 
 type Tone = "cyan" | "alert" | "gold" | "muted";
-const TONE: Record<Tone, string> = { cyan: "#3FB68B", alert: "#FFFFFF", gold: "#c9a84c", muted: "#c8d3df" };
+const TONE: Record<Tone, string> = { cyan: "#3FB68B", alert: "#ff4d4d", gold: "#c9a84c", muted: "#c8d3df" };
 /* Label pinned to a feature with a fixed pixel offset and a thin leader line. */
 function tag(text: string, tone: Tone, dx: number, dy: number, opacity: number) {
   const c = TONE[tone];
@@ -222,15 +222,15 @@ export function TaskingScreen() {
         const any = (...k: string[]) => ["in", ["get", "k"], ["literal", k]] as unknown as import("maplibre-gl").FilterSpecification;
         m.addLayer({ id: "sw", type: "fill", source: "ov", filter: any("sw-rf", "sw-sar", "sw-eo"), paint: { "fill-color": ["match", ["get", "k"], "sw-rf", "#3FB68B", "#c9a84c"], "fill-opacity": 0.07 } });
         m.addLayer({ id: "sw-o", type: "line", source: "ov", filter: any("sw-rf", "sw-sar", "sw-eo"), paint: { "line-color": ["match", ["get", "k"], "sw-rf", "#3FB68B", "#c9a84c"], "line-width": 1, "line-opacity": 0.7 } });
-        m.addLayer({ id: "rej", type: "line", source: "ov", filter: any("sw-rej", "trk-rej"), paint: { "line-color": "#FFFFFF", "line-width": 1, "line-dasharray": [3, 3], "line-opacity": 0.8 } });
+        m.addLayer({ id: "rej", type: "line", source: "ov", filter: any("sw-rej", "trk-rej"), paint: { "line-color": "#ff4d4d", "line-width": 1, "line-dasharray": [3, 3], "line-opacity": 0.8 } });
         m.addLayer({ id: "fp", type: "fill", source: "ov", filter: is("fp"), paint: { "fill-color": "#c9a84c", "fill-opacity": 0.22 } });
         m.addLayer({ id: "trk", type: "line", source: "ov", filter: is("trk"), paint: { "line-color": "#eef2f7", "line-width": 1, "line-opacity": 0.55, "line-dasharray": [6, 2] } });
         m.addLayer({ id: "anch", type: "line", source: "ov", filter: is("anch"), paint: { "line-color": "#eef2f7", "line-width": 1, "line-dasharray": [2, 2], "line-opacity": 0.6 } });
-        m.addLayer({ id: "reach", type: "fill", source: "ov", filter: is("reach"), paint: { "fill-color": "#FFFFFF", "fill-opacity": 0.06 } });
-        m.addLayer({ id: "reach-o", type: "line", source: "ov", filter: is("reach"), paint: { "line-color": "#FFFFFF", "line-width": 1.2, "line-dasharray": [4, 2] } });
+        m.addLayer({ id: "reach", type: "fill", source: "ov", filter: is("reach"), paint: { "fill-color": "#ff4d4d", "fill-opacity": 0.06 } });
+        m.addLayer({ id: "reach-o", type: "line", source: "ov", filter: is("reach"), paint: { "line-color": "#ff4d4d", "line-width": 1.2, "line-dasharray": [4, 2] } });
         m.addLayer({ id: "rfell", type: "line", source: "ov", filter: is("rfell"), paint: { "line-color": "#3FB68B", "line-width": 1.5 } });
         m.addLayer({ id: "orbit", type: "line", source: "ov", filter: is("orbit"), paint: { "line-color": "#e0a33c", "line-width": 1.2, "line-dasharray": [1, 2] } });
-        m.addLayer({ id: "past", type: "line", source: "ov", filter: is("past"), paint: { "line-color": "#FFFFFF", "line-width": 1.5, "line-opacity": 0.9 } });
+        m.addLayer({ id: "past", type: "line", source: "ov", filter: is("past"), paint: { "line-color": "#e2574c", "line-width": 1.5, "line-opacity": 0.9 } });
         m.addLayer({ id: "ships", type: "symbol", source: "ships", layout: { "icon-image": "ais", "icon-size": ["case", ["==", ["get", "kn"], 0], 0.42, 0.52], "icon-rotate": ["get", "hdg"], "icon-rotation-alignment": "map", "icon-allow-overlap": true }, paint: { "icon-color": ["get", "c"], "icon-halo-color": "#060c15", "icon-halo-width": 1 } });
         const pushShips = () => (m.getSource("ships") as GeoJSONSource | undefined)?.setData(fc(fleet.current.map((v) => pt(v.p, { hdg: v.hdg, kn: v.kn, c: VCOL[v.type] }))));
         pushShips();
@@ -283,7 +283,7 @@ export function TaskingScreen() {
         const [dx, dy] = narrow ? ph : d;
         add(tag(text, tone, dx, dy, op), at);
       }
-      add(dot("#FFFFFF", true), LP);
+      add(dot("#e2574c", true), LP);
       if (step >= 3) { add(dot("#c9a84c"), T); add(tag("VESSEL A", "cyan", narrow ? 44 : -90, narrow ? 50 : -70, 1), T); }
       if (step >= 4) { const e = document.createElement("div"); e.style.cssText = "width:9px;height:9px;background:#e0a33c;transform:rotate(45deg)"; drone.current = add(e, [T[0] + 3.2 / kmLon(T[1]), T[1]]); }
       if (step >= 5) add(tag("PROFILE UPDATED", "cyan", narrow ? 44 : -90, narrow ? 90 : 70, 1), T);

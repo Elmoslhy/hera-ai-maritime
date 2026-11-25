@@ -103,7 +103,7 @@ export function EyeCanvas({ className }: { className?: string }) {
     loadSprite(satelliteImg, (img) => { sprites.sat = img; });
     loadSprite(vesselImg, (img) => {
       sprites.ship = img;
-      sprites.shipRed = tint(img, "#FFFFFF", 0.55);
+      sprites.shipRed = tint(img, "#ff4d4d", 0.55);
     });
 
     const starSeed = Array.from({ length: 260 }, () => ({
@@ -191,7 +191,7 @@ export function EyeCanvas({ className }: { className?: string }) {
       ctx.translate(x, y);
       ctx.scale(s, s);
 
-      const sprite = color === "#FFFFFF" ? sprites.shipRed ?? sprites.ship : sprites.ship;
+      const sprite = color === "#ff4d4d" ? sprites.shipRed ?? sprites.ship : sprites.ship;
       if (sprite) {
         const iw = (sprite as HTMLImageElement).naturalWidth ?? sprite.width;
         const ih = (sprite as HTMLImageElement).naturalHeight ?? sprite.height;
@@ -231,7 +231,7 @@ export function EyeCanvas({ className }: { className?: string }) {
       ctx.globalAlpha = a;
 
       // bridge / superstructure near the stern
-      ctx.fillStyle = color === "#FFFFFF" ? "#ff7a7a" : "rgba(232,190,82,0.85)";
+      ctx.fillStyle = color === "#ff4d4d" ? "#ff7a7a" : "rgba(232,190,82,0.85)";
       ctx.fillRect(-10, -1.4, 2.6, 2.8);
       ctx.fillRect(-9, -2.2, 0.8, 4.4);
 
@@ -312,13 +312,13 @@ export function EyeCanvas({ className }: { className?: string }) {
       }
 
       // the dark vessel — no AIS, only a faint wake until HERA pins it
-      const darkColor = lock > 0.4 ? "#FFFFFF" : "#33455c";
+      const darkColor = lock > 0.4 ? "#ff4d4d" : "#33455c";
       ctx.globalAlpha = seaA * (0.18 + 0.82 * lock);
       // wake trail behind the stern
       ctx.save();
       ctx.globalAlpha = seaA * (0.08 + 0.12 * lock);
       const wakeGrad = ctx.createLinearGradient(tgt.x - 18, tgt.y, tgt.x - 60, tgt.y);
-      wakeGrad.addColorStop(0, lock > 0.4 ? "rgba(255,255,255,0.25)" : "rgba(143,163,189,0.25)");
+      wakeGrad.addColorStop(0, lock > 0.4 ? "rgba(255,77,77,0.25)" : "rgba(143,163,189,0.25)");
       wakeGrad.addColorStop(1, "rgba(143,163,189,0)");
       ctx.fillStyle = wakeGrad;
       ctx.beginPath();
@@ -335,7 +335,7 @@ export function EyeCanvas({ className }: { className?: string }) {
       if (hunt > 0.15) {
         // reticle closes in
         const rr = 64 - 30 * lock;
-        ctx.strokeStyle = lock > 0.5 ? "#FFFFFF" : ACCENT_LIT;
+        ctx.strokeStyle = lock > 0.5 ? "#ff4d4d" : ACCENT_LIT;
         ctx.lineWidth = 1.2;
         ctx.globalAlpha = seaA * (0.35 + 0.65 * lock);
         ctx.setLineDash([5, 5]);
@@ -362,13 +362,13 @@ export function EyeCanvas({ className }: { className?: string }) {
         ctx.textAlign = "left";
         const lx = tgt.x + 48;
         const ly = tgt.y - 52;
-        ctx.strokeStyle = "rgba(255,255,255,0.7)";
+        ctx.strokeStyle = "rgba(255,77,77,0.7)";
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(tgt.x + 26, tgt.y - 26);
         ctx.lineTo(lx - 8, ly + 6);
         ctx.stroke();
-        ctx.fillStyle = "#FFFFFF";
+        ctx.fillStyle = "#ff4d4d";
         ctx.fillText("AIS OFF · RUNNING DARK", lx, ly);
         ctx.fillStyle = ACCENT_LIT;
         ctx.fillText("FOUND BY RF + THERMAL", lx, ly + 18);

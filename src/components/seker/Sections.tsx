@@ -1,5 +1,4 @@
-import { useRef, useState } from "react";
-import { motion, useMotionValue, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { z } from "zod";
 import satelliteNetwork from "@/assets/seker-europe-night.jpg";
@@ -12,18 +11,18 @@ import { Reveal, SectionBackground } from "./primitives";
 
 export function HeroSection() {
   return (
-    <section data-keep-center className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20 pb-24">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20 pb-24">
       
       <div className="absolute inset-0 bg-navy-deep" />
       <HeroScene />
       <HeroShipCard />
       <div className="relative z-10 flex flex-col items-center px-6 text-center">
         <Reveal>
-          <div data-hero-avoid><SekerLogo className="mx-auto w-[min(72vw,460px)] text-foreground" /></div>
+          <SekerLogo className="mx-auto w-[min(72vw,460px)] text-foreground" />
         </Reveal>
         <Reveal delay={0.15}>
           <p className="text-eyebrow mt-8 text-gold">Independent maritime intelligence</p>
-          <h1 data-hero-avoid className="text-balance mx-auto mt-4 max-w-4xl text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
+          <h1 className="text-balance mx-auto mt-4 max-w-4xl text-3xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
             Know what a ship really is, and what it is really doing.
           </h1>
         </Reveal>
@@ -31,7 +30,7 @@ export function HeroSection() {
           <div className="relative mx-auto mt-7 max-w-2xl lg:max-w-[560px]">
             {/* soft navy scrim so the copy stays readable over the bright side of the Earth */}
             <div className="pointer-events-none absolute -inset-x-12 -inset-y-9 bg-[radial-gradient(ellipse_at_center,rgba(6,12,21,0.9)_0%,rgba(6,12,21,0.6)_45%,transparent_76%)] blur-2xl" />
-            <p data-hero-avoid className="hero-lead relative text-pretty text-[15px] font-normal leading-[1.75] text-foreground/90 sm:text-lg">
+            <p className="hero-lead relative text-pretty text-[15px] font-normal leading-[1.75] text-foreground/90 sm:text-lg">
               HERA AI checks each vessel's identity, position and activity against
               independent sources, screens it against official sanctions lists, and
               gives you one verified record with a confidence score. Delivered through
@@ -41,7 +40,6 @@ export function HeroSection() {
         </Reveal>
 
         <Reveal delay={0.45}>
-          <div data-hero-avoid className="flex flex-col items-center">
           <Link
             to="/"
             hash="contact"
@@ -52,7 +50,6 @@ export function HeroSection() {
           <a href="#hera-ai" className="mt-5 block font-mono text-sm tracking-[0.14em] text-foreground underline-offset-4 hover:underline">
             See how it works →
           </a>
-          </div>
         </Reveal>
       </div>
       <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2">
@@ -72,42 +69,6 @@ export function HeroSection() {
           <path d="M5 40l6 5 6-5" stroke="currentColor" strokeWidth="1" fill="none" />
           <path d="M5 46l6 5 6-5" stroke="currentColor" strokeWidth="1" fill="none" opacity="0.5" />
         </svg>
-      </div>
-    </section>
-  );
-}
-
-const HIDE_LINES = [
-  "A ship can switch off its signal.",
-  "It can change its name.",
-  "It can change its flag.",
-  "It cannot hide from every sensor at once.",
-];
-
-function HideLine({ text, i, progress, last }: { text: string; i: number; progress: MotionValue<number>; last: boolean }) {
-  const a = i / HIDE_LINES.length;
-  const opacity = useTransform(progress, [a, a + 0.18], [0.18, 1]);
-  return (
-    <motion.p
-      style={{ opacity }}
-      className={`font-display text-3xl font-bold leading-[1.1] tracking-[-0.03em] sm:text-5xl ${last ? "text-gold" : "text-foreground"}`}
-    >
-      {text}
-    </motion.p>
-  );
-}
-
-export function HideLinesSection() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 80%", "end 45%"] });
-  const still = useMotionValue(1);
-  return (
-    <section className="relative bg-navy-deep px-6 py-[120px]">
-      <div ref={ref} className="mx-auto flex max-w-[1240px] flex-col gap-6">
-        {HIDE_LINES.map((t, i) => (
-          <HideLine key={t} text={t} i={i} progress={reduce ? still : scrollYProgress} last={i === HIDE_LINES.length - 1} />
-        ))}
       </div>
     </section>
   );
@@ -311,7 +272,7 @@ const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "FUSED IN HERA AI"];
 
 export function ConstellationSection() {
   return (
-    <section data-keep-center className="relative overflow-hidden px-6 py-28">
+    <section className="relative overflow-hidden px-6 py-28">
       <SectionBackground src={satelliteNetwork} alt="Satellite constellation" overlay="bg-card" />
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
         <Reveal>
@@ -322,7 +283,7 @@ export function ConstellationSection() {
             Our own sensors are next
           </h2>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            HERA AI works today with independent sources. From 2030, our own sensors add a further, sovereign layer.
+            HERA AI works today with independent sources. From 2028, our own sensors add a further, sovereign layer.
           </p>
         </Reveal>
         <div className="mt-10 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
@@ -492,7 +453,7 @@ export function WhyNowSection() {
 }
 
 const PROOF: [string, string][] = [
-  ["2030", "In-orbit demonstration of our own payload"],
+  ["Q4 2028", "In-orbit demonstration of our own payload"],
   ["Independent", "Not owned by any data reseller or platform"],
 ];
 
