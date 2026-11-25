@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { z } from "zod";
-import satelliteNetwork from "@/assets/satellite-network.jpg";
+import heroSar from "@/assets/company/company-hero-sar-port.png.asset.json";
 import ocean from "@/assets/ocean.jpg";
 import vessels from "@/assets/vessels.jpg";
 import { SekerLogo } from "./Logo";
@@ -229,7 +229,12 @@ const CHIPS = ["SHIP REGISTRY", "AIS-T", "AIS-S", "SAR", "OPTICAL", "PORT SOURCE
 export function ConstellationSection() {
   return (
     <section className="relative overflow-hidden px-6 py-28">
-      <SectionBackground src={satelliteNetwork} alt="Satellite constellation" overlay="bg-navy/70" />
+      <SectionBackground
+        src={heroSar.url}
+        alt="Radar view of a busy port with many bright vessel returns tracked by SEKER"
+        overlay="bg-navy/84"
+        imgClassName="object-[86%_74%] md:object-[62%_50%]"
+      />
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
         <Reveal>
           <p className="text-eyebrow text-gold">Why SEKER</p>
