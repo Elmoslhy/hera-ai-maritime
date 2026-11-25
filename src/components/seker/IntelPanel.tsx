@@ -89,7 +89,7 @@ function EyeMark() {
         </circle>
         <path d="M56 26.6a5.4 5.4 0 0 1 3.2-2.2" stroke="#e9f2ff" strokeWidth="1" fill="none" opacity="0.8" />
         {/* lock reticle on acquisition */}
-        <g stroke="#ff4d4d" strokeWidth="0.8" fill="none" opacity="0">
+        <g stroke="#FFFFFF" strokeWidth="0.8" fill="none" opacity="0">
           <animate attributeName="opacity" values="0;0;0.9;0;0;0.9;0;0" keyTimes="0;0.22;0.3;0.4;0.58;0.66;0.76;1" dur="9s" repeatCount="indefinite" />
           <rect x="52" y="22" width="16" height="16" />
           <line x1="60" y1="18" x2="60" y2="22" />

@@ -11,7 +11,7 @@ import { Reveal, SectionBackground } from "./primitives";
 
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20 pb-24">
+    <section data-keep-center className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20 pb-24">
       
       <div className="absolute inset-0 bg-navy-deep" />
       <HeroScene />
@@ -272,7 +272,7 @@ const CHIPS = ["AIS-T", "AIS-S", "SAR", "RF", "OPT", "TIR", "FUSED IN HERA AI"];
 
 export function ConstellationSection() {
   return (
-    <section className="relative overflow-hidden px-6 py-28">
+    <section data-keep-center className="relative overflow-hidden px-6 py-28">
       <SectionBackground src={satelliteNetwork} alt="Satellite constellation" overlay="bg-card" />
       <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
         <Reveal>
@@ -283,7 +283,7 @@ export function ConstellationSection() {
             Our own sensors are next
           </h2>
           <p className="text-pretty mx-auto mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-            HERA AI works today with independent sources. From 2028, our own sensors add a further, sovereign layer.
+            HERA AI works today with independent sources. From 2030, our own sensors add a further, sovereign layer.
           </p>
         </Reveal>
         <div className="mt-10 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-4">
@@ -453,7 +453,7 @@ export function WhyNowSection() {
 }
 
 const PROOF: [string, string][] = [
-  ["Q4 2028", "In-orbit demonstration of our own payload"],
+  ["2030", "In-orbit demonstration of our own payload"],
   ["Independent", "Not owned by any data reseller or platform"],
 ];
 
