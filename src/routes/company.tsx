@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { Reveal, SectionBackground } from "@/components/seker/primitives";
-import network from "@/assets/satellite-network.jpg";
+import heroShip from "@/assets/company/company-hero-ship-track.png.asset.json";
 import moustafa from "@/assets/team/moustafa-elmoslhy.jpg";
 import akash from "@/assets/team/akash-sharma.jpg";
 
@@ -60,7 +60,12 @@ function CompanyPage() {
       <Nav />
       <main>
         <section className="relative flex min-h-[80vh] items-center overflow-hidden px-6 pt-28 pb-20">
-          <SectionBackground src={network} alt="Satellite network over Earth" overlay="bg-navy/70" />
+          <SectionBackground
+            src={heroShip.url}
+            alt="Aerial view of a cargo ship crossing open water, tracked by SEKER"
+            overlay="bg-navy/72 md:bg-navy/62"
+            imgClassName="object-[18%_8%] md:object-[78%_62%]"
+          />
           <div className="relative z-10 mx-auto w-full max-w-4xl text-center">
             <Reveal><p className="text-eyebrow text-gold">Company</p></Reveal>
             <Reveal delay={0.1}>
