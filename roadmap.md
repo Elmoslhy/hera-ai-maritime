@@ -1,5 +1,7 @@
 # Roadmap
 
+- [ ] Replace the constellation accuracy section with the supplied four-sensor content, move it directly below the hero and retain the whats-next anchor
+
 - [ ] Replace only the homepage Solutions cards with the eight-tab industry explorer using existing industry content and visuals; verify keyboard navigation and phone layout
 
 - [x] Diagnose why seker-space.com stopped updating from Lovable (GitHub sync and its deploy pipeline)
