@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Footer, Nav, ScrollProgress } from "@/components/seker/Chrome";
 import { DroneFilmFrame } from "@/components/seker/DroneFilm";
-import { Reveal } from "@/components/seker/primitives";
+import { Reveal, SectionBackground } from "@/components/seker/primitives";
 import satellite from "@/assets/satellite-real.png";
 
 const EARTH = { url: "/media/earth-globe.jpg" };
@@ -76,20 +76,6 @@ function SensorSchematic() {
   const corner = "absolute h-6 w-6 border-gold";
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[520px]">
-      <div
-        aria-hidden
-        className="absolute inset-[-8%] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 48%, rgba(92,174,227,0.30), rgba(92,174,227,0.10) 48%, transparent 72%)",
-        }}
-      />
-      <img
-        src={EARTH.url}
-        alt="Earth seen from orbit, the ocean and coastlines SEKER-1 and SEKER-2 will watch"
-        loading="lazy"
-        className="absolute inset-0 h-full w-full rounded-full object-cover"
-      />
       <div className={`${corner} left-[14%] top-[14%] border-l border-t`} />
       <div className={`${corner} right-[14%] top-[14%] border-r border-t`} />
       <div className={`${corner} bottom-[14%] left-[14%] border-b border-l`} />
@@ -119,17 +105,26 @@ function ConstellationPage() {
       <ScrollProgress />
       <Nav />
       <main>
-        <section className="relative overflow-hidden px-6 pb-20 pt-32 sm:pt-40">
+        <section className="relative overflow-hidden px-6 pb-24 pt-32 sm:pt-40">
+          <SectionBackground
+            src={EARTH.url}
+            alt="Earth seen from orbit, the ocean and coastlines SEKER-1 and SEKER-2 will watch"
+            overlay="bg-navy/72 md:bg-navy/68"
+            imgClassName="object-[50%_30%] md:object-[50%_6%]"
+          />
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-[0.07]"
-            style={{
-              backgroundImage:
-                "linear-gradient(var(--color-cyan) 1px, transparent 1px), linear-gradient(90deg, var(--color-cyan) 1px, transparent 1px)",
-              backgroundSize: "64px 64px",
-            }}
+            className="pointer-events-none absolute inset-x-0 top-0 h-[62%] bg-gradient-to-b from-navy/92 via-navy/45 to-transparent md:hidden"
           />
-          <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-navy via-navy/72 to-transparent md:block"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-navy"
+          />
+          <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2">
             <Reveal>
               <p className="text-eyebrow text-gold">SEKER-1 · SEKER-2</p>
               <h1 className="text-balance mt-7 text-4xl font-light leading-[1.05] tracking-tight text-foreground sm:text-6xl">
@@ -157,7 +152,7 @@ function ConstellationPage() {
           </div>
         </section>
 
-        <section id="whats-next" className="scroll-mt-24 border-t border-white/5 bg-navy px-6 py-24">
+        <section id="whats-next" className="scroll-mt-24 bg-navy px-6 py-24">
           <div className="mx-auto max-w-7xl">
             <Head eyebrow="What's next" title="Four sensors. One clock. Confidence no single source can give." />
             <Reveal>
