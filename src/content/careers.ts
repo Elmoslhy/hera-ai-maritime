@@ -401,7 +401,7 @@ export const jobs: Job[] = [
     location: "Luxembourg",
     workArrangement: "Hybrid. Candidates willing to relocate are welcome.",
     employmentType: "Full-time, permanent",
-    reportsTo: "Chief Technology Officer",
+    reportsTo: "Head of Engineering",
     datePosted: "2026-10-05",
     summary: "Run our space programme's schedule, cost, risk and reporting, and keep every milestone on time and fully evidenced.",
     sections: [
