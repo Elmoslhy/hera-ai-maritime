@@ -496,7 +496,7 @@ export function ContactSection() {
         </Reveal>
         <Reveal delay={0.1}>
           <p className="mt-6 text-center font-mono text-sm tracking-[0.14em] text-cyan">
-            <span className="select-all">info@seker-space.com</span>
+            <a href="mailto:sales@seker-space.com" className="select-all hover:underline">sales@seker-space.com</a>
           </p>
         </Reveal>
         <Reveal delay={0.2}>
@@ -604,7 +604,7 @@ function ContactForm() {
         )}
         {status === "error" && (
           <p className="font-mono text-[10px] tracking-[0.18em] text-alert">
-            Something went wrong. Please email info@seker-space.com directly.
+            Something went wrong. Please email <a href="mailto:sales@seker-space.com" className="underline">sales@seker-space.com</a> directly.
           </p>
         )}
       </div>

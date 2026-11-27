@@ -112,8 +112,14 @@ function AccessPage() {
               </button>
               <p className="mt-6 text-center font-mono text-[11px] leading-relaxed tracking-[0.08em] text-muted-foreground">
                 No credentials yet? Request access at{" "}
-                <a href="mailto:info@seker-space.com" className="text-gold hover:underline select-all">
-                  info@seker-space.com
+                <a href="mailto:sales@seker-space.com" className="text-gold hover:underline select-all">
+                  sales@seker-space.com
+                </a>
+              </p>
+              <p className="mt-2 text-center font-mono text-[11px] leading-relaxed tracking-[0.08em] text-muted-foreground">
+                Trouble signing in? Write to{" "}
+                <a href="mailto:support@seker-space.com" className="text-gold hover:underline select-all">
+                  support@seker-space.com
                 </a>
               </p>
             </form>

@@ -222,6 +222,17 @@ function MobileMenu() {
   );
 }
 
+const FOOTER_CONTACTS: [string, string][] = [
+  ["Sales", "sales@seker-space.com"],
+  ["Customer support", "support@seker-space.com"],
+  ["Press", "pr@seker-space.com"],
+  ["Careers", "hr@seker-space.com"],
+  ["Invoices and payments", "finance@seker-space.com"],
+  ["Legal", "legal@seker-space.com"],
+  ["Privacy and data protection", "privacy@seker-space.com"],
+  ["Security reports", "security@seker-space.com"],
+];
+
 export function Footer() {
   return (
     <footer className="border-t border-white/5 bg-navy-deep px-6 py-14">
@@ -262,6 +273,14 @@ export function Footer() {
         <p className="font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
           Registered office: 68, avenue de la Liberté, L-1930 Luxembourg
         </p>
+        <ul aria-label="Contact" className="flex flex-col items-center gap-1.5 font-mono text-[10px] tracking-[0.18em] text-muted-foreground">
+          {FOOTER_CONTACTS.map(([label, email]) => (
+            <li key={email} className="break-words">
+              {label}:{" "}
+              <a href={`mailto:${email}`} className="hover:text-gold">{email}</a>
+            </li>
+          ))}
+        </ul>
       </div>
     </footer>
   );

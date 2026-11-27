@@ -192,7 +192,7 @@ function CareersPage() {
             </span>
             <h2 id="spec" className="mt-5 text-3xl font-light text-foreground">{speculative.title}</h2>
             <p className="mt-4 max-w-3xl text-pretty leading-relaxed text-muted-foreground">{speculative.text}</p>
-            <a href={`mailto:info@seker-space.com?subject=${subject}`} className={`${btn} mt-8 bg-gold text-navy-deep hover:opacity-90`}>
+            <a href={`mailto:hr@seker-space.com?subject=${subject}`} className={`${btn} mt-8 bg-gold text-navy-deep hover:opacity-90`}>
               APPLY →
             </a>
           </div>

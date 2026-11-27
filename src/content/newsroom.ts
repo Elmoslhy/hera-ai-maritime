@@ -25,7 +25,7 @@ export const newsroom = {
   boilerplate: "Seker Space Intelligence is a Luxembourg maritime space company building European sovereign capability in maritime intelligence. Seker combines its own multi-sensor space payload with HERA AI, its AI-driven data-fusion platform, to deliver verified vessel intelligence to commercial customers and public institutions.",
   mediaContact: {
     label: "Media enquiries",
-    email: "info@seker-space.com",
+    email: "pr@seker-space.com",
     subject: "Press enquiry",
     text: "For interviews, images or background information, write to us and we will reply promptly.",
   },
@@ -56,8 +56,8 @@ export const newsroom = {
     },
     {
       label: "Press contact",
-      value: "info@seker-space.com",
-      href: "mailto:info@seker-space.com",
+      value: "pr@seker-space.com",
+      href: "mailto:pr@seker-space.com",
     },
   ],
 };
@@ -80,7 +80,7 @@ export const newsItems: NewsItem[] = [
     ],
     cta: {
       label: "Contact us",
-      href: "mailto:info@seker-space.com?subject=New%20clients%20Q4%202026",
+      href: "mailto:sales@seker-space.com?subject=New%20clients%20Q4%202026",
     },
   },
 ];

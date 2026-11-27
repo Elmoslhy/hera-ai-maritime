@@ -75,7 +75,7 @@ function JobPage() {
   ];
   const img = (careersPage.familyImages as Record<string, string>)[job.family] ?? careersPage.hero.image;
   const fam = jobFamilies.find((f) => f.key === job.family)?.name;
-  const href = `mailto:info@seker-space.com?subject=${subject}`;
+  const href = `mailto:hr@seker-space.com?subject=${subject}`;
   return (
     <div className="min-h-screen bg-navy pb-20 lg:pb-0">
       <Nav />
@@ -129,13 +129,13 @@ function JobPage() {
         <section className="mt-16 rounded-xl border border-gold/30 bg-gold/[0.04] p-8" aria-labelledby="apply">
           <h2 id="apply" className="text-2xl font-light text-foreground">Apply</h2>
           <a
-            href={`mailto:info@seker-space.com?subject=${subject}`}
+            href={`mailto:hr@seker-space.com?subject=${subject}`}
             className="mt-6 inline-block bg-gold px-7 py-3.5 font-mono text-[11px] tracking-[0.2em] text-navy-deep hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
           >
             APPLY FOR THIS ROLE →
           </a>
           <p className="mt-4 font-mono text-sm text-cyan">
-            <span className="select-all">info@seker-space.com</span>
+            <a href={href} className="select-all hover:underline">hr@seker-space.com</a>
           </p>
         </section>
         <p className="mt-6 text-xs leading-relaxed text-muted-foreground">{applicantPrivacy}</p>

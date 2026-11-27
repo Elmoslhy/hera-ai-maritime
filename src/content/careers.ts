@@ -19,12 +19,12 @@ export const careersIntro =
   "Seker Space Intelligence is a Luxembourg maritime space company building European sovereign capability in maritime intelligence. We combine our own multi-sensor space payload with HERA AI, our data-fusion platform, to deliver verified vessel intelligence to commercial and public institutions. We are building the most advanced maritime engineering company in Europe. Real hardware, real software, at global scale.";
 
 export const applicantPrivacy =
-  "By sending your application, you agree that Seker Space Intelligence processes your personal data for recruitment purposes only. We keep applications for 12 months, unless you ask us to delete yours sooner by writing to info@seker-space.com.";
+  "By sending your application, you agree that Seker Space Intelligence processes your personal data for recruitment purposes only. We keep applications for 12 months, unless you ask us to delete yours sooner by writing to hr@seker-space.com.";
 
 export const speculative = {
   id: "SKR-GEN-000",
   title: "Speculative applications",
-  text: "Do not see your role? If you build space hardware, data platforms or maritime intelligence products and want to work on European sovereign capability, send your CV to info@seker-space.com with the subject SKR-GEN-000 and the area you are interested in.",
+  text: "Do not see your role? If you build space hardware, data platforms or maritime intelligence products and want to work on European sovereign capability, send your CV to hr@seker-space.com with the subject SKR-GEN-000 and the area you are interested in.",
 };
 
 export const jobFamilies = [
@@ -106,7 +106,7 @@ export const jobs: Job[] = [
       {
         heading: "How to apply",
         paragraphs: [
-          "Send your CV to info@seker-space.com with the subject SKR-SPC-001 VP of Engineering. Our process includes a written technical assessment and interviews with our leadership team.",
+          "Send your CV to hr@seker-space.com with the subject SKR-SPC-001 VP of Engineering. Our process includes a written technical assessment and interviews with our leadership team.",
         ],
       },
     ],
@@ -176,7 +176,7 @@ export const jobs: Job[] = [
       {
         heading: "How to apply",
         paragraphs: [
-          "Send your CV to info@seker-space.com with the subject SKR-SPC-002 Head of Engineering. Our process includes a written technical assessment and interviews with our leadership team.",
+          "Send your CV to hr@seker-space.com with the subject SKR-SPC-002 Head of Engineering. Our process includes a written technical assessment and interviews with our leadership team.",
         ],
       },
     ],
@@ -246,7 +246,7 @@ export const jobs: Job[] = [
       {
         heading: "How to apply",
         paragraphs: [
-          "Send your CV to info@seker-space.com with the subject SKR-SPC-003 Payload Systems Engineer. Our process includes a written technical assessment and interviews with our leadership team.",
+          "Send your CV to hr@seker-space.com with the subject SKR-SPC-003 Payload Systems Engineer. Our process includes a written technical assessment and interviews with our leadership team.",
         ],
       },
     ],
@@ -315,7 +315,7 @@ export const jobs: Job[] = [
       {
         heading: "How to apply",
         paragraphs: [
-          "Send your CV to info@seker-space.com with the subject SKR-SPC-004 RF & Electronics Engineer. Our process includes a written technical assessment and interviews with our leadership team.",
+          "Send your CV to hr@seker-space.com with the subject SKR-SPC-004 RF & Electronics Engineer. Our process includes a written technical assessment and interviews with our leadership team.",
         ],
       },
     ],
@@ -387,7 +387,7 @@ export const jobs: Job[] = [
       {
         heading: "How to apply",
         paragraphs: [
-          "Send your CV to info@seker-space.com with the subject SKR-PLT-001 Head of Platform Engineering. Our process includes a written technical assessment and interviews with our leadership team.",
+          "Send your CV to hr@seker-space.com with the subject SKR-PLT-001 Head of Platform Engineering. Our process includes a written technical assessment and interviews with our leadership team.",
         ],
       },
     ],
@@ -456,7 +456,7 @@ export const jobs: Job[] = [
       {
         heading: "How to apply",
         paragraphs: [
-          "Send your CV to info@seker-space.com with the subject SKR-PRG-001 Programme Manager. Our process includes a written technical assessment and interviews with our leadership team.",
+          "Send your CV to hr@seker-space.com with the subject SKR-PRG-001 Programme Manager. Our process includes a written technical assessment and interviews with our leadership team.",
         ],
       },
     ],
@@ -528,7 +528,7 @@ export const careersPage = {
     steps: [
       {
         title: "Apply",
-        text: "Send your CV to info@seker-space.com with the job ID in the subject line.",
+        text: "Send your CV to hr@seker-space.com with the job ID in the subject line.",
       },
       {
         title: "Written assessment",

@@ -528,7 +528,7 @@ const SLIDES: { title: string; node: ReactNode }[] = [
         <GlobeScene />
         <TitleCentre />
         <p className="deck-text absolute bottom-[230px] left-0 right-0 z-10 text-center text-[30px] font-light text-foreground/80">Better data. The right intelligence.</p>
-        <p className="deck-text absolute bottom-[160px] left-0 right-0 z-10 text-center font-mono text-[34px] tracking-[0.2em] text-cyan">info@seker-space.com</p>
+        <p className="deck-text absolute bottom-[160px] left-0 right-0 z-10 text-center font-mono text-[34px] tracking-[0.2em] text-cyan">sales@seker-space.com</p>
       </>
     ),
   },
