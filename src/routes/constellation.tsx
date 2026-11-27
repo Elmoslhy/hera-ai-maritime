@@ -4,6 +4,8 @@ import { DroneFilmFrame } from "@/components/seker/DroneFilm";
 import { Reveal } from "@/components/seker/primitives";
 import satellite from "@/assets/satellite-real.png";
 
+const EARTH = { url: "/media/earth-globe.jpg" };
+
 const TITLE = "SEKER-1 and SEKER-2 | Seker Space Intelligence";
 const DESCRIPTION =
   "Our own sensors in orbit, over chosen areas and at ports, built to check what every ship really does.";
@@ -74,6 +76,20 @@ function SensorSchematic() {
   const corner = "absolute h-6 w-6 border-gold";
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[520px]">
+      <div
+        aria-hidden
+        className="absolute inset-[-8%] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 48%, rgba(92,174,227,0.30), rgba(92,174,227,0.10) 48%, transparent 72%)",
+        }}
+      />
+      <img
+        src={EARTH.url}
+        alt="Earth seen from orbit, the ocean and coastlines SEKER-1 and SEKER-2 will watch"
+        loading="lazy"
+        className="absolute inset-0 h-full w-full rounded-full object-cover"
+      />
       <div className={`${corner} left-[14%] top-[14%] border-l border-t`} />
       <div className={`${corner} right-[14%] top-[14%] border-r border-t`} />
       <div className={`${corner} bottom-[14%] left-[14%] border-b border-l`} />
