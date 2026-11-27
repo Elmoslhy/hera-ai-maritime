@@ -201,9 +201,14 @@ function NewsroomPage() {
           <div className="mx-auto max-w-3xl text-center">
             <h2 id="media" className="text-3xl font-light text-foreground">{mc.label}</h2>
             <p className="mt-4 text-foreground/80">{mc.text}</p>
-            <a href={mail} className={`mt-8 inline-block bg-gold px-7 py-3.5 font-mono text-xs tracking-[0.2em] text-navy-deep hover:opacity-90 ${focus}`}>
-              {mc.email.toUpperCase()}
-            </a>
+            <div className="mt-8 flex flex-col items-center gap-4">
+              <a href={mail} className={`inline-flex items-center gap-3 rounded-full bg-gold px-8 py-4 text-sm font-semibold tracking-wide text-navy-deep shadow-[0_10px_30px_-12px_rgba(215,178,74,0.6)] transition-all hover:-translate-y-0.5 hover:bg-[#F2CF68] ${focus}`}>
+                Email the press team <span aria-hidden="true">→</span>
+              </a>
+              <a href={mail} className={`text-base text-foreground/80 underline-offset-4 hover:text-gold hover:underline ${focus}`}>
+                {mc.email}
+              </a>
+            </div>
           </div>
         </section>
       </main>
